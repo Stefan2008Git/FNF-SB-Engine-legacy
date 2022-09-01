@@ -95,14 +95,12 @@ class SUtil
 					FlxG.openURL('https://youtu.be/zjvkTmdWvfU');
 					System.exit(1);
 				}
-				//code is useless lmao
-				//game wont crash without mods no worries
-				/*else if (FileSystem.exists(SUtil.getPath() + 'mods') && !FileSystem.isDirectory(SUtil.getPath() + 'mods'))
+				else if (FileSystem.exists(SUtil.getPath() + 'mods') && !FileSystem.isDirectory(SUtil.getPath() + 'mods'))
 				{
 					Application.current.window.alert("Why did you create a file called mods instead of copying the mods directory from the apk?, expect a crash.",
 						'Error!');
 					System.exit(1);
-				}*/
+				}
 			}
 		}
 		#end
