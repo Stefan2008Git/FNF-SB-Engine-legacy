@@ -4495,16 +4495,15 @@ class PlayState extends MusicBeatState
 				}
 			});
 
-			if (parsedHoldArray.contains(true) && !endingSong)
+			if (parsedHoldArray.contains(true) && !endingSong) {
 			}
-			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * 0.0011 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
 				boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
 		}
 
-		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if(ClientPrefs.controllerMode || strumsBlocked.contains(true))
 		{
 			var parsedArray:Array<Bool> = parseKeys('_R');
