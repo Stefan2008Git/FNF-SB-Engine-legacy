@@ -37,20 +37,22 @@ jobs:
           haxelib install hxcpp > /dev/null
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
-          haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-ui 2.4.0
+          haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/polybiusproxy/hxcodec
-          haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
+          haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib install hxcpp-debug-server
+          haxelib set flixel-addons 2.11.0
+          haxelib set flixel-ui 2.4.0
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -59,7 +61,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Linux build
+          name: SB Engine Linux Build
           path: 'export/release/linux/bin'
   BuildWindows:
     runs-on: windows-latest
@@ -78,20 +80,22 @@ jobs:
           haxelib install hxcpp > nul
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
-          haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-ui 2.4.0
+          haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/polybiusproxy/hxcodec
+          haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib install hxcpp-debug-server
+          haxelib set flixel-addons 2.11.0
+          haxelib set flixel-ui 2.4.0
           haxelib list
         shell: cmd
       - name: Create Version Tag
@@ -101,7 +105,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Windows build
+          name: SB Engine Windows Build
           path: export/release/windows/bin
   BuildMac:
     runs-on: macos-latest
@@ -120,20 +124,22 @@ jobs:
           haxelib install hxcpp > /dev/null
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
-          haxelib install flixel-tools
-          haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-tools 
+          haxelib install flixel-ui 2.4.0
+          haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/polybiusproxy/hxcodec
+          haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib install hxcpp-debug-server
+          haxelib set flixel-addons 2.11.0
+          haxelib set flixel-ui 2.4.0
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -142,58 +148,52 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Mac build
+          name: SB Engine Mac Build
           path: export/release/macos/bin
   BuildAndroid:
-    name: buildAndroid
+    name: BuildAndroid
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v2.3.1
 
       - name: Setup Android NDK
-        uses: nttld/setup-ndk@main
+        uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
           ndk-version: r21e
 
       - name: Setup Java JDK
-        uses: actions/setup-java@main
+        uses: actions/setup-java@v1
         with:
-          distribution: 'zulu'
-          java-version: 18
+          java-version: 11
 
-      - name: Setuping Android SDK
-        uses: android-actions/setup-android@main
-
-      - name: Setuping Haxe
-        uses: krdlab/setup-haxe@v1.2.0
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1.1.5
         with:
           haxe-version: 4.2.5
 
-      - name: Installing Haxelib
+      - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
           haxelib install hxcpp > /dev/null
           haxelib install lime 7.9.0
           haxelib install openfl 9.1.0
+          haxelib install hxCodec
           haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib install flixel-tools
-          haxelib install flixel-ui
+          haxelib install flixel-ui 2.4.0
           haxelib install flixel-addons 2.11.0
-          haxelib install tjson
-          haxelib install hxjsonast
-          haxelib install hscript
-          haxelib git hxCodec https://github.com/JonnycatMeow/hxCodec-old.git
+          haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
-          haxelib install hxcpp-debug-server
           haxelib list
-      - name: Creating Version Tag
+
+      - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
 
-      - name: Setuping Lime
+      - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -203,14 +203,16 @@ jobs:
           haxelib set lime 7.9.0
           haxelib set openfl 9.1.0
           haxelib set flixel 4.11.0
+          haxelib set flixel-addons 2.11.0
+          haxelib set flixel-ui 2.4.0
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Compililng
+      - name: Compile
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}"
 
-      - name: Publishing Artifact
-        uses: actions/upload-artifact@main
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Android build
+          name: SB Engine Android Build
           path: export/release/android/bin/app/build/outputs/apk/debug
