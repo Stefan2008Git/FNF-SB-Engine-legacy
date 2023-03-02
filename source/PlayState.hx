@@ -1207,7 +1207,7 @@ class PlayState extends MusicBeatState
 			watermarkTxt.visible = false;
 		}
 		add(watermarkTxt);
-		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficultyText] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
+		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
