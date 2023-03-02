@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build
+name: SB Engine workflow
 
 # Controls when the action will run.
 on:
@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  buildLinux:
+  BuildLinux:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -59,9 +59,9 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: linuxBuild
+          name: SB Engine Linux build
           path: 'export/release/linux/bin'
-  buildWindows:
+  BuildWindows:
     runs-on: windows-latest
 
     steps:
@@ -101,9 +101,9 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: windowsBuild
+          name: SB Engine Windows build
           path: export/release/windows/bin
-  buildMac:
+  BuildMac:
     runs-on: macos-latest
 
     steps:
@@ -142,69 +142,75 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: macBuild
+          name: SB Engine Mac build
           path: export/release/macos/bin
-  buildAndroid:
+  BuildAndroid:
     name: buildAndroid
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@main
 
       - name: Setup Android NDK
-        uses: nttld/setup-ndk@v1
+        uses: nttld/setup-ndk@main
         id: setup-ndk
         with:
           ndk-version: r21e
 
       - name: Setup Java JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@main
         with:
-          java-version: 11
+          distribution: 'zulu'
+          java-version: 18
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+      - name: Setuping Android SDK
+        uses: android-actions/setup-android@main
 
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@v1.1.5
+      - name: Setuping Haxe
+        uses: krdlab/setup-haxe@v1.2.0
         with:
           haxe-version: 4.2.5
 
-      - name: Install Haxelib
+      - name: Installing Haxelib
         run: |
           haxelib setup ~/haxelib
           haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
+          haxelib install lime 7.9.0
+          haxelib install openfl 9.1.0
+          haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib install flixel-tools
           haxelib install flixel-ui
+          haxelib install flixel-addons 2.11.0
+          haxelib install tjson
+          haxelib install hxjsonast
           haxelib install hscript
-          haxelib install flixel-addons
-          haxelib git hxCodec https://github.com/polybiusproxy/hxcodec
-          haxelib git linc_luajit https://github.com/majigsaw77/linc_luajit.git
-          haxelib git extension-androidtools https://github.com/majigsaw77/extension-androidtools.git
+          haxelib git hxCodec https://github.com/JonnycatMeow/hxCodec-old.git
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
+          haxelib git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
+          haxelib install hxcpp-debug-server
           haxelib list
-
-      - name: Create Version Tag
+      - name: Creating Version Tag
         run: echo "${{github.run_id}}" > VERSION
 
-      - name: Setup Lime
+      - name: Setuping Lime
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
+          haxelib set flixel 4.11.0
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Compile
+      - name: Compililng
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}"
 
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v2.2.4
+      - name: Publishing Artifact
+        uses: actions/upload-artifact@main
         with:
-          name: androidBuild
+          name: SB Engine Android build
           path: export/release/android/bin/app/build/outputs/apk/debug
