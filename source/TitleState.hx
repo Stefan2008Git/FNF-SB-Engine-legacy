@@ -140,11 +140,11 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.checkForUpdates && !closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/jigsaw-4277821/FNF-PsychEngine-Android-Support/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/gitVersion.txt");
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.psychEngineVersion.trim();
+				var curVersion:String = MainMenuState.sbEngineVersion.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
@@ -667,16 +667,16 @@ class TitleState extends MusicBeatState
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					#if PSYCH_WATERMARKS
-					createCoolText(['Psych Engine by'], 15);
+					createCoolText(['SB Engine by'], 15);
 					#else
 					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 					#end
 				// credTextShit.visible = true;
 				case 4:
 					#if PSYCH_WATERMARKS
-					addMoreText('Shadow Mario', 15);
-					addMoreText('RiverOaken', 15);
-					addMoreText('shubs', 15);
+					addMoreText('Stefan2008', 15);
+					addMoreText('MaysLastPlays', 15);
+					addMoreText('Fearester', 15);
 					#else
 					addMoreText('present');
 					#end

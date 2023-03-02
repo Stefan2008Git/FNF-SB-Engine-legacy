@@ -26,7 +26,7 @@ class OutdatedState extends MusicBeatState
 		#if android
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Sup bro, looks like you're running an   \n
-			outdated version of Psych Engine With Android Support (" + MainMenuState.psychEngineVersion + "),\n
+			outdated version of SB Engine With Android Support (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
 			Press B to proceed anyway.\n
 			\n
@@ -35,7 +35,7 @@ class OutdatedState extends MusicBeatState
 		#else
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Sup bro, looks like you're running an   \n
-			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
+			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
 			Press ESCAPE to proceed anyway.\n
 			\n
@@ -56,7 +56,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/jigsaw-4277821/FNF-PsychEngine-Android-Support/actions");
+				CoolUtil.browserLoad("https://github.com/Stefan2008Git/FNF-SB-Engine/actions");
 			}
 			else if(controls.BACK) {
 				leftState = true;

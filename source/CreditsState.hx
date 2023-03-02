@@ -81,10 +81,9 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Android Support'],
-			['Saw (M.A. Jigsaw)',	'jigsaw',				'Main Programmer of Psych Engine\nWith Android Support',	'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', 	'444444'],
-			['Goldie',				'goldie',			'Virtual Pad Artist',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444'],
-			['Join our Discord!',	'discord',			'If you dare...',											'https://discord.gg/42bGcJG26x', 								'5165F6'],
+			['SB Engine Team'],
+			['Stefan2008',	'stefan',				'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
+			['MaysLastPlays',				'mayslastplays',			'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
@@ -107,7 +106,11 @@ class CreditsState extends MusicBeatState
 			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
 			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
 			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7'],
+			['Android Support'],
+			['Saw (M.A. Jigsaw)',	'jigsaw',				'Main Programmer of Psych Engine\nWith Android Support',	'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', 	'444444'],
+			['Goldie',				'goldie',			'Virtual Pad Artist',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444'],
+			['Join our Discord!',	'discord',			'If you dare...',											'https://discord.gg/wWFMaBZfXJ', 								'5165F6']
 		];
 		
 		for(i in pisspoop){

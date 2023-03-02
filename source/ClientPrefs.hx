@@ -21,6 +21,7 @@ class ClientPrefs {
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
+	public static var hideWatermark:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var ghostTapping:Bool = true;
@@ -109,6 +110,7 @@ class ClientPrefs {
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
+		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
@@ -116,8 +118,6 @@ class ClientPrefs {
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
-		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
 
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;
@@ -192,6 +192,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hideHud != null) {
 			hideHud = FlxG.save.data.hideHud;
+		}
+		if(FlxG.save.data.hideWatermark != null) {
+			hideWatermark = FlxG.save.data.hideWatermark;
 		}
 		if(FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;

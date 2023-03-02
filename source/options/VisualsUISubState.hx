@@ -89,8 +89,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('FPS Counter',
-			'If unchecked, hides FPS Counter.',
+		var option:Option = new Option('FPS and GL Render Counter',
+			'If unchecked, hides FPS and GL Render Counter.',
 			'showFPS',
 			'bool',
 			#if android false #else true #end);

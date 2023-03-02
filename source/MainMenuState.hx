@@ -17,7 +17,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 
@@ -25,24 +24,23 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.2'; //This is also used for Discord RPC
+	public static var sbEngineVersion:String = '0.6.2';  //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.2';
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
+
 	
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-		#if !switch 'donate', #end
 		'options'
 	];
 
-	var magenta:FlxSprite;
+	var orange:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
@@ -56,16 +54,13 @@ class MainMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Main Menus", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -87,17 +82,17 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
+		orange = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		orange.scrollFactor.set(0, yScroll);
+		orange.setGraphicSize(Std.int(orange.width * 1.175));
+		orange.updateHitbox();
+		orange.screenCenter();
+		orange.visible = false;
+		orange.antialiasing = ClientPrefs.globalAntialiasing;
+		orange.color = 0xFFFFA500;
+		add(orange);
 		
-		// magenta.scrollFactor.set();
+		// orange.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -130,31 +125,22 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
+		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 12);
+		versionSb.scrollFactor.set();
+		versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionSb);
+		var versionPsych:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine version: " + psychEngineVersion, 12);
+		versionPsych.scrollFactor.set();
+		versionPsych.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionPsych);
+		var versionFnf:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' version: " + Application.current.meta.get('version'), 12);
+		versionFnf.scrollFactor.set();
+		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionFnf);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
-
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
-			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
-			}
-		}
-		#end
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_E);
@@ -163,15 +149,6 @@ class MainMenuState extends MusicBeatState
 
 		super.create();
 	}
-
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('friday_night_play', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "friday_night_play"');
-	}
-	#end
 
 	var selectedSomethin:Bool = false;
 
@@ -209,16 +186,10 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
-				else
-				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if(ClientPrefs.flashing) FlxFlicker.flicker(orange, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -248,8 +219,6 @@ class MainMenuState extends MusicBeatState
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());
 									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':

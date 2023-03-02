@@ -10,6 +10,9 @@ import WiggleEffect.WiggleEffectType;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
+import openfl.filters.ShaderFilter;
+import Shaders;
+import openfl.display.Shader;
 import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -54,7 +57,6 @@ import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import animateatlas.AtlasFrameMaker;
-import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
@@ -82,14 +84,14 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['You Suck!', 0.2], //From 0% to 19%
-		['Shit', 0.4], //From 20% to 39%
-		['Bad', 0.5], //From 40% to 49%
-		['Bruh', 0.6], //From 50% to 59%
-		['Meh', 0.69], //From 60% to 68%
-		['Nice', 0.7], //69%
+		['You are gonna die!', 0.2], //From 0% to 19%
+		['Freak', 0.4], //From 20% to 39%
+		['Really bad', 0.5], //From 40% to 49%
+		['Bad', 0.6], //From 50% to 59%
+		['Nice', 0.69], //From 60% to 68%
+		['Epic', 0.7], //69%
 		['Good', 0.8], //From 70% to 79%
-		['Great', 0.9], //From 80% to 89%
+		['Very good', 0.9], //From 80% to 89%
 		['Sick!', 1], //From 90% to 99%
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
@@ -191,6 +193,11 @@ class PlayState extends MusicBeatState
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
 
+	public var shaderUpdates:Array<Float->Void> = [];
+	public var camGameShaders:Array<ShaderEffect> = [];
+	public var camHUDShaders:Array<ShaderEffect> = [];
+	public var camOtherShaders:Array<ShaderEffect> = [];	
+
 	//Gameplay settings
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
@@ -258,6 +265,7 @@ class PlayState extends MusicBeatState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var watermarkTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1027,6 +1035,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.x = timeTxt.x;
 		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 		timeBarBG.scrollFactor.set();
+		timeBarBG.screenCenter(X;)
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime;
 		timeBarBG.color = FlxColor.BLACK;
@@ -1037,7 +1046,7 @@ class PlayState extends MusicBeatState
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		timeBar.createFilledBar(0xFF000000, 0xFFFFA500);
 		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
@@ -1188,7 +1197,19 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		watermarkTxt.scrollFactor.set();
+		watermarkTxt.borderSize = 1;
+		if (!ClientPrefs.hideWatermark && !ClientPrefs.hideHud) {
+			watermarkTxt.visible = true;
+		} else {
+			watermarkTxt.visible = false;
+		}
+		add(watermarkTxt);
+		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficultyText] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
+
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1206,6 +1227,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		watermarkTxt.camers = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -1553,6 +1575,105 @@ class PlayState extends MusicBeatState
 		}
 		#end
 	}
+
+	public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
+	  
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud':
+					camHUDShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camHUDShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other':
+					camOtherShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camOtherShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					camOther.setFilters(newCamEffects);
+			case 'camgame' | 'game':
+					camGameShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camGameShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					camGame.setFilters(newCamEffects);
+			default:
+				if(modchartSprites.exists(cam)) {
+					Reflect.setProperty(modchartSprites.get(cam),"shader",effect.shader);
+				} else if(modchartTexts.exists(cam)) {
+					Reflect.setProperty(modchartTexts.get(cam),"shader",effect.shader);
+				} else {
+					var OBJ = Reflect.getProperty(PlayState.instance,cam);
+					Reflect.setProperty(OBJ,"shader", effect.shader);
+				}
+			
+			
+				
+				
+		}
+	  
+	  
+	  
+	  
+  }
+
+  public function removeShaderFromCamera(cam:String,effect:ShaderEffect){
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud': 
+    camHUDShaders.remove(effect);
+    var newCamEffects:Array<BitmapFilter>=[];
+    for(i in camHUDShaders){
+      newCamEffects.push(new ShaderFilter(i.shader));
+    }
+    camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other': 
+					camOtherShaders.remove(effect);
+					var newCamEffects:Array<BitmapFilter>=[];
+					for(i in camOtherShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					camOther.setFilters(newCamEffects);
+			default: 
+				camGameShaders.remove(effect);
+				var newCamEffects:Array<BitmapFilter>=[];
+				for(i in camGameShaders){
+				  newCamEffects.push(new ShaderFilter(i.shader));
+				}
+				camGame.setFilters(newCamEffects);
+		}
+		
+	  
+  }
+	
+	
+	
+  public function clearShaderFromCamera(cam:String){
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud': 
+				camHUDShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other': 
+				camOtherShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camOther.setFilters(newCamEffects);
+			default: 
+				camGameShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camGame.setFilters(newCamEffects);
+		}
+		
+	  
+  }
 
 	public function getLuaObject(tag:String, text:Bool=true):FlxSprite {
 		if(modchartSprites.exists(tag)) return modchartSprites.get(tag);
@@ -2278,8 +2399,8 @@ class PlayState extends MusicBeatState
 	{
 		scoreTxt.text = 'Score: ' + songScore
 		+ ' | Misses: ' + songMisses
-		+ ' | Rating: ' + ratingName
-		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		+ ' | Accruracy and rating: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
+		+ ' | ' + ratingName + ' [' + ratingFC + ']';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -3017,11 +3138,11 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
 		iconP1.scale.set(mult, mult);
 		iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
 
@@ -3281,6 +3402,9 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
+		for (i in shaderUpdates){
+			i(elapsed);
+		}
 	}
 
 	function openPauseMenu()
@@ -3886,21 +4010,6 @@ class PlayState extends MusicBeatState
 		deathCounter = 0;
 		seenCutscene = false;
 
-		#if ACHIEVEMENTS_ALLOWED
-		if(achievementObj != null) {
-			return;
-		} else {
-			var achieve:String = checkForAchievement(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss',
-				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
-				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
-
-			if(achieve != null) {
-				startAchievement(achieve);
-				return;
-			}
-		}
-		#end
-
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
 			if (SONG.validScore)
@@ -4004,23 +4113,6 @@ class PlayState extends MusicBeatState
 			transitioning = true;
 		}
 	}
-
-	#if ACHIEVEMENTS_ALLOWED
-	var achievementObj:AchievementObject = null;
-	function startAchievement(achieve:String) {
-		achievementObj = new AchievementObject(achieve, camOther);
-		achievementObj.onFinish = achievementEnd;
-		add(achievementObj);
-		trace('Giving achievement ' + achieve);
-	}
-	function achievementEnd():Void
-	{
-		achievementObj = null;
-		if(endingSong && !inCutscene) {
-			endSong();
-		}
-	}
-	#end
 
 	public function KillNotes() {
 		while(notes.length > 0) {
@@ -4403,13 +4495,7 @@ class PlayState extends MusicBeatState
 				}
 			});
 
-			if (parsedHoldArray.contains(true) && !endingSong) {
-				#if ACHIEVEMENTS_ALLOWED
-				var achieve:String = checkForAchievement(['oversinging']);
-				if (achieve != null) {
-					startAchievement(achieve);
-				}
-				#end
+			if (parsedHoldArray.contains(true) && !endingSong)
 			}
 			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * 0.0011 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
@@ -4855,18 +4941,6 @@ class PlayState extends MusicBeatState
 				limoCorpse.visible = false;
 				limoCorpseTwo.visible = false;
 				limoKillingState = 1;
-
-				#if ACHIEVEMENTS_ALLOWED
-				Achievements.henchmenDeath++;
-				FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
-				var achieve:String = checkForAchievement(['roadkill_enthusiast']);
-				if (achieve != null) {
-					startAchievement(achieve);
-				} else {
-					FlxG.save.flush();
-				}
-				FlxG.log.add('Deaths: ' + Achievements.henchmenDeath);
-				#end
 			}
 		}
 	}
@@ -5159,102 +5233,17 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = "SFC";
-			if (goods > 0) ratingFC = "GFC";
-			if (bads > 0 || shits > 0) ratingFC = "FC";
-			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
-			else if (songMisses >= 10) ratingFC = "Clear";
+			if (sicks > 0) ratingFC = "Sick full combo";
+			if (goods > 0) ratingFC = "Good full combo";
+			if (bads > 0 || shits > 0) ratingFC = "Full combo";
+			if (songMisses > 0 && songMisses < 10) ratingFC = "You have misses";
+			else if (songMisses >= 10) ratingFC = "Cleared song";
 		}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
 	}
-
-	#if ACHIEVEMENTS_ALLOWED
-	private function checkForAchievement(achievesToCheck:Array<String> = null):String
-	{
-		if(chartingMode) return null;
-
-		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
-		for (i in 0...achievesToCheck.length) {
-			var achievementName:String = achievesToCheck[i];
-			if(!Achievements.isAchievementUnlocked(achievementName) && !cpuControlled) {
-				var unlock:Bool = false;
-				switch(achievementName)
-				{
-					case 'week1_nomiss' | 'week2_nomiss' | 'week3_nomiss' | 'week4_nomiss' | 'week5_nomiss' | 'week6_nomiss' | 'week7_nomiss':
-						if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD' && storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice)
-						{
-							var weekName:String = WeekData.getWeekFileName();
-							switch(weekName) //I know this is a lot of duplicated code, but it's easier readable and you can add weeks with different names than the achievement tag
-							{
-								case 'week1':
-									if(achievementName == 'week1_nomiss') unlock = true;
-								case 'week2':
-									if(achievementName == 'week2_nomiss') unlock = true;
-								case 'week3':
-									if(achievementName == 'week3_nomiss') unlock = true;
-								case 'week4':
-									if(achievementName == 'week4_nomiss') unlock = true;
-								case 'week5':
-									if(achievementName == 'week5_nomiss') unlock = true;
-								case 'week6':
-									if(achievementName == 'week6_nomiss') unlock = true;
-								case 'week7':
-									if(achievementName == 'week7_nomiss') unlock = true;
-							}
-						}
-					case 'ur_bad':
-						if(ratingPercent < 0.2 && !practiceMode) {
-							unlock = true;
-						}
-					case 'ur_good':
-						if(ratingPercent >= 1 && !usedPractice) {
-							unlock = true;
-						}
-					case 'roadkill_enthusiast':
-						if(Achievements.henchmenDeath >= 100) {
-							unlock = true;
-						}
-					case 'oversinging':
-						if(boyfriend.holdTimer >= 10 && !usedPractice) {
-							unlock = true;
-						}
-					case 'hype':
-						if(!boyfriendIdled && !usedPractice) {
-							unlock = true;
-						}
-					case 'two_keys':
-						if(!usedPractice) {
-							var howManyPresses:Int = 0;
-							for (j in 0...keysPressed.length) {
-								if(keysPressed[j]) howManyPresses++;
-							}
-
-							if(howManyPresses <= 2) {
-								unlock = true;
-							}
-						}
-					case 'toastie':
-						if(/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
-							unlock = true;
-						}
-					case 'debugger':
-						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
-							unlock = true;
-						}
-				}
-
-				if(unlock) {
-					Achievements.unlockAchievement(achievementName);
-					return achievementName;
-				}
-			}
-		}
-		return null;
-	}
-	#end
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
