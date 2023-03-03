@@ -83,7 +83,7 @@ class CreditsState extends MusicBeatState
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['SB Engine Team'],
 			['Stefan2008',	'stefan',				'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
-			['MaysLastPlays',				'mayslastplays',			'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444'],
+			['MaysLastPlays',				'mayslastplay',			'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],

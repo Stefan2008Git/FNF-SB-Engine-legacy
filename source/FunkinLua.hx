@@ -53,10 +53,6 @@ import hscript.Parser;
 import hscript.Interp;
 #end
 
-#if desktop
-import Discord;
-#end
-
 using StringTools;
 
 class FunkinLua {
@@ -2062,12 +2058,6 @@ class FunkinLua {
 			return closed;
 		});
 
-		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
-			#if desktop
-			DiscordClient.changePresence(details, state, smallImageKey, hasStartTimestamp, endTimestamp);
-			#end
-		});
-
 
 		// LUA TEXTS
 		Lua_helper.add_callback(lua, "makeLuaText", function(tag:String, text:String, width:Int, x:Float, y:Float) {
@@ -2532,7 +2522,6 @@ class FunkinLua {
 			Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
 				PlayState.instance.clearShaderFromCamera(camera);
 			});
-			Discord.DiscordClient.addLuaCallbacks(lua);
 			}
 
 		call('onCreate', []);
