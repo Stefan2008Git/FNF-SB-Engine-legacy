@@ -111,7 +111,7 @@ class ModsMenuState extends MusicBeatState
 		}
 
 		// FIND MOD FOLDERS
-		var boolshit = true;
+		var boolfreak = true;
 		if (FileSystem.exists(SUtil.getPath() + "modsList.txt")){
 			for (folder in Paths.getModDirectories())
 			{
@@ -630,7 +630,7 @@ class ModsMenuState extends MusicBeatState
 		selector.pixels.fillRect(new Rectangle(0, 190, selector.width, 5), 0x0);
 
 		// Why did i do this? Because i'm a lmao stupid, of course
-		// also i wanted to understand better how fillRect works so i did this shit lol???
+		// also i wanted to understand better how fillRect works so i did this freak lol???
 		selector.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0);														 //top left
 		drawCircleCornerOnSelector(false, false);
 		selector.pixels.fillRect(new Rectangle(selector.width - cornerSize, 0, cornerSize, cornerSize), 0x0);							 //top right
@@ -743,7 +743,7 @@ class ModMetadata
 			var rawJson:String = File.getContent(path);
 			if(rawJson != null && rawJson.length > 0) {
 				var stuff:Dynamic = Json.parse(rawJson);
-					//using reflects cuz for some odd reason my haxe hates the stuff.var shit
+					//using reflects cuz for some odd reason my haxe hates the stuff.var freak
 					var colors:Array<Int> = Reflect.getProperty(stuff, "color");
 					var description:String = Reflect.getProperty(stuff, "description");
 					var name:String = Reflect.getProperty(stuff, "name");

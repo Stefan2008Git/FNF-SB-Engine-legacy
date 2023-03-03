@@ -21,7 +21,7 @@ class DialogueBox extends FlxSpriteGroup
 	var dialogue:Alphabet;
 	var dialogueList:Array<String> = [];
 
-	// SECOND DIALOGUE FOR THE PIXEL SHIT INSTEAD???
+	// SECOND DIALOGUE FOR THE PIXEL freak INSTEAD???
 	var swagDialogue:FlxTypeText;
 
 	var dropText:FlxText;

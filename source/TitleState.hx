@@ -61,7 +61,7 @@ class TitleState extends MusicBeatState
 
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
-	var credTextShit:Alphabet;
+	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
 	
@@ -126,9 +126,9 @@ class TitleState extends MusicBeatState
 
 		PlayerSettings.init();
 
-		curWacky = FlxG.random.getObject(getIntroTextShit());
+		curWacky = FlxG.random.getObject(getIntroTextfreak());
 
-		// DEBUG BULLSHIT
+		// DEBUG BULLfreak
 
 		swagShader = new ColorSwap();
 		super.create();
@@ -256,7 +256,7 @@ class TitleState extends MusicBeatState
 			transIn = FlxTransitionableState.defaultTransIn;
 			transOut = FlxTransitionableState.defaultTransOut;*/
 
-			// HAD TO MODIFY SOME BACKEND SHIT
+			// HAD TO MODIFY SOME BACKEND freak
 			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
@@ -395,12 +395,12 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
-		credTextShit = new Alphabet(0, 0, "", true);
-		credTextShit.screenCenter();
+		credTextfreak = new Alphabet(0, 0, "", true);
+		credTextfreak.screenCenter();
 
-		// credTextShit.alignment = CENTER;
+		// credTextfreak.alignment = CENTER;
 
-		credTextShit.visible = false;
+		credTextfreak.visible = false;
 
 		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
 		add(ngSpr);
@@ -410,17 +410,17 @@ class TitleState extends MusicBeatState
 		ngSpr.screenCenter(X);
 		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
 
-		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
+		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		if (initialized)
 			skipIntro();
 		else
 			initialized = true;
 
-		// credGroup.add(credTextShit);
+		// credGroup.add(credTextfreak);
 	}
 
-	function getIntroTextShit():Array<Array<String>>
+	function getIntroTextfreak():Array<Array<String>>
 	{
 		var fullText:String = Assets.getText(Paths.txt('introText'));
 
@@ -671,7 +671,7 @@ class TitleState extends MusicBeatState
 					#else
 					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 					#end
-				// credTextShit.visible = true;
+				// credTextfreak.visible = true;
 				case 4:
 					#if PSYCH_WATERMARKS
 					addMoreText('Stefan2008', 15);
@@ -680,13 +680,13 @@ class TitleState extends MusicBeatState
 					#else
 					addMoreText('present');
 					#end
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
+				// credTextfreak.text += '\npresent...';
+				// credTextfreak.addText();
 				case 5:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
+				// credTextfreak.visible = false;
+				// credTextfreak.text = 'In association \nwith';
+				// credTextfreak.screenCenter();
 				case 6:
 					#if PSYCH_WATERMARKS
 					createCoolText(['Not associated', 'with'], -40);
@@ -696,33 +696,33 @@ class TitleState extends MusicBeatState
 				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
-				// credTextShit.text += '\nNewgrounds';
+				// credTextfreak.text += '\nNewgrounds';
 				case 9:
 					deleteCoolText();
 					ngSpr.visible = false;
-				// credTextShit.visible = false;
+				// credTextfreak.visible = false;
 
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
+				// credTextfreak.text = 'Shoutouts Tom Fulp';
+				// credTextfreak.screenCenter();
 				case 10:
 					createCoolText([curWacky[0]]);
-				// credTextShit.visible = true;
+				// credTextfreak.visible = true;
 				case 12:
 					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
+				// credTextfreak.text += '\nlmao';
 				case 13:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
+				// credTextfreak.visible = false;
+				// credTextfreak.text = "Friday";
+				// credTextfreak.screenCenter();
 				case 14:
 					addMoreText('Friday');
-				// credTextShit.visible = true;
+				// credTextfreak.visible = true;
 				case 15:
 					addMoreText('Night');
-				// credTextShit.text += '\nNight';
+				// credTextfreak.text += '\nNight';
 				case 16:
-					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+					addMoreText('Funkin'); // credTextfreak.text += '\nFunkin';
 
 				case 17:
 					skipIntro();

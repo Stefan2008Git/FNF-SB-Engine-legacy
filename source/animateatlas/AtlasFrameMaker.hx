@@ -91,13 +91,13 @@ class AtlasFrameMaker extends FlxFramesCollection
 			if (t.currentLabel == animation)
 			{
 				sizeInfo = t.getBounds(t);
-				var bitmapShit:BitmapData = new BitmapData(Std.int(sizeInfo.width + sizeInfo.x), Std.int(sizeInfo.height + sizeInfo.y), true, 0);
-				bitmapShit.draw(t, null, null, null, null, true);
-				bitMapArray.push(bitmapShit);
+				var bitmapfreak:BitmapData = new BitmapData(Std.int(sizeInfo.width + sizeInfo.x), Std.int(sizeInfo.height + sizeInfo.y), true, 0);
+				bitmapfreak.draw(t, null, null, null, null, true);
+				bitMapArray.push(bitmapfreak);
 
 				if (firstPass)
 				{
-					frameSize.set(bitmapShit.width,bitmapShit.height);
+					frameSize.set(bitmapfreak.width,bitmapfreak.height);
 					firstPass = false;
 				}
 			}

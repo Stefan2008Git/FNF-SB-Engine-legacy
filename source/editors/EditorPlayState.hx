@@ -224,7 +224,7 @@ class EditorPlayState extends MusicBeatState
 		
 		var noteData:Array<SwagSection>;
 
-		// NEW SHIT
+		// NEW freak
 		noteData = songData.notes;
 
 		var playerCounter:Int = 0;
@@ -314,7 +314,7 @@ class EditorPlayState extends MusicBeatState
 			daBeats += 1;
 		}
 
-		unspawnNotes.sort(sortByShit);
+		unspawnNotes.sort(sortByfreak);
 		generatedMusic = true;
 	}
 
@@ -329,7 +329,7 @@ class EditorPlayState extends MusicBeatState
 		vocals.play();
 	}
 
-	function sortByShit(Obj1:Note, Obj2:Note):Int
+	function sortByfreak(Obj1:Note, Obj2:Note):Int
 	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
@@ -519,7 +519,7 @@ class EditorPlayState extends MusicBeatState
 			});
 		}
 
-		keyShit();
+		keyfreak();
 		scoreTxt.text = 'Hits: ' + songHits + ' | Misses: ' + songMisses;
 		sectionTxt.text = 'Beat: ' + curSection;
 		beatTxt.text = 'Beat: ' + curBeat;
@@ -687,7 +687,7 @@ class EditorPlayState extends MusicBeatState
 		return -1;
 	}
 
-	private function keyShit():Void
+	private function keyfreak():Void
 	{
 		// HOLDING
 		var up = controls.NOTE_UP;
@@ -827,7 +827,7 @@ class EditorPlayState extends MusicBeatState
 
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
-			daRating = 'shit';
+			daRating = 'freak';
 			//score = 50;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.5)
@@ -855,16 +855,16 @@ class EditorPlayState extends MusicBeatState
 				daRating = 'bad';
 			*/
 
-		var pixelShitPart1:String = "";
-		var pixelShitPart2:String = '';
+		var pixelfreakPart1:String = "";
+		var pixelfreakPart2:String = '';
 
 		if (PlayState.isPixelStage)
 		{
-			pixelShitPart1 = 'pixelUI/';
-			pixelShitPart2 = '-pixel';
+			pixelfreakPart1 = 'pixelUI/';
+			pixelfreakPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
+		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating + pixelfreakPart2));
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -875,7 +875,7 @@ class EditorPlayState extends MusicBeatState
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
 
-		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
+		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'combo' + pixelfreakPart2));
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = 600;
@@ -915,7 +915,7 @@ class EditorPlayState extends MusicBeatState
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
+			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'num' + Std.int(i) + pixelfreakPart2));
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
@@ -1028,7 +1028,7 @@ class EditorPlayState extends MusicBeatState
 	}
 
 
-	// Note splash shit, duh
+	// Note splash freak, duh
 	function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
 			var strum:StrumNote = playerStrums.members[note.noteData];

@@ -17,7 +17,7 @@ import flixel.util.FlxStringUtil;
 
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
+	var grpMenufreak:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
 	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu'];
@@ -127,8 +127,8 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
-		add(grpMenuShit);
+		grpMenufreak = new FlxTypedGroup<Alphabet>();
+		add(grpMenufreak);
 
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
@@ -330,12 +330,12 @@ class PauseSubState extends MusicBeatSubstate
 		if (curSelected >= menuItems.length)
 			curSelected = 0;
 
-		var bullShit:Int = 0;
+		var bullfreak:Int = 0;
 
-		for (item in grpMenuShit.members)
+		for (item in grpMenufreak.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
+			item.targetY = bullfreak - curSelected;
+			bullfreak++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
@@ -355,10 +355,10 @@ class PauseSubState extends MusicBeatSubstate
 	}
 
 	function regenMenu():Void {
-		for (i in 0...grpMenuShit.members.length) {
-			var obj = grpMenuShit.members[0];
+		for (i in 0...grpMenufreak.members.length) {
+			var obj = grpMenufreak.members[0];
 			obj.kill();
-			grpMenuShit.remove(obj, true);
+			grpMenufreak.remove(obj, true);
 			obj.destroy();
 		}
 
@@ -366,7 +366,7 @@ class PauseSubState extends MusicBeatSubstate
 			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true, false);
 			item.isMenuItem = true;
 			item.targetY = i;
-			grpMenuShit.add(item);
+			grpMenufreak.add(item);
 
 			if(menuItems[i] == 'Skip Time')
 			{

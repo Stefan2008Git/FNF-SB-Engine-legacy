@@ -138,7 +138,7 @@ class ColorSwapShader extends FlxShader {
 
 			if (awesomeOutline)
 			{
-				 // Outline bullshit?
+				 // Outline bullfreak?
 				vec2 size = vec2(3, 3);
 
 				if (color.a <= 0.5) {

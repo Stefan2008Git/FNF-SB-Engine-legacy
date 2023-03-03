@@ -36,7 +36,7 @@ class Conductor
 	public static function judgeNote(note:Note, diff:Float=0):Rating // die
 	{
 		var data:Array<Rating> = PlayState.instance.ratingsData; //shortening cuz fuck u
-		for(i in 0...data.length-1) //skips last window (Shit)
+		for(i in 0...data.length-1) //skips last window (freak)
 		{
 			if (diff <= data[i].hitWindow)
 			{
@@ -86,7 +86,7 @@ class Conductor
 	public static function beatToSeconds(beat:Float): Float{
 		var step = beat * 4;
 		var lastChange = getBPMFromStep(step);
-		return lastChange.songTime + ((step - lastChange.stepTime) / (lastChange.bpm / 60)/4) * 1000; // TODO: make less shit and take BPM into account PROPERLY
+		return lastChange.songTime + ((step - lastChange.stepTime) / (lastChange.bpm / 60)/4) * 1000; // TODO: make less freak and take BPM into account PROPERLY
 	}
 
 	public static function getStep(time:Float){

@@ -1,6 +1,6 @@
 import h2d.Tweenie.TType;
 
-//praise delahee, i'll figure out what this shit means later!
+//praise delahee, i'll figure out what this freak means later!
 
 enum TVVar{
 	TVVVolume;

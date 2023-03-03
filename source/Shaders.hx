@@ -16,14 +16,14 @@ typedef ShaderEffect = {
 class BuildingEffect {
   public var shader:BuildingShader = new BuildingShader();
   public function new(){
-    shader.alphaShit.value = [0];
+    shader.alphafreak.value = [0];
   }
   public function addAlpha(alpha:Float){
-    trace(shader.alphaShit.value[0]);
-    shader.alphaShit.value[0]+=alpha;
+    trace(shader.alphafreak.value[0]);
+    shader.alphafreak.value[0]+=alpha;
   }
   public function setAlpha(alpha:Float){
-    shader.alphaShit.value[0]=alpha;
+    shader.alphafreak.value[0]=alpha;
   }
 }
 
@@ -31,13 +31,13 @@ class BuildingShader extends FlxShader
 {
   @:glFragmentSource('
     #pragma header
-    uniform float alphaShit;
+    uniform float alphafreak;
     void main()
     {
 
       vec4 color = flixel_texture2D(bitmap,openfl_TextureCoordv);
       if (color.a > 0.0)
-        color-=alphaShit;
+        color-=alphafreak;
 
       gl_FragColor = color;
     }
@@ -66,7 +66,7 @@ class ChromaticAberrationShader extends FlxShader
 			toUse.r = col1.r;
 			toUse.g = col2.g;
 			toUse.b = col3.b;
-			//float someshit = col4.r + col4.g + col4.b;
+			//float somefreak = col4.r + col4.g + col4.b;
 
 			gl_FragColor = toUse;
 		}')
@@ -691,7 +691,7 @@ void main() {
     
     //Define the plane
     vec3 planePosition = vec3(0.0, 0.0, dept);
-    vec3 planeRotation = vec3(xrot, yrot, zrot);//this the shit you needa change
+    vec3 planeRotation = vec3(xrot, yrot, zrot);//this the freak you needa change
     vec2 planeDimension = vec2(-screenAspect, 1.0);
     
     vec2 uv = raytraceTexturedQuad(vec3(0), dir, planePosition, planeRotation, planeDimension);

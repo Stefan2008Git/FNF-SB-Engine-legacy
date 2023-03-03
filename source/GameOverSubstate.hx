@@ -102,7 +102,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
-			endBullshit();
+			endBullfreak();
 		}
 
 		if (controls.BACK)
@@ -177,7 +177,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
 	}
 
-	function endBullshit():Void
+	function endBullfreak():Void
 	{
 		if (!isEnding)
 		{

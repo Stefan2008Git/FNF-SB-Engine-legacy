@@ -143,7 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2020-11-01
 ### Added
-- Uhh Newgrounds release lolol I always lose track of shit.
+- Uhh Newgrounds release lolol I always lose track of freak.
 
 ## [0.1.0] - 2020-10-05
 ### Added

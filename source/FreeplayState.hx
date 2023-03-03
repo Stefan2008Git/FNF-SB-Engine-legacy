@@ -171,7 +171,7 @@ class FreeplayState extends MusicBeatState
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		// JUST DOIN THIS SHIT FOR TESTING!!!
+		// JUST DOIN THIS freak FOR TESTING!!!
 		/* 
 			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
 
@@ -486,7 +486,7 @@ class FreeplayState extends MusicBeatState
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
 		#end
 
-		var bullShit:Int = 0;
+		var bullfreak:Int = 0;
 
 		for (i in 0...iconArray.length)
 		{
@@ -497,8 +497,8 @@ class FreeplayState extends MusicBeatState
 
 		for (item in grpSongs.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
+			item.targetY = bullfreak - curSelected;
+			bullfreak++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));

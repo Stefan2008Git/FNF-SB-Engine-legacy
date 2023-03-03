@@ -282,14 +282,14 @@ class CreditsState extends MusicBeatState
 			});
 		}
 
-		var bullShit:Int = 0;
+		var bullfreak:Int = 0;
 
 		for (item in grpOptions.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
+			item.targetY = bullfreak - curSelected;
+			bullfreak++;
 
-			if(!unselectableCheck(bullShit-1)) {
+			if(!unselectableCheck(bullfreak-1)) {
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;

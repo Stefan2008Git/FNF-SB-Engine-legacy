@@ -3,7 +3,7 @@ import faxe.Faxe;
 import SndTV;
 using StringTools;
 
-//praise delahee, i'll figure out what this shit means later!
+//praise delahee, i'll figure out what this freak means later!
 
 class Channel {
 	public var		name:String;

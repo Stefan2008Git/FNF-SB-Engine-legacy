@@ -30,7 +30,7 @@ class LoadingState extends MusicBeatState
 	var stopMusic = false;
 	var directory:String;
 	var callbacks:MultiCallback;
-	var targetShit:Float = 0;
+	var targetfreak:Float = 0;
 
 	function new(target:FlxState, stopMusic:Bool, directory:String)
 	{
@@ -122,8 +122,8 @@ class LoadingState extends MusicBeatState
 		}
 
 		if(callbacks != null) {
-			targetShit = FlxMath.remapToRange(callbacks.numRemaining / callbacks.length, 1, 0, 0, 1);
-			loadBar.scale.x += 0.5 * (targetShit - loadBar.scale.x);
+			targetfreak = FlxMath.remapToRange(callbacks.numRemaining / callbacks.length, 1, 0, 0, 1);
+			loadBar.scale.x += 0.5 * (targetfreak - loadBar.scale.x);
 		}
 	}
 	
