@@ -95,9 +95,9 @@ class FPS extends TextField
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nRam memory: " + memoryMegas + " megabytes";
-            text += "\nOperating system: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-            text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-            text += "\nGL Shading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+                        text += "\nOperating system: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+                        text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+                        text += "\nGL Shading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 			#end
 
 			textColor = 0xFF22FF00;

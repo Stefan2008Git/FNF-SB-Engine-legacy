@@ -3,7 +3,9 @@ package;
 #if sys
 import Sys.sleep;
 #end
+#if desktop
 import discord_rpc.DiscordRpc;
+#end
 using StringTools;
 
 class DiscordClient
@@ -11,6 +13,7 @@ class DiscordClient
 	public static var isInitialized:Bool = false;
 	public function new()
 	{
+        #if desktop
 		trace("Discord Client it's starting...");
 		DiscordRpc.start({
 			clientID: "1059518348196597831",
@@ -26,10 +29,10 @@ class DiscordClient
 			#if sys
 			sleep(2);
 			#end
-			//trace("Discord Client Update");
 		}
 
 		DiscordRpc.shutdown();
+        #end
 	}
 	
 	public static function shutdown()
