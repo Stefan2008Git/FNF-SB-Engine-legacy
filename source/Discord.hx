@@ -19,7 +19,7 @@ class DiscordClient
 	public static var isInitialized:Bool = false;
 	public function new()
 	{
-                #if desktop
+  #if desktop
 		trace("Discord Client it's starting...");
 		DiscordRpc.start({
 			clientID: "1059518348196597831",
@@ -98,7 +98,8 @@ class DiscordClient
 
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
-
+	#end
+	
 	#if LUA_ALLOWED
 	public static function addLuaCallbacks(lua:State) {
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
@@ -106,3 +107,4 @@ class DiscordClient
 		});
 	}
 	#end
+}
