@@ -69,8 +69,6 @@ class ControlsSubState extends MusicBeatSubstate {
 	var nextAccept:Int = 5;
 
 	public function new() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		super();
 
