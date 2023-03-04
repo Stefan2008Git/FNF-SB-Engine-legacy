@@ -206,8 +206,8 @@ class PlayState extends MusicBeatState
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
 
-	public var botplaySine:Float = 0;
-	public var botplayTxt:FlxText;
+	public var autoplaySine:Float = 0;
+	public var autoplayTxt:FlxText;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -377,7 +377,7 @@ class PlayState extends MusicBeatState
 		healthLoss = ClientPrefs.getGameplaySetting('healthloss', 1);
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
-		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+		cpuControlled = ClientPrefs.getGameplaySetting('autoplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -1210,14 +1210,14 @@ class PlayState extends MusicBeatState
 		add(watermarkTxt);
 		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 1.25;
-		botplayTxt.visible = cpuControlled;
-		add(botplayTxt);
+		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
+		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		autoplayTxt.scrollFactor.set();
+		autoplayTxt.borderSize = 1.25;
+		autoplayTxt.visible = cpuControlled;
+		add(autoplayTxt);
 		if(ClientPrefs.downScroll) {
-			botplayTxt.y = timeBarBG.y - 78;
+			autoplayTxt.y = timeBarBG.y - 78;
 		}
 
 		strumLineNotes.cameras = [camHUD];
@@ -1229,7 +1229,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
-		botplayTxt.cameras = [camHUD];
+		autoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -3118,9 +3118,9 @@ class PlayState extends MusicBeatState
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
-		if(botplayTxt.visible) {
-			botplaySine += 180 * elapsed;
-			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
+		if(autoplayTxt.visible) {
+			autoplaySine += 180 * elapsed;
+			autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
 		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
@@ -3401,7 +3401,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
-		setOnLuas('botPlay', cpuControlled);
+		setOnLuas('autoplay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
 		for (i in shaderUpdates){
 			i(elapsed);
@@ -4062,7 +4062,7 @@ class PlayState extends MusicBeatState
 					MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
-					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
+					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('autoplay', false)) {
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore)
@@ -5300,7 +5300,7 @@ class PlayState extends MusicBeatState
 	{
 		if(chartingMode) return null;
 
-		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
+		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('autoplay', false));
 		for (i in 0...achievesToCheck.length) {
 			var achievementName:String = achievesToCheck[i];
 			if(!Achievements.isAchievementUnlocked(achievementName) && !cpuControlled) {

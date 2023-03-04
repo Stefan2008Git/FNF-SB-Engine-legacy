@@ -29,7 +29,7 @@ class PauseSubState extends MusicBeatSubstate
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
-	//var botplayText:FlxText;
+	//var autoplayText:FlxText;
 
 	public static var songName:String = '';
 
@@ -50,7 +50,7 @@ class PauseSubState extends MusicBeatSubstate
 			}
 			menuItemsOG.insert(3 + num, 'End Song');
 			menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
-			menuItemsOG.insert(5 + num, 'Toggle Botplay');
+			menuItemsOG.insert(5 + num, 'Toggle autoplay');
 		}
 		menuItems = menuItemsOG;
 
@@ -256,12 +256,12 @@ class PauseSubState extends MusicBeatSubstate
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
-				case 'Toggle Botplay':
+				case 'Toggle autoplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
-					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
-					PlayState.instance.botplayTxt.alpha = 1;
-					PlayState.instance.botplaySine = 0;
+					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
+					PlayState.instance.autoplayTxt.alpha = 1;
+					PlayState.instance.autoplaySine = 0;
 				case 'Chart Editor':
 					MusicBeatState.switchState(new editors.ChartingState());
 					PlayState.chartingMode = true;
