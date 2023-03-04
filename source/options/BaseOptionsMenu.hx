@@ -46,6 +46,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	public function new()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		super();
 
 		if(title == null) title = 'Options';

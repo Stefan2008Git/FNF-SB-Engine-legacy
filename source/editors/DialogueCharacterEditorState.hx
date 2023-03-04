@@ -90,6 +90,9 @@ class DialogueCharacterEditorState extends MusicBeatState
 	var curAnim:Int = 0;
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		Alphabet.setDialogueSound();
 
 		persistentUpdate = persistentDraw = true;

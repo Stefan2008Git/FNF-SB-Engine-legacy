@@ -230,7 +230,8 @@ class ChartingState extends MusicBeatState
 			PlayState.SONG = _song;
 		}
 
-		// Paths.clearMemory();
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		#if desktop
 		// Updating Discord Rich Presence

@@ -43,6 +43,8 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -169,7 +171,7 @@ class NoteOffsetState extends MusicBeatState
 		timeBar = new FlxBar(0, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this, 'barPercent', delayMin, delayMax);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
-		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		timeBar.createFilledBar(0xFF000000, 0xFFFFA500);
 		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.visible = false;
 		timeBar.cameras = [camHUD];
