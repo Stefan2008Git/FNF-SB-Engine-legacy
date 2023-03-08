@@ -35,10 +35,6 @@ import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxAssets.FlxShader;
 
-#if !flash
-import flixel.addons.display.FlxRuntimeShader;
-#end
-
 #if sys
 import sys.FileSystem;
 import sys.io.File;
