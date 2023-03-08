@@ -63,9 +63,6 @@ class CharacterEditorState extends MusicBeatState
 
 	public function new(daAnim:String = 'spooky', goToPlayState:Bool = true)
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		super();
 		this.daAnim = daAnim;
 		this.goToPlayState = goToPlayState;

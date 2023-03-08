@@ -8,6 +8,7 @@ import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 
@@ -25,6 +26,13 @@ class FlashingState extends MusicBeatState
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
 		add(bg);
+
+		var bgScroll = new FlxBackdrop(Paths.image('velocity_background'), XY, -33, -32);
+		bgScroll.scrollFactor.set();
+		bgScroll.screenCenter();
+		bgScroll.velocity.set(50, 50);
+		bgScroll.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bgScroll);
 
 		#if android
 		warnText = new FlxText(0, 0, FlxG.width,
