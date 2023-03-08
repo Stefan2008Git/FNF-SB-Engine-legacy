@@ -98,13 +98,6 @@ class MainMenuState extends MusicBeatState
 		orange.antialiasing = ClientPrefs.globalAntialiasing;
 		orange.color = 0xFFFFA500;
 		add(orange);
-
-		var bgScroll new FlxBackdrop(Paths.image('velocity_background'), XY);
-		bgScroll.scrollFactor.set(0.3,0.5);
-		bgScroll.screenCenter();
-		bgScroll.velocity.set(50, 50);
-		bgScroll.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bgScroll);
 		
 		// orange.scrollFactor.set();
 

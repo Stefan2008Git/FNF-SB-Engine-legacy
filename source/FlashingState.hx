@@ -27,13 +27,6 @@ class FlashingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
 		add(bg);
 
-		var bgScroll new FlxBackdrop(Paths.image('velocity_background'), XY);
-		bgScroll.scrollFactor.set(0.3,0.5);
-		bgScroll.screenCenter();
-		bgScroll.velocity.set(50, 50);
-		bgScroll.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bgScroll);
-
 		#if android
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Hey, watch out!\n

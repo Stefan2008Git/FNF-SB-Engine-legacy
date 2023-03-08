@@ -10,7 +10,6 @@ import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.display.FlxBackdrop;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -106,13 +105,6 @@ class FreeplayState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
-
-		var bgScroll new FlxBackdrop(Paths.image('velocity_background'), XY);
-		bgScroll.scrollFactor.set(0.3,0.5);
-		bgScroll.screenCenter();
-		bgScroll.velocity.set(50, 50);
-		bgScroll.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bgScroll);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
