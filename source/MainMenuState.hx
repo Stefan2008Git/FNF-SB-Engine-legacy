@@ -8,6 +8,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -25,7 +26,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var sbEngineVersion:String = '2.1.0'; //This is also used for Discord RPC
+	public static var sbEngineVersion:String = '2.2.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.2';
 	public static var curSelected:Int = 0;
 
@@ -97,6 +98,13 @@ class MainMenuState extends MusicBeatState
 		orange.antialiasing = ClientPrefs.globalAntialiasing;
 		orange.color = 0xFFFFA500;
 		add(orange);
+
+		var bgScroll = new FlxBackdrop(Paths.image('velocity_background'), XY, -33, -32);
+		bgScroll.scrollFactor.set();
+		bgScroll.screenCenter();
+		bgScroll.velocity.set(50, 50);
+		bgScroll.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bgScroll);
 		
 		// orange.scrollFactor.set();
 
