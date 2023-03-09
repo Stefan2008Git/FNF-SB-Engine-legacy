@@ -90,12 +90,13 @@ class FPS extends TextField
 		{
 			text = "Frame Per Second: " + currentFPS;
 			var memoryMegas:Float = 0;
+			var memoryTotal:Float = 0;
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			if (memoryMegas > memoryTotal)
 				memoryTotal = memoryMegas;
-			text += "\nRam memory: " + memoryMegas + "megabyte's" + " / " + memoryTotal + "megabyte's";
+			text += "\nRam memory: " + memoryMegas + "megabytes" + " / " + memoryTotal + "megabyte's";
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
             text += "\nGLShading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
