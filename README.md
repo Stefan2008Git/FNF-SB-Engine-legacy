@@ -32,7 +32,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 # Changed master editor menu:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_2.png)
 
-# Added accruracy and watermark:
+# Added accuracy and watermark:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_3.png)
 
 # Added lua shader's. Here are 2 example's. Note: You need to enable "Shaders on lua" on graphic option's! [Thanks Lizzy Strawberry](https://www.youtube.com/@LizzyStrawberry):
