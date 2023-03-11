@@ -262,6 +262,7 @@ class PlayState extends MusicBeatState
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
 	public var watermarkTxt:FlxText;
+	public var psychEngineVersionTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1198,13 +1199,15 @@ class PlayState extends MusicBeatState
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1;
-		if (!ClientPrefs.hideWatermark && !ClientPrefs.hideHud) {
-			watermarkTxt.visible = true;
-		} else {
-			watermarkTxt.visible = false;
-		}
 		add(watermarkTxt);
 		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
+
+		psychEngineVersionTxt = new FlxText(0, FlxG.height - 1250, 10, "", 695);
+		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psychEngineVersionTxt.scrollFactor.set();
+		psychEngineVersionTxt.borderSize = 1;
+		add(psychEngineVersionTxt);
+		psychEngineVersionTxt.text = " Psych Engine: " + MainMenuState.psychEngineVersion;
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1225,6 +1228,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
+		psychEngineVersionTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -1235,14 +1239,8 @@ class PlayState extends MusicBeatState
 		addAndroidControls();
 		#end
 
-		// if (SONG.song == 'South')
-		// FlxG.camera.alpha = 0.7;
-		// UI_camera.zoom = 1;
-
-		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 
-		// SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
 		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];

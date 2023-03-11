@@ -62,7 +62,7 @@ class SUtil
 			{
 				Lib.application.window.alert("Whoops, seems like you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.",
 					'Error!');
-				FlxG.openURL('https://youtu.be/zjvkTmdWvfU');
+				FlxG.openURL('https://www.youtube.com/watch?v=Cm1JE_uBbYk');
 				System.exit(1);
 			}
 			else if ((FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.isDirectory(SUtil.getPath() + 'assets'))
@@ -78,7 +78,7 @@ class SUtil
 				{
 					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.",
 						'Error!');
-					FlxG.openURL('https://youtu.be/zjvkTmdWvfU');
+					FlxG.openURL('https://www.youtube.com/watch?v=Cm1JE_uBbYk');
 					System.exit(1);
 				}
 				else if (FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.isDirectory(SUtil.getPath() + 'assets'))
@@ -92,7 +92,7 @@ class SUtil
 				{
 					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.",
 						'Error!');
-					FlxG.openURL('https://youtu.be/zjvkTmdWvfU');
+					FlxG.openURL('https://www.youtube.com/watch?v=Cm1JE_uBbYk');
 					System.exit(1);
 				}
 				else if (FileSystem.exists(SUtil.getPath() + 'mods') && !FileSystem.isDirectory(SUtil.getPath() + 'mods'))
