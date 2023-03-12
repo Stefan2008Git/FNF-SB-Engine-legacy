@@ -43,9 +43,6 @@ class NotesSubState extends MusicBeatSubstate
 
 	var posX = 230;
 	public function new() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		super();
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
