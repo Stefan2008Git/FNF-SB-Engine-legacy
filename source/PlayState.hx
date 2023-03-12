@@ -1199,7 +1199,7 @@ class PlayState extends MusicBeatState
 		add(watermarkTxt);
 		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
 
-		psychEngineVersionTxt = new FlxText(0, FlxG.height - 1250, 10, "", 695);
+		psychEngineVersionTxt = new FlxText(0, FlxG.height - 24, 0, "", 695);
 		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		psychEngineVersionTxt.scrollFactor.set();
 		psychEngineVersionTxt.borderSize = 1;
