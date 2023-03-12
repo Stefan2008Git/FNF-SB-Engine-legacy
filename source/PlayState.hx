@@ -1192,7 +1192,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		watermarkTxt = new FlxText(12, FlxG.height - 48, 0, "", 8);
+		watermarkTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1;
