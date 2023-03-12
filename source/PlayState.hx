@@ -259,7 +259,7 @@ class PlayState extends MusicBeatState
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
 	public var watermarkTxt:FlxText;
-	public var psychEngineVersionTxt:FlxText;
+	public var sbEngineVersionTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1197,14 +1197,14 @@ class PlayState extends MusicBeatState
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1;
 		add(watermarkTxt);
-		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + " | Current SB Engine version: " + MainMenuState.sbEngineVersion;
+		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
 
-		psychEngineVersionTxt = new FlxText(0, FlxG.height - 24, 0, "", 8);
-		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		psychEngineVersionTxt.scrollFactor.set();
-		psychEngineVersionTxt.borderSize = 1;
-		add(psychEngineVersionTxt);
-		psychEngineVersionTxt.text = " Psych Engine: " + MainMenuState.psychEngineVersion;
+		sbEngineVersionTxt = new FlxText(0, FlxG.height - 24, 0, "", 8);
+		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		sbEngineVersionTxt.scrollFactor.set();
+		sbEngineVersionTxt.borderSize = 1;
+		add(sbEngineVersionTxt);
+		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1225,7 +1225,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
-		psychEngineVersionTxt.cameras = [camHUD];
+		sbEngineVersionTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
