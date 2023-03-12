@@ -1204,7 +1204,7 @@ class PlayState extends MusicBeatState
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1;
 		add(sbEngineVersionTxt);
-		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
+		sbEngineVersionTxt.text = " Current SB Engine version: " + MainMenuState.sbEngineVersion;
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
