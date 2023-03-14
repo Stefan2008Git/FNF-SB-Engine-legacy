@@ -1192,14 +1192,14 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		watermarkTxt = new FlxText(12, FlxG.height - 44, 0, "", 300);
+		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1;
 		add(watermarkTxt);
 		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
 
-		sbEngineVersionTxt = new FlxText(0, FlxG.height - 24, 0, "", 8);
+		sbEngineVersionTxt = new FlxText(0, FlxG.height - 24, 0, "", 1250);
 		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1;

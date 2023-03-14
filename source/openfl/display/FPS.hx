@@ -55,7 +55,7 @@ class FPS extends TextField
 		defaultTextFormat = new TextFormat("_sans", 14, color);
 		autoSize = LEFT;
 		multiline = true;
-		text = "Frame per second: ";
+		text = "Frame Per Second: ";
 
 		cacheCount = 0;
 		currentTime = 0;
@@ -96,13 +96,15 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			if (memoryMegas > memoryTotal)
 				memoryTotal = memoryMegas;
-			text += "\nRam memory: " + memoryMegas + " megabyte's" + " / " + memoryTotal + " megabyte's";
+			text += "\nRam Memory: " + memoryMegas + " megabyte's";
+			text += "\nTotal Ram Memory: " + memoryTotal + " megabyte's";
+			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-            text += "\nGLShading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+            text += "\nGL Shading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 			#end
 
-			textColor = 0xFF1AFF00;
+			textColor = 0xFFFFFFFF;
 			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
 			{
 				textColor = 0xFFFF0000;
