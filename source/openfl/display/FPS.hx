@@ -96,16 +96,16 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			if (memoryMegas > memoryTotal)
 				memoryTotal = memoryMegas;
-			text += "\nRam Memory: " + memoryMegas + " megabyte's";
+			text += "\nRam Memory: " + memoryMegas + " megabytes";
 			if(ClientPrefs.totalMemory)
 			{
-			text += "\nTotal Ram Memory: " + memoryTotal + " megabyte's";
+			text += "\nTotal Ram Memory: " + memoryTotal + " megabytes";
 		    }
-			elseif(ClientPrefs.sbEngineVersion)
+			else if(ClientPrefs.sbEngineVersion)
 			{
 			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
 		    }
-			elseif(ClientPrefs.glRender)
+			else(ClientPrefs.glRender)
 			{
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
