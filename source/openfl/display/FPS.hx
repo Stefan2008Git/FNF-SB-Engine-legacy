@@ -97,11 +97,22 @@ class FPS extends TextField
 			if (memoryMegas > memoryTotal)
 				memoryTotal = memoryMegas;
 			text += "\nRam Memory: " + memoryMegas + " megabyte's";
+			if(ClientPrefs.totalMemory)
+			{
 			text += "\nTotal Ram Memory: " + memoryTotal + " megabyte's";
+		    }
+			#end
+			if(ClientPrefs.sbEngineVersion)
+			{
 			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
+		    }
+		    #end
+			if(ClientPrefs.glRender)
+			{
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
             text += "\nGL Shading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+		    }
 			#end
 
 			textColor = 0xFFFFFFFF;

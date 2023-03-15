@@ -89,13 +89,34 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('FPS and GL Render Counter',
-			'If unchecked, hides FPS and GL Render Counter.',
+		var option:Option = new Option('FPS Counter',
+			'If unchecked, hides FPS.',
 			'showFPS',
 			'bool',
 			#if android false #else true #end);
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
+
+		var option:Option = new Option('Total Memory counter',
+			"If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter first!",
+			'totalMemory',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('SB Engine version text',
+			"If unchecked, hides current SB Engine version.\nRequest: You need to turn on FPS counter first!",
+			'sbEngineVersion',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('GL render counter',
+			"If unchecked, hides GL Render counter.\nRequest: You need to turn on FPS counter first!",
+			'glRender',
+			'bool',
+			false);
+		addOption(option);
 		
 		var option:Option = new Option('Pause Screen Song:',
 			"What song do you prefer for the Pause Screen?",
