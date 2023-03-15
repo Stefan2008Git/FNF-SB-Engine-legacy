@@ -101,13 +101,11 @@ class FPS extends TextField
 			{
 			text += "\nTotal Ram Memory: " + memoryTotal + " megabyte's";
 		    }
-			#end
-			if(ClientPrefs.sbEngineVersion)
+			elseif(ClientPrefs.sbEngineVersion)
 			{
 			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
 		    }
-		    #end
-			if(ClientPrefs.glRender)
+			elseif(ClientPrefs.glRender)
 			{
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
