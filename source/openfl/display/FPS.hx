@@ -105,7 +105,7 @@ class FPS extends TextField
 			{
 			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
 		    }
-			else(ClientPrefs.glRender)
+			else if(ClientPrefs.glRender)
 			{
             text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
