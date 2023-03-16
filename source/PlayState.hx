@@ -246,6 +246,8 @@ class PlayState extends MusicBeatState
 	var santa:BGSprite;
 	var heyTimer:Float;
 
+	var iconBounce:Bool = false;
+
 	var bgGirls:BackgroundGirls;
 	var bgGhouls:BGSprite;
 
@@ -1197,14 +1199,14 @@ class PlayState extends MusicBeatState
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1;
 		add(watermarkTxt);
-		watermarkTxt.text = curSong + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
+		watermarkTxt.text = " curSong " + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
 
-		sbEngineVersionTxt = new FlxText(1276, FlxG.height - 24, 0, "text", 8);
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "text", 8);
 		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1;
 		add(sbEngineVersionTxt);
-		sbEngineVersionTxt.text = " Current SB Engine version: " + MainMenuState.sbEngineVersion;
+		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -4952,6 +4954,16 @@ class PlayState extends MusicBeatState
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
+	
+		iconBounce = !iconBounce;
+
+		if (ClientPrefs.iconBounce == "SB") {
+			if (IconBounce){
+				iconP1.angle = 15; iconP2.angle = 15; //Credits: notweuz (Creator from OS Engine.)
+			} else { 
+				iconP1.angle = -15; iconP2.angle = -15;
+			}
+		}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
