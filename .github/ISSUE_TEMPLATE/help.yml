@@ -1,5 +1,5 @@
-name: Help me!
-description: If you need help using the engine.
+name: SB Engine help tab
+description: If you need help using the SB Engine.
 labels: [help wanted]
 body:
   - type: textarea
@@ -28,9 +28,7 @@ body:
         - "Windows x86/x32"
         - "Linux"
         - "Mac"
-        - "HTML5/Browser"
-        - "Flash/Air-based target"
-        - "Neko, HashLink, or other build system"
+        - "Android"
     validations:
       required: true
 
@@ -38,6 +36,6 @@ body:
     id: buildsummary
     attributes:
       label: "Did you edit anything in this build? If so, mention or summarize your changes."
-      placeholder: "Yes, I edited ClientPrefs.hx and tried to add a new setting"
+      placeholder: "Yes, I edited State.hx or SubState.hx and tried to add a new setting"
     validations:
       required: false
