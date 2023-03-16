@@ -1201,7 +1201,7 @@ class PlayState extends MusicBeatState
 		add(watermarkTxt);
 		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
 
-		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "text", 8);
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1;
@@ -4957,7 +4957,7 @@ class PlayState extends MusicBeatState
 	
 		iconBounce = !iconBounce;
 
-		if (ClientPrefs.iconBounce == "SB") {
+		if (ClientPrefs.iconBounce) {
 			if (iconBounce){
 				iconP1.angle = 15; iconP2.angle = 15; //Credits: notweuz (Creator from OS Engine.)
 			} else { 
