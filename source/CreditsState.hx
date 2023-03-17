@@ -101,9 +101,9 @@ class CreditsState extends MusicBeatState
 
 		var pisspoop:Array<Array<String>> = [
 			['SB Engine Team'],
-			['Stefan2008',	'stefan',	      "Stefan Menicanin",	    'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
-			['MaysLastPlays',				'mayslastplay',	    "MaysLays",		'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'5E99DF'],
-			['Fearester',				'fearester',       "MaysLays",			'Collaborator of SB Engine',										'https://www.youtube.com/@fearester1282', 	'5E99DF'],
+			['Stefan2008',	'stefan',    'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
+			['MaysLastPlays',				'mayslastplay',		'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'5E99DF'],
+			['Fearester',				'fearester',   	'Collaborator of SB Engine',										'https://www.youtube.com/@fearester1282', 	'5E99DF'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
