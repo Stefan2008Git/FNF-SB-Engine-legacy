@@ -141,14 +141,15 @@ class CreditsState extends MusicBeatState
 			{
 				var isSelectable:Bool = !unselectableCheck(i);
 				var optionText:Alphabet = new Alphabet(0, 70 * i, creditsStuff[i][0], !isSelectable, false);
+				optionText.isMenuItem = true;
 				optionText.screenCenter(X);
 				optionText.yAdd -= 70;
 				if(isSelectable) {
 					optionText.x -= 70;
 				}
 				optionText.forceX = optionText.x;
+				optionText.yMult = 90;
 				optionText.targetY = i;
-				lerpList.push(true);
 				grpOptions.add(optionText);
 
 			if(isSelectable) {
@@ -172,13 +173,17 @@ class CreditsState extends MusicBeatState
 
 		descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.xAdd = -10;
+		descBox.yAdd = -10;
+		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
 		add(descBox);
 
 		descText = new FlxText(FlxG.width, 200, 570, "", 16);
 		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		descText.scrollFactor.set();
-		add(descText);
+		//descText.borderSize = 2.4;
+		descBox.sprTracker = descText;
 
 		bg.color = getCurrentBGColor();
 		bgScroll.color = getCurrentBGColor();
