@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -26,10 +27,14 @@ class CreditsState extends MusicBeatState
 	var curSelected:Int = -1;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+	var lerpList:Array<Bool> = [];
 	private var iconArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
+	var bgScroll:FlxBackdrop;
+	var bgScroll2:FlxBackdrop;
+	var gradient:FlxSprite;
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -51,6 +56,17 @@ class CreditsState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		add(bg);
 		bg.screenCenter();
+
+		bgScroll = new FlxBackdrop(Paths.image('menuBGHexL6'));
+		bgScroll.velocity.set(29, 30);
+		bgScroll2 = new FlxBackdrop(Paths.image('menuBGHexL6'));
+		bgScroll2.velocity.set(-29, -30);
+		add(bgScroll);
+		add(bgScroll2);
+
+		gradient = new FlxSprite().loadGraphic(Paths.image('gradient'));
+		add(gradient);
+		gradient.screenCenter();
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -83,11 +99,11 @@ class CreditsState extends MusicBeatState
 		}
 		#end
 
-		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		var pisspoop:Array<Array<String>> = [
 			['SB Engine Team'],
-			['Stefan2008',	'stefan',				'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
-			['MaysLastPlays',				'mayslastplay',			'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'5E99DF'],
-			['Fearester',				'fearester',			'Collaborator of SB Engine',										'https://www.youtube.com/@fearester1282', 	'5E99DF'],
+			['Stefan2008',	'stefan',	      "Stefan Menicanin",	    'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
+			['MaysLastPlays',				'mayslastplay',	    "MaysLays",		'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'5E99DF'],
+			['Fearester',				'fearester',       "MaysLays",			'Collaborator of SB Engine',										'https://www.youtube.com/@fearester1282', 	'5E99DF'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
@@ -122,19 +138,18 @@ class CreditsState extends MusicBeatState
 		}
 	
 		for (i in 0...creditsStuff.length)
-		{
-			var isSelectable:Bool = !unselectableCheck(i);
-			var optionText:Alphabet = new Alphabet(0, 70 * i, creditsStuff[i][0], !isSelectable, false);
-			optionText.isMenuItem = true;
-			optionText.screenCenter(X);
-			optionText.yAdd -= 70;
-			if(isSelectable) {
-				optionText.x -= 70;
-			}
-			optionText.forceX = optionText.x;
-			//optionText.yMult = 90;
-			optionText.targetY = i;
-			grpOptions.add(optionText);
+			{
+				var isSelectable:Bool = !unselectableCheck(i);
+				var optionText:Alphabet = new Alphabet(0, 70 * i, creditsStuff[i][0], !isSelectable, false);
+				optionText.screenCenter(X);
+				optionText.yAdd -= 70;
+				if(isSelectable) {
+					optionText.x -= 70;
+				}
+				optionText.forceX = optionText.x;
+				optionText.targetY = i;
+				lerpList.push(true);
+				grpOptions.add(optionText);
 
 			if(isSelectable) {
 				if(creditsStuff[i][5] != null)
@@ -154,25 +169,22 @@ class CreditsState extends MusicBeatState
 				if(curSelected == -1) curSelected = i;
 			}
 		}
-		
+
 		descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.xAdd = -10;
-		descBox.yAdd = -10;
-		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+		descText = new FlxText(FlxG.width, 200, 570, "", 16);
+		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		descText.scrollFactor.set();
-		//descText.borderSize = 2.4;
-		descBox.sprTracker = descText;
 		add(descText);
 
 		bg.color = getCurrentBGColor();
+		bgScroll.color = getCurrentBGColor();
+		bgScroll2.color = getCurrentBGColor();
+		gradient.color = getCurrentBGColor();
 		intendedColor = bg.color;
-
 		changeSelection();
 
 		#if android
