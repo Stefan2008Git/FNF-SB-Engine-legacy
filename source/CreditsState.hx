@@ -172,22 +172,17 @@ class CreditsState extends MusicBeatState
 		}
 
 		descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.makeGraphic(1, 1, FlxColor.ORANGE);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
-		descBox.alpha = 0.6;
-		
-		descBox.xAdd = -10;
-		descBox.yAdd = -10;
-		descBox.alphaMult = 0.6;
-		
+		descBox.alpha = 0.6;		
 		add(descBox);
 
-		descText = new FlxText(570, 200, FlxG.width, "", 16);
-		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
+		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
-		//descText.borderSize = 2.4;
+		descText.borderSize = 2.4;
 		descBox.sprTracker = descText;
 
 		bg.color = getCurrentBGColor();
