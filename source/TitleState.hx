@@ -70,6 +70,7 @@ class TitleState extends MusicBeatState
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
 
+	var Timer:Float = 0;
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
