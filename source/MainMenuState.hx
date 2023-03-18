@@ -7,6 +7,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -39,6 +40,7 @@ class MainMenuState extends MusicBeatState
 	];
 
 	var orange:FlxSprite;
+	var velocityBG:FlxBackdrop;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -87,6 +89,10 @@ class MainMenuState extends MusicBeatState
 		add(orange);
 		
 		// orange.scrollFactor.set();
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
