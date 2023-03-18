@@ -60,6 +60,7 @@ class TitleState extends MusicBeatState
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
+	var gradientBar:FlxSprite = new FlxSprite(0,0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
 	var credGroup:FlxGroup;
 	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
@@ -395,11 +396,15 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xFFFFA500], 2, true); 
+		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.scale.y = 0;
+		gradientBar.updateHitbox();
+		add(gradientBar);
+		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut});
+
 		credTextfreak = new Alphabet(0, 0, "", true);
 		credTextfreak.screenCenter();
-
-		// credTextfreak.alignment = CENTER;
-
 		credTextfreak.visible = false;
 
 		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
@@ -723,8 +728,12 @@ class TitleState extends MusicBeatState
 				// credTextfreak.text += '\nNight';
 				case 16:
 					addMoreText('Funkin'); // credTextfreak.text += '\nFunkin';
-
 				case 17:
+					addMoreText('SB'); // New text :D
+				case 18:
+					addMoreText('Engine'); // New text :D
+
+				case 19:
 					skipIntro();
 			}
 		}
