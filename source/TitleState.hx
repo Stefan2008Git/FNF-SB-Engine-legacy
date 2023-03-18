@@ -456,6 +456,15 @@ class TitleState extends MusicBeatState
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
+		Timer += 1;
+		gradientBar.updateHitbox();
+		gradientBar.y = FlxG.height - gradientBar.height;
+
+		if (FlxG.keys.justPressed.F)
+			{
+				FlxG.fullscreen = !FlxG.fullscreen;
+			}
+
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
 		#if android
@@ -732,8 +741,12 @@ class TitleState extends MusicBeatState
 				// credTextfreak.text += '\nNight';
 				case 16:
 					addMoreText('Funkin'); // credTextfreak.text += '\nFunkin';
-
 				case 17:
+					addMoreText('SB');
+				case 18:
+					addMoreText('Engine');
+
+				case 19:
 					skipIntro();
 			}
 		}
