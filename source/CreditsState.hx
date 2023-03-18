@@ -177,9 +177,14 @@ class CreditsState extends MusicBeatState
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
+		
+		descBox.xAdd = -10;
+		descBox.yAdd = -10;
+		descBox.alphaMult = 0.6;
+		
 		add(descBox);
 
-		descText = new FlxText(FlxG.width, 200, 570, "", 16);
+		descText = new FlxText(570, 200, FlxG.width, "", 16);
 		descText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		descText.scrollFactor.set();
 		//descText.borderSize = 2.4;
