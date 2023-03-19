@@ -3,6 +3,7 @@ package editors;
 import Section.SwagSection;
 import Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -54,6 +55,7 @@ class EditorPlayState extends MusicBeatState
 	var stepTxt:FlxText;
 	var beatTxt:FlxText;
 	var sectionTxt:FlxText;
+	var velocityBG:FlxBackdrop;
 	
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
@@ -72,8 +74,12 @@ class EditorPlayState extends MusicBeatState
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
-		bg.color = FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1));
+		bg.color = FlxColor.ORANGE;
 		add(bg);
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		keysArray = [
 			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
