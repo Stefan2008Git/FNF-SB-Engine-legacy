@@ -5,6 +5,7 @@ import Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -35,6 +36,8 @@ class MasterEditorMenu extends MusicBeatState
 	private var curDirectory = 0;
 	private var directoryTxt:FlxText;
 
+	var velocityBG:FlxBackdrop;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -50,6 +53,10 @@ class MasterEditorMenu extends MusicBeatState
 		bg.scrollFactor.set();
 		bg.color = 0xFFFFA500;
 		add(bg);
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		grpTexts = new FlxTypedGroup<Alphabet>();
 		add(grpTexts);

@@ -1188,25 +1188,27 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		sbEngineVersionTxt.scrollFactor.set();
+		sbEngineVersionTxt.borderSize = 1.25;
+		sbEngineVersionTxt.visible = !ClientPrefs.hideHud;
+		add(sbEngineVersionTxt);
+		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
+
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
-		watermarkTxt.borderSize = 1;
+		watermarkTxt.borderSize = 1.25;
+		watermarkTxt.visible = !ClientPrefs.hideHud;
 		add(watermarkTxt);
 		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
-
-		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		sbEngineVersionTxt.scrollFactor.set();
-		sbEngineVersionTxt.borderSize = 1;
-		add(sbEngineVersionTxt);
-		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "AUTOPLAY", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -38,7 +39,8 @@ class NotesSubState extends MusicBeatSubstate
 	var holdTime:Float = 0;
 	var nextAccept:Int = 5;
 
-	var blackBG:FlxSprite;
+	var orangeBG:FlxSprite;
+	var velocityBG:FlxBackdrop;
 	var hsbText:Alphabet;
 
 	var posX = 230;
@@ -51,9 +53,13 @@ class NotesSubState extends MusicBeatSubstate
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		
-		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
-		blackBG.alpha = 0.4;
-		add(blackBG);
+		orangeBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.ORANGE);
+		orangeBG.alpha = 0.4;
+		add(orangeBG);
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		grpNotes = new FlxTypedGroup<FlxSprite>();
 		add(grpNotes);
@@ -222,7 +228,7 @@ class NotesSubState extends MusicBeatSubstate
 				item.alpha = 1;
 				item.scale.set(1, 1);
 				hsbText.y = item.y - 70;
-				blackBG.y = item.y - 20;
+				orangeBG.y = item.y - 20;
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
