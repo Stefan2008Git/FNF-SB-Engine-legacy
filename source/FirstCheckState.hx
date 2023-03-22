@@ -26,7 +26,6 @@ class FirstCheckState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{		
-		#if desktop
 		#if CHECK_FOR UPDATES
 		if (InternetConnection.isAvailable() && !isDebug)
 		{
@@ -75,26 +74,4 @@ class FirstCheckState extends MusicBeatState
 
 			http.request();
 		}
-		else
-		{
-			trace('Offline');
-			switch (ClientPrefs.flashing)
-			{
-				case true:
-					FlxG.switchState(new FlashingState()); // First time language setting
-				case false:
-					FlxG.switchState(new TitleState()); // First time language setting
-			}
-		}
-		#else
-		trace('ew html5');
-		switch (ClientPrefs.flashing)
-			{
-				case true:
-					FlxG.switchState(new FlashingState()); // First time language setting
-				case false:
-					FlxG.switchState(new TitleState()); // First time language setting
-			}
-		#end
 	}
-}

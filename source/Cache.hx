@@ -209,4 +209,3 @@ class Cache extends FlxState
 		});
 	}
 }
-#end
