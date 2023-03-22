@@ -1,0 +1,6 @@
+Tip: You can use some support to SB Engine.
+Tip: If you have lag, turn off: "Shaders on lua" on graphic option:
+Tip: Stefan2008 added to clear memory:
+Tip: Stefan2008 is a serbian guy if you didnt know:
+Tip: You can make some mods on SB Engine with shaders on lua.
+Tip: More tips will be added soon.
