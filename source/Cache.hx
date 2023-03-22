@@ -99,6 +99,24 @@ class Cache extends FlxState
 		text.antialiasing = true;
 		//add(text);
 
+		#if cpp
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
+		{
+			if (!i.endsWith(".png"))
+				continue;
+			images.push(i);
+		}
+
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
+		{
+			music.push(i);
+		}
+		#end
+
+		sys.thread.Thread.create(() -> {
+			cache();
+		});
+
 		super.create();
 	}
 	
