@@ -38,7 +38,7 @@ class Cache extends FlxState
 {	
 	public static var bitmapData:Map<String,FlxGraphic>;
 	public static var bitmapData2:Map<String,FlxGraphic>;
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAA00AA);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAB6F00);
 	var splash:FlxSprite;
 	var loadingSpeen:FlxSprite;
 	var text:FlxText;
@@ -52,7 +52,6 @@ class Cache extends FlxState
 
 	override function create()
 	{
-	
 	
 		FlxG.mouse.visible = true;
 
@@ -99,26 +98,6 @@ class Cache extends FlxState
 		text.y = Math.ffloor(splash.y + splash.height + 45);
 		text.antialiasing = true;
 		//add(text);
-		
-
-
-		#if cpp
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
-		{
-			if (!i.endsWith(".png"))
-				continue;
-			images.push(i);
-		}
-
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
-		{
-			music.push(i);
-		}
-		#end
-
-		sys.thread.Thread.create(() -> {
-			cache();
-		});
 
 		super.create();
 	}
@@ -143,8 +122,6 @@ class Cache extends FlxState
 		}
 		super.update(elapsed);
 	}
-	
-
 
 	function cache()
 	{
@@ -161,13 +138,10 @@ class Cache extends FlxState
 			trace(i);
 		}
 
-
-
 		for (i in music)
 		{
 			trace(i);
 		}
-
 
 		#end
 		FlxG.switchState(new TitleState());

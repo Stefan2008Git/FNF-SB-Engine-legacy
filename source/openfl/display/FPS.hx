@@ -52,10 +52,10 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("_sans", 14, color);
+		defaultTextFormat = new TextFormat("_sans", 12, color);
 		autoSize = LEFT;
 		multiline = true;
-		text = "Frame Per Second: ";
+		text = "FPS: ";
 
 		cacheCount = 0;
 		currentTime = 0;
@@ -88,28 +88,28 @@ class FPS extends TextField
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
-			text = "Frame Per Second: " + currentFPS;
+			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
-			var memoryTotal:Float = 0;
+			var memoryPeak:Float = 0;
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			if (memoryMegas > memoryTotal)
-				memoryTotal = memoryMegas;
-			text += "\nRam Memory: " + memoryMegas + " megabytes";
+			if (memoryMegas > memoryPeak)
+				memoryPeak = memoryMegas;
+			text += "\nMemory: " + memoryMegas + " MB";
 			if(ClientPrefs.totalMemory)
 			{
-			text += "\nTotal Ram Memory: " + memoryTotal + " megabytes";
+			text += "\nMemory peak: " + memoryPeak + " MB";
 		    }
 			if(ClientPrefs.sbEngineVersion)
 			{
-			text += "\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion;
+			text += "\nEngine version: " + MainMenuState.sbEngineVersion;
 		    }
 			if(ClientPrefs.glRender)
 			{
-            text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+            text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
             text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-            text += "\nGL Shading Version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+            text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 		    }
 			#end
 
