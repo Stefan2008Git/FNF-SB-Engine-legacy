@@ -86,7 +86,7 @@ class FPS extends TextField
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
 		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
 
-		if (currentCount != cacheCount /*&& visible*/)
+		if (currentCount != cacheCount)
 		{
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
@@ -144,6 +144,14 @@ class FPS extends TextField
 	
 			return '${Std.int(size) + "." + addZeros(Std.string(Std.int((size % 1) * 100)), 2)}${labels[label]}';
 		}
+
+		public static inline function addZeros(str:String, num:Int)
+			{
+				while(str.length < num)
+					str = '0${str}';
+		
+				return str;
+			}
 
     private function getGLInfo(info:GLInfo):String
 	{
