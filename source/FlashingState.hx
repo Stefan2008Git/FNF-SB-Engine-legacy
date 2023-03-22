@@ -17,12 +17,11 @@ class FlashingState extends MusicBeatState
 
 	var warnText:FlxText;
 	override function create()
-	{
-		FlxTween.tween(Application.current.window, {y: lol}, 0.5, {ease: FlxEase.circOut});
-		
-		#if desktop
-		DiscordClient.changePresence("First time on SB Engine.", null);
-		#end
+	{	
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
+		super.create();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
         add(bg);

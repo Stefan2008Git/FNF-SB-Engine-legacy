@@ -59,19 +59,3 @@ class FirstCheckState extends MusicBeatState
 				}
 			}
 		#end
-
-			http.onError = function(error)
-			{
-				trace('error: $error');
-				switch (ClientPrefs.flashing)
-				{
-					case true:
-						FlxG.switchState(new FlashingState()); // First time language setting
-					case false:
-						FlxG.switchState(new TitleState()); // First time language setting
-				}
-			}
-
-			http.request();
-		}
-	}
