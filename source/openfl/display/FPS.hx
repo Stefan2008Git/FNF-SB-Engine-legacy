@@ -130,29 +130,6 @@ class FPS extends TextField
 
 		cacheCount = currentCount;
 	}
-	public static function cacheCount(memory:UInt):String
-		{
-			var size:Float = memory;
-			var label:Int = 0;
-			var labels:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	
-			while(size >= 1000 && (label < labels.length - 1))
-			{
-				label++;
-				size /= 1000;
-			}
-	
-			return '${Std.int(size) + "." + addZeros(Std.string(Std.int((size % 1) * 100)), 2)}${labels[label]}';
-		}
-
-		public static inline function addZeros(str:String, num:Int)
-			{
-				while(str.length < num)
-					str = '0${str}';
-		
-				return str;
-			}
-
     private function getGLInfo(info:GLInfo):String
 	{
 		@:privateAccess
