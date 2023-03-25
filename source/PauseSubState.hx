@@ -92,7 +92,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelDifficulty);
 
 		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-		deathCounterTxt.text = "You are died: " + PlayState.deathCounter + " time's";
+		deathCounterTxt.text = "You are died: " + PlayState.deathCounter + " times!";
 		deathCounterTxt.scrollFactor.set();
 		deathCounterTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		deathCounterTxt.updateHitbox();

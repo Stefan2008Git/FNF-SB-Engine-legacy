@@ -262,6 +262,7 @@ class PlayState extends MusicBeatState
 	public var scoreTxt:FlxText;
 	public var watermarkTxt:FlxText;
 	public var sbEngineVersionTxt:FlxText;
+	public var psychEngineVersionTxt:FlxTetx;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1188,22 +1189,30 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
 		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1.25;
 		sbEngineVersionTxt.visible = !ClientPrefs.hideHud;
 		add(sbEngineVersionTxt);
 		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
+		psychEngineVersionTxt = new FlxText(20, 15 + 101, 0, 0, "", 8);
+		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psychEngineVersionTxt.scrollFactor.set();
+		psychEngineVersionTxt.borderSize = 1.25;
+		psychEngineVersionTxt.visible = !ClientPrefs.hideHud;
+		add(psychEngineVersionTxt);
+		psychEngineVersionTxt.text = " Psych Engine: " + MainMenuState.psychEngineVersion;
+
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideHud;
@@ -1230,6 +1239,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
 		sbEngineVersionTxt.cameras = [camHUD];
+		psychEngineVersionTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2322,8 +2332,8 @@ class PlayState extends MusicBeatState
 	public function updateScore(miss:Bool = false)
 	{
 		scoreTxt.text = 'Score: ' + songScore
-		+ ' | Misses: ' + songMisses
-		+ ' | Accruracy and rating: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
+		+ ' | Combo breaks: ' + songMisses
+		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' | ' + ratingName + ' [' + ratingFC + ']';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
