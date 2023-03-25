@@ -35,9 +35,8 @@ import sys.io.File;
 using StringTools;
 
 class Cache extends FlxState
-{	
-	public static var bitmapData:Map<String,FlxGraphic>;
-	public static var bitmapData2:Map<String,FlxGraphic>;
+{
+
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAB6F00);
 	var splash:FlxSprite;
 	var loadingSpeen:FlxSprite;
@@ -47,9 +46,6 @@ class Cache extends FlxState
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
-	var images = [];
-	var music = [];
-
 	override function create()
 	{
 	
@@ -57,12 +53,8 @@ class Cache extends FlxState
 
 		FlxG.worldBounds.set(0,0);
 
-		bitmapData = new Map<String,FlxGraphic>();
-		bitmapData2 = new Map<String,FlxGraphic>();
-		
 		super.create();
 		
-
 		splash = new FlxSprite().loadGraphic(Paths.image("logo"));
 		splash.screenCenter();
 		splash.y -= 30;
@@ -99,20 +91,6 @@ class Cache extends FlxState
 		text.antialiasing = true;
 		//add(text);
 
-		#if cpp
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters")))
-		{
-			if (!i.endsWith(".png"))
-				continue;
-			images.push(i);
-		}
-
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs")))
-		{
-			music.push(i);
-		}
-		#end
-
 		sys.thread.Thread.create(() -> {
 			cache();
 		});
@@ -143,25 +121,6 @@ class Cache extends FlxState
 
 	function cache()
 	{
-		#if !linux
-
-		for (i in images)
-		{
-			var replaced = i.replace(".png","");
-			var data:BitmapData = BitmapData.fromFile("assets/shared/images/characters/" + i);
-			var graph = FlxGraphic.fromBitmapData(data);
-			graph.persist = true;
-			graph.destroyOnNoUse = false;
-			bitmapData.set(replaced,graph);
-			trace(i);
-		}
-
-		for (i in music)
-		{
-			trace(i);
-		}
-
-		#end
 		FlxG.switchState(new TitleState());
 	}
 	
