@@ -262,7 +262,7 @@ class PlayState extends MusicBeatState
 	public var scoreTxt:FlxText;
 	public var watermarkTxt:FlxText;
 	public var sbEngineVersionTxt:FlxText;
-	public var psychEngineVersionTxt:FlxTetx;
+	public var psychEngineVersionTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
