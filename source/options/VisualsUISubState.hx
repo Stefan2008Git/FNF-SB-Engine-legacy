@@ -136,13 +136,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		var option:Option = new Option('Soon',
-			"If unchecked, hides...\nMore information will be here soon!",
-			'firstTime',
-			'bool',
-			true);
-		addOption(option);
-
 		super();
 	}
 
