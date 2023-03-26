@@ -91,9 +91,10 @@ class Cache extends FlxState
 		text.antialiasing = true;
 		//add(text);
 
-		sys.thread.Thread.create(() -> {
-			cache();
-		});
+		new FlxTimer().start(10, function(tmr:FlxTimer)
+		{
+            cache();
+        });
 
 		super.create();
 	}
