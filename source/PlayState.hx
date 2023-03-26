@@ -1203,7 +1203,7 @@ class PlayState extends MusicBeatState
 		add(sbEngineVersionTxt);
 		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
-		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8));
+		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		psychEngineVersionTxt.scrollFactor.set();
 		psychEngineVersionTxt.borderSize = 1.25;
