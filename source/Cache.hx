@@ -27,10 +27,8 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import lime.system.ThreadPool;
-#if cpp
 import sys.FileSystem;
 import sys.io.File;
-#end
 
 using StringTools;
 
@@ -40,7 +38,7 @@ class Cache extends FlxState
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAB6F00);
 	var splash:FlxSprite;
 	var loadingSpeen:FlxSprite;
-	var shitz:FlxText;
+	var freakz:FlxText;
 	var randomTxt:FlxText;
 	
 	var isTweening:Bool = false;
@@ -54,9 +52,8 @@ class Cache extends FlxState
 		FlxG.worldBounds.set(0,0);
 
 		super.create();
-		
 
-		splash = new FlxSprite().loadGraphic(Paths.image("logo"));
+		splash = new FlxSprite().loadGraphic(Paths.image("sbEngineLogo"));
 		splash.screenCenter();
 		splash.y -= 60;
 		splash.antialiasing = true;
@@ -78,17 +75,18 @@ class Cache extends FlxState
 		
 		loadingSpeen = new FlxSprite().loadGraphic(Paths.image("loading_speen"));
 		loadingSpeen.screenCenter(X);
-                loadingSpeen.setGraphicSize(Std.int(loadingSpeen.width * 0.89));
-                loadingSpeen.x = FlxG.width - 91;
+        loadingSpeen.setGraphicSize(Std.int(loadingSpeen.width * 0.89));
+        loadingSpeen.x = FlxG.width - 91;
 		loadingSpeen.y = FlxG.height - 91;
 		loadingSpeen.angularVelocity = 180;
 		loadingSpeen.antialiasing = true;
 		add(loadingSpeen);
 		
-		shitz = new FlxText(540, 630, 300, "Loading...", 12);
-		shitz.scrollFactor.set();
-		shitz.setFormat("VCR OSD Mono", 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(shitz);
+		freakz = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		freakz.scrollFactor.set();
+		freakz.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(freakz);
+		freakz.text = "Loading..."
 
         new FlxTimer().start(10, function(tmr:FlxTimer)
 		{

@@ -1195,7 +1195,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
 		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1.25;
@@ -1203,7 +1203,7 @@ class PlayState extends MusicBeatState
 		add(sbEngineVersionTxt);
 		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
 
-		psychEngineVersionTxt = new FlxText(20, 15 + 101, 0, "", 8);
+		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8));
 		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		psychEngineVersionTxt.scrollFactor.set();
 		psychEngineVersionTxt.borderSize = 1.25;
