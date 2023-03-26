@@ -86,7 +86,7 @@ class Cache extends FlxState
 		freakz.scrollFactor.set();
 		freakz.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(freakz);
-		freakz.text = "Loading..."
+		freakz.text = " Loading... ";
 
         new FlxTimer().start(10, function(tmr:FlxTimer)
 		{
