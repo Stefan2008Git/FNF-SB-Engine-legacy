@@ -40,7 +40,7 @@ class Cache extends FlxState
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFAB6F00);
 	var splash:FlxSprite;
 	var loadingSpeen:FlxSprite;
-	var text:FlxText;
+	var shitz:FlxText;
 	var randomTxt:FlxText;
 	
 	var isTweening:Bool = false;
@@ -55,9 +55,10 @@ class Cache extends FlxState
 
 		super.create();
 		
+
 		splash = new FlxSprite().loadGraphic(Paths.image("logo"));
 		splash.screenCenter();
-		splash.y -= 30;
+		splash.y -= 60;
 		splash.antialiasing = true;
 		add(splash);
 		
@@ -77,23 +78,21 @@ class Cache extends FlxState
 		
 		loadingSpeen = new FlxSprite().loadGraphic(Paths.image("loading_speen"));
 		loadingSpeen.screenCenter(X);
-		loadingSpeen.y = Math.ffloor(splash.y + splash.height + 45);
+                loadingSpeen.setGraphicSize(Std.int(loadingSpeen.width * 0.89));
+                loadingSpeen.x = FlxG.width - 91;
+		loadingSpeen.y = FlxG.height - 91;
 		loadingSpeen.angularVelocity = 180;
 		loadingSpeen.antialiasing = true;
 		add(loadingSpeen);
 		
-		text = new FlxText(200, 730, 0, "SB Engine is loading. Please wait...");
-		text.setFormat("VCR OSD Mono", 40, FlxColor.WHITE, RIGHT);
-		text.updateHitbox();
-		text.screenCenter(X);
-		text.x = Math.ffloor(text.x);
-		text.y = Math.ffloor(splash.y + splash.height + 45);
-		text.antialiasing = true;
-		//add(text);
+		shitz = new FlxText(540, 630, 300, "Loading...", 12);
+		shitz.scrollFactor.set();
+		shitz.setFormat("VCR OSD Mono", 50, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(shitz);
 
-		new FlxTimer().start(10, function(tmr:FlxTimer)
+        new FlxTimer().start(10, function(tmr:FlxTimer)
 		{
-            cache();
+            goToState();
         });
 
 		super.create();
@@ -120,7 +119,7 @@ class Cache extends FlxState
 		super.update(elapsed);
 	}
 
-	function cache()
+	function goToState()
 	{
 		FlxG.switchState(new TitleState());
 	}
