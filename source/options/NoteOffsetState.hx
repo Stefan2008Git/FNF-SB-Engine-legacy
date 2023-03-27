@@ -43,6 +43,8 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
