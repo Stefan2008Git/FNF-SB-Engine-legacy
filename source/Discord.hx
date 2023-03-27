@@ -83,7 +83,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "Current SB Engine version: " + MainMenuState.sbEngineVersion,
+			largeImageText: "Engine version: " + MainMenuState.sbEngineVersion,
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),

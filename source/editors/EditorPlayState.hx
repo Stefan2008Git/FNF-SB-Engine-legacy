@@ -3,7 +3,6 @@ package editors;
 import Section.SwagSection;
 import Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -55,7 +54,6 @@ class EditorPlayState extends MusicBeatState
 	var stepTxt:FlxText;
 	var beatTxt:FlxText;
 	var sectionTxt:FlxText;
-	var velocityBG:FlxBackdrop;
 	
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
@@ -67,19 +65,12 @@ class EditorPlayState extends MusicBeatState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		instance = this;
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
-		bg.color = FlxColor.ORANGE;
+		bg.color = FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1));
 		add(bg);
-
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
-		velocityBG.velocity.set(50, 50);
-		add(velocityBG);
 
 		keysArray = [
 			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
@@ -161,19 +152,11 @@ class EditorPlayState extends MusicBeatState
 		stepTxt.borderSize = 1.25;
 		add(stepTxt);
 
-		#if android
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press back button on your Android phone to Go Back to Chart Editor.', 18);
+		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ESC to Go Back to Chart Editor', 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);
-		#else
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ESC on your keyboard to Go Back to Chart Editor', 18);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		#end
 		FlxG.mouse.visible = false;
 
 		//sayGo();
@@ -188,7 +171,7 @@ class EditorPlayState extends MusicBeatState
 		#end
 
 		#if android
-		androidControls.visible = true;
+		androidc.visible = true;
 		#end
 
 		super.create();
@@ -354,9 +337,9 @@ class EditorPlayState extends MusicBeatState
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
-                        #if android
-                        androidControls.visible = false;
-                        #end
+			#if android
+			androidc.visible = false;
+			#end
 			LoadingState.loadAndSwitchState(new editors.ChartingState());
 		}
 

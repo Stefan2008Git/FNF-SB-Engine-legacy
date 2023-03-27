@@ -1,7 +1,7 @@
 package android.flixel;
 
-import flixel.FlxG;
 import flixel.FlxCamera;
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.atlas.FlxNode;
@@ -9,11 +9,11 @@ import flixel.graphics.frames.FlxTileFrames;
 import flixel.input.FlxInput;
 import flixel.input.FlxPointer;
 import flixel.input.IFlxInput;
+import flixel.input.touch.FlxTouch;
 import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxDestroyUtil;
-import flixel.input.touch.FlxTouch;
 
 /**
  * A simple button class that calls a function when clicked by the touch.
@@ -432,11 +432,10 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onUpHandler():Void
 	{
-		status = FlxButton.NORMAL;
+		status = FlxButton.HIGHLIGHT;
 		input.release();
 		currentInput = null;
-		// Order matters here, because onUp.fire() could cause a state change and destroy this object.
-		onUp.fire();
+		onUp.fire(); // Order matters here, because onUp.fire() could cause a state change and destroy this object.
 	}
 
 	/**
@@ -446,8 +445,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		status = FlxButton.PRESSED;
 		input.press();
-		// Order matters here, because onDown.fire() could cause a state change and destroy this object.
-		onDown.fire();
+		onDown.fire(); // Order matters here, because onDown.fire() could cause a state change and destroy this object.
 	}
 
 	/**
@@ -456,8 +454,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function onOverHandler():Void
 	{
 		status = FlxButton.HIGHLIGHT;
-		// Order matters here, because onOver.fire() could cause a state change and destroy this object.
-		onOver.fire();
+		onOver.fire(); // Order matters here, because onOver.fire() could cause a state change and destroy this object.
 	}
 
 	/**
@@ -467,8 +464,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		status = FlxButton.NORMAL;
 		input.release();
-		// Order matters here, because onOut.fire() could cause a state change and destroy this object.
-		onOut.fire();
+		onOut.fire(); // Order matters here, because onOut.fire() could cause a state change and destroy this object.
 	}
 
 	function set_label(Value:T):T

@@ -7,11 +7,7 @@ import flixel.addons.ui.interfaces.IHasParams;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
-#if android
-import android.flixel.FlxButton;
-#else
 import flixel.ui.FlxButton;
-#end
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxStringUtil;
@@ -26,14 +22,11 @@ import flixel.addons.ui.FlxUI;
 
 
 /*
-
 THIS IS AN EDIT OF FlxUIDropDownMenu I'VE MADE BECAUSE I'M TIRED OF IT NOT SUPPORTING SCROLLING UP/DOWN
 BAH!
-
 The differences are the following:
 * Support to scrolling up/down with mouse wheel or arrow keys
 * THe default drop direction is "Down" instead of "Automatic"
-
 */
 
 
@@ -490,7 +483,6 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 		}
 		#end
 	}
-
 	override public function destroy():Void
 	{
 		super.destroy();

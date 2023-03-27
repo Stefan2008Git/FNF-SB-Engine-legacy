@@ -7,7 +7,6 @@ import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -35,7 +34,6 @@ class FreeplayState extends MusicBeatState
 	private static var lastDifficultyName:String = '';
 
 	var scoreBG:FlxSprite;
-	var velocityBG:FlxBackdrop;
 	var scoreText:FlxText;
 	var diffText:FlxText;
 	var lerpScore:Int = 0;
@@ -80,6 +78,7 @@ class FreeplayState extends MusicBeatState
 			}
 
 			WeekData.setDirectoryFromWeek(leWeek);
+
 			for (song in leWeek.songs)
 			{
 				var colors:Array<Int> = song[2];
@@ -92,37 +91,38 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
+		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
+
+		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+		for (i in 0...initSonglist.length)
+		{
+			if(initSonglist[i] != null && initSonglist[i].length > 0) {
+				var songArray:Array<String> = initSonglist[i].split(":");
+				addSong(songArray[0], 0, songArray[1], Std.parseInt(songArray[2]));
+			}
+		}*/
+
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
-
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
-		velocityBG.velocity.set(50, 50);
-		add(velocityBG);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
+			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
 			songText.isMenuItem = true;
-			songText.targetY = i;
+			songText.targetY = i - curSelected;
 			grpSongs.add(songText);
 
-			if (songText.width > 980)
+			var maxWidth = 980;
+			if (songText.width > maxWidth)
 			{
-				var textScale:Float = 980 / songText.width;
-				songText.scale.x = textScale;
-				for (letter in songText.lettersArray)
-				{
-					letter.x *= textScale;
-					letter.offset.x *= textScale;
-				}
-				//songText.updateHitbox();
-				//trace(songs[i].songName + ' new scale: ' + textScale);
+				songText.scaleX = maxWidth / songText.width;
 			}
+			songText.snapToPosition();
 
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
@@ -141,7 +141,7 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFFFFA500);
+		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
@@ -166,36 +166,47 @@ class FreeplayState extends MusicBeatState
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFFFFA500);
+		// JUST DOIN THIS freak FOR TESTING!!!
+		/* 
+			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
+
+			var texFel:TextField = new TextField();
+			texFel.width = FlxG.width;
+			texFel.height = FlxG.height;
+			// texFel.
+			texFel.htmlText = md;
+
+			FlxG.stage.addChild(texFel);
+
+			// scoreText.textField.htmlText = md;
+
+			trace(md);
+		 */
+
+		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
 		add(textBG);
 
 		#if PRELOAD_ALL
-			#if android
-			var leText:String = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-			var size:Int = 16;
-			#else
-			var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-			var size:Int = 16;
-			#end
+		#if android
+		var leText:String = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
+		var size:Int = 16;
 		#else
-			#if android
-			var leText:String = "Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-			var size:Int = 18;
-			#else
-			var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-			var size:Int = 18;
-			#end
+		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var size:Int = 16;
+		#end
+		#else
+		var leText:String = "Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
+		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
+		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
 
-		#if android
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
-		virtualPad.y = -26;
-		#end
+                #if android
+                addVirtualPad(FULL, A_B_C_X_Y_Z);
+                #end
 
 		super.create();
 	}
@@ -265,11 +276,11 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
-		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
+		var space = FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL #if android || _virtualpad.buttonC.justPressed #end;
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonZ.pressed #end) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -297,14 +308,12 @@ class FreeplayState extends MusicBeatState
 				}
 			}
 
-			#if !android
 			if(FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.2);
 				changeSelection(-shiftMult * FlxG.mouse.wheel, false);
 				changeDiff();
 			}
-			#end
 		}
 
 		if (controls.UI_LEFT_P)
@@ -382,7 +391,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			
-			if (FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end){
+			if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonZ.pressed #end){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());
@@ -392,7 +401,7 @@ class FreeplayState extends MusicBeatState
 					
 			destroyFreeplayVocals();
 		}
-		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)
+		else if(controls.RESET #if android || _virtualpad.buttonY.justPressed #end)
 		{
 			#if android
 			removeVirtualPad();

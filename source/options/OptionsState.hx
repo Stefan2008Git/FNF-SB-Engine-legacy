@@ -9,6 +9,7 @@ import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -72,6 +73,8 @@ class OptionsState extends MusicBeatState
 	var velocityBG:FlxBackdrop;
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
@@ -80,34 +83,39 @@ class OptionsState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFFFA500;
 		bg.updateHitbox();
+
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
-		velocityBG.velocity.set(50, 50);
-		add(velocityBG);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
 		for (i in 0...options.length)
 		{
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
+			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
 
-		selectorLeft = new Alphabet(0, 0, '>', true, false);
+		selectorLeft = new Alphabet(0, 0, '>', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true, false);
+		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
+		changeSelection();
+		ClientPrefs.saveSettings();
+
 		#if android
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press C to customize your android controls', 16);
-		tipText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2.4;
+		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
+		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2;
+		tipText.scrollFactor.set();
+		add(tipText);
+		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
+		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);
 		#end
@@ -116,8 +124,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C);
-		virtualPad.y = -24;
+		addVirtualPad(UP_DOWN, A_B_X_Y);
 		#end
 
 		super.create();
@@ -143,18 +150,21 @@ class OptionsState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
+		#if android
+		if (_virtualpad.buttonX.justPressed) {
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new android.AndroidControlsMenu());
+		}
+		if (_virtualpad.buttonY.justPressed) {
+			removeVirtualPad();
+			openSubState(new android.HitboxSettingsSubState());
+		}
+		#end
+
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
-
-		#if android
-		if (virtualPad.buttonC.justPressed) {
-			#if android
-			removeVirtualPad();
-			#end
-			openSubState(new android.AndroidControlsSubState());
-		}
-		#end
 	}
 	
 	function changeSelection(change:Int = 0) {

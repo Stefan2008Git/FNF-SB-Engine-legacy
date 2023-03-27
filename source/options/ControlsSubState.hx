@@ -9,6 +9,7 @@ import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -29,13 +30,13 @@ import Controls;
 using StringTools;
 
 class ControlsSubState extends MusicBeatSubstate {
-	private static var curSelected:Int = -1;
+	private static var curSelected:Int = 1;
 	private static var curAlt:Bool = false;
 
 	private static var defaultKey:String = 'Reset to Default Keys';
 	private var bindLength:Int = 0;
 
-	var optionSelect:Array<Dynamic> = [
+	var optionfreak:Array<Dynamic> = [
 		['NOTES'],
 		['Left', 'note_left'],
 		['Down', 'note_down'],
@@ -71,7 +72,6 @@ class ControlsSubState extends MusicBeatSubstate {
 	var velocityBG:FlxBackdrop;
 
 	public function new() {
-
 		super();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -87,27 +87,27 @@ class ControlsSubState extends MusicBeatSubstate {
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		optionSelect.push(['']);
-		optionSelect.push([defaultKey]);
+		optionfreak.push(['']);
+		optionfreak.push([defaultKey]);
 
-		for (i in 0...optionSelect.length) {
+		for (i in 0...optionfreak.length) {
 			var isCentered:Bool = false;
-			var isDefaultKey:Bool = (optionSelect[i][0] == defaultKey);
+			var isDefaultKey:Bool = (optionfreak[i][0] == defaultKey);
 			if(unselectableCheck(i, true)) {
 				isCentered = true;
 			}
 
-			var optionText:Alphabet = new Alphabet(0, (10 * i), optionSelect[i][0], (!isCentered || isDefaultKey), false);
+			var optionText:Alphabet = new Alphabet(200, 300, optionfreak[i][0], (!isCentered || isDefaultKey));
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
-				optionText.forceX = optionText.x;
-				optionText.yAdd = -55;
-			} else {
-				optionText.forceX = 200;
+				optionText.y -= 55;
+				optionText.startPosition.y -= 55;
 			}
-			optionText.yMult = 60;
-			optionText.targetY = i;
+			optionText.changeX = false;
+			optionText.distancePerItem.y = 60;
+			optionText.targetY = i - curSelected;
+			optionText.snapToPosition();
 			grpOptions.add(optionText);
 
 			if(!isCentered) {
@@ -119,8 +119,7 @@ class ControlsSubState extends MusicBeatSubstate {
 		changeSelection();
 
 		#if android
-		addVirtualPad(LEFT_FULL, A_B);
-		addPadCamera();
+		addVirtualPad(FULL, A_B);
 		#end
 	}
 
@@ -141,7 +140,7 @@ class ControlsSubState extends MusicBeatSubstate {
 			if (controls.BACK) {
 				ClientPrefs.reloadControls();
 				#if android
-				flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.resetState();
 				#else
 				close();
@@ -150,7 +149,7 @@ class ControlsSubState extends MusicBeatSubstate {
 			}
 
 			if(controls.ACCEPT && nextAccept <= 0) {
-				if(optionSelect[curSelected][0] == defaultKey) {
+				if(optionfreak[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
 					changeSelection();
@@ -169,14 +168,14 @@ class ControlsSubState extends MusicBeatSubstate {
 		} else {
 			var keyPressed:Int = FlxG.keys.firstJustPressed();
 			if (keyPressed > -1) {
-				var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionSelect[curSelected][1]);
+				var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionfreak[curSelected][1]);
 				keysArray[curAlt ? 1 : 0] = keyPressed;
 
 				var opposite:Int = (curAlt ? 0 : 1);
 				if(keysArray[opposite] == keysArray[1 - opposite]) {
 					keysArray[opposite] = NONE;
 				}
-				ClientPrefs.keyBinds.set(optionSelect[curSelected][1], keysArray);
+				ClientPrefs.keyBinds.set(optionfreak[curSelected][1], keysArray);
 
 				reloadKeys();
 				FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -205,7 +204,7 @@ class ControlsSubState extends MusicBeatSubstate {
 	function getInputTextNum() {
 		var num:Int = 0;
 		for (i in 0...curSelected) {
-			if(optionSelect[i].length > 1) {
+			if(optionfreak[i].length > 1) {
 				num++;
 			}
 		}
@@ -216,8 +215,8 @@ class ControlsSubState extends MusicBeatSubstate {
 		do {
 			curSelected += change;
 			if (curSelected < 0)
-				curSelected = optionSelect.length - 1;
-			if (curSelected >= optionSelect.length)
+				curSelected = optionfreak.length - 1;
+			if (curSelected >= optionfreak.length)
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
@@ -283,14 +282,14 @@ class ControlsSubState extends MusicBeatSubstate {
 	}
 
 	private function unselectableCheck(num:Int, ?checkDefaultKey:Bool = false):Bool {
-		if(optionSelect[num][0] == defaultKey) {
+		if(optionfreak[num][0] == defaultKey) {
 			return checkDefaultKey;
 		}
-		return optionSelect[num].length < 2 && optionSelect[num][0] != defaultKey;
+		return optionfreak[num].length < 2 && optionfreak[num][0] != defaultKey;
 	}
 
 	private function addBindTexts(optionText:Alphabet, num:Int) {
-		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionSelect[num][1]);
+		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionfreak[num][1]);
 		var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55);
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;

@@ -10,7 +10,7 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 #if android
-import android.Tools;
+import android.Hardware;
 #end
 
 class GameOverSubstate extends MusicBeatSubstate
@@ -27,7 +27,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static var deathSoundName:String = 'fnf_loss_sfx';
 	public static var loopSoundName:String = 'gameOver';
 	public static var endSoundName:String = 'gameOverEnd';
-	public static var vibrationTime:Int = 500;//milliseconds
+	public static var vibrationTime:Int = 500; //milliseconds
 
 	public static var instance:GameOverSubstate;
 
@@ -41,7 +41,6 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	override function create()
 	{
-
 		instance = this;
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 
@@ -63,15 +62,14 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
-		FlxG.sound.play(Paths.sound(deathSoundName));
-
 		#if android
 		if(ClientPrefs.vibration)
 		{
-			Tools.vibrate(vibrationTime);
+			Hardware.vibrate(vibrationTime);
 		}
 		#end
 
+		FlxG.sound.play(Paths.sound(deathSoundName));
 		Conductor.changeBPM(100);
 		// FlxG.camera.followLerp = 1;
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
@@ -188,9 +186,6 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.sound.play(Paths.music(endSoundName));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
-				#if android
-				FlxTween.tween(virtualPad, {alpha: 0}, 2);
-				#end
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
 					MusicBeatState.resetState();

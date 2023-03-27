@@ -34,8 +34,8 @@ import Discord;
 using StringTools;
 
 class EditorLua {
-	public static var Function_Stop = 1;
-	public static var Function_Continue = 0;
+	public static var Function_Stop:Dynamic = 1;
+	public static var Function_Continue:Dynamic = 0;
 
 	#if LUA_ALLOWED
 	public var lua:State = null;
@@ -179,6 +179,10 @@ class EditorLua {
 				return;
 			}
 		});
+
+    #if desktop
+		Discord.DiscordClient.addLuaCallbacks(lua);
+    #end
 
 		call('onCreate', []);
 		#end

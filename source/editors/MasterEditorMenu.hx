@@ -40,9 +40,6 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if desktop
 		// Updating Discord Rich Presence
@@ -63,10 +60,11 @@ class MasterEditorMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var leText:Alphabet = new Alphabet(0, (70 * i) + 30, options[i], true, false);
+			var leText:Alphabet = new Alphabet(90, 320, options[i], true);
 			leText.isMenuItem = true;
 			leText.targetY = i;
 			grpTexts.add(leText);
+			leText.snapToPosition();
 		}
 		
 		#if MODS_ALLOWED
@@ -93,8 +91,7 @@ class MasterEditorMenu extends MusicBeatState
 		FlxG.mouse.visible = false;
 
 		#if android
-		addVirtualPad(LEFT_FULL, A_B);
-		virtualPad.y = -42;
+		addVirtualPad(FULL, A_B);
 		#end
 
 		super.create();

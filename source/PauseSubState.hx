@@ -35,7 +35,6 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
-
 		super();
 		if(CoolUtil.difficulties.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
 
@@ -60,6 +59,7 @@ class PauseSubState extends MusicBeatSubstate
 			difficultyChoices.push(diff);
 		}
 		difficultyChoices.push('BACK');
+
 
 		pauseMusic = new FlxSound();
 		if(songName != null) {
@@ -91,14 +91,14 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
-		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-		deathCounterTxt.text = "You are died: " + PlayState.deathCounter + " times!";
-		deathCounterTxt.scrollFactor.set();
-		deathCounterTxt.setFormat(Paths.font('vcr.ttf'), 32);
-		deathCounterTxt.updateHitbox();
-		add(deathCounterTxt);
+		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
+		blueballedTxt.scrollFactor.set();
+		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
+		blueballedTxt.updateHitbox();
+		add(blueballedTxt);
 
-		practiceText = new FlxText(20, 15 + 101, 0, "On practicle mode", 32);
+		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
 		practiceText.setFormat(Paths.font('vcr.ttf'), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -106,7 +106,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.visible = PlayState.instance.practiceMode;
 		add(practiceText);
 
-		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "On charting mode.", 32);
+		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font('vcr.ttf'), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -115,18 +115,18 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
 
-		deathCounterTxt.alpha = 0;
+		blueballedTxt.alpha = 0;
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
-		deathCounterTxt.x = FlxG.width - (deathCounterTxt.width + 20);
+		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
-		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
 		add(grpMenufreak);
@@ -137,11 +137,11 @@ class PauseSubState extends MusicBeatSubstate
 		#if android
 		if (PlayState.chartingMode)
 		{
-			addVirtualPad(LEFT_FULL, A);
+		        addVirtualPad(FULL, A);
 		}
 		else
 		{
-			addVirtualPad(UP_DOWN, A);
+		        addVirtualPad(UP_DOWN, A);
 		}
 		addPadCamera();
 		#end
@@ -263,9 +263,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.autoplayTxt.alpha = 1;
 					PlayState.instance.autoplaySine = 0;
-				case 'Chart Editor':
-					MusicBeatState.switchState(new editors.ChartingState());
-					PlayState.chartingMode = true;
+                                case 'Chart Editor':
+		                        MusicBeatState.switchState(new editors.ChartingState());
+		                        PlayState.chartingMode = true;
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
@@ -364,7 +364,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true, false);
+			var item = new Alphabet(90, 320, menuItems[i], true);
 			item.isMenuItem = true;
 			item.targetY = i;
 			grpMenufreak.add(item);

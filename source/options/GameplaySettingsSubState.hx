@@ -25,7 +25,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 #if android
-import android.Tools;
+import android.Hardware;
 #end
 
 using StringTools;
@@ -79,6 +79,16 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
+
+		#if android
+		var option:Option = new Option('Vibrations',
+			"If unchecked, your phone will not vibrate.",
+			'vibration',
+			'bool',
+			true);
+		addOption(option);
+		option.onChange = onChangeVibration;
+		#end
 
 		var option:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
@@ -148,23 +158,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
-		#if android
-		var option:Option = new Option('GameOver Vibration',
-			'If unchecked, will make the game to vibrate when you die.',
-			'vibration',
-			'bool',
-			false);
-		addOption(option);
-		option.onChange = onChangeGameOverVibration;
-		#end
-
-		var option:Option = new Option('SB Engine icon bounce',
-			"If checked, you have SB Engine icon bounce.\nCredits: notweuz (Creator of OS Engine.)",
-			'iconBounce',
-			'bool',
-			false);
-		addOption(option);
-
 		super();
 	}
 
@@ -174,11 +167,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	}
 
 	#if android
-	function onChangeGameOverVibration()
+	function onChangeVibration()
 	{
 		if(ClientPrefs.vibration)
 		{
-			Tools.vibrate(500);
+			Hardware.vibrate(500);
 		}
 	}
 	#end

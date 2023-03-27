@@ -10,16 +10,17 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
-
-//crash handler stuff
-#if CRASH_HANDLER
 import lime.app.Application;
-import openfl.events.UncaughtErrorEvent;
-import haxe.CallStack;
-import haxe.io.Path;
+
 #if desktop
 import Discord.DiscordClient;
 #end
+
+//crash handler stuff
+#if CRASH_HANDLER
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
@@ -29,13 +30,16 @@ using StringTools;
 
 class Main extends Sprite
 {
-	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = Cache; // The FlxState the game starts with.
-	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
-	var framerate:Int = 60; // How many frames per second the game should run at.
-	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
-	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+	var game = {
+		width: 1280,
+		height: 720,
+		initialState: Cache,
+		zoom: -1.0,
+		framerate: 60,
+		skipSplash: true,
+		startFullscreen: false
+	};
+
 	public static var fpsVar:FPS;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
@@ -49,6 +53,7 @@ class Main extends Sprite
 	{
 		super();
 
+    SUtil.gameCrashCheck();
 		if (stage != null)
 		{
 			init();
@@ -74,19 +79,19 @@ class Main extends Sprite
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (zoom == -1)
+		if (game.zoom == -1.0)
 		{
-			var ratioX:Float = stageWidth / gameWidth;
-			var ratioY:Float = stageHeight / gameHeight;
-			zoom = Math.min(ratioX, ratioY);
-			gameWidth = Math.ceil(stageWidth / zoom);
-			gameHeight = Math.ceil(stageHeight / zoom);
+			var ratioX:Float = stageWidth / game.width;
+			var ratioY:Float = stageHeight / game.height;
+			game.zoom = Math.min(ratioX, ratioY);
+			game.width = Math.ceil(stageWidth / game.zoom);
+			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-
-		SUtil.check();
+	
+		SUtil.doTheCheck();
 	
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(gameWidth, gameHeight, initialState,  #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
@@ -100,9 +105,18 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-
+		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#end
+
+		#if desktop
+		if (!DiscordClient.isInitialized) {
+			DiscordClient.initialize();
+			Application.current.window.onClose.add(function() {
+				DiscordClient.shutdown();
+			});
+		}
 		#end
 	}
 
@@ -119,7 +133,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".log";
+		path = "./crash/" + "SB Engine_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -132,7 +146,7 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine/issues\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
 			FileSystem.createDirectory(SUtil.getPath() + "crash/");
@@ -143,9 +157,9 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errMsg, "Error!");
-		#if desktop
-		DiscordClient.shutdown();
-		#end
+        #if desktop
+		DiscordClient.shutdown
+	    #end
 		Sys.exit(1);
 	}
 	#end

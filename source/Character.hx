@@ -147,7 +147,7 @@ class Character extends FlxSprite
 				//var modTextureToFind:String = Paths.modFolders("images/"+json.image);
 				//var textureToFind:String = Paths.getPath('images/' + json.image, new AssetType();
 				
-				if (FileSystem.exists(modAnimToFind) || FileSystem.exists(SUtil.getPath() + animToFind) || Assets.exists(animToFind))
+				if (FileSystem.exists(modAnimToFind) || FileSystem.exists(animToFind) || Assets.exists(animToFind))
 				#else
 				if (Assets.exists(Paths.getPath('images/' + json.image + '/Animation.json', TEXT)))
 				#end
@@ -260,7 +260,7 @@ class Character extends FlxSprite
 		{
 			if(heyTimer > 0)
 			{
-				heyTimer -= elapsed;
+				heyTimer -= elapsed * PlayState.instance.playbackRate;
 				if(heyTimer <= 0)
 				{
 					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer')
@@ -298,7 +298,7 @@ class Character extends FlxSprite
 					holdTimer += elapsed;
 				}
 
-				if (holdTimer >= Conductor.stepCrochet * 0.0011 * singDuration)
+				if (holdTimer >= Conductor.stepCrochet * (0.0011 / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1)) * singDuration)
 				{
 					dance();
 					holdTimer = 0;

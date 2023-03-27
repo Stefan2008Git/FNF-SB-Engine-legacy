@@ -43,8 +43,6 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -144,7 +142,9 @@ class NoteOffsetState extends MusicBeatState
 
 		// Note delay stuff
 		
-		beatText = new Alphabet(0, 0, 'Beat Hit!', true, false, 0.05, 0.6);
+		beatText = new Alphabet(0, 0, 'Beat Hit!', true);
+		beatText.scaleX = 0.6;
+		beatText.scaleY = 0.6;
 		beatText.x += 260;
 		beatText.alpha = 0;
 		beatText.acceleration.y = 250;
@@ -198,10 +198,10 @@ class NoteOffsetState extends MusicBeatState
 		Conductor.changeBPM(128.0);
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
 
-                #if android
-                addVirtualPad(LEFT_FULL, A_B_C);
-                addPadCamera();
-                #end
+		#if android
+		addVirtualPad(FULL, A_B_C);
+		addPadCamera();
+		#end
 
 		super.create();
 	}
@@ -301,7 +301,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end)
+			if(controls.RESET #if android || _virtualpad.buttonC.justPressed #end)
 			{
 				for (i in 0...ClientPrefs.comboOffset.length)
 				{
@@ -339,7 +339,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 
-			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end)
+			if(controls.RESET #if android || _virtualpad.buttonC.justPressed #end)
 			{
 				holdTime = 0;
 				barPercent = 0;
