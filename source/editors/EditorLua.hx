@@ -1,12 +1,5 @@
 package editors;
 
-#if LUA_ALLOWED
-import llua.Lua;
-import llua.LuaL;
-import llua.State;
-import llua.Convert;
-#end
-
 import flixel.FlxG;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -179,10 +172,6 @@ class EditorLua {
 				return;
 			}
 		});
-
-    #if desktop
-		Discord.DiscordClient.addLuaCallbacks(lua);
-    #end
 
 		call('onCreate', []);
 		#end

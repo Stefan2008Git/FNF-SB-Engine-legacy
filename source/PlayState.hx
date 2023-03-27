@@ -6,7 +6,6 @@ import Discord.DiscordClient;
 #end
 import Section.SwagSection;
 import Song.SwagSong;
-import WiggleEffect.WiggleEffectType;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -58,7 +57,6 @@ import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
-import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
@@ -262,7 +260,6 @@ class PlayState extends MusicBeatState
 	var iconBounce:Bool = false;
 
 	var bgGirls:BackgroundGirls;
-	var wigglefreak:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
 	var tankWatchtower:BGSprite;
