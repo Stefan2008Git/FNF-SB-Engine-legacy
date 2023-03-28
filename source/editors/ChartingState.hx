@@ -1730,18 +1730,18 @@ class ChartingState extends MusicBeatState
 				FlxG.mouse.visible = false;
 				return;
 			}
-
-			if((FlxG.keys.justPressed.Z || _virtualpad.buttonZ.justPressed) && FlxG.keys.pressed.CONTROL) {
+ 
+			if((FlxG.keys.justPressed.Z #if android || _virtualpad.buttonZ.justPressed #end) && FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
 
 
 
-			if((FlxG.keys.justPressed.Z || _virtualpad.buttonZ.justPressed) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if((FlxG.keys.justPressed.Z #if android || _virtualpad.buttonZ.justPressed #end) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
-			if((FlxG.keys.justPressed.X || _virtualpad.buttonC.justPressed) && curZoom < zoomList.length-1) {
+			if((FlxG.keys.justPressed.X #if android || _virtualpad.buttonC.justPressed #end) && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}
