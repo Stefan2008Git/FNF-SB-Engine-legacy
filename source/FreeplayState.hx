@@ -7,6 +7,7 @@ import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -47,6 +48,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var bg:FlxSprite;
+	var velocityBG:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
@@ -91,21 +93,14 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
-
-		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
-		for (i in 0...initSonglist.length)
-		{
-			if(initSonglist[i] != null && initSonglist[i].length > 0) {
-				var songArray:Array<String> = initSonglist[i].split(":");
-				addSong(songArray[0], 0, songArray[1], Std.parseInt(songArray[2]));
-			}
-		}*/
-
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -141,7 +136,7 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
+		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFFFFA500);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
@@ -200,7 +195,7 @@ class FreeplayState extends MusicBeatState
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
 		add(text);
 

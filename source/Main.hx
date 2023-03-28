@@ -133,7 +133,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "SB Engine_" + dateNow + ".txt";
+		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{

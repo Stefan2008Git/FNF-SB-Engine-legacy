@@ -13,6 +13,7 @@ import Song.SwagSong;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxInputText;
@@ -134,6 +135,7 @@ class ChartingState extends MusicBeatState
 
 	var gridBG:FlxSprite;
 	var nextGridBG:FlxSprite;
+	var velocityBG:FlxBackdrop;
 
 	var daquantspot = 0;
 	var curEventSelected:Int = 0;
@@ -241,8 +243,12 @@ class ChartingState extends MusicBeatState
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
-		bg.color = 0xFF222222;
+		bg.color = 0xFFFFA500;
 		add(bg);
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		gridLayer = new FlxTypedGroup<FlxSprite>();
 		add(gridLayer);

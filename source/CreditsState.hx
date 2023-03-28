@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -30,6 +31,7 @@ class CreditsState extends MusicBeatState
 	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
+	var velocityBG:FlxBackdrop;
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -51,6 +53,10 @@ class CreditsState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		add(bg);
 		bg.screenCenter();
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -84,13 +90,11 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['PE 0.6.3 lua shaders porter'],
-			['Stefan2008',	'stefan',				'Lua porter for fixed shaders\nThanks Lizzy Strawberry',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
-			['Psych Engine Android Team'],
-			['MaysLastPlay',		'MaysLastPlay',		'Android Porter',							'https://www.youtube.com/channel/UCx0LxtFR8ROd9sFAq-UxDfw',	'5DE7FF'],
-			['Nuno Filipe Studios',	'nuno',				'Android Porter',							'https://www.youtube.com/channel/UCq7G3p4msVN5SX2CpJ86tTw',	'989c99'],
-			['M.A. Jigsaw', 		'saw',				'AndroidTools Creator/Vpad Designer',		'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
-			['MarioMaster',		    'mariomaster',		    'hi its a me',	 'https://www.youtube.com/c/MarioMaster1997',	'D10616'],
+			['SB Engine Team'],
+			['Stefan2008',	'stefan',    'Main Programmer of SB Engine',	'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', 	'FFA500'],
+			['MaysLastPlays',				'mayslastplay',		'Collaborator of SB Engine',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'5E99DF'],
+			['Fearester',				'fearester',   	'Collaborator of SB Engine',										'https://www.youtube.com/@fearester1282', 	'5E99DF'],
+			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
@@ -102,7 +106,6 @@ class CreditsState extends MusicBeatState
 			['Engine Contributors'],
 			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		'https://twitter.com/flicky_i',			'9E29CF'],
 			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	'https://twitter.com/gedehari',			'E1843A'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',										'https://twitter.com/EliteMasterEric',	'FFBD40'],
 			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',							'https://twitter.com/polybiusproxy',	'DCD294'],
 			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			'https://twitter.com/kade0912',			'64A250'],
 			['Keoiki',				'keoiki',			'Note Splash Animations',										'https://twitter.com/Keoiki_',			'D2D2D2'],
@@ -113,7 +116,12 @@ class CreditsState extends MusicBeatState
 			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
 			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
 			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7'],
+			[''],
+		    ['Android Support'],
+			['M.A. Jigsaw', 		'jigsaw',				'Main Programmer of Psych Engine\nWith Android Support',		'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
+			['MarioMaster',		    'fearester',		    'Hitbox selector desinger',	 'https://www.youtube.com/c/MarioMaster1997',	'D10616']
+
 		];
 		
 		for(i in pisspoop){
@@ -151,7 +159,7 @@ class CreditsState extends MusicBeatState
 		}
 		
 		descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.makeGraphic(1, 1, FlxColor.ORANGE);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
@@ -159,18 +167,20 @@ class CreditsState extends MusicBeatState
 		add(descBox);
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
-		//descText.borderSize = 2.4;
+		descText.borderSize = 2.4;
 		descBox.sprTracker = descText;
 		add(descText);
 
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
 		changeSelection();
-                #if android
-                addVirtualPad(UP_DOWN, A_B);
-                #end
+
+        #if android
+        addVirtualPad(UP_DOWN, A_B);
+        #end
+
 		super.create();
 	}
 
