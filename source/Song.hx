@@ -135,7 +135,7 @@ class Song
 		return songJson;
 	}
 
-	public static function parseJSONfreak(rawJson:String):SwagSong
+	public static function parseJSONshit(rawJson:String):SwagSong
 	{
 		var swagfreak:SwagSong = cast Json.parse(rawJson).song;
 		swagfreak.validScore = true;
