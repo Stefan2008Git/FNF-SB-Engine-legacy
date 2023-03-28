@@ -40,6 +40,7 @@ class NotesSubState extends MusicBeatSubstate
 	var holdTime:Float = 0;
 	var nextAccept:Int = 5;
 
+        var velocityBG:FlxBackdrop
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
 
