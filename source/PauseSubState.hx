@@ -92,7 +92,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelDifficulty);
 
 		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-		deathCounterTxt.text = "You are died: " + PlayState.deathCounter " + times ";
+		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterTxt.scrollFactor.set();
 		deathCounterTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		deathCounterTxt.updateHitbox();
@@ -364,7 +364,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new Alphabet(90, 320, menuItems[i], true);
+			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true, false);
 			item.isMenuItem = true;
 			item.targetY = i;
 			grpMenufreak.add(item);

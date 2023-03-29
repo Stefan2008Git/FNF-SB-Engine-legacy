@@ -40,7 +40,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
 		var option:Option = new Option('Hitbox Mode:',
-			"Choose your Hitbox Style!  -mariomaster",
+			"Choose your Hitbox Style!\nOld = original, New = Without sprite",
 			'hitboxmode',
 			'string',
 			'Classic',
@@ -48,7 +48,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		  addOption(option);
 		  
 		var option:Option = new Option('Hitbox Opacity', //mariomaster was here again
-			'Changes opacity -omg',
+			'Changes opacity\nCreator = MarioMaster',
 			'hitboxalpha',
 			'float',
 			0.2);
@@ -61,19 +61,4 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 
 		super();
 	}
-
-/*
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-			#if android
-		if (FlxG.android.justReleased.BACK)
-		{
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new options.OptionsState());
-	}
-		#end
-		}
-	*/ //why this exists?!?¡
 }

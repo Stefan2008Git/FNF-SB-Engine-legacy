@@ -29,7 +29,6 @@ import DialogueBoxPsych;
 import flixel.FlxCamera;
 import flixel.group.FlxSpriteGroup;
 import lime.system.Clipboard;
-import Alphabet;
 #if sys
 import sys.io.File;
 #end
@@ -39,7 +38,7 @@ using StringTools;
 class DialogueCharacterEditorState extends MusicBeatState
 {
 	var box:FlxSprite;
-	var daText:TypedAlphabet = null;
+	var daText:Alphabet = null;
 
 	private static var TIP_TEXT_MAIN:String =
 	'JKLI - Move camera (Hold Shift to move 4x faster)
@@ -75,6 +74,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 	var curAnim:Int = 0;
 
 	override function create() {
+		Alphabet.setDialogueSound();
+		
 		persistentUpdate = persistentDraw = true;
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();

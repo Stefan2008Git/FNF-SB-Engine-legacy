@@ -97,17 +97,17 @@ class ControlsSubState extends MusicBeatSubstate {
 				isCentered = true;
 			}
 
-			var optionText:Alphabet = new Alphabet(200, 300, optionfreak[i][0], (!isCentered || isDefaultKey));
+            var optionText:Alphabet = new Alphabet(0, (10 * i), optionFreak[i][0], (!isCentered || isDefaultKey), false);
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
-				optionText.y -= 55;
-				optionText.startPosition.y -= 55;
+				optionText.forceX = optionText.x;
+				optionText.yAdd = -55;
+			} else {
+				optionText.forceX = 200;
 			}
-			optionText.changeX = false;
-			optionText.distancePerItem.y = 60;
-			optionText.targetY = i - curSelected;
-			optionText.snapToPosition();
+			optionText.yMult = 60;
+			optionText.targetY = i;
 			grpOptions.add(optionText);
 
 			if(!isCentered) {

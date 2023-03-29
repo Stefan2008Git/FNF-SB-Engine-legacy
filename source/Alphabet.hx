@@ -217,7 +217,7 @@ class Alphabet extends FlxSpriteGroup
 
 		if(soundDialog == null)
 		{
-			PsychAlphabet.setDialogueSound();
+			Alphabet.setDialogueSound();
 		}
 
 		if(speed <= 0) {
@@ -389,7 +389,7 @@ class AlphaCharacter extends FlxSprite
 	public function new(x:Float, y:Float, textSize:Float)
 	{
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('androidcontrols/menu/alphabet');
+		var tex = Paths.getSparrowAtlas('alphabet');
 		frames = tex;
 
 		setGraphicSize(Std.int(width * textSize));
