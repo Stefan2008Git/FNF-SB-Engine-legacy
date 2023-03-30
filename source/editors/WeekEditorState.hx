@@ -635,7 +635,6 @@ class WeekEditorFreeplayState extends MusicBeatState
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
-			songText.snapToPosition();
 
 			var icon:HealthIcon = new HealthIcon(weekFile.songs[i][1]);
 			icon.sprTracker = songText;
