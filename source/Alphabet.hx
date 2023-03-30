@@ -19,7 +19,7 @@ class Alphabet extends FlxSpriteGroup
 	public var delay:Float = 0.05;
 	public var paused:Bool = false;
 
-	// for menu freak
+	// for menu shit
 	public var forceX:Float = Math.NEGATIVE_INFINITY;
 	public var targetY:Float = 0;
 	public var yMult:Float = 120;
@@ -33,7 +33,7 @@ class Alphabet extends FlxSpriteGroup
 	var _finalText:String = "";
 	var yMulti:Float = 1;
 
-	// custom freak
+	// custom shit
 	// amp, backslash, question mark, apostrophy, comma, angry faic, period
 	var lastSprite:AlphaCharacter;
 	var xPosResetted:Bool = false;
@@ -213,7 +213,7 @@ class Alphabet extends FlxSpriteGroup
 		_finalText = text;
 		doSplitWords();
 
-		// trace(arrayfreak);
+		// trace(arrayShit);
 
 		if(soundDialog == null)
 		{
@@ -343,17 +343,13 @@ class Alphabet extends FlxSpriteGroup
 		}
 	}
 
-	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
-		return Math.max(min, Math.min(max, value));
-	}
-
 	override function update(elapsed:Float)
 	{
 		if (isMenuItem)
 		{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
-			var lerpVal:Float = boundTo(elapsed * 9.6, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 			y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
 			if(forceX != Math.NEGATIVE_INFINITY) {
 				x = forceX;
@@ -395,7 +391,7 @@ class AlphaCharacter extends FlxSprite
 		setGraphicSize(Std.int(width * textSize));
 		updateHitbox();
 		this.textSize = textSize;
-		antialiasing = true;
+		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public function createBoldLetter(letter:String)
