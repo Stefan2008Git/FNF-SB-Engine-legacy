@@ -1,13 +1,12 @@
 package;
 
-import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
 import flixel.system.FlxSound;
-#if sys
+#if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 #else
@@ -62,7 +61,7 @@ class CoolUtil
 	public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:Array<String> = [];
-		#if sys
+		#if MODS_ALLOWED
 		if(FileSystem.exists(path)) daList = File.getContent(path).trim().split('\n');
 		#else
 		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');
@@ -138,17 +137,5 @@ class CoolUtil
 		#else
 		FlxG.openURL(site);
 		#end
-	}
-
-	/** Quick Function to Fix Save Files for Flixel 5
-		if you are making a mod, you are gonna wanna change "ShadowMario" to something else
-		so Base Psych saves won't conflict with yours
-		@BeastlyGabi
-	**/
-	public static function getSavePath(folder:String = 'ShadowMario'):String {
-		@:privateAccess
-		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
-			+ '/'
-			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 }
