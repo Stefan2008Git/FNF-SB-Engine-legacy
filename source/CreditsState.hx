@@ -140,7 +140,6 @@ class CreditsState extends MusicBeatState
 			}
 			optionText.forceX = optionText.x;
 			//optionText.yMult = 90;
-			optionText.snapToPosition();
 			grpOptions.add(optionText);
 
 			if(isSelectable) {
@@ -247,7 +246,7 @@ class CreditsState extends MusicBeatState
 		
 		for (item in grpOptions.members)
 		{
-			if(!item.isbold)
+			if(!item.isBold)
 			{
 				var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
 				if(item.targetY == 0)
