@@ -52,9 +52,6 @@ class AndroidControlsMenu extends MusicBeatState
 		add(velocityBG);
 
 		var titleText:Alphabet = new Alphabet(75, 60, "Android Controls", true);
-		titleText.scale = 0.6;
-		titleText.scale = 0.6;
-		titleText.alpha = 0.4;
 		add(titleText);
 
 		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);

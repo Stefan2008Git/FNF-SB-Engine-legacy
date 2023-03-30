@@ -176,8 +176,6 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 		#if android
 		addVirtualPad(LEFT, A_B_X_Y);
-		addPadCamera();
-		virtualPad.y = -300;
 		#end
 		
 		super.create();
