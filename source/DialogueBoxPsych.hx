@@ -278,13 +278,9 @@ class DialogueBoxPsych extends FlxSpriteGroup
 
 	public static var DEFAULT_TEXT_X = 90;
 	public static var DEFAULT_TEXT_Y = 430;
-	public static var LONG_TEXT_ADD = 24;
 	var scrollSpeed = 4500;
-	var daText:TypedAlphabet = null;
+	var daText:Alphabet = null;
 	var ignoreThisFrame:Bool = true; //First frame is reserved for loading dialogue images
-
-	public var closeSound:String = 'dialogueClose';
-	public var closeVolume:Float = 1;
 	override function update(elapsed:Float)
 	{
 		if(ignoreThisFrame) {
@@ -319,7 +315,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 					}
 					daText = new Alphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, textToType, false, true, 0.0, 0.7);
 					add(daText);
-
+					
 					if(skipDialogueThing != null) {
 						skipDialogueThing();
 					}
@@ -337,8 +333,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 
 					box.animation.curAnim.curFrame = box.animation.curAnim.frames.length - 1;
 					box.animation.curAnim.reverse();
-					if(daText != null)
-						daText.kill();
+					daText.kill();
 					remove(daText);
 					daText.destroy();
 					daText = null;
@@ -514,9 +509,6 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		Alphabet.setDialogueSound(curDialogue.sound);
 		daText = new Alphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, textToType, false, true, curDialogue.speed, 0.7);
 		add(daText);
-		
-		daText.y = DEFAULT_TEXT_Y;
-		if(daText.rows > 2) daText.y -= LONG_TEXT_ADD;
 
 		var char:DialogueCharacter = arrayCharacters[character];
 		if(char != null) {
