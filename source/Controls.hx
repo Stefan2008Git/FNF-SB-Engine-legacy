@@ -14,7 +14,7 @@ import flixel.input.keyboard.FlxKey;
 #if android
 import flixel.group.FlxGroup;
 import android.FlxHitbox;
-import android.FlxNewHitbox;
+import android.FlxnewHitbox;
 import android.FlxVirtualPad;
 import flixel.ui.FlxButton;
 import android.flixel.FlxButton as FlxNewButton;
@@ -422,7 +422,7 @@ class Controls extends FlxActionSet
 	}
 	
 	
-	public function setNewHitBox(Hitbox:FlxNewHitbox)
+	public function setnewHitbox(Hitbox:FlxnewHitbox)
 	{
 		inline forEachBound(Control.NOTE_UP, (action, state) -> addButtonNOTES(action, Hitbox.buttonUp, state));
 		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES(action, Hitbox.buttonDown, state));
@@ -495,7 +495,7 @@ class Controls extends FlxActionSet
 		}
 	}
 
-	public function setVirtualPadNOTES(virtualPad:FlxVirtualPad, ?DPad:FlxDPadMode, ?Action:FlxActionMode) 
+	public function setvirtualPadNotes(virtualPad:FlxVirtualPad, ?DPad:FlxDPadMode, ?Action:FlxActionMode) 
 	{	
 	 	switch (DPad)
 	 	{

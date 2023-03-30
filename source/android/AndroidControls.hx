@@ -62,9 +62,9 @@ class Config {
 class AndroidControls extends FlxSpriteGroup {
 	public var mode:ControlsGroup = HITBOX;
 
-	public var hbox:FlxHitbox;
-	public var newhbox:FlxNewHitbox;
-	public var vpad:FlxVirtualPad;
+	public var hitbox:FlxHitbox;
+	public var newHitbox:FlxnewHitbox;
+	public var virtualPad:FlxVirtualPad;
 
 	var config:Config;
 
@@ -94,30 +94,30 @@ class AndroidControls extends FlxSpriteGroup {
 		}
 	}
 
-	function initControler(vpadMode:Int) {
-		switch (vpadMode){
+	function initControler(virtualPadMode:Int) {
+		switch (virtualPadMode){
 			case 0:
-				vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);	
-				add(vpad);						
+				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);	
+				add(virtualPad);						
 			case 1:
-				vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
-				add(vpad);			
+				virtualPad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+				add(virtualPad);			
 			case 2:
-				vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
-				vpad = config.loadcustom(vpad);
-				add(vpad);	
+				virtualPad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+				virtualPad = config.loadcustom(virtualPad);
+				add(virtualPad);	
 			case 3:
-				vpad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.globalAntialiasing);
-				add(vpad);		
+				virtualPad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.globalAntialiasing);
+				add(virtualPad);		
 			case 4:
-				hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
-				add(hbox);
+				hitbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
+				add(hitbox);
 			case 5:
-			  newhbox = new FlxNewHitbox();
-			  add(newhbox);
+			  newHitbox = new FlxnewHitbox();
+			  add(newHitbox);
 			default:
-				vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);	
-				add(vpad);					
+				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);	
+				add(virtualPad);					
 		}
 	}
 
