@@ -87,12 +87,12 @@ class ControlsSubState extends MusicBeatSubstate {
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		optionfreak.push(['']);
-		optionfreak.push([defaultKey]);
+		optionFreak.push(['']);
+		optionFreak.push([defaultKey]);
 
-		for (i in 0...optionfreak.length) {
+		for (i in 0...optionFreak.length) {
 			var isCentered:Bool = false;
-			var isDefaultKey:Bool = (optionfreak[i][0] == defaultKey);
+			var isDefaultKey:Bool = (optionFreak[i][0] == defaultKey);
 			if(unselectableCheck(i, true)) {
 				isCentered = true;
 			}
