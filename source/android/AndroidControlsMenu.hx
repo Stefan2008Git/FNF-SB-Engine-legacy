@@ -20,10 +20,10 @@ class AndroidControlsMenu extends MusicBeatState
 	var virtualPad:FlxVirtualPad;
 	var hitbox:FlxHitbox;
 	var newHitbox:FlxnewHitbox;
-	var upPozition:FlxText;
-	var downPozition:FlxText;
-	var leftPozition:FlxText;
-	var rightPozition:FlxText;
+	var upPosition:FlxText;
+	var downPosition:FlxText;
+	var leftPosition:FlxText;
+	var rightPosition:FlxText;
 	var inputvari:PsychAlphabet;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
@@ -86,25 +86,25 @@ class AndroidControlsMenu extends MusicBeatState
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		upPozition = new FlxText(10, FlxG.height - 104, 0,"Button Up X:" + virtualPad.buttonUp.x +" Y:" + virtualPad.buttonUp.y, 16);
-		upPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		upPozition.borderSize = 2.4;
-		add(upPozition);
+		upPosition = new FlxText(10, FlxG.height - 104, 0,"Button Up X:" + virtualPad.buttonUp.x +" Y:" + virtualPad.buttonUp.y, 16);
+		upPosition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		upPosition.borderSize = 2.4;
+		add(upPosition);
 
-		downPozition = new FlxText(10, FlxG.height - 84, 0,"Button Down X:" + virtualPad.buttonDown.x +" Y:" + virtualPad.buttonDown.y, 16);
-		downPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		downPozition.borderSize = 2.4;
-		add(downPozition);
+		downPosition = new FlxText(10, FlxG.height - 84, 0,"Button Down X:" + virtualPad.buttonDown.x +" Y:" + virtualPad.buttonDown.y, 16);
+		downPosition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		downPosition.borderSize = 2.4;
+		add(downPosition);
 
-		leftPozition = new FlxText(10, FlxG.height - 64, 0,"Button Left X:" + virtualPad.buttonLeft.x +" Y:" + virtualPad.buttonLeft.y, 16);
-		leftPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		leftPozition.borderSize = 2.4;
-		add(leftPozition);
+		leftPosition = new FlxText(10, FlxG.height - 64, 0,"Button Left X:" + virtualPad.buttonLeft.x +" Y:" + virtualPad.buttonLeft.y, 16);
+		leftPosition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		leftPosition.borderSize = 2.4;
+		add(leftPosition);
 
-		rightPozition = new FlxText(10, FlxG.height - 44, 0,"Button RIght x:" + virtualPad.buttonRight.x +" Y:" + virtualPad.buttonRight.y, 16);
-		rightPozition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		rightPozition.borderSize = 2.4;
-		add(rightPozition);
+		rightPosition = new FlxText(10, FlxG.height - 44, 0,"Button RIght x:" + virtualPad.buttonRight.x +" Y:" + virtualPad.buttonRight.y, 16);
+		rightPosition.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		rightPosition.borderSize = 2.4;
+		add(rightPosition);
 
 		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK to Go Back to Options Menu', 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -201,17 +201,17 @@ class AndroidControlsMenu extends MusicBeatState
 
 		if (daChoice != "Pad-Custom")
 		{
-			upPozition.visible = false;
-			downPozition.visible = false;
-			leftPozition.visible = false;
-			rightPozition.visible = false;
+			upPosition.visible = false;
+			downPosition.visible = false;
+			leftPosition.visible = false;
+			rightPosition.visible = false;
 		}
 		else
 		{
-			upPozition.visible = true;
-			downPozition.visible = true;
-			leftPozition.visible = true;
-			rightPozition.visible = true;
+			upPosition.visible = true;
+			downPosition.visible = true;
+			leftPosition.visible = true;
+			rightPosition.visible = true;
 		}
 	}
 
@@ -259,10 +259,10 @@ class AndroidControlsMenu extends MusicBeatState
 	}
 
 	function setbuttontexts() {
-		upPozition.text = "Button Up X:" + virtualPad.buttonUp.x +" Y:" + virtualPad.buttonUp.y;
-		downPozition.text = "Button Down X:" + virtualPad.buttonDown.x +" Y:" + virtualPad.buttonDown.y;
-		leftPozition.text = "Button Left X:" + virtualPad.buttonLeft.x +" Y:" + virtualPad.buttonLeft.y;
-		rightPozition.text = "Button RIght x:" + virtualPad.buttonRight.x +" Y:" + virtualPad.buttonRight.y;
+		upPosition.text = "Button Up X:" + virtualPad.buttonUp.x +" Y:" + virtualPad.buttonUp.y;
+		downPosition.text = "Button Down X:" + virtualPad.buttonDown.x +" Y:" + virtualPad.buttonDown.y;
+		leftPosition.text = "Button Left X:" + virtualPad.buttonLeft.x +" Y:" + virtualPad.buttonLeft.y;
+		rightPosition.text = "Button RIght x:" + virtualPad.buttonRight.x +" Y:" + virtualPad.buttonRight.y;
 	}
 
 	function save() {
