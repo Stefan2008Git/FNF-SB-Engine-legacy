@@ -298,26 +298,26 @@ class MenuCharacterEditorState extends MusicBeatState
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonA.pressed #end) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonA.pressed #end) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT #if android || _virtualpad.buttonLeft.justPressed #end) {
+			if(FlxG.keys.justPressed.LEFT #if android || virtualPad.buttonLeft.justPressed #end) {
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT #if android || _virtualpad.buttonRight.justPressed #end) {
+			if(FlxG.keys.justPressed.RIGHT #if android || virtualPad.buttonRight.justPressed #end) {
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP #if android || _virtualpad.buttonUp.justPressed #end) {
+			if(FlxG.keys.justPressed.UP #if android || virtualPad.buttonUp.justPressed #end) {
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN #if android || _virtualpad.buttonDown.justPressed #end) {
+			if(FlxG.keys.justPressed.DOWN #if android || virtualPad.buttonDown.justPressed #end) {
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}
 
-			if(FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonB.pressed #end && curTypeSelected == 1) {
+			if(FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonB.pressed #end && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}
