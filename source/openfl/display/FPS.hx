@@ -96,10 +96,10 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			if (memoryMegas > memoryPeak)
 				memoryPeak = memoryMegas;
-			text += "\nMemory: " + memoryMegas + " MB";
+			text += "\nMemory: " + getSizeLabel(memoryMegas) + " MB";
 			if(ClientPrefs.totalMemory)
 			{
-			text += "\nMemory peak: " + memoryPeak + " MB";
+			text += "\nMemory peak: " + getSizeLabel(memoryPeak) + " MB";
 		    }
 			if(ClientPrefs.sbEngineVersion)
 			{
@@ -107,9 +107,9 @@ class FPS extends TextField
 		    }
 			if(ClientPrefs.glRender)
 			{
-            text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-            text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-            text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+                        text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+                        text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+                        text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 		    }
 			#end
 
@@ -128,9 +128,28 @@ class FPS extends TextField
 			text += "\n";
 		}
 
+        final dataTexts = ["B", "KB", "MB", "GB", "TB", "PB"];
+
+	function getSizeLabel(num:UInt):String
+	{
+		var size:Float = num;
+		var data = 0;
+		while (size > 1024 && data < dataTexts.length - 1)
+		{
+			data++;
+			size = size / 1024;
+		}
+
+		size = Math.round(size * 100) / 100;
+
+		if (data <= 2)
+			size = Math.round(size);
+
+		return size + " " + dataTexts[data];
+
 		cacheCount = currentCount;
 	}
-    private function getGLInfo(info:GLInfo):String
+        private function getGLInfo(info:GLInfo):String
 	{
 		@:privateAccess
 		var gl:Dynamic = Lib.current.stage.context3D.gl;
@@ -144,5 +163,7 @@ class FPS extends TextField
 		}
 
 		return '';
+
+        
 	}
 }
