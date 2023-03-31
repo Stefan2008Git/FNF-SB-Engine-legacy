@@ -362,11 +362,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		if (curSelected >= optionsArray.length)
 			curSelected = 0;
 
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
 			item.alpha = 0.6;
 			if (item.targetY == 0) {

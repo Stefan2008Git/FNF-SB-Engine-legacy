@@ -133,7 +133,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		reloadCheckboxes();
 
                 #if android
-                addVirtualPad(FULL, A_B_C);
+                addVirtualPad(FULL, A_B_X_Y);
                 #end
 
 	}
@@ -315,11 +315,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descText.screenCenter(Y);
 		descText.y += 270;
 
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
 			item.alpha = 0.6;
 			if (item.targetY == 0) {

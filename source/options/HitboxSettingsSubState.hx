@@ -40,7 +40,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
 
 		var option:Option = new Option('Hitbox Mode:',
-			"Choose your Hitbox Style!\nOld = original, New = Without sprite",
+			"Choose your Hitbox Style!\nClassic = original, New = Without sprite",
 			'hitboxmode',
 			'string',
 			'Classic',

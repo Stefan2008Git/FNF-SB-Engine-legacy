@@ -220,7 +220,7 @@ class ControlsSubState extends MusicBeatSubstate {
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 
 		for (i in 0...grpInputs.length) {
 			grpInputs[i].alpha = 0.6;
@@ -230,10 +230,10 @@ class ControlsSubState extends MusicBeatSubstate {
 		}
 
 		for (item in grpOptions.members) {
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
-			if(!unselectableCheck(bullfreak-1)) {
+			if(!unselectableCheck(optionFreak-1)) {
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;
@@ -326,7 +326,7 @@ class ControlsSubState extends MusicBeatSubstate {
 		}
 
 
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 		for (i in 0...grpInputs.length) {
 			grpInputs[i].alpha = 0.6;
 		}
@@ -335,10 +335,10 @@ class ControlsSubState extends MusicBeatSubstate {
 		}
 
 		for (item in grpOptions.members) {
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
-			if(!unselectableCheck(bullfreak-1)) {
+			if(!unselectableCheck(optionFreak-1)) {
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;

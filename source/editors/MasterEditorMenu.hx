@@ -147,11 +147,11 @@ class MasterEditorMenu extends MusicBeatState
 			#end
 		}
 		
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 		for (item in grpTexts.members)
 		{
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));

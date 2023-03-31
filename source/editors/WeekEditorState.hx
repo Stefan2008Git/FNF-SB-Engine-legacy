@@ -787,7 +787,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		if (curSelected >= weekFile.songs.length)
 			curSelected = 0;
 
-		var bullfreak:Int = 0;
+		var optionFreak:Int = 0;
 		for (i in 0...iconArray.length)
 		{
 			iconArray[i].alpha = 0.6;
@@ -797,8 +797,8 @@ class WeekEditorFreeplayState extends MusicBeatState
 
 		for (item in grpSongs.members)
 		{
-			item.targetY = bullfreak - curSelected;
-			bullfreak++;
+			item.targetY = optionFreak - curSelected;
+			optionFreak++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));

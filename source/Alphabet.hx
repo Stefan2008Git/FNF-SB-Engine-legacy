@@ -19,7 +19,7 @@ class Alphabet extends FlxSpriteGroup
 	public var delay:Float = 0.05;
 	public var paused:Bool = false;
 
-	// for menu shit
+	// for menu freak
 	public var forceX:Float = Math.NEGATIVE_INFINITY;
 	public var targetY:Float = 0;
 	public var yMult:Float = 120;
@@ -33,7 +33,7 @@ class Alphabet extends FlxSpriteGroup
 	var _finalText:String = "";
 	var yMulti:Float = 1;
 
-	// custom shit
+	// custom freak
 	// amp, backslash, question mark, apostrophy, comma, angry faic, period
 	var lastSprite:AlphaCharacter;
 	var xPosResetted:Bool = false;
@@ -213,7 +213,7 @@ class Alphabet extends FlxSpriteGroup
 		_finalText = text;
 		doSplitWords();
 
-		// trace(arrayShit);
+		// trace(arrayfreak);
 
 		if(soundDialog == null)
 		{

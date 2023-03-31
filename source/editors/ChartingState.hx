@@ -117,7 +117,7 @@ class ChartingState extends MusicBeatState
 	var strumLineNotes:FlxTypedGroup<StrumNote>;
 	var curSong:String = 'Test';
 	var amountSteps:Int = 0;
-	var bullshitUI:FlxGroup;
+	var optionFreakUI:FlxGroup;
 
 	var highlight:FlxSprite;
 
@@ -449,7 +449,7 @@ class ChartingState extends MusicBeatState
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
 		{
-			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
+			PlayState.SONG = Song.parseJSONfreak(FlxG.save.data.autosave);
 			MusicBeatState.resetState();
 		});
 
@@ -1422,14 +1422,14 @@ class ChartingState extends MusicBeatState
 
 	function generateUI():Void
 	{
-		while (bullshitUI.members.length > 0)
+		while (optionFreakUI.members.length > 0)
 		{
-			bullshitUI.remove(bullshitUI.members[0], true);
+			optionFreakUI.remove(optionFreakUI.members[0], true);
 		}
 
-		// general shit
+		// general freak
 		var title:FlxText = new FlxText(UI_box.x + 20, UI_box.y + 20, 0);
-		bullshitUI.add(title);
+		optionFreakUI.add(title);
 	}
 
 	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>)
@@ -1454,7 +1454,7 @@ class ChartingState extends MusicBeatState
 
 				case 'Change BPM':
 					_song.notes[curSec].changeBPM = check.checked;
-					FlxG.log.add('changed bpm shit');
+					FlxG.log.add('changed bpm freak');
 				case "Alt Animation":
 					_song.notes[curSec].altAnim = check.checked;
 			}
@@ -1821,7 +1821,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			//ARROW VORTEX SHIT NO DEADASS
+			//ARROW VORTEX freak NO DEADASS
 
 
 
@@ -2445,7 +2445,7 @@ class ChartingState extends MusicBeatState
 		updateGrid();
 
 		FlxG.sound.music.pause();
-		// Basically old shit from changeSection???
+		// Basically old freak from changeSection???
 		FlxG.sound.music.time = sectionStartTime();
 
 		if (songBeginning)
@@ -2976,7 +2976,7 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		//shitty null fix, i fucking hate it when this happens
+		//freakty null fix, i fucking hate it when this happens
 		//make it look sexier if possible
 		if (CoolUtil.difficulties[PlayState.storyDifficulty] != CoolUtil.defaultDifficulty) {
 			if(CoolUtil.difficulties[PlayState.storyDifficulty] == null){
