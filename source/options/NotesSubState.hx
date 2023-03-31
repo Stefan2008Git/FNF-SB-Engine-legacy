@@ -91,14 +91,14 @@ class NotesSubState extends MusicBeatSubstate
 			shaderArray.push(newShader);
 		}
 
-		hsbText = new Alphabet(0, 0, "Hue    Saturation  Brightness", false, false, 0, 0.65);
+		hsbText = new Alphabet(0, 0, "Hue  Saturation  Brightness", false, false, 0, 0.65);
 		hsbText.x = posX + 240;
 		add(hsbText);
 
 		changeSelection();
 
 		#if android
-		addVirtualPad(FULL, A_B_C);
+		addVirtualPad(LEFT_FULL, A_B_C);
 		#end
 	}
 

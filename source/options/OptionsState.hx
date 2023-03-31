@@ -105,14 +105,9 @@ class OptionsState extends MusicBeatState
 		add(selectorRight);
 
 		#if android
-		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		add(tipText);
-		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
+		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press C to customize your android controls', 16);
+		tipText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.5;
 		tipText.scrollFactor.set();
 		add(tipText);
 		#end
@@ -121,7 +116,8 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_X_Y);
+		addVirtualPad(UP_DOWN, A_B_C);
+		virtualPad.y = -24;
 		#end
 
 		super.create();
@@ -152,15 +148,12 @@ class OptionsState extends MusicBeatState
 		}
 
 		#if android
-		if (virtualPad.buttonX.justPressed) {
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
-				MusicBeatState.switchState(new android.AndroidControlsMenu());
-			}
-		if (virtualPad.buttonY.justPressed) {
-				removeVirtualPad();
-				openSubState(new android.HitboxSettingsSubState());
-			}
+		if (virtualPad.buttonC.justPressed) {
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new android.AndroidControlsSubState());
+		}
 		#end
 	}
 	

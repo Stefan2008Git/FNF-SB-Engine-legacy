@@ -23,7 +23,11 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
+#if android
+import android.flixel.FlxButton;
+#else
 import flixel.ui.FlxButton;
+#end
 import flixel.ui.FlxSpriteButton;
 import openfl.net.FileReference;
 import openfl.events.Event;
@@ -202,7 +206,7 @@ class CharacterEditorState extends MusicBeatState
 		reloadCharacterOptions();
 
 		#if android
-		addVirtualPad(FULL, FULL);
+		addVirtualPad(LEFT_FULL, A_B_C_D_V_X_Y_Z);
 		addPadCamera();
 		#end
 
@@ -237,18 +241,18 @@ class CharacterEditorState extends MusicBeatState
 			bgLayer.add(bgSky);
 			bgSky.antialiasing = false;
 
-			var repositionfreak = -200 + OFFSET_X - playerXDifference;
+			var repositionShit = -200 + OFFSET_X - playerXDifference;
 
-			var bgSchool:BGSprite = new BGSprite('weeb/weebSchool', repositionfreak, -playerYDifference + 6, 0.6, 0.90);
+			var bgSchool:BGSprite = new BGSprite('weeb/weebSchool', repositionShit, -playerYDifference + 6, 0.6, 0.90);
 			bgLayer.add(bgSchool);
 			bgSchool.antialiasing = false;
 
-			var bgStreet:BGSprite = new BGSprite('weeb/weebStreet', repositionfreak, -playerYDifference, 0.95, 0.95);
+			var bgStreet:BGSprite = new BGSprite('weeb/weebStreet', repositionShit, -playerYDifference, 0.95, 0.95);
 			bgLayer.add(bgStreet);
 			bgStreet.antialiasing = false;
 
-			var widfreak = Std.int(bgSky.width * 6);
-			var bgTrees:FlxSprite = new FlxSprite(repositionfreak - 380, -800 - playerYDifference);
+			var widShit = Std.int(bgSky.width * 6);
+			var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800 - playerYDifference);
 			bgTrees.frames = Paths.getPackerAtlas('weeb/weebTrees');
 			bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
 			bgTrees.animation.play('treeLoop');
@@ -256,10 +260,10 @@ class CharacterEditorState extends MusicBeatState
 			bgLayer.add(bgTrees);
 			bgTrees.antialiasing = false;
 
-			bgSky.setGraphicSize(widfreak);
-			bgSchool.setGraphicSize(widfreak);
-			bgStreet.setGraphicSize(widfreak);
-			bgTrees.setGraphicSize(Std.int(widfreak * 1.4));
+			bgSky.setGraphicSize(widShit);
+			bgSchool.setGraphicSize(widShit);
+			bgStreet.setGraphicSize(widShit);
+			bgTrees.setGraphicSize(Std.int(widShit * 1.4));
 
 			bgSky.updateHitbox();
 			bgSchool.updateHitbox();
@@ -282,9 +286,7 @@ class CharacterEditorState extends MusicBeatState
 	function addOffsetsUI() {
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Offsets";
-
 		animationInputText = new FlxUIInputText(15, 30, 100, 'idle', 8);
-
 		var addButton:FlxButton = new FlxButton(animationInputText.x + animationInputText.width + 23, animationInputText.y - 2, "Add", function()
 		{
 			var theText:String = animationInputText.text;
@@ -296,14 +298,12 @@ class CharacterEditorState extends MusicBeatState
 						break;
 					}
 				}
-
 				if(!alreadyExists) {
 					char.animOffsets.set(theText, [0, 0]);
 					animList.push(theText);
 				}
 			}
 		});
-
 		var removeButton:FlxButton = new FlxButton(animationInputText.x + animationInputText.width + 23, animationInputText.y + 20, "Remove", function()
 		{
 			var theText:String = animationInputText.text;
@@ -313,7 +313,6 @@ class CharacterEditorState extends MusicBeatState
 						if(char.animOffsets.exists(theText)) {
 							char.animOffsets.remove(theText);
 						}
-
 						animList.remove(theText);
 						if(char.animation.curAnim.name == theText && animList.length > 0) {
 							char.playAnim(animList[0], true);
@@ -323,12 +322,10 @@ class CharacterEditorState extends MusicBeatState
 				}
 			}
 		});
-
 		var saveButton:FlxButton = new FlxButton(animationInputText.x, animationInputText.y + 35, "Save Offsets", function()
 		{
 			saveOffsets();
 		});
-
 		tab_group.add(new FlxText(10, animationInputText.y - 18, 0, 'Add/Remove Animation:'));
 		tab_group.add(addButton);
 		tab_group.add(removeButton);
@@ -542,7 +539,6 @@ class CharacterEditorState extends MusicBeatState
 
 		healthIconInputText = new FlxUIInputText(15, imageInputText.y + 35, 75, leHealthIcon.getCharacter(), 8);
 		healthIconInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
-
 		singDurationStepper = new FlxUINumericStepper(15, healthIconInputText.y + 45, 0.1, 4, 0, 999, 1);
 
 		scaleStepper = new FlxUINumericStepper(15, singDurationStepper.y + 40, 0.1, 1, 0.05, 10, 1);
@@ -948,7 +944,6 @@ class CharacterEditorState extends MusicBeatState
 		char.setPosition(char.positionArray[0] + OFFSET_X + 100, char.positionArray[1]);
 
 		/* THIS FUNCTION WAS USED TO PUT THE .TXT OFFSETS INTO THE .JSON
-
 		for (anim => offset in char.animOffsets) {
 			var leAnim:AnimArray = findAnimationByName(anim);
 			if(leAnim != null) {
@@ -1203,6 +1198,8 @@ class CharacterEditorState extends MusicBeatState
 					FlxG.keys.justPressed.DOWN #if android || virtualPad.buttonDown.justPressed #end
 				];
 
+
+
 				for (i in 0...controlArray.length) {
 					if(controlArray[i]) {
 						var holdShift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonB.pressed #end;
@@ -1241,7 +1238,6 @@ class CharacterEditorState extends MusicBeatState
 		for (anim => offsets in char.animOffsets) {
 			data += anim + ' ' + offsets[0] + ' ' + offsets[1] + '\n';
 		}
-
 		if (data.length > 0)
 		{
 			_file = new FileReference();
@@ -1304,15 +1300,15 @@ class CharacterEditorState extends MusicBeatState
 
 		if (data.length > 0)
 		{
-			#if android
-			SUtil.saveContent(daAnim, ".json", data);
-			#else
+                        #if android
+                        SUtil.saveContent(daAnim, ".json", data);
+                        #else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 			_file.save(data, daAnim + ".json");
-			#end
+                        #end
 		}
 	}
 
