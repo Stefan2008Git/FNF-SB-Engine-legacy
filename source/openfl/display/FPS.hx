@@ -107,9 +107,9 @@ class FPS extends TextField
 		    }
 			if(ClientPrefs.glRender)
 			{
-            text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-            text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-            text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+                        text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+                        text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+                        text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 		    }
 			#end
 
@@ -130,7 +130,8 @@ class FPS extends TextField
 
 		cacheCount = currentCount;
 	}
-    private function getGLInfo(info:GLInfo):String
+
+        private function getGLInfo(info:GLInfo):String
 	{
 		@:privateAccess
 		var gl:Dynamic = Lib.current.stage.context3D.gl;
@@ -142,7 +143,6 @@ class FPS extends TextField
 			case SHADING_LANGUAGE_VERSION:
 				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
 		}
-
 		return '';
 	}
 }

@@ -76,7 +76,7 @@ class MusicBeatState extends FlxUIState
 			   if(ClientPrefs.hitboxmode != 'New'){
 				controls.setHitBox(androidc.hitbox);
 				}else{
-				controls.setnewHitbox(androidc.newHitbox);
+				controls.setNewHitbox(androidc.newHitbox);
 				}
 			default:
 		}
