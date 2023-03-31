@@ -149,6 +149,7 @@ class FPS extends TextField
 
 		cacheCount = currentCount;
 	}
+
         private function getGLInfo(info:GLInfo):String
 	{
 		@:privateAccess
@@ -161,9 +162,6 @@ class FPS extends TextField
 			case SHADING_LANGUAGE_VERSION:
 				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
 		}
-
 		return '';
-
-        
 	}
 }
