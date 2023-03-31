@@ -63,7 +63,7 @@ class AndroidControls extends FlxSpriteGroup {
 	public var mode:ControlsGroup = HITBOX;
 
 	public var hitbox:FlxHitbox;
-	public var newHitbox:FlxnewHitbox;
+	public var newHitbox:FlxNewHitbox;
 	public var virtualPad:FlxVirtualPad;
 
 	var config:Config;
@@ -113,7 +113,7 @@ class AndroidControls extends FlxSpriteGroup {
 				hitbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
 				add(hitbox);
 			case 5:
-			  newHitbox = new FlxnewHitbox();
+			  newHitbox = new FlxNewHitbox();
 			  add(newHitbox);
 			default:
 				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);	
