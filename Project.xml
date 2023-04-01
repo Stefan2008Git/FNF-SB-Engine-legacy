@@ -49,7 +49,9 @@
 	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
-	<define name="CRASH_HANDLER" if="desktop release || android" />
+	<define name="CRASH_HANDLER" if="desktop release || release" />
+	
+	<assets path="assets/android" if="android"/> <!-- to not have the android assets in another builds -saw -->
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
@@ -190,11 +192,10 @@
 	<!-- _________________________________ Android Stuff _______________________________ -->
 	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
 	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
-    <config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" if="android"/>
-    <config:android gradle-version="7.5.1" />
-    <config:android gradle-plugin="7.3.1" />
-    <config:android target-sdk-version="29" if="${lime <= 8.0.0}" />
-    <config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" if="android"/>
+        <config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" if="android"/>
+        <config:android gradle-version="7.5.1" />
+        <config:android gradle-plugin="7.3.1" />
+        <config:android target-sdk-version="29" if="${lime <= 8.0.0}" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
