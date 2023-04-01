@@ -41,6 +41,7 @@ class MainMenuState extends MusicBeatState
 
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
+	var discordServerTxt:FlxText;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -136,12 +137,22 @@ class MainMenuState extends MusicBeatState
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
+        #if android
+		var discordServerTxt:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 24, 0, "Press C button for Official Discord Server", 12);
+		#else
+		var discordServerTxt:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 24, 0, "Press CTRL for Official Discord Server", 12);
+		#end
+		discordServerTxt.scrollFactor.set();
+		discordServerTxt.setFormat("VCR OSD Mono", 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		discordServerTxt.borderSize = 1.5;
+		add(discordServerTxt);
+
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_E);
+		addVirtualPad(UP_DOWN, A_B_C);
 		virtualPad.y = -48;
 		#end
 
@@ -177,6 +188,10 @@ class MainMenuState extends MusicBeatState
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
+			}
+
+			if (FlxG.keys.pressed.CONTROL #if android || virtualPad.buttonC.justPressed #end) {
+				CoolUtil.browserLoad('https://discord.gg/5vEHTRjNck');
 			}
 
 			if (controls.ACCEPT)
@@ -220,7 +235,7 @@ class MainMenuState extends MusicBeatState
 					});
 			}
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonE.justPressed #end)
+			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
