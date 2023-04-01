@@ -6,6 +6,7 @@ import android.flixel.FlxVirtualPad;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
@@ -34,14 +35,19 @@ class AndroidControlsSubState extends FlxSubState
 	var buttonBinded:Bool = false;
 	var bindButton:FlxButton;
 	var resetButton:FlxButton;
+	var velocityBG:FlxBackdrop;
 
 	override function create()
 	{
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height,
-			FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1)));
+			FlxColor.ORANGE);
 		bg.alpha = 0.00001; // no lag on tween
 		bg.scrollFactor.set();
 		add(bg);
+
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG.velocity.set(50, 50);
+		add(velocityBG);
 
 		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function()
 		{
