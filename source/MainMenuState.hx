@@ -137,14 +137,13 @@ class MainMenuState extends MusicBeatState
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
-        #if android
+                #if android
 		var discordServerTxt:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 24, 0, "Press C button for Official Discord Server", 12);
 		#else
 		var discordServerTxt:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 24, 0, "Press CTRL for Official Discord Server", 12);
 		#end
 		discordServerTxt.scrollFactor.set();
-		discordServerTxt.setFormat("VCR OSD Mono", 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		discordServerTxt.borderSize = 1.5;
+		discordServerTxt.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(discordServerTxt);
 
 		// NG.core.calls.event.logEvent('swag').send();
