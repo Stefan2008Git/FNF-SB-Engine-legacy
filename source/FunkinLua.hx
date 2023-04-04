@@ -1535,38 +1535,38 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "addAnimationByPrefix", function(obj:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {
 			if(PlayState.instance.getLuaObject(obj,false)!=null) {
-				var cock:FlxSprite = PlayState.instance.getLuaObject(obj,false);
-				cock.animation.addByPrefix(name, prefix, framerate, loop);
-				if(cock.animation.curAnim == null) {
-					cock.animation.play(name, true);
+				var lua:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+				lua.animation.addByPrefix(name, prefix, framerate, loop);
+				if(lua.animation.curAnim == null) {
+					lua.animation.play(name, true);
 				}
 				return;
 			}
 
-			var cock:FlxSprite = Reflect.getProperty(getInstance(), obj);
-			if(cock != null) {
-				cock.animation.addByPrefix(name, prefix, framerate, loop);
-				if(cock.animation.curAnim == null) {
-					cock.animation.play(name, true);
+			var lua:FlxSprite = Reflect.getProperty(getInstance(), obj);
+			if(lua != null) {
+				lua.animation.addByPrefix(name, prefix, framerate, loop);
+				if(lua.animation.curAnim == null) {
+					lua.animation.play(name, true);
 				}
 			}
 		});
 
 		Lua_helper.add_callback(lua, "addAnimation", function(obj:String, name:String, frames:Array<Int>, framerate:Int = 24, loop:Bool = true) {
 			if(PlayState.instance.getLuaObject(obj,false)!=null) {
-				var cock:FlxSprite = PlayState.instance.getLuaObject(obj,false);
-				cock.animation.add(name, frames, framerate, loop);
-				if(cock.animation.curAnim == null) {
-					cock.animation.play(name, true);
+				var lua:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+				lua.animation.add(name, frames, framerate, loop);
+				if(lua.animation.curAnim == null) {
+					lua.animation.play(name, true);
 				}
 				return;
 			}
 
-			var cock:FlxSprite = Reflect.getProperty(getInstance(), obj);
-			if(cock != null) {
-				cock.animation.add(name, frames, framerate, loop);
-				if(cock.animation.curAnim == null) {
-					cock.animation.play(name, true);
+			var lua:FlxSprite = Reflect.getProperty(getInstance(), obj);
+			if(lua != null) {
+				lua.animation.add(name, frames, framerate, loop);
+				if(lua.animation.curAnim == null) {
+					lua.animation.play(name, true);
 				}
 			}
 		});
@@ -2404,10 +2404,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "luaSpriteAddAnimationByPrefix", function(tag:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {
 			luaTrace("luaSpriteAddAnimationByPrefix is deprecated! Use addAnimationByPrefix instead", false, true);
 			if(PlayState.instance.modchartSprites.exists(tag)) {
-				var cock:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-				cock.animation.addByPrefix(name, prefix, framerate, loop);
-				if(cock.animation.curAnim == null) {
-					cock.animation.play(name, true);
+				var lua:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+				lua.animation.addByPrefix(name, prefix, framerate, loop);
+				if(lua.animation.curAnim == null) {
+					lua.animation.play(name, true);
 				}
 			}
 		});
