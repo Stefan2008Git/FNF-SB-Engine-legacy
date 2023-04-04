@@ -396,7 +396,7 @@ class EditorPlayState extends MusicBeatState
 					daNote.active = true;
 				}*/
 
-				// i am so fucking sorry for this if condition
+				// i am so freaking sorry for this if condition
 				var strumX:Float = 0;
 				var strumY:Float = 0;
 				var strumAlpha:Float = 0;
@@ -424,7 +424,7 @@ class EditorPlayState extends MusicBeatState
 					if (ClientPrefs.downScroll) {
 						daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * PlayState.SONG.speed);
 						if (daNote.isSustainNote) {
-							//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
+							//Jesus freak this took me so much mother freaking time AAAAAAAAAA
 							if (daNote.animation.curAnim.name.endsWith('end')) {
 								daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * PlayState.SONG.speed + (46 * (PlayState.SONG.speed - 1));
 								daNote.y -= 46 * (1 - (fakeCrochet / 600)) * PlayState.SONG.speed;

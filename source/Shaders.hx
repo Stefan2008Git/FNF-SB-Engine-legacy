@@ -720,9 +720,9 @@ void main() {
 
 //Boing! by ThaeHan
 
-class FuckingTriangleEffect extends Effect{
+class freakingTriangleEffect extends Effect{
 	
-	public var shader:FuckingTriangle = new FuckingTriangle();
+	public var shader:freakingTriangle = new freakingTriangle();
 	
 	public function new(rotx:Float, roty:Float){
 		shader.rotX.value = [rotx];
@@ -733,7 +733,7 @@ class FuckingTriangleEffect extends Effect{
 }
 
 
-class FuckingTriangle extends FlxShader{
+class freakingTriangle extends FlxShader{
 	
 	@:glFragmentSource('
 	

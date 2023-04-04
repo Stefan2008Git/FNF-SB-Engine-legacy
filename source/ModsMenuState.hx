@@ -23,7 +23,11 @@ import haxe.Json;
 import haxe.format.JsonParser;
 import openfl.display.BitmapData;
 import flash.geom.Rectangle;
+#if android
+import android.flixel.FlxButton;
+#else
 import flixel.ui.FlxButton;
+#end
 import flixel.FlxBasic;
 import sys.io.File;
 
@@ -40,7 +44,7 @@ class ModsMenuState extends MusicBeatState
 	var noModsTxt:FlxText;
 	var selector:AttachedSprite;
 	var descriptionTxt:FlxText;
-	var needaReset = false;
+	var needToRestart = false;
 	private static var curSelected:Int = 0;
 	public static var defaultColor:FlxColor = 0xFFFFA500;
 
@@ -131,7 +135,7 @@ class ModsMenuState extends MusicBeatState
 		{
 			if(mods[curSelected].restart)
 			{
-				needaReset = true;
+				needToRestart = true;
 			}
 			modsList[curSelected][1] = !modsList[curSelected][1];
 			updateButtonToggle();
@@ -183,7 +187,7 @@ class ModsMenuState extends MusicBeatState
 
 			if(doRestart)
 			{
-				needaReset = true;
+				needToRestart = true;
 			}
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		});
@@ -206,7 +210,7 @@ class ModsMenuState extends MusicBeatState
 			{
 				if (mod.restart)
 				{
-					needaReset = true;
+					needToRestart = true;
 					break;
 				}
 			}
@@ -232,7 +236,7 @@ class ModsMenuState extends MusicBeatState
 			{
 				if (mod.restart)
 				{
-					needaReset = true;
+					needToRestart = true;
 					break;
 				}
 			}
@@ -248,64 +252,8 @@ class ModsMenuState extends MusicBeatState
 		buttonsArray.push(buttonEnableAll);
 		visibleWhenHasMods.push(buttonEnableAll);
 
-		// more buttons
 		var startX:Int = 1100;
 
-
-
-
-		/*
-		installButton = new FlxButton(startX, 620, "Install Mod", function()
-		{
-			installMod();
-		});
-		installButton.setGraphicSize(150, 70);
-		installButton.updateHitbox();
-		installButton.color = FlxColor.GREEN;
-		installButton.label.fieldWidth = 135;
-		installButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-		setAllLabelsOffset(installButton, 2, 24);
-		add(installButton);
-		startX -= 180;
-
-		removeButton = new FlxButton(startX, 620, "Delete Selected Mod", function()
-		{
-			var path = haxe.io.Path.join([Paths.mods(), modsList[curSelected][0]]);
-			if(FileSystem.exists(path) && FileSystem.isDirectory(path))
-			{
-				trace('Trying to delete directory ' + path);
-				try
-				{
-					FileSystem.deleteFile(path); //FUCK YOU HAXE WHY DONT YOU WORK WAAAAAAAAAAAAH
-
-					var icon = mods[curSelected].icon;
-					var alphabet = mods[curSelected].alphabet;
-					remove(icon);
-					remove(alphabet);
-					icon.destroy();
-					alphabet.destroy();
-					modsList.remove(modsList[curSelected]);
-					mods.remove(mods[curSelected]);
-
-					if(curSelected >= mods.length) --curSelected;
-					changeSelection();
-				}
-				catch(e)
-				{
-					trace('Error deleting directory: ' + e);
-				}
-			}
-		});
-		removeButton.setGraphicSize(150, 70);
-		removeButton.updateHitbox();
-		removeButton.color = FlxColor.RED;
-		removeButton.label.fieldWidth = 135;
-		removeButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-		setAllLabelsOffset(removeButton, 2, 15);
-		add(removeButton);
-		visibleWhenHasMods.push(removeButton);*/
-
-		///////
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
 		descriptionTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT);
 		descriptionTxt.scrollFactor.set();
@@ -326,10 +274,9 @@ class ModsMenuState extends MusicBeatState
 			var newMod:ModMetadata = new ModMetadata(values[0]);
 			mods.push(newMod);
 
-			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true);
+			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false, 0.05);
 			var scale:Float = Math.min(840 / newMod.alphabet.width, 1);
-			newMod.alphabet.scaleX = scale;
-			newMod.alphabet.scaleY = scale;
+			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false, 0.05, scale);
 			newMod.alphabet.y = i * 150;
 			newMod.alphabet.x = 310;
 			add(newMod.alphabet);
@@ -372,7 +319,9 @@ class ModsMenuState extends MusicBeatState
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
+		#if !android
 		FlxG.mouse.visible = true;
+		#end
 
                 #if android
                 addVirtualPad(UP_DOWN, B);
@@ -445,7 +394,7 @@ class ModsMenuState extends MusicBeatState
 			changeSelection(change);
 
 			if(!doRestart) doRestart = mods[curSelected].restart;
-			if(!skipResetCheck && doRestart) needaReset = true;
+			if(!skipResetCheck && doRestart) needToRestart = true;
 		}
 	}
 
@@ -479,9 +428,11 @@ class ModsMenuState extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			#if !android
 			FlxG.mouse.visible = false;
+			#end
 			saveTxt();
-			if(needaReset)
+			if(needToRestart)
 			{
 				//MusicBeatState.switchState(new TitleState());
 				TitleState.initialized = false;
