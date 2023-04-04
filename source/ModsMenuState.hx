@@ -26,10 +26,6 @@ import flash.geom.Rectangle;
 import flixel.ui.FlxButton;
 import flixel.FlxBasic;
 import sys.io.File;
-/*import haxe.zip.Reader;
-import haxe.zip.Entry;
-import haxe.zip.Uncompress;
-import haxe.zip.Writer;*/
 
 using StringTools;
 
@@ -46,7 +42,7 @@ class ModsMenuState extends MusicBeatState
 	var descriptionTxt:FlxText;
 	var needaReset = false;
 	private static var curSelected:Int = 0;
-	public static var defaultColor:FlxColor = 0xFF665AFF;
+	public static var defaultColor:FlxColor = 0xFFFFA500;
 
 	var buttonDown:FlxButton;
 	var buttonTop:FlxButton;
@@ -68,6 +64,7 @@ class ModsMenuState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+
 		WeekData.setDirectoryFromWeek();
 
 		#if desktop
@@ -81,7 +78,7 @@ class ModsMenuState extends MusicBeatState
 		bg.screenCenter();
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
-		if(FlxG.random.bool(0.1)) noModsTxt.text += '\nBITCH.'; //meanie
+		if(FlxG.random.bool(0.1)) noModsTxt.text += '\nFREAK.'; //meanie
 		noModsTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noModsTxt.scrollFactor.set();
 		noModsTxt.borderSize = 2;
