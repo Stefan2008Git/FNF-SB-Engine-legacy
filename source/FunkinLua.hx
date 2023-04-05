@@ -2087,7 +2087,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "vibration", function(milliseconds:Int) {
 			#if android
-			Hardware.vibrate(milliseconds);
+			Tools.vibrate(milliseconds);
 			#end
 		});
 
