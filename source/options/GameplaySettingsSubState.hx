@@ -25,7 +25,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 #if android
-import android.Hardware;
+import android.Tools;
 #end
 
 using StringTools;

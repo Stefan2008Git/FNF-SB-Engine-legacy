@@ -120,8 +120,7 @@ class CreditsState extends MusicBeatState
 			[''],
 		    ['Android Support'],
 			['M.A. Jigsaw', 		'jigsaw',				'Main Programmer of Psych Engine\nWith Android Support',		'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
-			['MarioMaster',		    'fearester',		    'Hitbox selector desinger',	 'https://www.youtube.com/c/MarioMaster1997',	'D10616']
-
+			['Goldie',				'goldie',			'Virtual Pad Artist',										'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', 	'444444']
 		];
 		
 		for(i in pisspoop){

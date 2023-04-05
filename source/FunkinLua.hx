@@ -51,7 +51,7 @@ import hscript.Expr;
 #end
 
 #if android
-import android.Hardware;
+import android.Tools;
 #end
 
 using StringTools;
