@@ -1176,7 +1176,7 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -1188,7 +1188,7 @@ class PlayState extends MusicBeatState
 		sbEngineVersionTxt.borderSize = 1.25;
 		sbEngineVersionTxt.visible = !ClientPrefs.hideHud;
 		add(sbEngineVersionTxt);
-		sbEngineVersionTxt.text = " SB: " + MainMenuState.sbEngineVersion;
+		sbEngineVersionTxt.text = " SB Engine: " + MainMenuState.sbEngineVersion;
 
 		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1544,9 +1544,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
-	  
-	  
-	  
+
 		switch(cam.toLowerCase()) {
 			case 'camhud' | 'hud':
 					camHUDShaders.push(effect);
@@ -1577,28 +1575,19 @@ class PlayState extends MusicBeatState
 				} else {
 					var OBJ = Reflect.getProperty(PlayState.instance,cam);
 					Reflect.setProperty(OBJ,"shader", effect.shader);
-				}
-			
-			
-				
-				
-		}
-	  
-	  
-	  
-	  
+				}		
+		}	  
   }
 
   public function removeShaderFromCamera(cam:String,effect:ShaderEffect){
-	  
-	  
-		switch(cam.toLowerCase()) {
+
+	switch(cam.toLowerCase()) {
 			case 'camhud' | 'hud': 
-    camHUDShaders.remove(effect);
-    var newCamEffects:Array<BitmapFilter>=[];
-    for(i in camHUDShaders){
-      newCamEffects.push(new ShaderFilter(i.shader));
-    }
+                    camHUDShaders.remove(effect);
+                    var newCamEffects:Array<BitmapFilter>=[];
+                    for(i in camHUDShaders){
+                    newCamEffects.push(new ShaderFilter(i.shader));
+                   }
     camHUD.setFilters(newCamEffects);
 			case 'camother' | 'other': 
 					camOtherShaders.remove(effect);
@@ -1608,22 +1597,19 @@ class PlayState extends MusicBeatState
 					}
 					camOther.setFilters(newCamEffects);
 			default: 
-				camGameShaders.remove(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camGameShaders){
-				  newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camGame.setFilters(newCamEffects);
+				    camGameShaders.remove(effect);
+				    var newCamEffects:Array<BitmapFilter>=[];
+				    for(i in camGameShaders){
+				    newCamEffects.push(new ShaderFilter(i.shader));
+				    }
+				    camGame.setFilters(newCamEffects);
 		}
-		
-	  
   }
 	
 	
 	
   public function clearShaderFromCamera(cam:String){
-	  
-	  
+
 		switch(cam.toLowerCase()) {
 			case 'camhud' | 'hud': 
 				camHUDShaders = [];

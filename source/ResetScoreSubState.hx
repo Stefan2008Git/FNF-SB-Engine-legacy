@@ -70,10 +70,10 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-               #if android
-                addVirtualPad(LEFT_RIGHT, A_B);
-                addPadCamera();
-                #end
+        #if android
+        addVirtualPad(LEFT_RIGHT, A);
+        addPadCamera();
+        #end
 
 	}
 
@@ -96,11 +96,11 @@ class ResetScoreSubState extends MusicBeatSubstate
 		if(controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if android
-                        FlxTransitionableState.skipNextTransOut = true;
+            FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-                        #else
-                        close();
-                        #end
+            #else
+            close();
+            #end
 		} else if(controls.ACCEPT) {
 			if(onYes) {
 				if(week == -1) {

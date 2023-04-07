@@ -20,7 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenufreak:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', #if android, 'Chart Editor', #else, 'Chart Editor', #end, 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -59,7 +59,6 @@ class PauseSubState extends MusicBeatSubstate
 			difficultyChoices.push(diff);
 		}
 		difficultyChoices.push('BACK');
-
 
 		pauseMusic = new FlxSound();
 		if(songName != null) {
@@ -131,7 +130,7 @@ class PauseSubState extends MusicBeatSubstate
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
 		add(grpMenufreak);
 
-		regenMenu();
+		regenerateMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
 		#if android
@@ -219,7 +218,7 @@ class PauseSubState extends MusicBeatSubstate
 				}
 
 				menuItems = menuItemsOG;
-				regenMenu();
+				regenerateMenu();
 			}
 
 			switch (daSelected)
@@ -229,7 +228,7 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
-					regenMenu();
+					regenerateMenu();
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					PlayState.changedDifficulty = true;
@@ -263,13 +262,12 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.autoplayTxt.alpha = 1;
 					PlayState.instance.autoplaySine = 0;
-                                case 'Chart Editor':
-		                        MusicBeatState.switchState(new editors.ChartingState());
-		                        PlayState.chartingMode = true;
+                 case 'Chart Editor':
+		            MusicBeatState.switchState(new editors.ChartingState());
+		            PlayState.chartingMode = true;
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
-
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
@@ -355,7 +353,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	function regenMenu():Void {
+	function regenerateMenu():Void {
 		for (i in 0...grpMenufreak.members.length) {
 			var obj = grpMenufreak.members[0];
 			obj.kill();
