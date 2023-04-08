@@ -120,26 +120,26 @@ class SUtil
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, function(u:UncaughtErrorEvent)
 		{
 			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-			var errMsg:String = '';
+			var errorMessage:String = '';
 
 			for (stackItem in callStack)
 			{
 				switch (stackItem)
 				{
 					case CFunction:
-						errMsg += 'a C function\n';
+						errorMessage += 'a C function\n';
 					case Module(m):
-						errMsg += 'module ' + m + '\n';
+						errorMessage += 'module ' + m + '\n';
 					case FilePos(s, file, line, column):
-						errMsg += file + ' (line ' + line + ')\n';
+						errorMessage += file + ' (line ' + line + ')\n';
 					case Method(cname, meth):
-						errMsg += cname == null ? "<unknown>" : cname + '.' + meth + '\n';
+						errorMessage += cname == null ? "<unknown>" : cname + '.' + meth + '\n';
 					case LocalFunction(n):
-						errMsg += 'local function ' + n + '\n';
+						errorMessage += 'local function ' + n + '\n';
 				}
 			}
 
-			errMsg += u.error;
+			errorMessage += u.error;
 
 			#if (sys && !ios)
 			try
@@ -153,7 +153,7 @@ class SUtil
 					+ '-'
 					+ Date.now().toString().replace(' ', '-').replace(':', "'")
 					+ '.log',
-					errMsg
+					errorMessage
 					+ '\n');
 			}
 			#if android
@@ -162,8 +162,8 @@ class SUtil
 			#end
 			#end
 
-			println(errMsg);
-			Lib.application.window.alert(errMsg, 'Error!');
+			println(errorMessage);
+			Lib.application.window.alert(errorMessage, 'Error!');
 			System.exit(1);
 		});
 	}
