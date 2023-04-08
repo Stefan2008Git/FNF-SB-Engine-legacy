@@ -134,16 +134,24 @@ class Main extends Sprite
 
 		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".txt";
 
-		for (stackItem in callStack)
-		{
-			switch (stackItem)
-			{
-				case FilePos(s, file, line, column):
-					errMsg += file + " (line " + line + ")\n";
-				default:
-					Sys.println(stackItem);
-			}
-		}
+		for (stackItem in callStack) {
+            switch(e) {
+                case CFunction: stackLabel += "Non-Haxe (C) Function";
+                case Module(c): stackLabel += 'Module ${c}';
+                case FilePos(parent, file, line, col):
+                    switch(parent) {
+                        case Method(cla, func):
+                            stackLabel += '(${file}) ${cla.split(".").last()}.$func() - Line $line';
+                        case _:
+                            stackLabel += '(${file}) - Line $line';
+                    }
+                case LocalFunction(v):
+                    stackLabel += 'Local Function ${v}';
+                case Method(cl, m):
+                    stackLabel += '${cl} - ${m}';
+            }
+            stackLabel += "\r\n";
+        }
 
 		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
