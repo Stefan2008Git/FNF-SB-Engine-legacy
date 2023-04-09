@@ -180,12 +180,11 @@ class MainMenuState extends MusicBeatState
 	var holdTime:Float = 0;
 
 	override function update(elapsed:Float)
-	{
-		if (FlxG.sound.music.volume < 0.8)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
-		}
+			if (FlxG.sound.music.volume < 0.8)
+			{
+				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			}
 
 		menuItems.forEach(function(spr:FlxSprite)
 			{
