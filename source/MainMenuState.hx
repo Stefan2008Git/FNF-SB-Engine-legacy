@@ -3,6 +3,8 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import flixel.util.FlxTimer;
+import flixel.util.FlxGradient;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -42,6 +44,8 @@ class MainMenuState extends MusicBeatState
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902);
+	var camFollow:FlxObject;
+	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -90,6 +94,11 @@ class MainMenuState extends MusicBeatState
 		add(orange);
 		
 		// orange.scrollFactor.set();
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollowPos = new FlxObject(0, 0, 1, 1);
+		add(camFollow);
+		add(camFollowPos);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xFFFFA500], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
@@ -157,6 +166,7 @@ class MainMenuState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
+	var holdTime:Float = 0;
 
 	override function update(elapsed:Float)
 	{
