@@ -133,11 +133,8 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
-<<<<<<< HEAD
-=======
 		FlxG.camera.follow(camFollowPos, null, 1);
 
->>>>>>> 7d0ce80df9e70528e9fc5f9a1dca56227b8dee47
 		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 16);
 		versionSb.scrollFactor.set();
 		versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -180,13 +177,12 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			}
 
-<<<<<<< HEAD
+
         var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
-=======
+
                 var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
->>>>>>> 7d0ce80df9e70528e9fc5f9a1dca56227b8dee47
 		menuItems.forEach(function(spr:FlxSprite)
 			{
 				spr.scale.set(FlxMath.lerp(spr.scale.x, 0.8, camLerp / (ClientPrefs.framerate / 60)),
@@ -308,18 +304,9 @@ class MainMenuState extends MusicBeatState
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
 				}
-<<<<<<< HEAD
 				spr.centerOffsets();
 			}
 		});
 	}
 }
-=======
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-				spr.centerOffsets();
-			}
-		        });
-		}
-	}
-	
->>>>>>> 7d0ce80df9e70528e9fc5f9a1dca56227b8dee47
+
