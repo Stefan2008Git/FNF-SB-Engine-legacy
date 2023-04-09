@@ -129,12 +129,11 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionSelect[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 120) - 30}, 1.3, {ease: FlxEase.expoInOut});
+			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionSelect.length - 4) * 0.135;
 			if (optionSelect.length < 6)
 				scr = 0;
-			menuItem.scale.set(0.8, 0.8);
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
@@ -227,19 +226,6 @@ class MainMenuState extends MusicBeatState
 					holdTime = 0;
 				}
 
-			if (controls.UI_DOWN || controls.UI_UP)
-				{
-					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
-					holdTime += elapsed;
-					var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
-	
-					if (holdTime > 0.5 && checkNewHold - checkLastHold > 0)
-					{
-						FlxG.sound.play(Paths.sound('scrollMenu'));
-						changeItem((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
-					}
-				}
-
 			if (controls.BACK)
 			{
 				selectedSomething = true;
@@ -316,6 +302,7 @@ class MainMenuState extends MusicBeatState
 	
 		function changeItem(huh:Int = 0)
 		{
+			spr.screenCenter(X);
 			curSelected += huh;
 	
 			if (curSelected >= menuItems.length)
