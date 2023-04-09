@@ -132,7 +132,11 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
+        #if android
 		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".txt";
+		#else
+		path = "./crashHandler/crash/" + "SB Engine_" + dateNow + ".txt";
+		#end
 
 		for (stackItem in callStack)
 		{
@@ -145,20 +149,28 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
+		final errorLinesSorted:Array<String> = [
+			'\nUncaught Error: ${e.error}!',
+			'\nPlease report this error to the GitHub page\n(Will automatically open when exiting!)',
+			'\n\nOriginal CrashHandler code written by squirra-rng (https://github.com/gedehari)'
+		];
+		for(line in errorLinesSorted) { errMsg += line; }
 
+		#if android
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
-			FileSystem.createDirectory(SUtil.getPath() + "crash/");
+			FileSystem.createDirectory(SUtil.getPath() + ".crash/");
+		#else
+		if (!FileSystem.exists("./crashHandler/crash/"))
+			 FileSystem.createDirectory("./crashHandler/crash/");
+		#end
 
 		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		Application.current.window.alert(errMsg, "Error!");
-        #if desktop
 		DiscordClient.shutdown();
-	    #end
+		new Process("./crashHandler/SB Engine crash handler.exe", [errMsg]);
 		Sys.exit(1);
 	}
 	#end
