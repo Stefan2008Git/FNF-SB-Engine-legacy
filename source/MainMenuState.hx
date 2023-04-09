@@ -44,8 +44,6 @@ class MainMenuState extends MusicBeatState
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902);
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 	var camLerp:Float = 0.1;
 
@@ -96,11 +94,6 @@ class MainMenuState extends MusicBeatState
 		
 		// orange.scrollFactor.set();
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
-
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xFFFFA500], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
@@ -139,9 +132,6 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
-
-		camGame.follow(camFollow, null, camLerp);
-
 
 		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 16);
 		versionSb.scrollFactor.set();
@@ -185,17 +175,16 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			}
 
+        var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		menuItems.forEach(function(spr:FlxSprite)
 			{
 				spr.scale.set(FlxMath.lerp(spr.scale.x, 0.8, camLerp / (ClientPrefs.framerate / 60)),
-					FlxMath.lerp(spr.scale.y, 0.8, 0.4 / (ClientPrefs.framerate / 60)));
-				spr.y = FlxMath.lerp(spr.y, -20 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
+				FlxMath.lerp(spr.scale.y, 0.8, 0.4 / (ClientPrefs.framerate / 60)));
 	
 				if (spr.ID == curSelected)
 				{
-					spr.scale.set(FlxMath.lerp(spr.scale.x, 1.1, camLerp / (ClientPrefs.framerate / 60)),
-						FlxMath.lerp(spr.scale.y, 1.1, 0.4 / (ClientPrefs.framerate / 60)));
-					spr.y = FlxMath.lerp(spr.y, -90 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
+					spr.scale.set(FlxMath.lerp(spr.scale.x, 1.0, camLerp / (ClientPrefs.framerate / 60)),
+						FlxMath.lerp(spr.scale.y, 1.0, 0.4 / (ClientPrefs.framerate / 60)));
 				}
 	
 				spr.updateHitbox();
@@ -203,35 +192,24 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomething && selectable)
 			{
-				var shiftMult:Int = 1;
-				if (FlxG.keys.pressed.SHIFT)
-					shiftMult = 3;
-	
-				if (FlxG.mouse.wheel != 0)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-					changeItem(-FlxG.mouse.wheel);
-				}
 				if (controls.UI_UP_P)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-					changeItem(-shiftMult);
-					holdTime = 0;
-				}
-	
-				if (controls.UI_DOWN_P)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-					changeItem(shiftMult);
-					holdTime = 0;
-				}
-
-			if (controls.BACK)
-			{
-				selectedSomething = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
-			}
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-1);
+					}
+		
+					if (controls.UI_DOWN_P)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(1);
+					}
+		
+					if (controls.BACK)
+					{
+						selectedSomething = true;
+						FlxG.sound.play(Paths.sound('cancelMenu'));
+						MusicBeatState.switchState(new TitleState());
+					}
 
 			if (controls.ACCEPT)
 			{
@@ -289,20 +267,16 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 
 		menuItems.forEach(function(spr:FlxSprite)
-			{
-				if (spr.ID == curSelected)
-				{
-					camFollow.y = FlxMath.lerp(camFollow.y, spr.getGraphicMidpoint().y, camLerp / (ClientPrefs.framerate / 60));
-					camFollow.x = spr.getGraphicMidpoint().x;
-				}
-			});
+		{
+			spr.screenCenter(X);
+		});
 	
 			super.update(elapsed);
 		}
 	
 		function changeItem(huh:Int = 0)
 		{
-			spr.screenCenter(X);
+			
 			curSelected += huh;
 	
 			if (curSelected >= menuItems.length)
@@ -311,22 +285,20 @@ class MainMenuState extends MusicBeatState
 				curSelected = menuItems.length - 1;
 	
 			menuItems.forEach(function(spr:FlxSprite)
+		        {
+                        spr.screenCenter(X);
+			spr.animation.play('idle');
+			spr.updateHitbox();
+
+			if (spr.ID == curSelected)
 			{
-				spr.animation.play('idle');
-				spr.updateHitbox();
-	
-				if (spr.ID == curSelected)
-				{
-					spr.animation.play('selected');
-					var add:Float = 0;
-					if (menuItems.length > 4)
-					{
-						add = menuItems.length * 8;
-					}
-					// camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-					// spr.centerOffsets();
+				spr.animation.play('selected');
+				var add:Float = 0;
+				if(menuItems.length > 4) {
+					add = menuItems.length * 8;
 				}
-			});
-		}
+				spr.centerOffsets();
+			}
+		});
 	}
-	
+}
