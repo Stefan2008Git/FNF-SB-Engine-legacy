@@ -140,8 +140,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
-		camGame.follow(camFollow, null, camLerp);
-
+		FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 16);
 		versionSb.scrollFactor.set();
@@ -184,6 +183,9 @@ class MainMenuState extends MusicBeatState
 			{
 				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			}
+
+                var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
+		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		menuItems.forEach(function(spr:FlxSprite)
 			{
@@ -289,13 +291,9 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 
 		menuItems.forEach(function(spr:FlxSprite)
-			{
-				if (spr.ID == curSelected)
-				{
-					camFollow.y = FlxMath.lerp(camFollow.y, spr.getGraphicMidpoint().y, camLerp / (ClientPrefs.framerate / 60));
-					camFollow.x = spr.getGraphicMidpoint().x;
-				}
-			});
+		{
+			spr.screenCenter(X);
+		});
 	
 			super.update(elapsed);
 		}
@@ -311,22 +309,21 @@ class MainMenuState extends MusicBeatState
 				curSelected = menuItems.length - 1;
 	
 			menuItems.forEach(function(spr:FlxSprite)
+		        {
+			spr.animation.play('idle');
+			spr.updateHitbox();
+
+			if (spr.ID == curSelected)
 			{
-				spr.animation.play('idle');
-				spr.updateHitbox();
-	
-				if (spr.ID == curSelected)
-				{
-					spr.animation.play('selected');
-					var add:Float = 0;
-					if (menuItems.length > 4)
-					{
-						add = menuItems.length * 8;
-					}
-					// camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-					// spr.centerOffsets();
+				spr.animation.play('selected');
+				var add:Float = 0;
+				if(menuItems.length > 4) {
+					add = menuItems.length * 8;
 				}
-			});
+				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
+				spr.centerOffsets();
+			}
+		        });
 		}
 	}
 	
