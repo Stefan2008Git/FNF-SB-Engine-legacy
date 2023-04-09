@@ -132,11 +132,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-        #if android
 		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".txt";
-		#else
-		path = "./crashHandler/crash/" + "SB Engine_" + dateNow + ".txt";
-		#end
 
 		for (stackItem in callStack)
 		{
@@ -156,13 +152,8 @@ class Main extends Sprite
 		];
 		for(line in errorLinesSorted) { errMsg += line; }
 
-		#if android
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
 			FileSystem.createDirectory(SUtil.getPath() + ".crash/");
-		#else
-		if (!FileSystem.exists("./crashHandler/crash/"))
-			 FileSystem.createDirectory("./crashHandler/crash/");
-		#end
 
 		File.saveContent(path, errMsg + "\n");
 
@@ -170,8 +161,8 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
         #if desktop
+		Application.current.window.alert(errMsg, "Error!");
 		DiscordClient.shutdown();
-		new Process("./crashHandler/SBEngineCrashHandler.exe", [errMsg]);
 		#end 
 		Sys.exit(1);
 	}

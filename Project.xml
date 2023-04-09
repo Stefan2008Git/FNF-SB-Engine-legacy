@@ -109,7 +109,7 @@
 	<assets path="assets/week7"         library="week7"         exclude="*.mp3" unless="web"/>
 	
 	<section if="MODS_ALLOWED">
-		<assets path='example_mods' rename='mods' embed='false'/>
+		<assets path='example_mods' rename='mods' embed='false' if="MODS_ALLOWED"/>
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->
@@ -122,7 +122,6 @@
 		NOT USING A DIRECT THING TO THE ASSET!!!
 	-->
 	<assets path="assets/fonts" />
-	<assets path='crashHandler/export/release/windows/bin' rename='SBEngineCrash' if="CRASH_HANDLER"/>
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
