@@ -169,8 +169,10 @@ class Main extends Sprite
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
+        #if desktop
 		DiscordClient.shutdown();
 		new Process("./crashHandler/SB Engine crash handler.exe", [errMsg]);
+		#end 
 		Sys.exit(1);
 	}
 	#end
