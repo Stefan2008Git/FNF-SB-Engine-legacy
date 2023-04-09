@@ -143,13 +143,13 @@ class Main extends Sprite
 			switch (stackItem)
 			{
 				case FilePos(s, file, line, column):
-					errMsg += file + " (line " + line + ")\n";
+					errMsg += file + " (Line " + line + ")\n";
 				default:
 					Sys.println(stackItem);
 			}
 		}
 
-		final errorLinesSorted:Array<String> = [
+		path errorLinesSorted:Array<String> = [
 			'\nUncaught Error: ${e.error}!',
 			'\nPlease report this error to the GitHub page\n(Will automatically open when exiting!)',
 			'\n\nOriginal CrashHandler code written by squirra-rng (https://github.com/gedehari)'
@@ -171,7 +171,7 @@ class Main extends Sprite
 
         #if desktop
 		DiscordClient.shutdown();
-		new Process("./crashHandler/SB Engine crash handler.exe", [errMsg]);
+		new Process("./crashHandler/SBEngineCrashHandler.exe", [errMsg]);
 		#end 
 		Sys.exit(1);
 	}
