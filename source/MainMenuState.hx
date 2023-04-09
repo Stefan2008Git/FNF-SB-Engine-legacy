@@ -300,7 +300,7 @@ class MainMenuState extends MusicBeatState
 	
 		function changeItem(huh:Int = 0)
 		{
-			spr.screenCenter(X);
+			
 			curSelected += huh;
 	
 			if (curSelected >= menuItems.length)
@@ -310,6 +310,7 @@ class MainMenuState extends MusicBeatState
 	
 			menuItems.forEach(function(spr:FlxSprite)
 		        {
+                        spr.screenCenter(X);
 			spr.animation.play('idle');
 			spr.updateHitbox();
 
