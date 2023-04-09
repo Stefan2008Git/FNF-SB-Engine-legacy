@@ -41,6 +41,7 @@ class MainMenuState extends MusicBeatState
 
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -90,6 +91,11 @@ class MainMenuState extends MusicBeatState
 		
 		// orange.scrollFactor.set();
 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xFFFFA500], 1, 90, true);
+		gradientBar.y = FlxG.height - gradientBar.height;
+		add(gradientBar);
+		gradientBar.scrollFactor.set(0, 0);
+
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
@@ -108,16 +114,18 @@ class MainMenuState extends MusicBeatState
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionSelect[i]);
-			menuItem.animation.addByPrefix('idle', optionSelect[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionSelect[i] + " white", 24);
+			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
+			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
+			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 120) - 30}, 1.3, {ease: FlxEase.expoInOut});
 			menuItems.add(menuItem);
-			var scr:Float = (optionSelect.length - 4) * 0.135;
-			if(optionSelect.length < 6) scr = 0;
-			menuItem.scrollFactor.set();
+			var scr:Float = (optionShit.length - 4) * 0.135;
+			if (optionShit.length < 6)
+				scr = 0;
+			menuItem.scale.set(0.8, 0.8);
+			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
@@ -171,6 +179,19 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
+
+			if (controls.UI_DOWN || controls.UI_UP)
+				{
+					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
+					holdTime += elapsed;
+					var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
+	
+					if (holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+					}
+				}
 
 			if (controls.BACK)
 			{
@@ -235,34 +256,43 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 
 		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
-	}
-
-	function changeItem(huh:Int = 0)
-	{
-		curSelected += huh;
-
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.animation.play('idle');
-			spr.updateHitbox();
-
-			if (spr.ID == curSelected)
 			{
-				spr.animation.play('selected');
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
+				if (spr.ID == curSelected)
+				{
+					camFollow.y = FlxMath.lerp(camFollow.y, spr.getGraphicMidpoint().y, camLerp / (ClientPrefs.framerate / 60));
+					camFollow.x = spr.getGraphicMidpoint().x;
 				}
-				spr.centerOffsets();
-			}
-		});
+			});
+	
+			super.update(elapsed);
+		}
+	
+		function changeItem(huh:Int = 0)
+		{
+			curSelected += huh;
+	
+			if (curSelected >= menuItems.length)
+				curSelected = 0;
+			if (curSelected < 0)
+				curSelected = menuItems.length - 1;
+	
+			menuItems.forEach(function(spr:FlxSprite)
+			{
+				spr.animation.play('idle');
+				spr.updateHitbox();
+	
+				if (spr.ID == curSelected)
+				{
+					spr.animation.play('selected');
+					var add:Float = 0;
+					if (menuItems.length > 4)
+					{
+						add = menuItems.length * 8;
+					}
+					// camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
+					// spr.centerOffsets();
+				}
+			});
+		}
 	}
-}
+	
