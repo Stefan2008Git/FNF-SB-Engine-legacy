@@ -173,10 +173,10 @@ class MainMenuState extends MusicBeatState
 				selectable = true;
 			});
 		}
-	}
 
 	var selectable:Bool = false;
 	var selectedSomething:Bool = false;
+
 	var holdTime:Float = 0;
 
 	override function update(elapsed:Float)
