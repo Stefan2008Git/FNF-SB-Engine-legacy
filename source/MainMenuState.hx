@@ -45,6 +45,8 @@ class MainMenuState extends MusicBeatState
 	var velocityBG:FlxBackdrop;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902);
 	var debugKeys:Array<FlxKey>;
+	var camFollow:FlxObject;
+	var camFollowPos:FlxObject;
 	var camLerp:Float = 0.1;
 
 	override function create()
@@ -93,6 +95,11 @@ class MainMenuState extends MusicBeatState
 		add(orange);
 		
 		// orange.scrollFactor.set();
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollowPos = new FlxObject(0, 0, 1, 1);
+		add(camFollow);
+		add(camFollowPos);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xFFFFA500], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
