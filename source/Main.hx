@@ -149,7 +149,7 @@ class Main extends Sprite
 			}
 		}
 
-		path errorLinesSorted:Array<String> = [
+		final errorLinesSorted:Array<String> = [
 			'\nUncaught Error: ${e.error}!',
 			'\nPlease report this error to the GitHub page\n(Will automatically open when exiting!)',
 			'\n\nOriginal CrashHandler code written by squirra-rng (https://github.com/gedehari)'
