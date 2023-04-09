@@ -41,7 +41,7 @@ class MainMenuState extends MusicBeatState
 
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902;
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFF885902);
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
