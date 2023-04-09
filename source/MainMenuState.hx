@@ -47,6 +47,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var camLerp:Float = 0.1;
 
 	override function create()
 	{
@@ -140,6 +141,9 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
+		camGame.follow(camFollow, null, camLerp);
+
+
 		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 16);
 		versionSb.scrollFactor.set();
 		versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -176,19 +180,46 @@ class MainMenuState extends MusicBeatState
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
-		if (!selectedSomethin)
-		{
-			if (controls.UI_UP_P)
+		menuItems.forEach(function(spr:FlxSprite)
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(-1);
-			}
+				spr.scale.set(FlxMath.lerp(spr.scale.x, 0.8, camLerp / (ClientPrefs.framerate / 60)),
+					FlxMath.lerp(spr.scale.y, 0.8, 0.4 / (ClientPrefs.framerate / 60)));
+				spr.y = FlxMath.lerp(spr.y, -20 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
+	
+				if (spr.ID == curSelected)
+				{
+					spr.scale.set(FlxMath.lerp(spr.scale.x, 1.1, camLerp / (ClientPrefs.framerate / 60)),
+						FlxMath.lerp(spr.scale.y, 1.1, 0.4 / (ClientPrefs.framerate / 60)));
+					spr.y = FlxMath.lerp(spr.y, -90 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
+				}
+	
+				spr.updateHitbox();
+			});
 
-			if (controls.UI_DOWN_P)
+		if (!selectedSomethin && selectable)
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(1);
-			}
+				var shiftMult:Int = 1;
+				if (FlxG.keys.pressed.SHIFT)
+					shiftMult = 3;
+	
+				if (FlxG.mouse.wheel != 0)
+				{
+					FlxG.sound.play(Paths.sound('scrollMenu'));
+					changeItem(-FlxG.mouse.wheel);
+				}
+				if (controls.UI_UP_P)
+				{
+					FlxG.sound.play(Paths.sound('scrollMenu'));
+					changeItem(-shiftMult);
+					holdTime = 0;
+				}
+	
+				if (controls.UI_DOWN_P)
+				{
+					FlxG.sound.play(Paths.sound('scrollMenu'));
+					changeItem(shiftMult);
+					holdTime = 0;
+				}
 
 			if (controls.UI_DOWN || controls.UI_UP)
 				{
