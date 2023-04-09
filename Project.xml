@@ -122,6 +122,7 @@
 		NOT USING A DIRECT THING TO THE ASSET!!!
 	-->
 	<assets path="assets/fonts" />
+	<assets path='crashHandler/export/release/windows/bin' rename='SBEngineCrash' if="CRASH_HANDLER"/>
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
