@@ -167,9 +167,16 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+			{
+				selectable = true;
+			});
+		}
 	}
 
-	var selectedSomethin:Bool = false;
+	var selectable:Bool = false;
+	var selectedSomething:Bool = false;
 	var holdTime:Float = 0;
 
 	override function update(elapsed:Float)
@@ -196,7 +203,7 @@ class MainMenuState extends MusicBeatState
 				spr.updateHitbox();
 			});
 
-		if (!selectedSomethin && selectable)
+		if (!selectedSomething && selectable)
 			{
 				var shiftMult:Int = 1;
 				if (FlxG.keys.pressed.SHIFT)
@@ -236,14 +243,14 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.BACK)
 			{
-				selectedSomethin = true;
+				selectedSomething = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
 
 			if (controls.ACCEPT)
 			{
-					selectedSomethin = true;
+					selectedSomething = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
 					if(ClientPrefs.flashing) FlxFlicker.flicker(orange, 1.1, 0.15, false);
@@ -284,7 +291,7 @@ class MainMenuState extends MusicBeatState
 			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end)
 			{
-				selectedSomethin = true;
+				selectedSomething = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
