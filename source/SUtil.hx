@@ -111,7 +111,7 @@ class SUtil
 				switch (stackItem)
 				{
 					case FilePos(s, file, line, column):
-						errorMessage += file + ' (line ' + line + ')\n';
+						errorMessage += file + ' (Line ' + line + ')\n';
 					default:
 						Sys.println(stackItem);
 				}
