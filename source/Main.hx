@@ -26,10 +26,6 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-#if android
-import android.widget.Toast;
-#end
-
 using StringTools;
 
 class Main extends Sprite
@@ -123,11 +119,7 @@ class Main extends Sprite
 		}
 		#end
 
-		#if android
-		Toast.makeText("Welcome to SB Engine" + Toast.LENGTH_LONG);
-		#else
 		Application.current.window.alert("Welcome to SB Engine!");
-		#end
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
