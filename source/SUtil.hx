@@ -104,30 +104,30 @@ class SUtil
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, function(u:UncaughtErrorEvent)
 		{
 			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-			var errMsg:String = '';
+			var errorMessage:String = '';
 
 			for (stackItem in callStack)
 			{
 				switch (stackItem)
 				{
 					case FilePos(s, file, line, column):
-						errMsg += file + ' (line ' + line + ')\n';
+						errorMessage += file + ' (line ' + line + ')\n';
 					default:
 						Sys.println(stackItem);
 				}
 			}
 
-			errMsg += u.error;
+			errorMessage += u.error;
 
-			Sys.println(errMsg);
-			SUtil.applicationAlert('Error!', errMsg);
+			Sys.println(errorMessage);
+			SUtil.applicationAlert('Error!', errorMessage);
 
 			try
 			{
 				if (!FileSystem.exists(SUtil.getPath() + 'crash/'))
 					FileSystem.createDirectory(SUtil.getPath() + 'crash/');
 
-				File.saveContent(SUtil.getPath() + 'crash/' + Application.current.meta.get('file') + '_' + FlxStringUtil.formatTime(Sys.time(), true) + '.log', errMsg + "\n");
+				File.saveContent(SUtil.getPath() + 'crash/' + Application.current.meta.get('file') + '_' + FlxStringUtil.formatTime(Sys.time(), true) + '.log', errorMessage + "\n");
 			}
 			catch (e:Dynamic)
 				SUtil.applicationAlert('Error!', "Clouldn't save the crash dump because: " + e);

@@ -122,6 +122,12 @@ class Main extends Sprite
 			});
 		}
 		#end
+
+		#if android
+		Toast.makeText("Welcome to SB Engine" + Toast.LENGTH_LONG);
+		#else
+		Application.current.window.alert("Welcome to SB Engine!");
+		#end
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
@@ -129,7 +135,7 @@ class Main extends Sprite
 	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
-		var errMsg:String = "";
+		var errorMessage:String = "";
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
@@ -137,34 +143,30 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".txt";
+		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".log";
 
 		for (stackItem in callStack)
 		{
 			switch (stackItem)
 			{
 				case FilePos(s, file, line, column):
-					errMsg += file + " (line " + line + ")\n";
+					errorMessage += file + " (Line " + line + ")\n";
 				default:
 					Sys.println(stackItem);
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n> Crash Handler written by: sqirra-rng\nYou just need to fix this error.";
+		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n> Crash Handler written by: sqirra-rng\nYou just need to fix this error.";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
 			FileSystem.createDirectory(SUtil.getPath() + "crash/");
 
-		File.saveContent(path, errMsg + "\n");
+		File.saveContent(path, errorMessage + "\n");
 
-		Sys.println(errMsg);
-		#if android
-		Toast.makeText("Crash dump saved in " + Path.normalize(path) + Toast.LENGTH_LONG);
-		#else
+		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
-		#end
 
-		Application.current.window.alert(errMsg, "Error!");
+		Application.current.window.alert(errorMessage, "Error! " + "SB Engine version: " + MainMenuState.sbEngineVersion);
         #if desktop
 		DiscordClient.shutdown();
 	    #end
