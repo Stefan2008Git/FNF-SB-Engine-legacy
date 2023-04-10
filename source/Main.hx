@@ -118,8 +118,6 @@ class Main extends Sprite
 			});
 		}
 		#end
-
-		Application.current.window.alert("Welcome to SB Engine!");
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
@@ -148,7 +146,7 @@ class Main extends Sprite
 			}
 		}
 
-		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n> Crash Handler written by: sqirra-rng\nYou just need to fix this error.";
+		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
 			FileSystem.createDirectory(SUtil.getPath() + "crash/");
