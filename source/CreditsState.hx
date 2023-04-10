@@ -6,8 +6,8 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
@@ -41,9 +41,6 @@ class CreditsState extends MusicBeatState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -139,6 +136,7 @@ class CreditsState extends MusicBeatState
 			}
 			optionText.forceX = optionText.x;
 			//optionText.yMult = 90;
+			optionText.targetY = i;
 			grpOptions.add(optionText);
 
 			if(isSelectable) {
@@ -161,7 +159,7 @@ class CreditsState extends MusicBeatState
 		}
 		
 		descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.ORANGE);
+		descBox.makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
@@ -169,9 +167,9 @@ class CreditsState extends MusicBeatState
 		add(descBox);
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		descText.scrollFactor.set();
-		descText.borderSize = 2.4;
+		//descText.borderSize = 2.4;
 		descBox.sprTracker = descText;
 		add(descText);
 
@@ -179,7 +177,7 @@ class CreditsState extends MusicBeatState
 		intendedColor = bg.color;
 		changeSelection();
 
-        #if android
+		#if android
         addVirtualPad(UP_DOWN, A_B);
         #end
 
@@ -207,7 +205,7 @@ class CreditsState extends MusicBeatState
 
 				if (upP)
 				{
-					changeSelection(1 * -shiftMult);
+					changeSelection(-1 * shiftMult);
 					holdTime = 0;
 				}
 				if (downP)
@@ -290,14 +288,14 @@ class CreditsState extends MusicBeatState
 			});
 		}
 
-		var optionFreak:Int = 0;
+		var bullFreak:Int = 0;
 
 		for (item in grpOptions.members)
 		{
-			item.targetY = optionFreak - curSelected;
-			optionFreak++;
+			item.targetY = bullFreak - curSelected;
+			bullFreak++;
 
-			if(!unselectableCheck(optionFreak-1)) {
+			if(!unselectableCheck(bullFreak-1)) {
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;
