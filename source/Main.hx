@@ -26,6 +26,10 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
+#if android
+import android.widget.Toast;
+#end
+
 using StringTools;
 
 class Main extends Sprite
@@ -53,6 +57,7 @@ class Main extends Sprite
 	{
 		super();
 
+    SUtil.check();
 		if (stage != null)
 		{
 			init();
@@ -139,31 +144,30 @@ class Main extends Sprite
 			switch (stackItem)
 			{
 				case FilePos(s, file, line, column):
-					errMsg += file + " (Line " + line + ")\n";
+					errMsg += file + " (line " + line + ")\n";
 				default:
 					Sys.println(stackItem);
 			}
 		}
 
-		final errorLinesSorted:Array<String> = [
-			'\nUncaught Error: ${e.error}!',
-			'\nPlease report this error to the GitHub page\n(Will automatically open when exiting!)',
-			'\n\nOriginal CrashHandler code written by squirra-rng (https://github.com/gedehari)'
-		];
-		for(line in errorLinesSorted) { errMsg += line; }
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n> Crash Handler written by: sqirra-rng\nYou just need to fix this error.";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
-			FileSystem.createDirectory(SUtil.getPath() + ".crash/");
+			FileSystem.createDirectory(SUtil.getPath() + "crash/");
 
 		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
+		#if android
+		Toast.makeText("Crash dump saved in " + Path.normalize(path) + Toast.LENGTH_LONG);
+		#else
 		Sys.println("Crash dump saved in " + Path.normalize(path));
+		#end
 
-        #if desktop
 		Application.current.window.alert(errMsg, "Error!");
+        #if desktop
 		DiscordClient.shutdown();
-		#end 
+	    #end
 		Sys.exit(1);
 	}
 	#end
