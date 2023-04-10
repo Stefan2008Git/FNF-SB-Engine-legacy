@@ -25,7 +25,7 @@ class DiscordClient
 			onError: onError,
 			onDisconnected: onDisconnected
 		});
-		trace("Discord Client is started.");
+		trace("Discord Client it's started.");
 
 		while (true)
 		{
@@ -70,7 +70,7 @@ class DiscordClient
 		{
 			new DiscordClient();
 		});
-		trace("Discord Client is initialized");
+		trace("Discord Client it's initialized");
 		isInitialized = true;
 	}
 
