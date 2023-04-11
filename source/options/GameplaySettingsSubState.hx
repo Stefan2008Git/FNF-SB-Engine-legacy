@@ -25,7 +25,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 #if android
-import android.Tools;
+import android.Hardware;
 #end
 
 using StringTools;
@@ -162,7 +162,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			"If checked, you have SB Engine icon bounce.\nCredits: notweuz (Creator of OS Engine.)",
 			'iconBounce',
 			'bool',
-			false);
+			true);
 		addOption(option);
 
 		super();
@@ -178,7 +178,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	{
 		if(ClientPrefs.vibration)
 		{
-			Tools.vibrate(500);
+			Hardware.vibrate(500);
 		}
 	}
 	#end
