@@ -93,7 +93,7 @@ class SUtil
 		dateNow = StringTools.replace(dateNow, " ", "_");
 		dateNow = StringTools.replace(dateNow, ":", "'");
 
-		var path:String = "crash/" + "crash_" + dateNow + ".txt";
+		var path:String = "crash/" + "SB Engine_" + dateNow + ".log";
 		var errorMessage:String = "";
 
 		for (stackItem in callStack)
@@ -107,7 +107,7 @@ class SUtil
 			}
 		}
 
-		errorMessage += e.error;
+		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash"))
 		FileSystem.createDirectory(SUtil.getPath() + "crash");
@@ -116,9 +116,8 @@ class SUtil
 
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
-		Sys.println("Making a simple alert ...");
 
-		SUtil.applicationAlert("Uncaught Error!", errorMessage);
+		SUtil.applicationAlert("Error! SB Engine version: " + MainMenuState.sbEngineVersion, errorMessage);
 		System.exit(0);
 	}
 

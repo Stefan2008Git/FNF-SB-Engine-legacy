@@ -46,9 +46,6 @@ class Cache extends FlxState
 
 	override function create()
 	{
-	
-		FlxG.mouse.visible = true;
-
 		FlxG.worldBounds.set(0,0);
 
 		super.create();

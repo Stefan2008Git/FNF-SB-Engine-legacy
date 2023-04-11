@@ -53,7 +53,7 @@ class Main extends Sprite
 	{
 		super();
 
-	SUtil.gameCrashCheck();
+    SUtil.gameCrashCheck();
 		if (stage != null)
 		{
 			init();
@@ -156,7 +156,7 @@ class Main extends Sprite
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		Application.current.window.alert(errorMessage, "Error! " + "SB Engine version: " + MainMenuState.sbEngineVersion);
+		Application.current.window.alert(errorMessage, "Error! SB Engine version: " + MainMenuState.sbEngineVersion);
         #if desktop
 		DiscordClient.shutdown();
 	    #end
