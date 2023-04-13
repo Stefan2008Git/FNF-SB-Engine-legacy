@@ -271,6 +271,7 @@ class PlayState extends MusicBeatState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var judgementCounterTxt:FlxText;
 	public var watermarkTxt:FlxText;
 	public var sbEngineVersionTxt:FlxText;
 	public var psychEngineVersionTxt:FlxText;
@@ -1182,29 +1183,38 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		judgementCounterTxt = new FlxText(20, 0, 0, "", 20);
+		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementCounterTxt.borderSize = 1.25;
+		judgementCounterTxt.visible = !ClientPrefs.hideHud;
+		judgementCounterTxt.scrollFactor.set();
+		judgementCounterTxt.screenCenter(Y);
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
+		add(judgementCounterTxt);
+
 		sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
 		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sbEngineVersionTxt.scrollFactor.set();
 		sbEngineVersionTxt.borderSize = 1.25;
 		sbEngineVersionTxt.visible = !ClientPrefs.hideHud;
-		add(sbEngineVersionTxt);
 		sbEngineVersionTxt.text = " SB Engine: " + MainMenuState.sbEngineVersion;
+		add(sbEngineVersionTxt);
 
 		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		psychEngineVersionTxt.scrollFactor.set();
 		psychEngineVersionTxt.borderSize = 1.25;
 		psychEngineVersionTxt.visible = !ClientPrefs.hideHud;
-		add(psychEngineVersionTxt);
 		psychEngineVersionTxt.text = " Psych Engine: " + MainMenuState.psychEngineVersion;
+		add(psychEngineVersionTxt);
 
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideHud;
-		add(watermarkTxt);
 		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
+		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "[AUTOPLAY]", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1224,6 +1234,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		judgementCounterTxt.cameras = [camHUD];
 		sbEngineVersionTxt.cameras = [camHUD];
 		psychEngineVersionTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
@@ -1238,11 +1249,6 @@ class PlayState extends MusicBeatState
 		androidControls.visible = false;
 		#end
 
-		// if (SONG.song == 'South')
-		// FlxG.camera.alpha = 0.7;
-		// UI_camera.zoom = 1;
-
-		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 		
 		#if LUA_ALLOWED
@@ -1266,7 +1272,6 @@ class PlayState extends MusicBeatState
 			eventNotes.sort(sortByTime);
 		}
 
-		// SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
 		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
@@ -5306,7 +5311,9 @@ class PlayState extends MusicBeatState
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
 	}
+
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
