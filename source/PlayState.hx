@@ -1184,12 +1184,12 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		judgementCounterTxt = new FlxText(20, 0, 0, "", 20);
-		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounterTxt.borderSize = 1.25;
 		judgementCounterTxt.visible = !ClientPrefs.hideHud;
 		judgementCounterTxt.scrollFactor.set();
 		judgementCounterTxt.screenCenter(Y);
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nMisses: ${songMisses}';
 		add(judgementCounterTxt);
 
 		sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
