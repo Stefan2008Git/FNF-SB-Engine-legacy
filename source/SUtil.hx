@@ -110,7 +110,7 @@ class SUtil
 		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash"))
-		FileSystem.createDirectory(SUtil.getPath() + "crash");
+		    FileSystem.createDirectory(SUtil.getPath() + "crash");
 
 		File.saveContent(SUtil.getPath() + path, errorMessage + "\n");
 
