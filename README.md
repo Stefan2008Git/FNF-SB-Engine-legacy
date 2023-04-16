@@ -1,6 +1,8 @@
 # Friday Night Funkin': SB Engine
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/SB-Engine.png)
 
+[![GitHub all releases downloaded](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
+
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## SB Engine Credits:
 * Stefan2008 - Programmer
@@ -20,8 +22,6 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 * Keoiki - Note Splash Animations
 * Smokey - Sprite Atlas Support
 * Nebula the Zorua - LUA JIT Fork and some Lua reworks
-
-
 
 
 # Welcome to SB Engine - (Modified Psych Engine) with some change's and addition: 
