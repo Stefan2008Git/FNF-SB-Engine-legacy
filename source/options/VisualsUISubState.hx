@@ -111,13 +111,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('GL render counter',
-			"If unchecked, hides GL Render counter.\nRequest: You need to turn on FPS counter first!",
-			'glRender',
-			'bool',
-			false);
-		addOption(option);
-
 		var option:Option = new Option('Pause Screen Song:',
 			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
