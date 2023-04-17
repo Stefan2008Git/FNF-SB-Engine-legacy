@@ -1196,7 +1196,7 @@ class PlayState extends MusicBeatState
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideHud;
 		if(ClientPrefs.downScroll) {
-			watermarkTxt.y = 135;
+			watermarkTxt.y = 140;
 		}
 		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
