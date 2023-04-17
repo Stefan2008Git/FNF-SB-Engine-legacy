@@ -273,8 +273,6 @@ class PlayState extends MusicBeatState
 	public var scoreTxt:FlxText;
 	public var judgementCounterTxt:FlxText;
 	public var watermarkTxt:FlxText;
-	public var sbEngineVersionTxt:FlxText;
-	public var psychEngineVersionTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1192,28 +1190,15 @@ class PlayState extends MusicBeatState
 		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nMisses: ${songMisses}';
 		add(judgementCounterTxt);
 
-		sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
-		sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		sbEngineVersionTxt.scrollFactor.set();
-		sbEngineVersionTxt.borderSize = 1.25;
-		sbEngineVersionTxt.visible = !ClientPrefs.hideHud;
-		sbEngineVersionTxt.text = " SB Engine: " + MainMenuState.sbEngineVersion;
-		add(sbEngineVersionTxt);
-
-		psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-		psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		psychEngineVersionTxt.scrollFactor.set();
-		psychEngineVersionTxt.borderSize = 1.25;
-		psychEngineVersionTxt.visible = !ClientPrefs.hideHud;
-		psychEngineVersionTxt.text = " Psych Engine: " + MainMenuState.psychEngineVersion;
-		add(psychEngineVersionTxt);
-
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideHud;
-		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") ";
+		if(ClientPrefs.downScroll) {
+			watermarkTxt.y = 135;
+		}
+		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "[AUTOPLAY]", 32);
@@ -1235,8 +1220,6 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		judgementCounterTxt.cameras = [camHUD];
-		sbEngineVersionTxt.cameras = [camHUD];
-		psychEngineVersionTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
