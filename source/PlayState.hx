@@ -5284,11 +5284,11 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = "SFC";
-			if (goods > 0) ratingFC = "GFC";
-			if (bads > 0 || freaks > 0) ratingFC = "FC";
-			if (songMisses > 0 && songMisses < 1) ratingFC = "SDCB";
-			else if (songMisses >= 50) ratingFC = "Clear";
+			if (sicks > 0) ratingFC = "Sick full combo";
+			if (goods > 0) ratingFC = "Good full combo";
+			if (bads > 0 || freaks > 0) ratingFC = "Full combo";
+			if (songMisses > 0 && songMisses < 10) ratingFC = "You have misses";
+			else if (songMisses >= 10) ratingFC = "Cleared song";
 		}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
 		setOnLuas('rating', ratingPercent);

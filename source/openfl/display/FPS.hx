@@ -1,20 +1,42 @@
 package openfl.display;
 
-import flixel.FlxG;
-import openfl.display.Shader;
-import openfl.filters.ShaderFilter;
-import openfl.system.System;
+import haxe.Timer;
+import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
-// thank you vs impostor :grin:
+import flixel.math.FlxMath;
+#if gl_stats
+import openfl.display._internal.stats.Context3DStats;
+import openfl.display._internal.stats.DrawCallContext;
+#end
+#if flash
+import openfl.Lib;
+#end
+
+#if openfl
+import openfl.system.System;
+#end
+
+/**
+	The FPS class provides an easy-to-use monitor to display
+	the current frame rate of an OpenFL project
+**/
+#if !openfl_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
+
+enum GLInfo
+{
+	RENDERER;
+	SHADING_LANGUAGE_VERSION;
+}
 class FPS extends TextField
 {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
-	public var currentFPS(default, null):UInt;
-
-	var memoryPeak:UInt = 0;
+	public var currentFPS(default, null):Int;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
@@ -31,14 +53,13 @@ class FPS extends TextField
 		selectable = false;
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat("_sans", 12, color);
+		autoSize = LEFT;
+		multiline = true;
 		text = "FPS: ";
 
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
-
-		autoSize = LEFT;
-		backgroundColor = 0;
 
 		#if flash
 		addEventListener(Event.ENTER_FRAME, function(e)
@@ -47,8 +68,6 @@ class FPS extends TextField
 			__enterFrame(time - currentTime);
 		});
 		#end
-
-		width = 350;
 	}
 
 	// Event Handlers
@@ -67,43 +86,63 @@ class FPS extends TextField
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
 		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
 
-		var memoryMegas = System.totalMemory;
-		if (memoryMegas > memoryPeak) memoryPeak = memoryMegas;
+		if (currentCount != cacheCount)
+		{
+			text = "FPS: " + currentFPS;
+			var memoryMegas:Float = 0;
+			var memoryPeak:Float = 0;
+			
+			#if openfl
+			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
+			if (memoryMegas > memoryPeak)
+				memoryPeak = memoryMegas;
+			text += "\nMemory: " + memoryMegas + " MB";
+			if(ClientPrefs.totalMemory)
+			{
+			text += "\nMemory peak: " + memoryPeak + " MB";
+		    }
+			if(ClientPrefs.sbEngineVersion)
+			{
+			text += "\nEngine version: " + MainMenuState.sbEngineVersion;
+		    }
+			if(ClientPrefs.glRender)
+			{
+                        text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+                        text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+                        text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+		    }
+			#end
 
-		text = "FPS: " + currentFPS + "\nMemory: " + getSizeLabel(System.totalMemory);
-		if(ClientPrefs.totalMemory)
-		{
-		 text += "\nMemory peak: " + getSizeLabel(memoryPeak);
-		}
-		if(ClientPrefs.sbEngineVersion)
-		{
-		 text += "\nEngine version: " + MainMenuState.sbEngineVersion;
+			textColor = 0xFFFFFFFF;
+			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
+			{
+				textColor = 0xFFFF0000;
+			}
+
+			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
+			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
+			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
+			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
+			#end
+
+			text += "\n";
 		}
 
-		textColor = 0xFFFFFFFF;
-		if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
-		{
-		    textColor = 0xFFFF0000;
-		}
+		cacheCount = currentCount;
 	}
 
-	final dataTexts = ["B", "KB", "MB", "GB", "TB", "PB"];
-
-	function getSizeLabel(num:UInt):String
+        private function getGLInfo(info:GLInfo):String
 	{
-		var size:Float = num;
-		var data = 0;
-		while (size > 1024 && data < dataTexts.length - 1)
+		@:privateAccess
+		var gl:Dynamic = Lib.current.stage.context3D.gl;
+
+		switch (info)
 		{
-			data++;
-			size = size / 1024;
+			case RENDERER:
+				return Std.string(gl.getParameter(gl.RENDERER));
+			case SHADING_LANGUAGE_VERSION:
+				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
 		}
-
-		size = Math.round(size * 100) / 100;
-
-		if (data <= 2)
-			size = Math.round(size);
-
-		return size + " " + dataTexts[data];
+		return '';
 	}
 }
