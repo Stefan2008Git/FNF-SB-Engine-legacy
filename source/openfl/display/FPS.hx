@@ -65,12 +65,12 @@ class FPS extends TextField
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
-		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
 
 		var memoryMegas = System.totalMemory;
 		if (memoryMegas > memoryPeak) memoryPeak = memoryMegas;
 
-		text = "FPS: " + currentFPS + "\nMemory: " + getSizeLabel(System.totalMemory);
+		text = "FPS: " + currentFPS;
+		text = "\nMemory: " + getSizeLabel(System.totalMemory);
 		if(ClientPrefs.totalMemory)
 		{
 		 text += "\nMemory peak: " + getSizeLabel(memoryPeak);
@@ -78,12 +78,6 @@ class FPS extends TextField
 		if(ClientPrefs.sbEngineVersion)
 		{
 		 text += "\nEngine version: " + MainMenuState.sbEngineVersion;
-		}
-
-		textColor = 0xFFFFFFFF;
-		if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
-		{
-		    textColor = 0xFFFF0000;
 		}
 	}
 
