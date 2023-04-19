@@ -67,6 +67,14 @@ class NotesSubState extends MusicBeatSubstate
 		grpNumbers = new FlxTypedGroup<Alphabet>();
 		add(grpNumbers);
 
+		#if android
+		var resetText:FlxText = new FlxText(12, FlxG.height - 40, "Press C to reset selected note.", 80);
+		#else
+		var resetText:FlxText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
+		#end
+		resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		add(resetText);
+
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 			var yPos:Float = (165 * i) + 35;
 			for (j in 0...3) {
@@ -157,6 +165,7 @@ class NotesSubState extends MusicBeatSubstate
 				for (i in 0...3) {
 					resetValue(curSelected, i);
 				}
+				FlxG.camera.flash(FlxColor.BLACK, 1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 			if (controls.ACCEPT && nextAccept <= 0) {

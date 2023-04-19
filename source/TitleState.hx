@@ -633,7 +633,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	private var sickBeats:Int = 0;
 	public static var closedState:Bool = false;
 	override function beatHit()
 	{
@@ -655,67 +655,36 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-					//FlxG.sound.music.stop();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					#if PSYCH_WATERMARKS
 					createCoolText(['SB Engine by'], 15);
-					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-					#end
-				// credTextfreak.visible = true;
 				case 4:
-					#if PSYCH_WATERMARKS
 					addMoreText('Stefan2008', 15);
 					addMoreText('MaysLastPlay', 15);
 					addMoreText('Fearester', 15);
-					#else
-					addMoreText('present');
-					#end
-				// credTextfreak.text += '\npresent...';
-				// credTextfreak.addText();
 				case 5:
 					deleteCoolText();
-				// credTextfreak.visible = false;
-				// credTextfreak.text = 'In association \nwith';
-				// credTextfreak.screenCenter();
 				case 6:
-					#if PSYCH_WATERMARKS
 					createCoolText(['Not associated', 'with'], -40);
-					#else
-					createCoolText(['In association', 'with'], -40);
-					#end
 				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
-				// credTextfreak.text += '\nNewgrounds';
 				case 9:
 					deleteCoolText();
 					ngSpr.visible = false;
-				// credTextfreak.visible = false;
-
-				// credTextfreak.text = 'Shoutouts Tom Fulp';
-				// credTextfreak.screenCenter();
 				case 10:
 					createCoolText([curWacky[0]]);
-				// credTextfreak.visible = true;
 				case 12:
 					addMoreText(curWacky[1]);
-				// credTextfreak.text += '\nlmao';
 				case 13:
 					deleteCoolText();
-				// credTextfreak.visible = false;
-				// credTextfreak.text = "Friday";
-				// credTextfreak.screenCenter();
 				case 14:
 					addMoreText('Friday');
-				// credTextfreak.visible = true;
 				case 15:
 					addMoreText('Night');
-				// credTextfreak.text += '\nNight';
 				case 16:
-					addMoreText('Funkin'); // credTextfreak.text += '\nFunkin';
+					addMoreText('Funkin');
 				case 17:
 					addMoreText('SB');
 				case 18:
