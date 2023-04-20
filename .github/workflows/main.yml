@@ -232,7 +232,7 @@ jobs:
           name: SB Engine Android Build
           path: export/release/android/bin/app/build/outputs/apk/debug
   BuildAndroidx32:
-    name: buildAndroidx32
+    name: BuildAndroidx32
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
