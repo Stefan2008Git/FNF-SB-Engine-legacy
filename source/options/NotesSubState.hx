@@ -40,21 +40,21 @@ class NotesSubState extends MusicBeatSubstate
 	var holdTime:Float = 0;
 	var nextAccept:Int = 5;
 
-        var velocityBG:FlxBackdrop;
+    var velocityBG:FlxBackdrop;
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
+	var positionX = 230;
 
-	var posX = 230;
 	public function new() {
 		super();
-
+		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFFFA500;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
-		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
+
+		blackBG = new FlxSprite(positionX - 25).makeGraphic(1140, 200, FlxColor.BLACK);
 		blackBG.alpha = 0.4;
 		add(blackBG);
 
@@ -75,15 +75,20 @@ class NotesSubState extends MusicBeatSubstate
 		resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		add(resetText);
 
+		if (ClientPrefs.arrowHSV.length != 9) {
+			ClientPrefs.arrowHSV = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+		}
+		//trace (ClientPrefs.arrowHSV.length);
 		for (i in 0...ClientPrefs.arrowHSV.length) {
-			var yPos:Float = (165 * i) + 35;
+			var yPos:Float = (80 * i) - 40;
 			for (j in 0...3) {
-				var optionText:Alphabet = new Alphabet(0, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
-				optionText.x = posX + (225 * j) + 250;
+				var optionText:Alphabet = new Alphabet(0, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true, false, 0.05, 0.8);
+				optionText.x = positionX + (225 * j) + 250;
+				optionText.ID = i;
 				grpNumbers.add(optionText);
 			}
 
-			var note:FlxSprite = new FlxSprite(posX, yPos);
+			var note:FlxSprite = new FlxSprite(positionX, yPos);
 			note.frames = Paths.getSparrowAtlas('NOTE_assets');
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			note.animation.addByPrefix('idle', animations[i]);
@@ -99,8 +104,8 @@ class NotesSubState extends MusicBeatSubstate
 			shaderArray.push(newShader);
 		}
 
-		hsbText = new Alphabet(0, 0, "Hue  Saturation  Brightness", false, false, 0, 0.65);
-		hsbText.x = posX + 240;
+		hsbText = new Alphabet(0, 0, "Hue    Saturation  Brightness", false, false, 0, 0.65);
+		hsbText.x = positionX + 330;
 		add(hsbText);
 
 		changeSelection();
@@ -108,10 +113,50 @@ class NotesSubState extends MusicBeatSubstate
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C);
 		#end
+
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
 	var changingNote:Bool = false;
+	var angleTween:FlxTween;
+	var scaleTween:FlxTween;
+	var lastSelected:Int = 99;
 	override function update(elapsed:Float) {
+		var valueOption = 0;
+		var lerpVal:Float = CoolUtil.clamp(elapsed * 9.6, 0, 1);
+		for (i in 0...grpNumbers.length) {
+			var item = grpNumbers.members[i];
+			var scaledY = FlxMath.remapToRange(item.ID, 0, 1, 0, 1.3);
+			item.y = FlxMath.lerp(item.y, (scaledY * 165) + 270 + 60, lerpVal);
+			item.x = FlxMath.lerp(item.x, (item.ID * 20) + 90 + positionX + (225 * valueOption + 250), lerpVal);
+			valueOption++;
+			if (valueOption == 3) valueOption = 0;
+		}
+		for (i in 0...grpNotes.length) {
+			var item = grpNotes.members[i];
+			var scaledY = FlxMath.remapToRange(item.ID, 0, 1, 0, 1.3);
+			item.y = FlxMath.lerp(item.y, (scaledY * 165) + 270, lerpVal);
+			item.x = FlxMath.lerp(item.x, (item.ID * 20) + 90, lerpVal);
+			if (i == curSelected) {
+				hsbText.y = item.y - 70;
+				blackBG.y = item.y - 20;
+				blackBG.x = item.x - 20;
+				if (lastSelected != curSelected) {
+					lastSelected = curSelected;
+					if (angleTween != null) angleTween.cancel();
+					angleTween = null;
+					if (scaleTween != null) scaleTween.cancel();
+					scaleTween = null;
+					item.scale.set(0.78,0.78);
+					angleTween = FlxTween.angle(item, -12, 12, 2, {ease: FlxEase.quadInOut, type: FlxTweenType.PINGPONG});
+					scaleTween = FlxTween.tween(item, {"scale.x": 0.92, "scale.y": 0.92}, 1, {ease: FlxEase.quadInOut, type: FlxTweenType.PINGPONG});
+				}
+			} else {
+				item.scale.set(0.6,0.6);
+				item.angle = 0;
+			}
+		}
+
 		if(changingNote) {
 			if(holdTime < 0.5) {
 				if(controls.UI_LEFT_P) {
@@ -191,7 +236,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (controls.BACK || (changingNote && controls.ACCEPT)) {
+		if ((controls.BACK) || (changingNote && (controls.ACCEPT))) {
 			if(!changingNote) {
 				#if android
 				FlxTransitionableState.skipNextTransOut = true;
@@ -212,6 +257,14 @@ class NotesSubState extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
+	override function destroy() {
+		if (angleTween != null) angleTween.cancel();
+		angleTween = null;
+		if (scaleTween != null) scaleTween.cancel();
+		scaleTween = null;
+		super.destroy();
+	}
+
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
 		if (curSelected < 0)
@@ -222,23 +275,35 @@ class NotesSubState extends MusicBeatSubstate
 		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
 		updateValue();
 
+		var freakOption = 0;
+		var valueOption = 0;
+		//var currow;
+		var freakOption2 = 0;
 		for (i in 0...grpNumbers.length) {
 			var item = grpNumbers.members[i];
 			item.alpha = 0.6;
 			if ((curSelected * 3) + typeSelected == i) {
 				item.alpha = 1;
 			}
+			item.ID = freakOption - curSelected;
+			valueOption++;
+			if (valueOption == 3) {
+				valueOption = 0;
+				freakOption++;
+			}
 		}
 		for (i in 0...grpNotes.length) {
 			var item = grpNotes.members[i];
 			item.alpha = 0.6;
-			item.scale.set(0.75, 0.75);
+			item.scale.set(0.5, 0.5);
 			if (curSelected == i) {
 				item.alpha = 1;
-				item.scale.set(1, 1);
-				hsbText.y = item.y - 70;
-				blackBG.y = item.y - 20;
+				item.scale.set(0.6, 0.6);
+				hsbText.y = item.y - 40;
+				blackBG.y = item.y + 28;
 			}
+			item.ID = freakOption2 - curSelected;
+			freakOption2++;
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}

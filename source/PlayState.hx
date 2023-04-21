@@ -758,10 +758,10 @@ class PlayState extends MusicBeatState
 					var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
 					var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
 				}*/
-				var posX = 400;
+				var positionX = 400;
 				var posY = 200;
 				if(!ClientPrefs.lowQuality) {
-					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool', posX, posY, 0.8, 0.9, ['background 2'], true);
+					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool', positionX, posY, 0.8, 0.9, ['background 2'], true);
 					bg.scale.set(6, 6);
 					bg.antialiasing = false;
 					add(bg);
@@ -773,7 +773,7 @@ class PlayState extends MusicBeatState
 					bgGhouls.antialiasing = false;
 					add(bgGhouls);
 				} else {
-					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool_low', posX, posY, 0.8, 0.9);
+					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool_low', positionX, posY, 0.8, 0.9);
 					bg.scale.set(6, 6);
 					bg.antialiasing = false;
 					add(bg);
@@ -1990,10 +1990,10 @@ class PlayState extends MusicBeatState
 				var calledTimes:Int = 0;
 				var zoomBack:Void->Void = function()
 				{
-					var camPosX:Float = 630;
+					var campositionX:Float = 630;
 					var camPosY:Float = 425;
-					camFollow.set(camPosX, camPosY);
-					camFollowPos.setPosition(camPosX, camPosY);
+					camFollow.set(campositionX, camPosY);
+					camFollowPos.setPosition(campositionX, camPosY);
 					FlxG.camera.zoom = 0.8;
 					cameraSpeed = 1;
 
