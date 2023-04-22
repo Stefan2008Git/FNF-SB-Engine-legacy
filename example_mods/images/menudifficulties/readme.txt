@@ -1,0 +1,1 @@
+You can add custom difficulties with .json and .png correct name. Don't add .json here, just only image here. Only for .json add it to data/songname folder.
