@@ -45,7 +45,7 @@ jobs:
           haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -61,6 +61,7 @@ jobs:
           haxelib set openfl 9.1.0
           haxelib set flixel 4.11.0
           haxelib set flixel-addons 2.11.0
+          haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -93,7 +94,7 @@ jobs:
           haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -110,6 +111,7 @@ jobs:
           haxelib set openfl 9.1.0
           haxelib set flixel 4.11.0
           haxelib set flixel-addons 2.11.0
+          haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -142,7 +144,7 @@ jobs:
           haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -199,7 +201,7 @@ jobs:
           haxelib --quiet install tjson
           haxelib --quiet install hxjsonast
           haxelib --quiet install hscript
-          haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib --quiet git hxCodec https://github.com/JonnycatMeow/hxCodec-old.git
           haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
           haxelib list

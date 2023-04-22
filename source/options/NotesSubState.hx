@@ -75,8 +75,8 @@ class NotesSubState extends MusicBeatSubstate
 		resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		add(resetText);
 
-		if (ClientPrefs.arrowHSV.length != 9) {
-			ClientPrefs.arrowHSV = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+		if (ClientPrefs.arrowHSV.length != 4) {
+			ClientPrefs.arrowHSV = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 		}
 		//trace (ClientPrefs.arrowHSV.length);
 		for (i in 0...ClientPrefs.arrowHSV.length) {
