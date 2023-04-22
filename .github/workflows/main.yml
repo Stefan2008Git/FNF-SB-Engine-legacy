@@ -229,7 +229,7 @@ jobs:
         with:
           name: SB Engine Android Build
           path: export/release/android/bin/app/build/outputs/apk/debug
-  BuildAndroidx32:
+  BuildAndroid:
     name: BuildAndroidx32
     runs-on: ubuntu-latest
     steps:
@@ -293,7 +293,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -32 -D 32bits --app-version="4.0.0-${{ github.run_id}}"
+        run: haxelib run lime build android -D  --app-version="4.0.0-${{ github.run_id}}" -32bit
 
       - name: Publish Artifact
         uses: actions/upload-artifact@main
