@@ -2575,19 +2575,19 @@ class ChartingState extends MusicBeatState
 
 	function updateHeads():Void
 	{
-		var healthIconP1:String = loadHealthIconFromCharacter(_song.player1);
-		var healthIconP2:String = loadHealthIconFromCharacter(_song.player2);
+		var healthiconPlayer1:String = loadHealthIconFromCharacter(_song.player1);
+		var healthiconPlayer2:String = loadHealthIconFromCharacter(_song.player2);
 
 		if (_song.notes[curSec].mustHitSection)
 		{
-			leftIcon.changeIcon(healthIconP1);
-			rightIcon.changeIcon(healthIconP2);
+			leftIcon.changeIcon(healthiconPlayer1);
+			rightIcon.changeIcon(healthiconPlayer2);
 			if (_song.notes[curSec].gfSection) leftIcon.changeIcon('gf');
 		}
 		else
 		{
-			leftIcon.changeIcon(healthIconP2);
-			rightIcon.changeIcon(healthIconP1);
+			leftIcon.changeIcon(healthiconPlayer2);
+			rightIcon.changeIcon(healthiconPlayer1);
 			if (_song.notes[curSec].gfSection) leftIcon.changeIcon('gf');
 		}
 	}

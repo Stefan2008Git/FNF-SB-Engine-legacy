@@ -213,8 +213,8 @@ class PlayState extends MusicBeatState
 	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
 
-	public var iconP1:HealthIcon;
-	public var iconP2:HealthIcon;
+	public var iconPlayer1:HealthIcon;
+	public var iconPlayer2:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -1161,17 +1161,17 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
-		iconP1.visible = !ClientPrefs.hideHud;
-		iconP1.alpha = ClientPrefs.healthBarAlpha;
-		add(iconP1);
+		iconPlayer1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconPlayer1.y = healthBar.y - 75;
+		iconPlayer1.visible = !ClientPrefs.hideHud;
+		iconPlayer1.alpha = ClientPrefs.healthBarAlpha;
+		add(iconPlayer1);
 
-		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
-		iconP2.visible = !ClientPrefs.hideHud;
-		iconP2.alpha = ClientPrefs.healthBarAlpha;
-		add(iconP2);
+		iconPlayer2 = new HealthIcon(dad.healthIcon, false);
+		iconPlayer2.y = healthBar.y - 75;
+		iconPlayer2.visible = !ClientPrefs.hideHud;
+		iconPlayer2.alpha = ClientPrefs.healthBarAlpha;
+		add(iconPlayer2);
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
@@ -1216,8 +1216,8 @@ class PlayState extends MusicBeatState
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
-		iconP1.cameras = [camHUD];
-		iconP2.cameras = [camHUD];
+		iconPlayer1.cameras = [camHUD];
+		iconPlayer2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		judgementCounterTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
@@ -1380,7 +1380,7 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -2446,7 +2446,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2843,11 +2843,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 			#end
 		}
@@ -2862,11 +2862,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 		}
 		#end
@@ -2879,7 +2879,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 		}
 		#end
 
@@ -2913,7 +2913,7 @@ class PlayState extends MusicBeatState
 	{
 		/*if (FlxG.keys.justPressed.NINE)
 		{
-			iconP1.swapOldIcon();
+			iconPlayer1.swapOldIcon();
 		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -3083,34 +3083,31 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+		var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
+		iconPlayer1.scale.set(mult, mult);
+		iconPlayer1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
-
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
-		iconP2.scale.set(mult, mult);
-		iconP2.updateHitbox();
+		var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
+		iconPlayer2.scale.set(mult, mult);
+		iconPlayer2.updateHitbox();
 
 		var iconOffset:Int = 26;
 
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		iconPlayer1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconPlayer1.scale.x - 150) / 2 - iconOffset;
+		iconPlayer2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconPlayer2.scale.x) / 2 - iconOffset * 2;
 
 		if (health > 2)
 			health = 2;
 
 		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
+			iconPlayer1.animation.curAnim.curFrame = 1;
 		else
-			iconP1.animation.curAnim.curFrame = 0;
+			iconPlayer1.animation.curAnim.curFrame = 0;
 
 		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
+			iconPlayer2.animation.curAnim.curFrame = 1;
 		else
-			iconP2.animation.curAnim.curFrame = 0;
+			iconPlayer2.animation.curAnim.curFrame = 0;
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -3390,7 +3387,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 	}
 
@@ -3435,7 +3432,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3768,7 +3765,7 @@ class PlayState extends MusicBeatState
 							boyfriend.alpha = 0.00001;
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
-							iconP1.changeIcon(boyfriend.healthIcon);
+							iconPlayer1.changeIcon(boyfriend.healthIcon);
 						}
 						setOnLuas('boyfriendName', boyfriend.curCharacter);
 
@@ -3790,7 +3787,7 @@ class PlayState extends MusicBeatState
 								gf.visible = false;
 							}
 							dad.alpha = lastAlpha;
-							iconP2.changeIcon(dad.healthIcon);
+							iconPlayer2.changeIcon(dad.healthIcon);
 						}
 						setOnLuas('dadName', dad.curCharacter);
 
@@ -5043,19 +5040,19 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
+		iconPlayer1.scale.set(1.2, 1.2);
+		iconPlayer2.scale.set(1.2, 1.2);
 
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
+		iconPlayer1.updateHitbox();
+		iconPlayer2.updateHitbox();
 
 		iconBounce = !iconBounce;
 
 		if (ClientPrefs.iconBounce) {
 			if (iconBounce){
-				iconP1.angle = 15; iconP2.angle = 15; //Credits: notweuz (Creator from OS Engine.)
+				iconPlayer1.angle = 15; iconPlayer2.angle = 15; //Credits: notweuz (Creator from OS Engine.)
 			} else { 
-				iconP1.angle = -15; iconP2.angle = -15;
+				iconPlayer1.angle = -15; iconPlayer2.angle = -15;
 			}
 		}
 
