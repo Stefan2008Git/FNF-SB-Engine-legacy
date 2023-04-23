@@ -1214,7 +1214,7 @@ class PlayState extends MusicBeatState
 			autoplayTxt.y = timeBarBG.y - 500;
 		}
 
-        noAutoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY is disabled!]", 32);
+        noAutoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY] is disabled!", 32);
 		noAutoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noAutoplayTxt.scrollFactor.set();
 		noAutoplayTxt.borderSize = 1.25;
