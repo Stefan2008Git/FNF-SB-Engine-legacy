@@ -210,8 +210,8 @@ class PlayState extends MusicBeatState
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
 
-	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
+	public var noAutoplayTxt:FlxText;
 
 	public var iconPlayer1:HealthIcon;
 	public var iconPlayer2:HealthIcon;
@@ -1202,13 +1202,27 @@ class PlayState extends MusicBeatState
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "[AUTOPLAY]", 32);
-		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		autoplayTxt.scrollFactor.set();
 		autoplayTxt.borderSize = 1.25;
 		autoplayTxt.visible = cpuControlled;
 		add(autoplayTxt);
 		if(ClientPrefs.downScroll) {
 			autoplayTxt.y = timeBarBG.y - 78;
+		}
+
+        noAutoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY is disabled!]", 32);
+		noAutoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noAutoplayTxt.scrollFactor.set();
+		noAutoplayTxt.borderSize = 1.25;
+		if(ClientPrefs.downScroll) {
+			noAutoplayTxt.y = timeBarBG.y - 500;
+		}
+		add(noAutoplayTxt);
+		if (cpuControlled) {
+			noAutoplayTxt.visible = false;
+		} else {
+			noAutoplayTxt.visible = true;
 		}
 
 		strumLineNotes.cameras = [camHUD];
@@ -1222,6 +1236,7 @@ class PlayState extends MusicBeatState
 		judgementCounterTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
+		noAutoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -3064,11 +3079,6 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
-
-		if(autoplayTxt.visible) {
-			autoplaySine += 180 * elapsed;
-			autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
-		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{

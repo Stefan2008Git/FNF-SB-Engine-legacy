@@ -261,7 +261,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = true;
 					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.autoplayTxt.alpha = 1;
-					PlayState.instance.autoplaySine = 0;
                  case 'Chart Editor':
 		            MusicBeatState.switchState(new editors.ChartingState());
 		            PlayState.chartingMode = true;
