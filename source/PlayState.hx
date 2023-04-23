@@ -1204,7 +1204,7 @@ class PlayState extends MusicBeatState
 		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
-		autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "[AUTOPLAY]", 32);
+		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 		autoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		autoplayTxt.scrollFactor.set();
 		autoplayTxt.borderSize = 1.25;
