@@ -210,7 +210,10 @@ class PlayState extends MusicBeatState
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
 
+	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
+
+	public var noAutoplaySine:Float = 0;
 	public var noAutoplayTxt:FlxText;
 
 	public var iconPlayer1:HealthIcon;
@@ -3079,6 +3082,16 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
+
+		if(autoplayTxt.visible) {
+			autoplaySine += 180 * elapsed;
+			autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
+		}
+
+		if(noAutoplayTxt.visible) {
+			noAutoplaySine += 180 * elapsed;
+			noAutoplayTxt.alpha = 1 - Math.sin((Math.PI * noAutoplaySine) / 180);
+		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
