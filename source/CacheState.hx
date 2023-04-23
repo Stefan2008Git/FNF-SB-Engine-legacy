@@ -21,6 +21,7 @@ import haxe.Exception;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
+import flixel.FlxState;
 import flixel.math.FlxRect;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
@@ -31,7 +32,7 @@ import sys.io.File;
 
 using StringTools;
 
-class CacheState extends MusicBeatState
+class CacheState extends FlxState
 {
 
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
@@ -116,7 +117,7 @@ class CacheState extends MusicBeatState
 
 	function goToState()
 	{
-		MusicBeatState.switchState(new TitleState());
+		FlxG.switchState(new TitleState());
 	}
 	
 	function changeText()
