@@ -31,7 +31,7 @@ import sys.io.File;
 
 using StringTools;
 
-class CacheState extends MusicBeatState
+class CacheState extends FlxState
 {
 
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
