@@ -1211,7 +1211,7 @@ class PlayState extends MusicBeatState
 		autoplayTxt.visible = cpuControlled;
 		add(autoplayTxt);
 		if(ClientPrefs.downScroll) {
-			autoplayTxt.y = timeBarBG.y - 78;
+			autoplayTxt.y = timeBarBG.y - 500;
 		}
 
         noAutoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY is disabled!]", 32);
