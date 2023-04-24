@@ -63,6 +63,9 @@ class CharacterEditorState extends MusicBeatState
 
 	public function new(daAnim:String = 'spooky', goToPlayState:Bool = true)
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		super();
 		this.daAnim = daAnim;
 		this.goToPlayState = goToPlayState;
@@ -241,18 +244,18 @@ class CharacterEditorState extends MusicBeatState
 			bgLayer.add(bgSky);
 			bgSky.antialiasing = false;
 
-			var repositionShit = -200 + OFFSET_X - playerXDifference;
+			var repositionfreak = -200 + OFFSET_X - playerXDifference;
 
-			var bgSchool:BGSprite = new BGSprite('weeb/weebSchool', repositionShit, -playerYDifference + 6, 0.6, 0.90);
+			var bgSchool:BGSprite = new BGSprite('weeb/weebSchool', repositionfreak, -playerYDifference + 6, 0.6, 0.90);
 			bgLayer.add(bgSchool);
 			bgSchool.antialiasing = false;
 
-			var bgStreet:BGSprite = new BGSprite('weeb/weebStreet', repositionShit, -playerYDifference, 0.95, 0.95);
+			var bgStreet:BGSprite = new BGSprite('weeb/weebStreet', repositionfreak, -playerYDifference, 0.95, 0.95);
 			bgLayer.add(bgStreet);
 			bgStreet.antialiasing = false;
 
-			var widShit = Std.int(bgSky.width * 6);
-			var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800 - playerYDifference);
+			var widfreak = Std.int(bgSky.width * 6);
+			var bgTrees:FlxSprite = new FlxSprite(repositionfreak - 380, -800 - playerYDifference);
 			bgTrees.frames = Paths.getPackerAtlas('weeb/weebTrees');
 			bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
 			bgTrees.animation.play('treeLoop');
@@ -260,10 +263,10 @@ class CharacterEditorState extends MusicBeatState
 			bgLayer.add(bgTrees);
 			bgTrees.antialiasing = false;
 
-			bgSky.setGraphicSize(widShit);
-			bgSchool.setGraphicSize(widShit);
-			bgStreet.setGraphicSize(widShit);
-			bgTrees.setGraphicSize(Std.int(widShit * 1.4));
+			bgSky.setGraphicSize(widfreak);
+			bgSchool.setGraphicSize(widfreak);
+			bgStreet.setGraphicSize(widfreak);
+			bgTrees.setGraphicSize(Std.int(widfreak * 1.4));
 
 			bgSky.updateHitbox();
 			bgSchool.updateHitbox();
@@ -286,7 +289,9 @@ class CharacterEditorState extends MusicBeatState
 	function addOffsetsUI() {
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Offsets";
+
 		animationInputText = new FlxUIInputText(15, 30, 100, 'idle', 8);
+
 		var addButton:FlxButton = new FlxButton(animationInputText.x + animationInputText.width + 23, animationInputText.y - 2, "Add", function()
 		{
 			var theText:String = animationInputText.text;
@@ -298,12 +303,14 @@ class CharacterEditorState extends MusicBeatState
 						break;
 					}
 				}
+
 				if(!alreadyExists) {
 					char.animOffsets.set(theText, [0, 0]);
 					animList.push(theText);
 				}
 			}
 		});
+
 		var removeButton:FlxButton = new FlxButton(animationInputText.x + animationInputText.width + 23, animationInputText.y + 20, "Remove", function()
 		{
 			var theText:String = animationInputText.text;
@@ -313,6 +320,7 @@ class CharacterEditorState extends MusicBeatState
 						if(char.animOffsets.exists(theText)) {
 							char.animOffsets.remove(theText);
 						}
+
 						animList.remove(theText);
 						if(char.animation.curAnim.name == theText && animList.length > 0) {
 							char.playAnim(animList[0], true);
@@ -322,10 +330,12 @@ class CharacterEditorState extends MusicBeatState
 				}
 			}
 		});
+
 		var saveButton:FlxButton = new FlxButton(animationInputText.x, animationInputText.y + 35, "Save Offsets", function()
 		{
 			saveOffsets();
 		});
+
 		tab_group.add(new FlxText(10, animationInputText.y - 18, 0, 'Add/Remove Animation:'));
 		tab_group.add(addButton);
 		tab_group.add(removeButton);
@@ -944,6 +954,7 @@ class CharacterEditorState extends MusicBeatState
 		char.setPosition(char.positionArray[0] + OFFSET_X + 100, char.positionArray[1]);
 
 		/* THIS FUNCTION WAS USED TO PUT THE .TXT OFFSETS INTO THE .JSON
+
 		for (anim => offset in char.animOffsets) {
 			var leAnim:AnimArray = findAnimationByName(anim);
 			if(leAnim != null) {
@@ -1238,6 +1249,7 @@ class CharacterEditorState extends MusicBeatState
 		for (anim => offsets in char.animOffsets) {
 			data += anim + ' ' + offsets[0] + ' ' + offsets[1] + '\n';
 		}
+
 		if (data.length > 0)
 		{
 			_file = new FileReference();
