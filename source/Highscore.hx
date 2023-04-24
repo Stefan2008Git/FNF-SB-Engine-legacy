@@ -10,7 +10,9 @@ class Highscore
 	public static var weekScores:Map<String, Int> = new Map();
 	public static var songScores:Map<String, Int> = new Map();
 	public static var songRating:Map<String, Float> = new Map();
+	public static var songMisses:Map<String, Int> = new Map();
 	#else
+	public static var songMisses:Map<String, Int> = new Map();
 	public static var weekScores:Map<String, Int> = new Map();
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
 	public static var songRating:Map<String, Float> = new Map<String, Float>();
@@ -115,6 +117,15 @@ class Highscore
 		return songScores.get(daSong);
 	}
 
+	public static function getMiss(song:String, diff:Int):Int
+		{
+			var daSong:String = formatSong(song, diff);
+			if (!songMisses.exists(daSong))
+				setMiss(daSong, 0);
+
+			return songMisses.get(daSong);
+		}
+
 	public static function getRating(song:String, diff:Int):Float
 	{
 		var daSong:String = formatSong(song, diff);
@@ -123,6 +134,28 @@ class Highscore
 
 		return songRating.get(daSong);
 	}
+
+	public static function saveMiss(song:String, miss:Int = 0, ?diff:Int = 0):Void
+		{
+			var daSong:String = formatSong(song, diff);
+
+			if (songMisses.exists(daSong)) {
+				if (songMisses.get(daSong) < miss) {
+					setMiss(daSong, miss);
+				}
+			}
+			else {
+				setMiss(daSong, miss);
+			}
+		}
+
+	static function setMiss(song:String, miss:Int):Void
+		{
+			// Reminder that I don't need to format this song, it should come formatted!
+			songMisses.set(song, miss);
+			FlxG.save.data.songMisses = songMisses;
+			FlxG.save.flush();
+		}
 
 	public static function getWeekScore(week:String, diff:Int):Int
 	{
@@ -146,6 +179,10 @@ class Highscore
 		if (FlxG.save.data.songRating != null)
 		{
 			songRating = FlxG.save.data.songRating;
+		}
+		if (FlxG.save.data.songMisses != null)
+		{
+			songMisses = FlxG.save.data.songMisses;
 		}
 	}
 }
