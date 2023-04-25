@@ -452,7 +452,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		updateTextBox();
 	}
 
-	private static var DEFAULT_TEXT:String = 'Lorem ipsum dolor sit amet';
+	private static var DEFAULT_TEXT:String = 'Add here character for your dialogue';
 	function reloadText() {
 		if(daText != null) {
 			daText.killTheTimer();

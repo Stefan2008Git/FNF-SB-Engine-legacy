@@ -89,7 +89,11 @@ class DialogueEditorState extends MusicBeatState
 		add(box);
 
 		addEditorBox();
+		#if android
+		FlxG.mouse.visible = false;
+		#else
 		FlxG.mouse.visible = true;
+		#end
 
 		#if !android
 		var addLineText:FlxText = new FlxText(10, 10, FlxG.width - 20, 'Press O to remove the current dialogue line, Press P to add another line after the current one.', 8);
@@ -256,7 +260,7 @@ class DialogueEditorState extends MusicBeatState
 		}
 	}
 
-	private static var DEFAULT_TEXT:String = "coolswag";
+	private static var DEFAULT_TEXT:String = "Add your dialogues here";
 	private static var DEFAULT_SPEED:Float = 0.05;
 	private static var DEFAULT_BUBBLETYPE:String = "normal";
 	function reloadText(speed:Float = 0.05) {
