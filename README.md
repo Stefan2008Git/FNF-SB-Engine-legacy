@@ -63,18 +63,24 @@ IF YOU WANT TO COMPILE THE GAME YOURSELF, CONTINUE READING!!!
 2. [Install HaxeFlixel](https://haxeflixel.com/documentation/install-haxeflixel/) after downloading Haxe
 
 Other installations you'd need are the additional libraries, a fully updated list will be in `Project.xml` in the project root. Currently, these are all of the things you need to install:
-``haxelib install lime 7.9.0
-  haxelib install openfl 9.1.0
-  haxelib install flixel
-  haxelib run lime setup flixel
-  haxelib run lime setup
-  haxelib install flixel-tools
-  haxelib install hxCodec 2.5.1
-  haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
-  haxelib install hscript
-  haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-  haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-  haxelib install hxcpp-debug-server``
+
+``haxelib install lime 7.9.0``
+
+``haxelib install openfl 9.1.0``
+
+``haxelib install flixel``
+
+``haxelib run lime setup flixel``
+
+``haxelib run lime setup``
+
+``haxelib install flixel-tools``
+
+``haxelib install hxCodec 2.5.1``
+
+``haxelib install hscript``
+
+``haxelib install hxcpp-debug-server``
 
   So for each of those type `haxelib install [library]` so library like `haxelib install openfl 9.1.0`
 
