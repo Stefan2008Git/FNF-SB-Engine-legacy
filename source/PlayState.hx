@@ -2373,6 +2373,8 @@ class PlayState extends MusicBeatState
 		+ ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' // ' + ratingName + ' [' + ratingFC + ']';
 
+	    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nMisses: ${songMisses}';
+
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
 			if(scoreTxtTween != null) {
@@ -3990,6 +3992,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
+        judgementCounterTxt.visible = false;
 
 		deathCounter = 0;
 		seenCutscene = false;
