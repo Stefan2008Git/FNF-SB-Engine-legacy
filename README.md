@@ -48,4 +48,4 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_6.png)
 
 ## Build instructions
-[Go Build Instructions](https://github.com/Stefan2008Git/FNF-SB-Engine/BuildInstr.md)
+[Go to Build Instructions](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/BuildInstr.md)
