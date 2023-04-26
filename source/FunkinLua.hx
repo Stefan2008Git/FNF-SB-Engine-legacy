@@ -40,6 +40,10 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+#if android
+import android.Hardware;
+#end
+
 import Type.ValueType;
 import Controls;
 import DialogueBoxPsych;
@@ -48,10 +52,6 @@ import DialogueBoxPsych;
 import hscript.Parser;
 import hscript.Interp;
 import hscript.Expr;
-#end
-
-#if android
-import android.Hardware;
 #end
 
 using StringTools;
@@ -79,10 +79,6 @@ class FunkinLua {
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
 
-		//trace('Lua version: ' + Lua.version());
-		//trace("LuaJIT version: " + Lua.versionJIT());
-
-		//LuaL.dostring(lua, CLENSE);
 		try{
 			var result:Dynamic = LuaL.dofile(lua, script);
 			var resultStr:String = Lua.tostring(lua, result);
@@ -552,8 +548,6 @@ class FunkinLua {
 					{
 						if(luaInstance.scriptName == cervix)
 						{
-							//luaTrace('The script "' + cervix + '" is already running!');
-
 								PlayState.instance.luaArray.remove(luaInstance);
 							return;
 						}
@@ -594,7 +588,7 @@ class FunkinLua {
 				hscript.variables.set(libName, Type.resolveClass(str + libName));
 			}
 			catch (e:Dynamic) {
-				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
+				luaTrace(scriptName.replace(SUtil.getPath(), "") + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 			}
 			#end
 		});
@@ -897,6 +891,7 @@ class FunkinLua {
 				}));
 			}
 		});
+
 		Lua_helper.add_callback(lua, "noteTweenAngle", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
 			cancelTween(tag);
 			if(note < 0) note = 0;
@@ -956,6 +951,41 @@ class FunkinLua {
 			}
 			return values;
 		});
+
+		Lua_helper.add_callback(lua, "touchJustPressed", function(button:String) {
+			var value = false;
+			#if android
+			for (touch in FlxG.touches.list) {
+				if (touch.justPressed) {
+					value = true;
+				}
+			}
+			#end
+			return value;
+		});
+		Lua_helper.add_callback(lua, "touchPressed", function(button:String) {
+			var value = false;
+			#if android
+			for (touch in FlxG.touches.list) {
+				if (touch.pressed) {
+					value = true;
+				}
+			}
+			#end
+			return value;
+		});
+		Lua_helper.add_callback(lua, "touchReleased", function(button:String) {
+			var value = false;
+			#if android
+			for (touch in FlxG.touches.list) {
+				if (touch.justReleased) {
+					value = true;
+				}
+			}
+			#end
+			return value;
+		});
+
 		Lua_helper.add_callback(lua, "noteTweenAngle", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
 			cancelTween(tag);
 			if(note < 0) note = 0;
