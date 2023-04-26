@@ -25,7 +25,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var sbEngineVersion:String = '2.4.0'; //This is also used for Discord RPC
+	public static var sbEngineVersion:String = '2.5.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.2';
 	public static var curSelected:Int = 0;
 
@@ -88,8 +88,6 @@ class MainMenuState extends MusicBeatState
 		orange.antialiasing = ClientPrefs.globalAntialiasing;
 		orange.color = 0xFFFFA500;
 		add(orange);
-		
-		// orange.scrollFactor.set();
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
@@ -99,9 +97,6 @@ class MainMenuState extends MusicBeatState
 		add(menuItems);
 
 		var scale:Float = 1;
-		/*if(optionSelect.length > 6) {
-			scale = 6 / optionSelect.length;
-		}*/
 
 		for (i in 0...optionSelect.length)
 		{
@@ -120,11 +115,10 @@ class MainMenuState extends MusicBeatState
 			if(optionSelect.length < 6) scr = 0;
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
 
-		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion, 16);
+		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine version: " + sbEngineVersion + " (Modified Psych Engine)", 16);
 		versionSb.scrollFactor.set();
 		versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionSb);
@@ -137,8 +131,6 @@ class MainMenuState extends MusicBeatState
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
-		// NG.core.calls.event.logEvent('swag').send();
-
 		changeItem();
 
 		#if android
@@ -149,7 +141,7 @@ class MainMenuState extends MusicBeatState
 		super.create();
 	}
 
-	var selectedSomethin:Bool = false;
+	var selectedSomething:Bool = false;
 
 	override function update(elapsed:Float)
 	{
@@ -159,7 +151,7 @@ class MainMenuState extends MusicBeatState
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
-		if (!selectedSomethin)
+		if (!selectedSomething)
 		{
 			if (controls.UI_UP_P)
 			{
@@ -175,14 +167,14 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.BACK)
 			{
-				selectedSomethin = true;
+				selectedSomething = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
 
 			if (controls.ACCEPT)
 			{
-					selectedSomethin = true;
+					selectedSomething = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
 					if(ClientPrefs.flashing) FlxFlicker.flicker(orange, 1.1, 0.15, false);
@@ -227,7 +219,7 @@ class MainMenuState extends MusicBeatState
 			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end)
 			{
-				selectedSomethin = true;
+				selectedSomething = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end

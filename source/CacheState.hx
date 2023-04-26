@@ -94,12 +94,12 @@ class CacheState extends FlxState
 		super.create();
 	}
 	
-	var selectedSomethin:Bool = false;
+	var selectedSomething:Bool = false;
 	var timer:Float = 0;
 	
 	override function update(elapsed:Float) 
 	{
-		if (!selectedSomethin){
+		if (!selectedSomething){
 			if (isTweening){
 				randomTxt.screenCenter(X);
 				timer = 0;
