@@ -22,7 +22,7 @@ class PauseSubState extends MusicBeatSubstate
 	var menuItems:Array<String> = [];
 	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu'];
 	var difficultyChoices = [];
-	var curSelected:Int = 0;
+	var currentlySelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
@@ -170,7 +170,7 @@ class PauseSubState extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		var daSelected:String = menuItems[curSelected];
+		var daSelected:String = menuItems[currentlySelected];
 		switch (daSelected)
 		{
 			case 'Skip Time':
@@ -205,11 +205,11 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			if (menuItems == difficultyChoices)
 			{
-				if(menuItems.length - 1 != curSelected && difficultyChoices.contains(daSelected)) {
+				if(menuItems.length - 1 != currentlySelected && difficultyChoices.contains(daSelected)) {
 					var name:String = PlayState.SONG.song;
-					var poop = Highscore.formatSong(name, curSelected);
+					var poop = Highscore.formatSong(name, currentlySelected);
 					PlayState.SONG = Song.loadFromJson(poop, name);
-					PlayState.storyDifficulty = curSelected;
+					PlayState.storyDifficulty = currentlySelected;
 					MusicBeatState.resetState();
 					FlxG.sound.music.volume = 0;
 					PlayState.changedDifficulty = true;
@@ -321,20 +321,20 @@ class PauseSubState extends MusicBeatSubstate
 
 	function changeSelection(change:Int = 0):Void
 	{
-		curSelected += change;
+		currentlySelected += change;
 
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
+		if (currentlySelected < 0)
+			currentlySelected = menuItems.length - 1;
+		if (currentlySelected >= menuItems.length)
+			currentlySelected = 0;
 
 		var optionFreak:Int = 0;
 
 		for (item in grpMenufreak.members)
 		{
-			item.targetY = optionFreak - curSelected;
+			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
 			item.alpha = 0.6;
@@ -381,7 +381,7 @@ class PauseSubState extends MusicBeatSubstate
 				updateSkipTimeText();
 			}
 		}
-		curSelected = 0;
+		currentlySelected = 0;
 		changeSelection();
 	}
 	

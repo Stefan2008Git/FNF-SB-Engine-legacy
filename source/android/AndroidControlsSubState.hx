@@ -31,7 +31,7 @@ class AndroidControlsSubState extends FlxSubState
 	var funitext:FlxText;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
-	var curSelected:Int = AndroidControls.getMode();
+	var currentlySelected:Int = AndroidControls.getMode();
 	var buttonBinded:Bool = false;
 	var bindButton:FlxButton;
 	var resetButton:FlxButton;
@@ -141,9 +141,9 @@ class AndroidControlsSubState extends FlxSubState
 	{
 		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK)
 		{
-			AndroidControls.setMode(curSelected);
+			AndroidControls.setMode(currentlySelected);
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
+			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom')
 				AndroidControls.setCustomMode(virtualPad);
 
 			FlxTransitionableState.skipNextTransOut = true;
@@ -163,7 +163,7 @@ class AndroidControlsSubState extends FlxSubState
 			else if (touch.overlaps(rightArrow) && touch.justPressed)
 				changeSelection(1);
 
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
+			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom')
 			{
 				if (buttonBinded)
 				{
@@ -210,16 +210,16 @@ class AndroidControlsSubState extends FlxSubState
 
 	function changeSelection(change:Int = 0):Void
 	{
-		curSelected += change;
+		currentlySelected += change;
 
-		if (curSelected < 0)
-			curSelected = controlsItems.length - 1;
-		if (curSelected >= controlsItems.length)
-			curSelected = 0;
+		if (currentlySelected < 0)
+			currentlySelected = controlsItems.length - 1;
+		if (currentlySelected >= controlsItems.length)
+			currentlySelected = 0;
 
-		inputvari.text = controlsItems[curSelected];
+		inputvari.text = controlsItems[currentlySelected];
 
-		var daChoice:String = controlsItems[Math.floor(curSelected)];
+		var daChoice:String = controlsItems[Math.floor(currentlySelected)];
 
 		switch (daChoice)
 		{

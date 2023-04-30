@@ -31,7 +31,7 @@ using StringTools;
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
 	private var curOption:GameplayOption = null;
-	private var curSelected:Int = 0;
+	private var currentlySelected:Int = 0;
 	private var optionsArray:Array<Dynamic> = [];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -356,16 +356,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 	
 	function changeSelection(change:Int = 0)
 	{
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = optionsArray.length - 1;
-		if (curSelected >= optionsArray.length)
-			curSelected = 0;
+		currentlySelected += change;
+		if (currentlySelected < 0)
+			currentlySelected = optionsArray.length - 1;
+		if (currentlySelected >= optionsArray.length)
+			currentlySelected = 0;
 
 		var optionFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = optionFreak - curSelected;
+			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
 			item.alpha = 0.6;
@@ -375,11 +375,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		}
 		for (text in grpTexts) {
 			text.alpha = 0.6;
-			if(text.ID == curSelected) {
+			if(text.ID == currentlySelected) {
 				text.alpha = 1;
 			}
 		}
-		curOption = optionsArray[curSelected]; //shorter lol
+		curOption = optionsArray[currentlySelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 

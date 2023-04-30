@@ -156,7 +156,7 @@ class DialogueEditorState extends MusicBeatState
 		angryCheckbox.callback = function()
 		{
 			updateTextBox();
-			dialogueFile.dialogue[curSelected].boxState = (angryCheckbox.checked ? 'angry' : 'normal');
+			dialogueFile.dialogue[currentlySelected].boxState = (angryCheckbox.checked ? 'angry' : 'normal');
 		};
 
 		soundInputText = new FlxUIInputText(10, speedStepper.y + 40, 150, '', 8);
@@ -318,28 +318,28 @@ class DialogueEditorState extends MusicBeatState
 					}
 					characterAnimSpeed();
 				}
-				dialogueFile.dialogue[curSelected].portrait = characterInputText.text;
+				dialogueFile.dialogue[currentlySelected].portrait = characterInputText.text;
 			}
 			else if(sender == lineInputText)
 			{
 				reloadText(0);
-				dialogueFile.dialogue[curSelected].text = lineInputText.text;
+				dialogueFile.dialogue[currentlySelected].text = lineInputText.text;
 			}
 			else if(sender == soundInputText)
 			{
-				dialogueFile.dialogue[curSelected].sound = soundInputText.text;
+				dialogueFile.dialogue[currentlySelected].sound = soundInputText.text;
 				reloadText(0);
 			}
 		} else if(id == FlxUINumericStepper.CHANGE_EVENT && (sender == speedStepper)) {
 			reloadText(speedStepper.value);
-			dialogueFile.dialogue[curSelected].speed = speedStepper.value;
-			if(Math.isNaN(dialogueFile.dialogue[curSelected].speed) || dialogueFile.dialogue[curSelected].speed == null || dialogueFile.dialogue[curSelected].speed < 0.001) {
-				dialogueFile.dialogue[curSelected].speed = 0.0;
+			dialogueFile.dialogue[currentlySelected].speed = speedStepper.value;
+			if(Math.isNaN(dialogueFile.dialogue[currentlySelected].speed) || dialogueFile.dialogue[currentlySelected].speed == null || dialogueFile.dialogue[currentlySelected].speed < 0.001) {
+				dialogueFile.dialogue[currentlySelected].speed = 0.0;
 			}
 		}
 	}
 
-	var curSelected:Int = 0;
+	var currentlySelected:Int = 0;
 	var curAnim:Int = 0;
 	var blockPressWhileTypingOn:Array<FlxUIInputText> = [];
 	var transitioning:Bool = false;
@@ -403,7 +403,7 @@ class DialogueEditorState extends MusicBeatState
 					var animToPlay:String = character.jsonFile.animations[curAnim].anim;
 					if(character.dialogueAnimations.exists(animToPlay)) {
 						character.playAnim(animToPlay, daText.finishedText);
-						dialogueFile.dialogue[curSelected].expression = animToPlay;
+						dialogueFile.dialogue[currentlySelected].expression = animToPlay;
 					}
 					#if !android
 					animText.text = 'Animation: ' + animToPlay + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press W or S to scroll';
@@ -417,7 +417,7 @@ class DialogueEditorState extends MusicBeatState
 			}
 
 			if(#if !android FlxG.keys.justPressed.O #else virtualPad.buttonA.justPressed #end) {
-				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
+				dialogueFile.dialogue.remove(dialogueFile.dialogue[currentlySelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
 					dialogueFile.dialogue = [
@@ -426,7 +426,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 				changeText();
 			} else if(#if !android FlxG.keys.justPressed.P #else virtualPad.buttonB.justPressed #end) {
-				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
+				dialogueFile.dialogue.insert(currentlySelected + 1, copyDefaultLine());
 				changeText(1);
 			}
 		}
@@ -434,11 +434,11 @@ class DialogueEditorState extends MusicBeatState
 	}
 
 	function changeText(add:Int = 0) {
-		curSelected += add;
-		if(curSelected < 0) curSelected = dialogueFile.dialogue.length - 1;
-		else if(curSelected >= dialogueFile.dialogue.length) curSelected = 0;
+		currentlySelected += add;
+		if(currentlySelected < 0) currentlySelected = dialogueFile.dialogue.length - 1;
+		else if(currentlySelected >= dialogueFile.dialogue.length) currentlySelected = 0;
 
-		var curDialogue:DialogueLine = dialogueFile.dialogue[curSelected];
+		var curDialogue:DialogueLine = dialogueFile.dialogue[currentlySelected];
 		characterInputText.text = curDialogue.portrait;
 		lineInputText.text = curDialogue.text;
 		angryCheckbox.checked = (curDialogue.boxState == 'angry');
@@ -471,9 +471,9 @@ class DialogueEditorState extends MusicBeatState
 		characterAnimSpeed();
 
 		#if !android
-		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
+		selectedText.text = 'Line: (' + (currentlySelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
 		#else
-		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press Left or Right Button to scroll';
+		selectedText.text = 'Line: (' + (currentlySelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press Left or Right Button to scroll';
 		#end
 	}
 

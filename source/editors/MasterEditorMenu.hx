@@ -32,7 +32,7 @@ class MasterEditorMenu extends MusicBeatState
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
 
-	private var curSelected = 0;
+	private var currentlySelected = 0;
 	private var curDirectory = 0;
 	private var directoryTxt:FlxText;
 
@@ -130,7 +130,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
-			switch(options[curSelected]) {
+			switch(options[currentlySelected]) {
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Week Editor':
@@ -153,7 +153,7 @@ class MasterEditorMenu extends MusicBeatState
 		var optionFreak:Int = 0;
 		for (item in grpTexts.members)
 		{
-			item.targetY = optionFreak - curSelected;
+			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
 			item.alpha = 0.6;
@@ -172,12 +172,12 @@ class MasterEditorMenu extends MusicBeatState
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
-		curSelected += change;
+		currentlySelected += change;
 
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
+		if (currentlySelected < 0)
+			currentlySelected = options.length - 1;
+		if (currentlySelected >= options.length)
+			currentlySelected = 0;
 	}
 
 	#if MODS_ALLOWED

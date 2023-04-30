@@ -32,7 +32,7 @@ class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private static var curSelected:Int = 0;
+	private static var currentlySelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
@@ -144,7 +144,7 @@ class OptionsState extends MusicBeatState
 		}
 
 		if (controls.ACCEPT) {
-			openSelectedSubstate(options[curSelected]);
+			openSelectedSubstate(options[currentlySelected]);
 		}
 
 		#if android
@@ -158,16 +158,16 @@ class OptionsState extends MusicBeatState
 	}
 	
 	function changeSelection(change:Int = 0) {
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
+		currentlySelected += change;
+		if (currentlySelected < 0)
+			currentlySelected = options.length - 1;
+		if (currentlySelected >= options.length)
+			currentlySelected = 0;
 
 		var optionFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = optionFreak - curSelected;
+			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
 			item.alpha = 0.6;

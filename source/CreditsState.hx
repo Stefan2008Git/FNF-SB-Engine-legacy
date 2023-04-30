@@ -24,7 +24,7 @@ using StringTools;
 
 class CreditsState extends MusicBeatState
 {
-	var curSelected:Int = -1;
+	var currentlySelected:Int = -1;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
@@ -154,7 +154,7 @@ class CreditsState extends MusicBeatState
 				add(icon);
 				Paths.currentModDirectory = '';
 
-				if(curSelected == -1) curSelected = i;
+				if(currentlySelected == -1) currentlySelected = i;
 			}
 		}
 		
@@ -227,8 +227,8 @@ class CreditsState extends MusicBeatState
 				}
 			}
 
-			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
-				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
+			if(controls.ACCEPT && (creditsStuff[currentlySelected][3] == null || creditsStuff[currentlySelected][3].length > 4)) {
+				CoolUtil.browserLoad(creditsStuff[currentlySelected][3]);
 			}
 			if (controls.BACK)
 			{
@@ -268,12 +268,12 @@ class CreditsState extends MusicBeatState
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		do {
-			curSelected += change;
-			if (curSelected < 0)
-				curSelected = creditsStuff.length - 1;
-			if (curSelected >= creditsStuff.length)
-				curSelected = 0;
-		} while(unselectableCheck(curSelected));
+			currentlySelected += change;
+			if (currentlySelected < 0)
+				currentlySelected = creditsStuff.length - 1;
+			if (currentlySelected >= creditsStuff.length)
+				currentlySelected = 0;
+		} while(unselectableCheck(currentlySelected));
 
 		var newColor:Int =  getCurrentBGColor();
 		if(newColor != intendedColor) {
@@ -292,7 +292,7 @@ class CreditsState extends MusicBeatState
 
 		for (item in grpOptions.members)
 		{
-			item.targetY = bullFreak - curSelected;
+			item.targetY = bullFreak - currentlySelected;
 			bullFreak++;
 
 			if(!unselectableCheck(bullFreak-1)) {
@@ -303,7 +303,7 @@ class CreditsState extends MusicBeatState
 			}
 		}
 
-		descText.text = creditsStuff[curSelected][2];
+		descText.text = creditsStuff[currentlySelected][2];
 		descText.y = FlxG.height - descText.height + offsetThing - 60;
 
 		if(moveTween != null) moveTween.cancel();
@@ -339,7 +339,7 @@ class CreditsState extends MusicBeatState
 	#end
 
 	function getCurrentBGColor() {
-		var bgColor:String = creditsStuff[curSelected][4];
+		var bgColor:String = creditsStuff[currentlySelected][4];
 		if(!bgColor.startsWith('0x')) {
 			bgColor = '0xFF' + bgColor;
 		}

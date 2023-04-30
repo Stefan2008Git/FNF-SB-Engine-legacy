@@ -32,7 +32,7 @@ using StringTools;
 class BaseOptionsMenu extends MusicBeatSubstate
 {
 	private var curOption:Option = null;
-	private var curSelected:Int = 0;
+	private var currentlySelected:Int = 0;
 	private var optionsArray:Array<Option>;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -306,20 +306,20 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	
 	function changeSelection(change:Int = 0)
 	{
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = optionsArray.length - 1;
-		if (curSelected >= optionsArray.length)
-			curSelected = 0;
+		currentlySelected += change;
+		if (currentlySelected < 0)
+			currentlySelected = optionsArray.length - 1;
+		if (currentlySelected >= optionsArray.length)
+			currentlySelected = 0;
 
-		descText.text = optionsArray[curSelected].description;
+		descText.text = optionsArray[currentlySelected].description;
 		descText.screenCenter(Y);
 		descText.y += 270;
 
 		var optionFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = optionFreak - curSelected;
+			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
 			item.alpha = 0.6;
@@ -329,7 +329,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		for (text in grpTexts) {
 			text.alpha = 0.6;
-			if(text.ID == curSelected) {
+			if(text.ID == currentlySelected) {
 				text.alpha = 1;
 			}
 		}
@@ -340,9 +340,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if(boyfriend != null)
 		{
-			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
+			boyfriend.visible = optionsArray[currentlySelected].showBoyfriend;
 		}
-		curOption = optionsArray[curSelected]; //shorter lol
+		curOption = optionsArray[currentlySelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 

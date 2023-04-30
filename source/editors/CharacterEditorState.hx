@@ -59,7 +59,7 @@ class CharacterEditorState extends MusicBeatState
 	var curAnim:Int = 0;
 	var daAnim:String = 'spooky';
 	var goToPlayState:Bool = true;
-	var camFollow:FlxObject;
+	var cameraFollow:FlxObject;
 
 	public function new(daAnim:String = 'spooky', goToPlayState:Bool = true)
 	{
@@ -142,9 +142,9 @@ class CharacterEditorState extends MusicBeatState
 
 		genBoyOffsets();
 
-		camFollow = new FlxObject(0, 0, 2, 2);
-		camFollow.screenCenter();
-		add(camFollow);
+		cameraFollow = new FlxObject(0, 0, 2, 2);
+		cameraFollow.screenCenter();
+		add(cameraFollow);
 
 		var tipTextArray:Array<String> = "E/Q - Camera Zoom In/Out
 		\nR - Reset Camera Zoom
@@ -165,7 +165,7 @@ class CharacterEditorState extends MusicBeatState
 			add(tipText);
 		}
 
-		FlxG.camera.follow(camFollow);
+		FlxG.camera.follow(cameraFollow);
 
 		var tabs = [
 			//{name: 'Offsets', label: 'Offsets'},
@@ -1084,14 +1084,14 @@ class CharacterEditorState extends MusicBeatState
 					addToCam *= 4;
 
 				if (FlxG.keys.pressed.I)
-					camFollow.y -= addToCam;
+					cameraFollow.y -= addToCam;
 				else if (FlxG.keys.pressed.K)
-					camFollow.y += addToCam;
+					cameraFollow.y += addToCam;
 
 				if (FlxG.keys.pressed.J)
-					camFollow.x -= addToCam;
+					cameraFollow.x -= addToCam;
 				else if (FlxG.keys.pressed.L)
-					camFollow.x += addToCam;
+					cameraFollow.x += addToCam;
 			}
 
 			if(char.animationsArray.length > 0) {

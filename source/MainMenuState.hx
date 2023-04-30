@@ -27,7 +27,7 @@ class MainMenuState extends MusicBeatState
 {
 	public static var sbEngineVersion:String = '2.5.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.2';
-	public static var curSelected:Int = 0;
+	public static var currentlySelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
@@ -41,12 +41,11 @@ class MainMenuState extends MusicBeatState
 	];
 
 	var orange:FlxSprite;
-	var sbEngineLogo:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var debugKeys:Array<FlxKey>;
 
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
+	var cameraFollow:FlxObject;
+	var cameraFollowPos:FlxObject;
 
 	override function create()
 	{
@@ -104,10 +103,10 @@ class MainMenuState extends MusicBeatState
 		buttonBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		add(buttonBackground);
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
+		cameraFollow = new FlxObject(0, 0, 1, 1);
+		cameraFollowPos = new FlxObject(0, 0, 1, 1);
+		add(cameraFollow);
+		add(cameraFollowPos);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -179,7 +178,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
-		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+		cameraFollowPos.setPosition(FlxMath.lerp(cameraFollowPos.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPos.y, cameraFollow.y, lerpVal));
 
 		if (!selectedSomething)
 		{
@@ -211,7 +210,7 @@ class MainMenuState extends MusicBeatState
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
-						if (curSelected != spr.ID)
+						if (currentlySelected != spr.ID)
 						{
 							FlxTween.tween(spr, {x: 1200}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween) {
 								spr.kill();
@@ -224,7 +223,7 @@ class MainMenuState extends MusicBeatState
 						{
 							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 							{
-								var daChoice:String = optionSelect[curSelected];
+								var daChoice:String = optionSelect[currentlySelected];
 
 								switch (daChoice)
 								{
@@ -264,12 +263,12 @@ class MainMenuState extends MusicBeatState
 
 	function changeItem(huh:Int = 0)
 		{
-			curSelected += huh;
+			currentlySelected += huh;
 	
-			if (curSelected >= menuItems.length)
-				curSelected = 0;
-			if (curSelected < 0)
-				curSelected = menuItems.length - 1;
+			if (currentlySelected >= menuItems.length)
+				currentlySelected = 0;
+			if (currentlySelected < 0)
+				currentlySelected = menuItems.length - 1;
 	
 			menuItems.forEach(function(spr:FlxSprite)
 			{
@@ -277,7 +276,7 @@ class MainMenuState extends MusicBeatState
 				spr.offset.y = 0;
 				spr.updateHitbox();
 	
-				if (spr.ID == curSelected)
+				if (spr.ID == currentlySelected)
 				{
 					spr.animation.play('selected');
 					spr.offset.x = 0.15 * (spr.frameWidth / 2 + 180);

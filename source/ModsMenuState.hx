@@ -45,7 +45,7 @@ class ModsMenuState extends MusicBeatState
 	var selector:AttachedSprite;
 	var descriptionTxt:FlxText;
 	var needToRestart = false;
-	private static var curSelected:Int = 0;
+	private static var currentlySelected:Int = 0;
 	public static var defaultColor:FlxColor = 0xFFFFA500;
 
 	var buttonDown:FlxButton;
@@ -133,11 +133,11 @@ class ModsMenuState extends MusicBeatState
 
 		buttonToggle = new FlxButton(startX, 0, "ON", function()
 		{
-			if(mods[curSelected].restart)
+			if(mods[currentlySelected].restart)
 			{
 				needToRestart = true;
 			}
-			modsList[curSelected][1] = !modsList[curSelected][1];
+			modsList[currentlySelected][1] = !modsList[currentlySelected][1];
 			updateButtonToggle();
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		});
@@ -179,8 +179,8 @@ class ModsMenuState extends MusicBeatState
 
 		startX -= 100;
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
-			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
-			for (i in 0...curSelected) //so it shifts to the top instead of replacing the top one
+			var doRestart:Bool = (mods[0].restart || mods[currentlySelected].restart);
+			for (i in 0...currentlySelected) //so it shifts to the top instead of replacing the top one
 			{
 				moveMod(-1, true);
 			}
@@ -307,12 +307,12 @@ class ModsMenuState extends MusicBeatState
 			i++;
 		}
 
-		if(curSelected >= mods.length) curSelected = 0;
+		if(currentlySelected >= mods.length) currentlySelected = 0;
 
 		if(mods.length < 1)
 			bg.color = defaultColor;
 		else
-			bg.color = mods[curSelected].color;
+			bg.color = mods[currentlySelected].color;
 
 		intendedColor = bg.color;
 		changeSelection();
@@ -345,7 +345,7 @@ class ModsMenuState extends MusicBeatState
 
 	function updateButtonToggle()
 	{
-		if (modsList[curSelected][1])
+		if (modsList[currentlySelected][1])
 		{
 			buttonToggle.label.text = 'ON';
 			buttonToggle.color = FlxColor.GREEN;
@@ -363,7 +363,7 @@ class ModsMenuState extends MusicBeatState
 		{
 			var doRestart:Bool = (mods[0].restart);
 
-			var newPos:Int = curSelected + change;
+			var newPos:Int = currentlySelected + change;
 			if(newPos < 0)
 			{
 				modsList.push(modsList.shift());
@@ -376,17 +376,17 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				var lastArray:Array<Dynamic> = modsList[curSelected];
-				modsList[curSelected] = modsList[newPos];
+				var lastArray:Array<Dynamic> = modsList[currentlySelected];
+				modsList[currentlySelected] = modsList[newPos];
 				modsList[newPos] = lastArray;
 
-				var lastMod:ModMetadata = mods[curSelected];
-				mods[curSelected] = mods[newPos];
+				var lastMod:ModMetadata = mods[currentlySelected];
+				mods[currentlySelected] = mods[newPos];
 				mods[newPos] = lastMod;
 			}
 			changeSelection(change);
 
-			if(!doRestart) doRestart = mods[curSelected].restart;
+			if(!doRestart) doRestart = mods[currentlySelected].restart;
 			if(!skipResetCheck && doRestart) needToRestart = true;
 		}
 	}
@@ -478,13 +478,13 @@ class ModsMenuState extends MusicBeatState
 		}
 		if(noMods) return;
 
-		curSelected += change;
-		if(curSelected < 0)
-			curSelected = mods.length - 1;
-		else if(curSelected >= mods.length)
-			curSelected = 0;
+		currentlySelected += change;
+		if(currentlySelected < 0)
+			currentlySelected = mods.length - 1;
+		else if(currentlySelected >= mods.length)
+			currentlySelected = 0;
 
-		var newColor:Int = mods[curSelected].color;
+		var newColor:Int = mods[currentlySelected].color;
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();
@@ -501,7 +501,7 @@ class ModsMenuState extends MusicBeatState
 		for (mod in mods)
 		{
 			mod.alphabet.alpha = 0.6;
-			if(i == curSelected)
+			if(i == currentlySelected)
 			{
 				mod.alphabet.alpha = 1;
 				selector.sprTracker = mod.alphabet;
@@ -533,8 +533,8 @@ class ModsMenuState extends MusicBeatState
 		var i:Int = 0;
 		for (mod in mods)
 		{
-			var intendedPos:Float = (i - curSelected) * 225 + 200;
-			if(i > curSelected) intendedPos += 225;
+			var intendedPos:Float = (i - currentlySelected) * 225 + 200;
+			if(i > currentlySelected) intendedPos += 225;
 			if(elapsed == -1)
 			{
 				mod.alphabet.y = intendedPos;
@@ -544,7 +544,7 @@ class ModsMenuState extends MusicBeatState
 				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
 			}
 
-			if(i == curSelected)
+			if(i == currentlySelected)
 			{
 				descriptionTxt.y = mod.alphabet.y + 160;
 				for (button in buttonsArray)

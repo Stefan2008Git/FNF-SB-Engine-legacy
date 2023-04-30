@@ -31,7 +31,7 @@ using StringTools;
 
 class NotesSubState extends MusicBeatSubstate
 {
-	private static var curSelected:Int = 0;
+	private static var currentlySelected:Int = 0;
 	private static var typeSelected:Int = 0;
 	private var grpNumbers:FlxTypedGroup<Alphabet>;
 	private var grpNotes:FlxTypedGroup<FlxSprite>;
@@ -137,12 +137,12 @@ class NotesSubState extends MusicBeatSubstate
 			var scaledY = FlxMath.remapToRange(item.ID, 0, 1, 0, 1.3);
 			item.y = FlxMath.lerp(item.y, (scaledY * 165) + 270, lerpVal);
 			item.x = FlxMath.lerp(item.x, (item.ID * 20) + 90, lerpVal);
-			if (i == curSelected) {
+			if (i == currentlySelected) {
 				hsbText.y = item.y - 70;
 				blackBG.y = item.y - 20;
 				blackBG.x = item.x - 20;
-				if (lastSelected != curSelected) {
-					lastSelected = curSelected;
+				if (lastSelected != currentlySelected) {
+					lastSelected = currentlySelected;
 					if (angleTween != null) angleTween.cancel();
 					angleTween = null;
 					if (scaleTween != null) scaleTween.cancel();
@@ -166,7 +166,7 @@ class NotesSubState extends MusicBeatSubstate
 					updateValue(1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				} else if(controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
-					resetValue(curSelected, typeSelected);
+					resetValue(currentlySelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
 				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
@@ -208,7 +208,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
 				for (i in 0...3) {
-					resetValue(curSelected, i);
+					resetValue(currentlySelected, i);
 				}
 				FlxG.camera.flash(FlxColor.BLACK, 1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -220,14 +220,14 @@ class NotesSubState extends MusicBeatSubstate
 				for (i in 0...grpNumbers.length) {
 					var item = grpNumbers.members[i];
 					item.alpha = 0;
-					if ((curSelected * 3) + typeSelected == i) {
+					if ((currentlySelected * 3) + typeSelected == i) {
 						item.alpha = 1;
 					}
 				}
 				for (i in 0...grpNotes.length) {
 					var item = grpNotes.members[i];
 					item.alpha = 0;
-					if (curSelected == i) {
+					if (currentlySelected == i) {
 						item.alpha = 1;
 					}
 				}
@@ -266,13 +266,13 @@ class NotesSubState extends MusicBeatSubstate
 	}
 
 	function changeSelection(change:Int = 0) {
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = ClientPrefs.arrowHSV.length-1;
-		if (curSelected >= ClientPrefs.arrowHSV.length)
-			curSelected = 0;
+		currentlySelected += change;
+		if (currentlySelected < 0)
+			currentlySelected = ClientPrefs.arrowHSV.length-1;
+		if (currentlySelected >= ClientPrefs.arrowHSV.length)
+			currentlySelected = 0;
 
-		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
+		curValue = ClientPrefs.arrowHSV[currentlySelected][typeSelected];
 		updateValue();
 
 		var freakOption = 0;
@@ -282,10 +282,10 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...grpNumbers.length) {
 			var item = grpNumbers.members[i];
 			item.alpha = 0.6;
-			if ((curSelected * 3) + typeSelected == i) {
+			if ((currentlySelected * 3) + typeSelected == i) {
 				item.alpha = 1;
 			}
-			item.ID = freakOption - curSelected;
+			item.ID = freakOption - currentlySelected;
 			valueOption++;
 			if (valueOption == 3) {
 				valueOption = 0;
@@ -296,13 +296,13 @@ class NotesSubState extends MusicBeatSubstate
 			var item = grpNotes.members[i];
 			item.alpha = 0.6;
 			item.scale.set(0.5, 0.5);
-			if (curSelected == i) {
+			if (currentlySelected == i) {
 				item.alpha = 1;
 				item.scale.set(0.6, 0.6);
 				hsbText.y = item.y - 40;
 				blackBG.y = item.y + 28;
 			}
-			item.ID = freakOption2 - curSelected;
+			item.ID = freakOption2 - currentlySelected;
 			freakOption2++;
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -315,13 +315,13 @@ class NotesSubState extends MusicBeatSubstate
 		if (typeSelected > 2)
 			typeSelected = 0;
 
-		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
+		curValue = ClientPrefs.arrowHSV[currentlySelected][typeSelected];
 		updateValue();
 
 		for (i in 0...grpNumbers.length) {
 			var item = grpNumbers.members[i];
 			item.alpha = 0.6;
-			if ((curSelected * 3) + typeSelected == i) {
+			if ((currentlySelected * 3) + typeSelected == i) {
 				item.alpha = 1;
 			}
 		}
@@ -354,15 +354,15 @@ class NotesSubState extends MusicBeatSubstate
 			curValue = max;
 		}
 		roundedValue = Math.round(curValue);
-		ClientPrefs.arrowHSV[curSelected][typeSelected] = roundedValue;
+		ClientPrefs.arrowHSV[currentlySelected][typeSelected] = roundedValue;
 
 		switch(typeSelected) {
-			case 0: shaderArray[curSelected].hue = roundedValue / 360;
-			case 1: shaderArray[curSelected].saturation = roundedValue / 100;
-			case 2: shaderArray[curSelected].brightness = roundedValue / 100;
+			case 0: shaderArray[currentlySelected].hue = roundedValue / 360;
+			case 1: shaderArray[currentlySelected].saturation = roundedValue / 100;
+			case 2: shaderArray[currentlySelected].brightness = roundedValue / 100;
 		}
 
-		var item = grpNumbers.members[(curSelected * 3) + typeSelected];
+		var item = grpNumbers.members[(currentlySelected * 3) + typeSelected];
 		item.changeText(Std.string(roundedValue));
 		item.offset.x = (40 * (item.lettersArray.length - 1)) / 2;
 		if(roundedValue < 0) item.offset.x += 10;
