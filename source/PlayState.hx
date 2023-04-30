@@ -160,9 +160,9 @@ class PlayState extends MusicBeatState
 
 	//Handles the new epic mega sexy cam code that i've done
 	public var cameraFollow:FlxPoint;
-	public var cameraFollowPos:FlxObject;
+	public var cameraFollowPosition:FlxObject;
 	private static var prevcameraFollow:FlxPoint;
-	private static var prevcameraFollowPos:FlxObject;
+	private static var prevcameraFollowPosition:FlxObject;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
@@ -1120,7 +1120,7 @@ class PlayState extends MusicBeatState
 		// add(strumLine);
 
 		cameraFollow = new FlxPoint();
-		cameraFollowPos = new FlxObject(0, 0, 1, 1);
+		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 
 		snapcameraFollowToPos(camPos.x, camPos.y);
 		if (prevcameraFollow != null)
@@ -1128,14 +1128,14 @@ class PlayState extends MusicBeatState
 			cameraFollow = prevcameraFollow;
 			prevcameraFollow = null;
 		}
-		if (prevcameraFollowPos != null)
+		if (prevcameraFollowPosition != null)
 		{
-			cameraFollowPos = prevcameraFollowPos;
-			prevcameraFollowPos = null;
+			cameraFollowPosition = prevcameraFollowPosition;
+			prevcameraFollowPosition = null;
 		}
-		add(cameraFollowPos);
+		add(cameraFollowPosition);
 
-		FlxG.camera.follow(cameraFollowPos, LOCKON, 1);
+		FlxG.camera.follow(cameraFollowPosition, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(cameraFollow);
@@ -2762,7 +2762,7 @@ class PlayState extends MusicBeatState
 
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
-			cameraFollowPos.setPosition(FlxMath.lerp(cameraFollowPos.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPos.y, cameraFollow.y, lerpVal));
+			cameraFollowPosition.setPosition(FlxMath.lerp(cameraFollowPosition.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPosition.y, cameraFollow.y, lerpVal));
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -3074,8 +3074,8 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		setOnLuas('cameraX', cameraFollowPos.x);
-		setOnLuas('cameraY', cameraFollowPos.y);
+		setOnLuas('cameraX', cameraFollowPosition.x);
+		setOnLuas('cameraY', cameraFollowPosition.y);
 		setOnLuas('autoplay', cpuControlled);
 		for (i in shaderUpdates){
 			i(elapsed);
@@ -3144,7 +3144,7 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
-				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], cameraFollowPos.x, cameraFollowPos.y));
+				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], cameraFollowPosition.x, cameraFollowPosition.y));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
@@ -3632,7 +3632,7 @@ class PlayState extends MusicBeatState
 
 	function snapcameraFollowToPos(x:Float, y:Float) {
 		cameraFollow.set(x, y);
-		cameraFollowPos.setPosition(x, y);
+		cameraFollowPosition.setPosition(x, y);
 	}
 
 	public function finishSong(?ignoreNoteOffset:Bool = false):Void
@@ -3764,7 +3764,7 @@ class PlayState extends MusicBeatState
 					FlxTransitionableState.skipNextTransOut = true;
 
 					prevcameraFollow = cameraFollow;
-					prevcameraFollowPos = cameraFollowPos;
+					prevcameraFollowPosition = cameraFollowPosition;
 
 					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();

@@ -17,7 +17,7 @@ class GameOverSubstate extends MusicBeatSubstate
 {
 	public var boyfriend:Boyfriend;
 	var cameraFollow:FlxPoint;
-	var cameraFollowPos:FlxObject;
+	var cameraFollowPosition:FlxObject;
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 
@@ -78,9 +78,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		boyfriend.playAnim('firstDeath');
 
-		cameraFollowPos = new FlxObject(0, 0, 1, 1);
-		cameraFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
-		add(cameraFollowPos);
+		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
+		cameraFollowPosition.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
+		add(cameraFollowPosition);
 
 		#if android
 		addVirtualPad(NONE, A_B);
@@ -96,7 +96,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
-			cameraFollowPos.setPosition(FlxMath.lerp(cameraFollowPos.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPos.y, cameraFollow.y, lerpVal));
+			cameraFollowPosition.setPosition(FlxMath.lerp(cameraFollowPosition.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPosition.y, cameraFollow.y, lerpVal));
 		}
 
 		if (controls.ACCEPT)
@@ -125,7 +125,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 			{
-				FlxG.camera.follow(cameraFollowPos, LOCKON, 1);
+				FlxG.camera.follow(cameraFollowPosition, LOCKON, 1);
 				updateCamera = true;
 				isFollowingAlready = true;
 			}

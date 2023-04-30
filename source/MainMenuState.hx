@@ -45,7 +45,7 @@ class MainMenuState extends MusicBeatState
 	var debugKeys:Array<FlxKey>;
 
 	var cameraFollow:FlxObject;
-	var cameraFollowPos:FlxObject;
+	var cameraFollowPosition:FlxObject;
 
 	override function create()
 	{
@@ -104,9 +104,9 @@ class MainMenuState extends MusicBeatState
 		add(buttonBackground);
 
 		cameraFollow = new FlxObject(0, 0, 1, 1);
-		cameraFollowPos = new FlxObject(0, 0, 1, 1);
+		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 		add(cameraFollow);
-		add(cameraFollowPos);
+		add(cameraFollowPosition);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -178,7 +178,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
-		cameraFollowPos.setPosition(FlxMath.lerp(cameraFollowPos.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPos.y, cameraFollow.y, lerpVal));
+		cameraFollowPosition.setPosition(FlxMath.lerp(cameraFollowPosition.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPosition.y, cameraFollow.y, lerpVal));
 
 		if (!selectedSomething)
 		{
