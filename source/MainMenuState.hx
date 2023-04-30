@@ -41,8 +41,12 @@ class MainMenuState extends MusicBeatState
 	];
 
 	var orange:FlxSprite;
+	var sbEngineLogo:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var debugKeys:Array<FlxKey>;
+
+	var camFollow:FlxObject;
+	var camFollowPos:FlxObject;
 
 	override function create()
 	{
@@ -93,6 +97,18 @@ class MainMenuState extends MusicBeatState
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
+		var buttonBackground:FlxSprite = new FlxSprite(-120).loadGraphic(Paths.image('buttonBackground'));
+		buttonBackground.setGraphicSize(Std.int(bg.width * 1.175));
+		buttonBackground.updateHitbox();
+		buttonBackground.screenCenter();
+		buttonBackground.antialiasing = ClientPrefs.globalAntialiasing;
+		add(buttonBackground);
+
+		camFollow = new FlxObject(0, 0, 1, 1);
+		camFollowPos = new FlxObject(0, 0, 1, 1);
+		add(camFollow);
+		add(camFollowPos);
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -110,6 +126,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
 			menuItem.screenCenter(X);
+			menuItem.x += 290;
 			menuItems.add(menuItem);
 			var scr:Float = (optionSelect.length - 4) * 0.135;
 			if(optionSelect.length < 6) scr = 0;
@@ -139,17 +156,30 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+
+		var welcomeTxt = new FlxText(50, 330, FlxG.width - 800,
+			"Welcome to:\nSB Engine",
+			60);
+		welcomeTxt.setFormat("VCR OSD Mono", 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		welcomeTxt.scrollFactor.set();
+		welcomeTxt.borderSize = 1.25;
+		add(welcomeTxt);
 	}
 
 	var selectedSomething:Bool = false;
 
 	override function update(elapsed:Float)
 	{
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1)); // funny camera
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
+
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
+		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomething)
 		{
@@ -183,13 +213,12 @@ class MainMenuState extends MusicBeatState
 					{
 						if (curSelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
+							FlxTween.tween(spr, {x: 1200}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween) {
+								spr.kill();
+							}});
+							FlxTween.tween(spr, {alpha: 0}, 1.3, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween){
+								spr.kill();
+							}});
 						}
 						else
 						{
@@ -229,33 +258,39 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+			//spr.screenCenter(X);
 		});
 	}
 
 	function changeItem(huh:Int = 0)
-	{
-		curSelected += huh;
-
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-
-		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.animation.play('idle');
-			spr.updateHitbox();
-
-			if (spr.ID == curSelected)
+			curSelected += huh;
+	
+			if (curSelected >= menuItems.length)
+				curSelected = 0;
+			if (curSelected < 0)
+				curSelected = menuItems.length - 1;
+	
+			menuItems.forEach(function(spr:FlxSprite)
 			{
-				spr.animation.play('selected');
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
+				spr.animation.play('idle');
+				spr.offset.y = 0;
+				spr.updateHitbox();
+	
+				if (spr.ID == curSelected)
+				{
+					spr.animation.play('selected');
+					spr.offset.x = 0.15 * (spr.frameWidth / 2 + 180);
+					spr.offset.y = 0.15 * spr.frameHeight;
+					FlxG.log.add(spr.frameWidth);
 				}
-				spr.centerOffsets();
-			}
-		});
+			});
+		}
+									
+		override function beatHit() {
+			super.beatHit();
+			
+			if (FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 1 == 0) // the funni camera zoom each beat
+				FlxG.camera.zoom += 0.015;
+		}
 	}
-}

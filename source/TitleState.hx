@@ -517,6 +517,24 @@ class TitleState extends MusicBeatState
 				if(titleText != null) titleText.animation.play('press');
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
+				FlxTween.tween(logoBl, {x: -700}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween)
+					logoBl.kill()
+				});
+				FlxTween.tween(logoBl, {alpha: 0}, 1.3, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween){
+					logoBl.kill();
+				}});
+				FlxTween.tween(gfDance, {x: 1350}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween)
+					gfDance.kill()
+				});
+				FlxTween.tween(gfDance, {alpha: 0}, 1.3, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween){
+					gfDance.kill();
+				}});
+				FlxTween.tween(titleText, {y: 700}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween)
+					titleText.kill()
+				});
+				FlxTween.tween(titleText, {alpha: 0}, 1.3, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween){
+					titleText.kill();
+				}});
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
