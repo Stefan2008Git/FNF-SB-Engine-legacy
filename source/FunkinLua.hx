@@ -10,7 +10,6 @@ import llua.Convert;
 
 import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
-import Shaders;
 import flixel.addons.effects.FlxTrail;
 import flixel.input.keyboard.FlxKey;
 import flixel.tweens.FlxTween;
@@ -28,9 +27,12 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import openfl.Lib;
 import openfl.display.BlendMode;
+import openfl.display.ShaderParameter;
 import openfl.filters.BitmapFilter;
+import openfl.filters.ShaderFilter;
 import openfl.utils.Assets;
 import flixel.math.FlxMath;
+import Shaders;
 import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxAssets.FlxShader;
@@ -1414,6 +1416,15 @@ class FunkinLua {
 				leSprite.loadGraphic(Paths.image(image));
 			}
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			PlayState.instance.modchartSprites.set(tag, leSprite);
+			leSprite.active = true;
+		});
+		Lua_helper.add_callback(lua, "makeLuaShaderSprite", function(tag:String, shader:String, x:Float, y:Float,optimize:Bool=false) {
+			tag = tag.replace('.', '');
+			resetSpriteTag(tag);
+			var leSprite:ModchartSprite = new ModchartSprite(x, y,true,shader,optimize);
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
@@ -2975,13 +2986,29 @@ class FunkinLua {
 class ModchartSprite extends FlxSprite
 {
 	public var wasAdded:Bool = false;
+	var hShader:DynamicShaderHandler;
 	public var animOffsets:Map<String, Array<Float>> = new Map<String, Array<Float>>();
 	//public var isInFront:Bool = false;
 
-	public function new(?x:Float = 0, ?y:Float = 0)
+	public function new(?x:Float = 0, ?y:Float = 0, shaderSprite:Bool=false,type:String='', optimize:Bool = false)
 	{
 		super(x, y);
-		antialiasing = ClientPrefs.globalAntialiasing;
+		if(shaderSprite){
+
+			// codism
+			flipY = true;
+
+			makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT);
+
+			hShader = new DynamicShaderHandler(type, optimize);
+
+			if (hShader.shader != null)
+			{
+				shader = hShader.shader;
+			}
+
+			antialiasing = ClientPrefs.globalAntialiasing;
+			}
 	}
 }
 
