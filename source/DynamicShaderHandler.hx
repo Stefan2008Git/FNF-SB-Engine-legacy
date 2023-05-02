@@ -22,7 +22,7 @@ import sys.FileSystem;
 	
 	
 	
-	Hiiiii bbpanzu i edited the values to work with psych engineee < 33333
+	Hiiiii bbpanzu i edited the shits to work with psych engineee < 33333
  */
  
 class DynamicShaderHandler
