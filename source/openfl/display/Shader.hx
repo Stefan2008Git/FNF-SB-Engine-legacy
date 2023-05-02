@@ -1,4 +1,4 @@
-package openfl.display;
+package openfl.dpackage openfl.display;
 
 #if !flash
 import openfl.display._internal.ShaderBuffer;
