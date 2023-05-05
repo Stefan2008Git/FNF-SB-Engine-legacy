@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
+import flixel.addons.display.FlxBackdrop;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxGradient;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -38,6 +39,7 @@ class CacheState extends FlxState
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
 	var sbEngineLogo:FlxSprite;
 	var loadingSpeen:FlxSprite;
+	var checker:FlxBackdrop;
 	var loadingTxt:FlxText;
 	var randomTxt:FlxText;
 	
@@ -49,6 +51,14 @@ class CacheState extends FlxState
 		FlxG.worldBounds.set(0,0);
 
 		super.create();
+
+		checker = new FlxBackdrop(Paths.image('checker'));
+		checker.scrollFactor.set();
+		checker.scale.set(0.7, 0.7);
+		checker.screenCenter(X);
+		checker.velocity.set(150, 80);
+		checker.antialiasing = ClientPrefs.globalAntialiasing;
+		add(checker);
 
 		sbEngineLogo = new FlxSprite().loadGraphic(Paths.image("sbEngineLogo"));
 		sbEngineLogo.screenCenter();

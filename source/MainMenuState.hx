@@ -16,6 +16,7 @@ import flixel.text.FlxText;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 import lime.app.Application;
 import editors.MasterEditorMenu;
@@ -147,6 +148,20 @@ class MainMenuState extends MusicBeatState
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
+		var sbEngineLogo:FlxSprite = new FlxSprite(-130, 80).loadGraphic(Paths.image('sbEngineLogo'));
+		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		add(sbEngineLogo);
+
+		FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, -10, 2, {ease: FlxEase.quartInOut});
+
+		new FlxTimer().start(2, function(tmr:FlxTimer)
+		{
+			if (sbEngineLogo.angle == -10)
+				FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, 10, 2, {ease: FlxEase.quartInOut});
+			else
+				FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, -10, 2, {ease: FlxEase.quartInOut});
+		}, 0);
+
 		changeItem();
 
 		#if android
@@ -155,14 +170,6 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
-
-		var welcomeTxt = new FlxText(50, 330, FlxG.width - 800,
-			"Welcome to:\nSB Engine",
-			60);
-		welcomeTxt.setFormat("VCR OSD Mono", 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		welcomeTxt.scrollFactor.set();
-		welcomeTxt.borderSize = 1.25;
-		add(welcomeTxt);
 	}
 
 	var selectedSomething:Bool = false;
@@ -251,6 +258,12 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+
+			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end)
+			{
+				selectedSomething = true;
+				MusicBeatState.switchState(new GameExitState());
+			}
 		}
 
 		super.update(elapsed);
