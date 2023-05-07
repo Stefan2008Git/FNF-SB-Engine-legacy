@@ -121,8 +121,8 @@ class FunkinLua {
 		set('startedCountdown', false);
 		set('curStage', PlayState.SONG.stage);
 		set('isStoryMode', PlayState.isStoryMode);
-		set('difficulty', PlayState.storyDifficulty);
-		var difficultyName:String = CoolUtil.difficulties[PlayState.storyDifficulty];
+		set('difficulty', PlayState.storyModeDifficulty);
+		var difficultyName:String = CoolUtil.difficulties[PlayState.storyModeDifficulty];
 		set('difficultyName', difficultyName);
 		set('difficultyPath', Paths.formatToSongPath(difficultyName));
 		set('weekRaw', PlayState.storyWeek);
@@ -597,11 +597,11 @@ class FunkinLua {
 			if(name == null || name.length < 1)
 				name = PlayState.SONG.song;
 			if (difficultyNum == -1)
-				difficultyNum = PlayState.storyDifficulty;
+				difficultyNum = PlayState.storyModeDifficulty;
 
-			var poop = Highscore.formatSong(name, difficultyNum);
-			PlayState.SONG = Song.loadFromJson(poop, name);
-			PlayState.storyDifficulty = difficultyNum;
+			var valueSong = Highscore.formatSong(name, difficultyNum);
+			PlayState.SONG = Song.loadFromJson(valueSong, name);
+			PlayState.storyModeDifficulty = difficultyNum;
 			PlayState.instance.persistentUpdate = false;
 			LoadingState.loadAndSwitchState(new PlayState());
 

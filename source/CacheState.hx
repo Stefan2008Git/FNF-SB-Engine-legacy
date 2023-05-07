@@ -101,6 +101,8 @@ class CacheState extends FlxState
             goToState();
         });
 
+		FlxTween.tween(loadingTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+
 		super.create();
 	}
 	

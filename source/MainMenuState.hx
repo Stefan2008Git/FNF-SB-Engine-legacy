@@ -148,7 +148,7 @@ class MainMenuState extends MusicBeatState
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
-		var sbEngineLogo:FlxSprite = new FlxSprite(-130, 80).loadGraphic(Paths.image('sbEngineLogo'));
+		var sbEngineLogo:FlxSprite = new FlxSprite(-130, 120).loadGraphic(Paths.image('sbEngineLogo'));
 		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		add(sbEngineLogo);
 

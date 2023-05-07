@@ -76,19 +76,19 @@ class PauseSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
-		levelInfo.text += PlayState.SONG.song;
-		levelInfo.scrollFactor.set();
-		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
-		levelInfo.updateHitbox();
-		add(levelInfo);
+		var songNameTxt:FlxText = new FlxText(20, 15, 0, "", 32);
+		songNameTxt.text += "Song: " + PlayState.SONG.song;
+		songNameTxt.scrollFactor.set();
+		songNameTxt.setFormat(Paths.font("vcr.ttf"), 32);
+		songNameTxt.updateHitbox();
+		add(songNameTxt);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
-		levelDifficulty.text += CoolUtil.difficultyString();
-		levelDifficulty.scrollFactor.set();
-		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
-		levelDifficulty.updateHitbox();
-		add(levelDifficulty);
+		var difficultyNameTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
+		difficultyNameTxt.text += "Difficulty: " + CoolUtil.difficultyString();
+		difficultyNameTxt.scrollFactor.set();
+		difficultyNameTxt.setFormat(Paths.font('vcr.ttf'), 32);
+		difficultyNameTxt.updateHitbox();
+		add(difficultyNameTxt);
 
 		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
 		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
@@ -115,16 +115,16 @@ class PauseSubState extends MusicBeatSubstate
 		add(chartingText);
 
 		deathCounterTxt.alpha = 0;
-		levelDifficulty.alpha = 0;
-		levelInfo.alpha = 0;
+		difficultyNameTxt.alpha = 0;
+		songNameTxt.alpha = 0;
 
-		levelInfo.x = FlxG.width - (levelInfo.width + 20);
-		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
+		songNameTxt.x = FlxG.width - (songNameTxt.width + 20);
+		difficultyNameTxt.x = FlxG.width - (difficultyNameTxt.width + 20);
 		deathCounterTxt.x = FlxG.width - (deathCounterTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(songNameTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
@@ -207,9 +207,9 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				if(menuItems.length - 1 != currentlySelected && difficultyChoices.contains(daSelected)) {
 					var name:String = PlayState.SONG.song;
-					var poop = Highscore.formatSong(name, currentlySelected);
-					PlayState.SONG = Song.loadFromJson(poop, name);
-					PlayState.storyDifficulty = currentlySelected;
+					var valueSong = Highscore.formatSong(name, currentlySelected);
+					PlayState.SONG = Song.loadFromJson(valueSong, name);
+					PlayState.storyModeDifficulty = currentlySelected;
 					MusicBeatState.resetState();
 					FlxG.sound.music.volume = 0;
 					PlayState.changedDifficulty = true;

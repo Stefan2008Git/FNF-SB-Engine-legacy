@@ -47,6 +47,34 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
+
+		var option:Option = new Option('Hide HUD',
+			'If checked, hides most HUD elements.',
+			'hideHud',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Hide Watermark',
+			'If checked, hides watermark with song name, difficulty name and SB Engine version.',
+			'hideWatermark',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Hide Judgement Counter',
+			'If checked, hides Judgement Counter.',
+			'hideJudgementCounter',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Hide "[AUTOPLAY] is disabled!"',
+			'If checked, hides "[AUTOPLAY] is disabled!" text if you have disabled autoplay.',
+			'hideNoAutoplayText',
+			'bool',
+			false);
+		addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
 			"What should the Time Bar display?",

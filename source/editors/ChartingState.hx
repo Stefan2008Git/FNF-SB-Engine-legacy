@@ -119,7 +119,7 @@ class ChartingState extends MusicBeatState
 	var strumLine:FlxSprite;
 	var quant:AttachedSprite;
 	var strumLineNotes:FlxTypedGroup<StrumNote>;
-	var curSong:String = 'Test';
+	var currentlySong:String = 'Test';
 	var amountSteps:Int = 0;
 	var optionFreakUI:FlxGroup;
 
@@ -609,17 +609,17 @@ class ChartingState extends MusicBeatState
 		stageDropDown.selectedLabel = _song.stage;
 		blockPressWhileScrolling.push(stageDropDown);
 		
-		if (CoolUtil.difficulties[PlayState.storyDifficulty].toLowerCase() != 'normal')
+		if (CoolUtil.difficulties[PlayState.storyModeDifficulty].toLowerCase() != 'normal')
 		{
-			postfix = '-' + CoolUtil.difficulties[PlayState.storyDifficulty].toLowerCase();
+			postfix = '-' + CoolUtil.difficulties[PlayState.storyModeDifficulty].toLowerCase();
 		}
 
 		var difficultyDropDown = new FlxUIDropDownMenuCustom(stageDropDown.x, gfVersionDropDown.y, FlxUIDropDownMenuCustom.makeStrIdLabelArray(CoolUtil.difficulties, true), function(difficulty:String)
 		{
 			var newDifficulty:String = CoolUtil.difficulties[Std.parseInt(difficulty)].toLowerCase();
-			trace("Current difficulty: " + CoolUtil.difficulties[PlayState.storyDifficulty]);
+			trace("Current difficulty: " + CoolUtil.difficulties[PlayState.storyModeDifficulty]);
 			trace("New diffculty: " + newDifficulty);
-			PlayState.storyDifficulty = Std.parseInt(difficulty);
+			PlayState.storyModeDifficulty = Std.parseInt(difficulty);
 			if (newDifficulty != 'normal')
 			{
 				postfix = '-' + newDifficulty;
@@ -627,7 +627,7 @@ class ChartingState extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(_song.song.toLowerCase() + postfix, _song.song.toLowerCase());
 			MusicBeatState.resetState();
 		});
-		difficultyDropDown.selectedLabel = CoolUtil.difficulties[PlayState.storyDifficulty];
+		difficultyDropDown.selectedLabel = CoolUtil.difficulties[PlayState.storyModeDifficulty];
 		blockPressWhileScrolling.push(difficultyDropDown);
 		
 		var skin = PlayState.SONG.arrowSkin;
@@ -3041,11 +3041,11 @@ class ChartingState extends MusicBeatState
 	{
 		//freakty null fix, i freaking hate it when this happens
 		//make it look sexier if possible
-		if (CoolUtil.difficulties[PlayState.storyDifficulty] != CoolUtil.defaultDifficulty) {
-			if(CoolUtil.difficulties[PlayState.storyDifficulty] == null){
+		if (CoolUtil.difficulties[PlayState.storyModeDifficulty] != CoolUtil.defaultDifficulty) {
+			if(CoolUtil.difficulties[PlayState.storyModeDifficulty] == null){
 				PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
 			}else{
-				PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + CoolUtil.difficulties[PlayState.storyDifficulty], song.toLowerCase());
+				PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + CoolUtil.difficulties[PlayState.storyModeDifficulty], song.toLowerCase());
 			}
 		}else{
         PlayState.SONG = Song.loadFromJson(song.toLowerCase() + postfix, song.toLowerCase());

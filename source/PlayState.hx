@@ -142,7 +142,7 @@ class PlayState extends MusicBeatState
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
+	public static var storyModeDifficulty:Int = 1;
 
 	public var spawnTime:Float = 2000;
 
@@ -172,7 +172,7 @@ class PlayState extends MusicBeatState
 	public var camZooming:Bool = false;
 	public var camZoomingMult:Float = 1;
 	public var camZoomingDecay:Float = 1;
-	private var curSong:String = "";
+	private var currentlySong:String = "";
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
@@ -300,7 +300,7 @@ class PlayState extends MusicBeatState
 
 	#if desktop
 	// Discord RPC variables
-	var storyDifficultyText:String = "";
+	var storyModeDifficultyText:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
@@ -422,7 +422,7 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		#if desktop
-		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
+		storyModeDifficultyText = CoolUtil.difficulties[storyModeDifficulty];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
@@ -1191,6 +1191,7 @@ class PlayState extends MusicBeatState
 		judgementCounterTxt.scrollFactor.set();
 		judgementCounterTxt.size = 22;
 		judgementCounterTxt.screenCenter(Y);
+		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
 		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}\n';
 	    add(judgementCounterTxt);
 
@@ -1198,11 +1199,11 @@ class PlayState extends MusicBeatState
 		watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
-		watermarkTxt.visible = !ClientPrefs.hideHud;
+		watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		if(ClientPrefs.downScroll) {
 			watermarkTxt.y = 140;
 		}
-		watermarkTxt.text =  curSong  + " (" + CoolUtil.difficulties[storyDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
+		watermarkTxt.text =  currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
@@ -1219,15 +1220,11 @@ class PlayState extends MusicBeatState
 		noAutoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noAutoplayTxt.scrollFactor.set();
 		noAutoplayTxt.borderSize = 1.25;
+        noAutoplayTxt.visible = cpuControlled && !ClientPrefs.hideNoAutoplayText;
 		if(ClientPrefs.downScroll) {
 			noAutoplayTxt.y = timeBarBG.y - 500;
 		}
 		add(noAutoplayTxt);
-		if (cpuControlled) {
-			noAutoplayTxt.visible = false;
-		} else {
-			noAutoplayTxt.visible = true;
-		}
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1303,7 +1300,7 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		var daSong:String = Paths.formatToSongPath(curSong);
+		var daSong:String = Paths.formatToSongPath(currentlySong);
 		if (isStoryMode && !seenCutscene)
 		{
 			switch (daSong)
@@ -1399,7 +1396,7 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -2159,7 +2156,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2184,7 +2181,7 @@ class PlayState extends MusicBeatState
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
 
-		curSong = songData.song;
+		currentlySong = songData.song;
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
@@ -2556,11 +2553,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 			#end
 		}
@@ -2575,11 +2572,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 		}
 		#end
@@ -2592,7 +2589,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		}
 		#end
 
@@ -3105,7 +3102,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 	}
 
@@ -3150,7 +3147,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3697,8 +3694,8 @@ class PlayState extends MusicBeatState
 				#if !switch
 				var percent:Float = ratingPercent;
 				if(Math.isNaN(percent)) percent = 0;
-				Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
-				Highscore.saveMiss(SONG.song, songMisses, storyDifficulty);
+				Highscore.saveScore(SONG.song, songScore, storyModeDifficulty, percent);
+				Highscore.saveMiss(SONG.song, songMisses, storyModeDifficulty);
 				#end
 			}
 			playbackRate = 1;
@@ -3733,7 +3730,7 @@ class PlayState extends MusicBeatState
 
 						if (SONG.validScore)
 						{
-							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyModeDifficulty);
 						}
 
 						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
