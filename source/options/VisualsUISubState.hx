@@ -48,13 +48,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Hide HUD',
-			'If checked, hides most HUD elements.',
-			'hideHud',
-			'bool',
-			false);
-		addOption(option);
-
 		var option:Option = new Option('Hide Watermark',
 			'If checked, hides watermark with song name, difficulty name and SB Engine version.',
 			'hideWatermark',

@@ -135,7 +135,7 @@ class CacheState extends FlxState
 	function changeText()
 	{
 		var selectedText:String = '';
-		var textArray:Array<String> = CoolUtil.coolTextFile(Paths.txt('sbEngineTip'));
+		var textArray:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('sbEngineTip'));
 
 		randomTxt.alpha = 1;
 		isTweening = true;
