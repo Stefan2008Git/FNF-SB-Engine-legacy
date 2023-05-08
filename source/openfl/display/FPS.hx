@@ -5,6 +5,7 @@ import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
+import flixel.FlxG;
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
@@ -105,11 +106,14 @@ class FPS extends TextField
 			{
 			text += "\nEngine version: " + MainMenuState.sbEngineVersion;
 		    }
-			if(ClientPrefs.glRender)
+			if(ClientPrefs.debugInfo)
 			{
-                        text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-                        text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-                        text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+			text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';
+				if (FlxG.state.subState != null)
+			text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}';
+			text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+			text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+			text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 		    }
 			#end
 

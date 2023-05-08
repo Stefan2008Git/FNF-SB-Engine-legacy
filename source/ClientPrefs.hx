@@ -13,7 +13,7 @@ class ClientPrefs {
 	public static var showFPS:Bool = #if android false #else true #end;
 	public static var totalMemory:Bool = false;
 	public static var sbEngineVersion:Bool = false;
-	public static var glRender:Bool = false;
+	public static var debugInfo:Bool = false;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -33,6 +33,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
 	public static var iconBounce:Bool = true;
+	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
@@ -99,16 +100,15 @@ class ClientPrefs {
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.totalMemory = totalMemory;
 		FlxG.save.data.sbEngineVersion = sbEngineVersion;
-		FlxG.save.data.glRender = glRender;
+		FlxG.save.data.debugInfo = debugInfo;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.framerate = framerate;
-		//FlxG.save.data.cursing = cursing;
-		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
+		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
@@ -167,14 +167,17 @@ class ClientPrefs {
 	    if(FlxG.save.data.sbEngineVersion != null) {
 		    sbEngineVersion = FlxG.save.data.sbEngineVersion;
 	    }
-	    if(FlxG.save.data.glRender != null) {
-		    glRender = FlxG.save.data.glRender;
-	}
+		if(FlxG.save.data.debugInfo != null) {
+		    debugInfo = FlxG.save.data.debugInfo;
+	    }
 		if(FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;
 		}
 		if(FlxG.save.data.globalAntialiasing != null) {
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;
+		}
+		if(FlxG.save.data.colorblindMode != null) {
+			colorblindMode = FlxG.save.data.colorblindMode;
 		}
 		if(FlxG.save.data.noteSplashes != null) {
 			noteSplashes = FlxG.save.data.noteSplashes;

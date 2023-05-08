@@ -1220,11 +1220,15 @@ class PlayState extends MusicBeatState
 		noAutoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noAutoplayTxt.scrollFactor.set();
 		noAutoplayTxt.borderSize = 1.25;
-        noAutoplayTxt.visible = cpuControlled && !ClientPrefs.hideNoAutoplayText;
 		if(ClientPrefs.downScroll) {
 			noAutoplayTxt.y = timeBarBG.y - 500;
 		}
 		add(noAutoplayTxt);
+		if (cpuControlled && ClientPrefs.hideNoAutoplayText) {
+			noAutoplayTxt.visible = false;
+		} else {
+			noAutoplayTxt.visible = true;
+		}
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];

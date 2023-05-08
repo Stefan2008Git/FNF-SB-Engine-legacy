@@ -63,10 +63,19 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Hide "[AUTOPLAY] is disabled!"',
-			'If checked, hides "[AUTOPLAY] is disabled!" text if you have disabled autoplay.',
+			'If checked, hides "[AUTOPLAY] is disabled!" text if you have disabled autoplay.\nWARNING: Do not enable "AUTOPLAY" if you have unchecked option',
 			'hideNoAutoplayText',
 			'bool',
 			false);
+		addOption(option);
+
+		var option:Option = new Option('Colorblind Filter',
+			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)',
+			'colorblindMode',
+			'string',
+			'None', 
+			['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
+		option.onChange = ColorblindFilter.applyFiltersOnGame;
 		addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
@@ -132,9 +141,9 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('GL render counter',
-			"If unchecked, hides GL Render counter.\nRequest: You need to turn on FPS counter first!",
-			'glRender',
+		var option:Option = new Option('Debug info',
+			"If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!",
+			'debugInfo',
 			'bool',
 			false);
 		addOption(option);
