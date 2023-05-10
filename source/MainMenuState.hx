@@ -57,6 +57,7 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
+		if (ClientPrefs.colorblindMode != null) ColorblindFilter.applyFiltersOnGame();
 
 		#if desktop
 		// Updating Discord Rich Presence

@@ -20,12 +20,13 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenufreak:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty' #if android, 'Chart Editor' #end, 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Options', 'Chart Editor', 'Exit to menu'];
 	var difficultyChoices = [];
 	var currentlySelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
+	public static var optionMenu:Bool;
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
@@ -262,7 +263,12 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.autoplayTxt.alpha = 1;
 					PlayState.instance.autoplaySine = 0;
-					PlayState.instance.noAutoplaySine = 0;
+				case 'Options':
+					optionMenu = true;
+					PlayState.deathCounter = 0;
+					PlayState.seenCutscene = false;
+					MusicBeatState.switchState(new options.OptionsState());
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
                  case 'Chart Editor':
 		            MusicBeatState.switchState(new editors.ChartingState());
 		            PlayState.chartingMode = true;

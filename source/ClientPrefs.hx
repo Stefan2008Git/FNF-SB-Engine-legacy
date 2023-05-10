@@ -11,6 +11,7 @@ class ClientPrefs {
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = #if android false #else true #end;
+	public static var rainbowFPS:Bool = false;
 	public static var totalMemory:Bool = false;
 	public static var sbEngineVersion:Bool = false;
 	public static var debugInfo:Bool = false;
@@ -26,7 +27,6 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var hideWatermark:Bool = false;
 	public static var hideJudgementCounter:Bool = false;
-	public static var hideNoAutoplayText:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var vibration:Bool = false;
@@ -98,6 +98,7 @@ class ClientPrefs {
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.rainbowFPS = rainbowFPS;
 		FlxG.save.data.totalMemory = totalMemory;
 		FlxG.save.data.sbEngineVersion = sbEngineVersion;
 		FlxG.save.data.debugInfo = debugInfo;
@@ -113,7 +114,6 @@ class ClientPrefs {
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
-		FlxG.save.data.hideNoAutoplayText = hideNoAutoplayText;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -160,6 +160,9 @@ class ClientPrefs {
 			if(Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
 			}
+		}
+		if(FlxG.save.data.rainbowFPS != null) {
+			rainbowFPS = FlxG.save.data.rainbowFPS;
 		}
 	    if(FlxG.save.data.totalMemory != null) {
 		    totalMemory = FlxG.save.data.totalMemory;
@@ -212,9 +215,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hideJudgementCounter != null) {
 			hideJudgementCounter = FlxG.save.data.hideJudgementCounter;
-		}
-		if(FlxG.save.data.hideNoAutoplayText != null) {
-			hideNoAutoplayText = FlxG.save.data.hideNoAutoplayText;
 		}
 		if(FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;

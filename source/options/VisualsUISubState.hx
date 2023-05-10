@@ -62,13 +62,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Hide "[AUTOPLAY] is disabled!"',
-			'If checked, hides "[AUTOPLAY] is disabled!" text if you have disabled autoplay.\nWARNING: Do not enable "AUTOPLAY" if you have unchecked option',
-			'hideNoAutoplayText',
-			'bool',
-			false);
-		addOption(option);
-
 		var option:Option = new Option('Colorblind Filter',
 			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)',
 			'colorblindMode',
@@ -144,6 +137,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Debug info',
 			"If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!",
 			'debugInfo',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Rainbow FPS',
+			"If checked, enables radnom color's for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!",
+			'rainbowFPS',
 			'bool',
 			false);
 		addOption(option);

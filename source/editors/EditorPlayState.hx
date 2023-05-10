@@ -989,27 +989,27 @@ class EditorPlayState extends MusicBeatState
 				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
-			babyArrow.alpha = targetAlpha;
+			var opponentArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
+			opponentArrow.alpha = targetAlpha;
 
 			if (player == 1)
 			{
-				playerStrums.add(babyArrow);
+				playerStrums.add(opponentArrow);
 			}
 			else
 			{
 				if(ClientPrefs.middleScroll)
 				{
-					babyArrow.x += 310;
+					opponentArrow.x += 310;
 					if(i > 1) { //Up and Right
-						babyArrow.x += FlxG.width / 2 + 25;
+						opponentArrow.x += FlxG.width / 2 + 25;
 					}
 				}
-				opponentStrums.add(babyArrow);
+				opponentStrums.add(opponentArrow);
 			}
 
-			strumLineNotes.add(babyArrow);
-			babyArrow.postAddedToGroup();
+			strumLineNotes.add(opponentArrow);
+			opponentArrow.postAddedToGroup();
 		}
 	}
 

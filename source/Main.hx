@@ -6,6 +6,7 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
+import flixel.util.FlxColor;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -118,6 +119,11 @@ class Main extends Sprite
 			});
 		}
 		#end
+	}
+
+	public function changeFPSColor(color:FlxColor)
+	{
+		fpsVar.textColor = color;
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!

@@ -213,9 +213,6 @@ class PlayState extends MusicBeatState
 	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
 
-	public var noAutoplaySine:Float = 0;
-	public var noAutoplayTxt:FlxText;
-
 	public var iconPlayer1:HealthIcon;
 	public var iconPlayer2:HealthIcon;
 	public var camHUD:FlxCamera;
@@ -1216,20 +1213,6 @@ class PlayState extends MusicBeatState
 			autoplayTxt.y = timeBarBG.y - 500;
 		}
 
-        noAutoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY] is disabled!", 32);
-		noAutoplayTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		noAutoplayTxt.scrollFactor.set();
-		noAutoplayTxt.borderSize = 1.25;
-		if(ClientPrefs.downScroll) {
-			noAutoplayTxt.y = timeBarBG.y - 500;
-		}
-		add(noAutoplayTxt);
-		if (cpuControlled && ClientPrefs.hideNoAutoplayText) {
-			noAutoplayTxt.visible = false;
-		} else {
-			noAutoplayTxt.visible = true;
-		}
-
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1241,7 +1224,6 @@ class PlayState extends MusicBeatState
 		iconPlayer2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
-		noAutoplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -1613,9 +1595,7 @@ class PlayState extends MusicBeatState
 				    camGame.setFilters(newCamEffects);
 		}
   }
-	
-	
-	
+
   public function clearShaderFromCamera(cam:String){
 
 		switch(cam.toLowerCase()) {
@@ -1631,9 +1611,7 @@ class PlayState extends MusicBeatState
 				camGameShaders = [];
 				var newCamEffects:Array<BitmapFilter>=[];
 				camGame.setFilters(newCamEffects);
-		}
-		
-	  
+		}  
   }
 
 	public function getLuaObject(tag:String, text:Bool=true):FlxSprite {
@@ -2065,9 +2043,9 @@ class PlayState extends MusicBeatState
 	public function updateScore(miss:Bool = false)
 	{
 		scoreTxt.text = 'Score: ' + songScore
-		+ ' // Combo breaks: ' + songMisses
-		+ ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
-		+ ' // ' + ratingName + ' [' + ratingFC + ']';
+		+ ' | Combo breaks: ' + songMisses
+		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
+		+ ' | ' + ratingName + ' [' + ratingFC + ']';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -2159,7 +2137,6 @@ class PlayState extends MusicBeatState
 		}
 
 		#if desktop
-		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
@@ -2449,37 +2426,37 @@ class PlayState extends MusicBeatState
 				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
-			babyArrow.downScroll = ClientPrefs.downScroll;
+			var opponentArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
+			opponentArrow.downScroll = ClientPrefs.downScroll;
 			if (!isStoryMode && !skipArrowStartTween)
 			{
-				//babyArrow.y -= 10;
-				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {/*y: babyArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				//opponentArrow.y -= 10;
+				opponentArrow.alpha = 0;
+				FlxTween.tween(opponentArrow, {/*y: opponentArrow.y + 10,*/ alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 			}
 			else
 			{
-				babyArrow.alpha = targetAlpha;
+				opponentArrow.alpha = targetAlpha;
 			}
 
 			if (player == 1)
 			{
-				playerStrums.add(babyArrow);
+				playerStrums.add(opponentArrow);
 			}
 			else
 			{
 				if(ClientPrefs.middleScroll)
 				{
-					babyArrow.x += 310;
+					opponentArrow.x += 310;
 					if(i > 1) { //Up and Right
-						babyArrow.x += FlxG.width / 2 + 25;
+						opponentArrow.x += FlxG.width / 2 + 25;
 					}
 				}
-				opponentStrums.add(babyArrow);
+				opponentStrums.add(opponentArrow);
 			}
 
-			strumLineNotes.add(babyArrow);
-			babyArrow.postAddedToGroup();
+			strumLineNotes.add(opponentArrow);
+			opponentArrow.postAddedToGroup();
 		}
 	}
 
@@ -2625,10 +2602,6 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		/*if (FlxG.keys.justPressed.NINE)
-		{
-			iconPlayer1.swapOldIcon();
-		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
@@ -2782,11 +2755,6 @@ class PlayState extends MusicBeatState
 		if(autoplayTxt.visible) {
 			autoplaySine += 180 * elapsed;
 			autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
-		}
-
-		if(noAutoplayTxt.visible) {
-			noAutoplaySine += 180 * elapsed;
-			noAutoplayTxt.alpha = 1 - Math.sin((Math.PI * noAutoplaySine) / 180);
 		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)

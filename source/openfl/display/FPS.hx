@@ -5,6 +5,7 @@ import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 import flixel.FlxG;
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
@@ -71,6 +72,18 @@ class FPS extends TextField
 		#end
 	}
 
+	var array:Array<FlxColor> = [
+		FlxColor.fromRGB(148, 0, 211),
+		FlxColor.fromRGB(75, 0, 130),
+		FlxColor.fromRGB(0, 0, 255),
+		FlxColor.fromRGB(0, 255, 0),
+		FlxColor.fromRGB(255, 255, 0),
+		FlxColor.fromRGB(255, 127, 0),
+		FlxColor.fromRGB(255, 0, 0)
+	];
+
+	var skippedFrames = 0;
+
 	// Event Handlers
 	@:noCompletion
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
@@ -81,6 +94,18 @@ class FPS extends TextField
 		while (times[0] < currentTime - 1000)
 		{
 			times.shift();
+		}
+
+		if (ClientPrefs.rainbowFPS)
+		{
+			if (textColor >= array.length)
+				textColor = 0;
+				textColor = Math.round(FlxMath.lerp(0, array.length, skippedFrames / (ClientPrefs.framerate / 3)));
+				(cast(Lib.current.getChildAt(0), Main)).changeFPSColor(array[textColor]);
+				textColor++;
+				skippedFrames++;
+				if (skippedFrames > (ClientPrefs.framerate / 3))
+					skippedFrames = 0;
 		}
 
 		var currentCount = times.length;
