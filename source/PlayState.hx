@@ -1533,7 +1533,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
+	public function addLuaShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
 
 		switch(cam.toLowerCase()) {
 			case 'camhud' | 'hud':
