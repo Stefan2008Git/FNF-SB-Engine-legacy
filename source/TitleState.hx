@@ -118,7 +118,7 @@ class TitleState extends MusicBeatState
 
 		// DEBUG optionFreak
 
-		swagShader = new ColorSwap();
+		swapShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
@@ -217,7 +217,7 @@ class TitleState extends MusicBeatState
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
+	var swapShader:ColorSwap = null;
 
 	function startIntro()
 	{
@@ -260,7 +260,7 @@ class TitleState extends MusicBeatState
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
-		swagShader = new ColorSwap();
+		swapShader = new ColorSwap();
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 
 		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
@@ -305,9 +305,9 @@ class TitleState extends MusicBeatState
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut});
 
 		add(gfDance);
-		gfDance.shader = swagShader.shader;
+		gfDance.shader = swapShader.shader;
 		add(logoBl);
-		logoBl.shader = swagShader.shader;
+		logoBl.shader = swapShader.shader;
 
 		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
 		#if (desktop || android && MODS_ALLOWED)
@@ -565,10 +565,10 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		if(swagShader != null)
+		if(swapShader != null)
 		{
-			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
-			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
+			if(controls.UI_LEFT) swapShader.hue -= elapsed * 0.1;
+			if(controls.UI_RIGHT) swapShader.hue += elapsed * 0.1;
 		}
 
 		super.update(elapsed);

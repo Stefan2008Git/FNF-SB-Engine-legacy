@@ -86,7 +86,7 @@ class CacheState extends FlxState
         loadingSpeen.x = FlxG.width - 91;
 		loadingSpeen.y = FlxG.height - 91;
 		loadingSpeen.angularVelocity = 180;
-		loadingSpeen.antialiasing = true;
+		loadingSpeen.antialiasing = ClientPrefs.globalAntialiasing;
 		add(loadingSpeen);
 
 		loadingTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);

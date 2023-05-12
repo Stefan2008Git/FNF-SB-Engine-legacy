@@ -53,16 +53,16 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
 
-		var option:Option = new Option('Shaders', //Name
-			'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description
+		var option:Option = new Option('Shaders on lua', //Name
+			'If unchecked, disables lua shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs and Android phones.\nOriginal lua shaders maked on old version of Psych Engine', //Description
 			'shaders', //Save data variable name
 			'bool', //Variable type
-			true); //Default value
+			false); //Default value
 		addOption(option);
 
 		#if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync freak enabled by default, idk
 		var option:Option = new Option('Framerate',
-			"Pretty self explanatory, isn't it?",
+			"Change framerate for your experience.",
 			'framerate',
 			'int',
 			60);
