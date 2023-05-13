@@ -64,7 +64,7 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
-	var ngSpr:FlxSprite;
+	var psychEngineLogo:FlxSprite;
 	var checker:FlxBackdrop;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
@@ -104,25 +104,7 @@ class TitleState extends MusicBeatState
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
 		#end
-		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
-
-		//trace(path, FileSystem.exists(path));
-
-		/*#if (polymod && !html5)
-		if (sys.FileSystem.exists('mods/')) {
-			var folders:Array<String> = [];
-			for (file in sys.FileSystem.readDirectory('mods/')) {
-				var path = haxe.io.Path.join(['mods/', file]);
-				if (sys.FileSystem.isDirectory(path)) {
-					folders.push(file);
-				}
-			}
-			if(folders.length > 0) {
-				polymod.Polymod.init({modRoot: "mods", dirs: folders});
-			}
-		}
-		#end*/
 
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
@@ -241,25 +223,6 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND freak
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
-
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
@@ -410,13 +373,13 @@ class TitleState extends MusicBeatState
 
 		credTextfreak.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		add(ngSpr);
-		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
-		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		psychEngineLogo = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('psychEngineLogo'));
+		add(psychEngineLogo);
+		psychEngineLogo.visible = false;
+		psychEngineLogo.setGraphicSize(Std.int(psychEngineLogo.width * 0.8));
+		psychEngineLogo.updateHitbox();
+		psychEngineLogo.screenCenter(X);
+		psychEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -458,6 +421,12 @@ class TitleState extends MusicBeatState
 		Timer += 1;
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
+
+		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
+		{
+			MusicBeatState.switchState(new GameExitState());
+		}
+
 		if (FlxG.keys.justPressed.F)
 			{
 				FlxG.fullscreen = !FlxG.fullscreen;
@@ -688,13 +657,13 @@ class TitleState extends MusicBeatState
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Not associated', 'with'], -40);
+					createCoolText(['Forked', 'From:'], -40);
 				case 8:
-					addMoreText('newgrounds', -40);
-					ngSpr.visible = true;
+					addMoreText('Psych Engine: ' + MainMenuState.psychEngineVersion, -40);
+					psychEngineLogo.visible = true;
 				case 9:
 					deleteCoolText();
-					ngSpr.visible = false;
+					psychEngineLogo.visible = false;
 				case 10:
 					createCoolText([curWacky[0]]);
 				case 12:
@@ -743,7 +712,7 @@ class TitleState extends MusicBeatState
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
 
 					default: //Go back to normal ugly ass boring GF
-						remove(ngSpr);
+						remove(psychEngineLogo);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
@@ -759,7 +728,7 @@ class TitleState extends MusicBeatState
 				{
 					new FlxTimer().start(3.2, function(tmr:FlxTimer)
 					{
-						remove(ngSpr);
+						remove(psychEngineLogo);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 0.6);
 						transitioning = false;
@@ -767,7 +736,7 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{
-					remove(ngSpr);
+					remove(psychEngineLogo);
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
@@ -780,7 +749,7 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
-				remove(ngSpr);
+				remove(psychEngineLogo);
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 			    FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
