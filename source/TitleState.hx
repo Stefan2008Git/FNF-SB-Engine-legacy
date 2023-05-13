@@ -657,9 +657,9 @@ class TitleState extends MusicBeatState
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Forked', 'From:'], -40);
+					createCoolText(['Forked', 'From'], -40);
 				case 8:
-					addMoreText('Psych Engine: ' + MainMenuState.psychEngineVersion, -40);
+					addMoreText('Psych Engine v' + MainMenuState.psychEngineVersion, -40);
 					psychEngineLogo.visible = true;
 				case 9:
 					deleteCoolText();
