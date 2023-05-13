@@ -2439,7 +2439,7 @@ class FunkinLua {
 			return list;
 		});
 
-		//Shader stuff (Maked by Lizzy Strawberry)
+		//SHADER freak
 		if (ClientPrefs.shaders == true)
 			{
 			Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,chromeOffset:Float = 0.005) {
