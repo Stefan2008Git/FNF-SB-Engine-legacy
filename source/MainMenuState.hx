@@ -259,6 +259,12 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+
+			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end)
+			{
+				selectedSomething = true;
+				MusicBeatState.switchState(new GameExitState());
+			}
 		}
 
 		super.update(elapsed);

@@ -20,6 +20,7 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import options.GraphicsSettingsSubState;
+//import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
@@ -63,7 +64,7 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
-	var psychEngineLogo:FlxSprite;
+	var ngSpr:FlxSprite;
 	var checker:FlxBackdrop;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
@@ -106,6 +107,23 @@ class TitleState extends MusicBeatState
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 
+		//trace(path, FileSystem.exists(path));
+
+		/*#if (polymod && !html5)
+		if (sys.FileSystem.exists('mods/')) {
+			var folders:Array<String> = [];
+			for (file in sys.FileSystem.readDirectory('mods/')) {
+				var path = haxe.io.Path.join(['mods/', file]);
+				if (sys.FileSystem.isDirectory(path)) {
+					folders.push(file);
+				}
+			}
+			if(folders.length > 0) {
+				polymod.Polymod.init({modRoot: "mods", dirs: folders});
+			}
+		}
+		#end*/
+
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
@@ -133,9 +151,9 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var currentlyVersion:String = MainMenuState.sbEngineVersion.trim();
-				trace('version online: ' + updateVersion + ', your version: ' + currentlyVersion);
-				if(updateVersion != currentlyVersion) {
+				var curVersion:String = MainMenuState.sbEngineVersion.trim();
+				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
+				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
 					mustUpdate = true;
 				}
@@ -223,6 +241,25 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
+			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+			diamond.persist = true;
+			diamond.destroyOnNoUse = false;
+			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
+				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
+				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+			transIn = FlxTransitionableState.defaultTransIn;
+			transOut = FlxTransitionableState.defaultTransOut;*/
+
+			// HAD TO MODIFY SOME BACKEND freak
+			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
+			// https://github.com/HaxeFlixel/flixel-addons/pull/348
+
+			// var music:FlxSound = new FlxSound();
+			// music.loadStream(Paths.music('freakyMenu'));
+			// FlxG.sound.list.add(music);
+			// music.play();
+
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
@@ -351,9 +388,9 @@ class TitleState extends MusicBeatState
 		// titleText.screenCenter(X);
 		add(titleText);
 
-		var sbEngineLogo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sbEngineLogo'));
-	    sbEngineLogo.screenCenter();
-		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
+		logo.screenCenter();
+		logo.antialiasing = ClientPrefs.globalAntialiasing;
 		// add(logo);
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
@@ -373,13 +410,13 @@ class TitleState extends MusicBeatState
 
 		credTextfreak.visible = false;
 
-		psychEngineLogo = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('psychEngineLogo'));
-		add(psychEngineLogo);
-		psychEngineLogo.visible = false;
-		psychEngineLogo.setGraphicSize(Std.int(psychEngineLogo.width * 0.8));
-		psychEngineLogo.updateHitbox();
-		psychEngineLogo.screenCenter(X);
-		psychEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
+		add(ngSpr);
+		ngSpr.visible = false;
+		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
+		ngSpr.updateHitbox();
+		ngSpr.screenCenter(X);
+		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -421,17 +458,21 @@ class TitleState extends MusicBeatState
 		Timer += 1;
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
+		if (FlxG.keys.justPressed.F)
+			{
+				FlxG.fullscreen = !FlxG.fullscreen;
+			}
 
-		if (FlxG.keys.justPressed.ESCAPE #if android || virtualPad.buttonA.justPressed #end)
-		{
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new GameExitState());
-		}
-
-		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end || controls.ACCEPT;
+		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
 		#if android
-		addVirtualPad(NONE, A_B);
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				pressedEnter = true;
+			}
+		}
 		#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -497,6 +538,12 @@ class TitleState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
+
+				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
+				{
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+					MusicBeatState.switchState(new GameExitState());
+				}
 			    
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
@@ -641,13 +688,13 @@ class TitleState extends MusicBeatState
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Forked', 'from'], -40);
+					createCoolText(['Not associated', 'with'], -40);
 				case 8:
-					addMoreText('Psych Engine: 0.6.2', -40);
-					psychEngineLogo.visible = true;
+					addMoreText('newgrounds', -40);
+					ngSpr.visible = true;
 				case 9:
 					deleteCoolText();
-					psychEngineLogo.visible = false;
+					ngSpr.visible = false;
 				case 10:
 					createCoolText([curWacky[0]]);
 				case 12:
@@ -664,6 +711,7 @@ class TitleState extends MusicBeatState
 					addMoreText('SB');
 				case 18:
 					addMoreText('Engine');
+
 				case 19:
 					skipIntro();
 			}
@@ -695,7 +743,7 @@ class TitleState extends MusicBeatState
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
 
 					default: //Go back to normal ugly ass boring GF
-						remove(psychEngineLogo);
+						remove(ngSpr);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
@@ -711,7 +759,7 @@ class TitleState extends MusicBeatState
 				{
 					new FlxTimer().start(3.2, function(tmr:FlxTimer)
 					{
-						remove(psychEngineLogo);
+						remove(ngSpr);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 0.6);
 						transitioning = false;
@@ -719,7 +767,7 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{
-					remove(psychEngineLogo);
+					remove(ngSpr);
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
@@ -732,7 +780,7 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
-				remove(psychEngineLogo);
+				remove(ngSpr);
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 			    FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
