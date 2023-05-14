@@ -27,11 +27,11 @@ using StringTools;
 
 class FreeplayState extends MusicBeatState
 {
-	var songs:Array<SongMetadata> = [];
+	var songs:Array<SongMetaData> = [];
 
 	var selector:FlxText;
 	private static var currentlySelected:Int = 0;
-	var curDifficulty:Int = -1;
+	var currentlyDifficulty:Int = -1;
 	private static var lastDifficultyName:String = '';
 
 	var scoreBG:FlxSprite;
@@ -158,7 +158,7 @@ class FreeplayState extends MusicBeatState
 		{
 			lastDifficultyName = CoolUtil.defaultDifficulty;
 		}
-		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
+		currentlyDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 		
 		changeSelection();
 		changeDiff();
@@ -201,7 +201,7 @@ class FreeplayState extends MusicBeatState
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
 	{
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		songs.push(new SongMetaData(songName, weekNum, songCharacter, color));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -239,7 +239,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.') + '%\nMISSES: ' + lerpMiss;
+		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.');
 		positionHighscore();
 
 
@@ -318,7 +318,7 @@ class FreeplayState extends MusicBeatState
 				destroyFreeplayVocals();
 				FlxG.sound.music.volume = 0;
 				Paths.currentModDirectory = songs[currentlySelected].folder;
-				var valueSong:String = Highscore.formatSong(songs[currentlySelected].songName.toLowerCase(), curDifficulty);
+				var valueSong:String = Highscore.formatSong(songs[currentlySelected].songName.toLowerCase(), currentlyDifficulty);
 				PlayState.SONG = Song.loadFromJson(valueSong, songs[currentlySelected].songName.toLowerCase());
 				if (PlayState.SONG.needsVoices)
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
@@ -340,12 +340,12 @@ class FreeplayState extends MusicBeatState
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
-			var valueSong:String = Highscore.formatSong(songLowercase, curDifficulty);
+			var valueSong:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
 			trace(valueSong);
 
 			PlayState.SONG = Song.loadFromJson(valueSong, songLowercase);
 			PlayState.isStoryMode = false;
-			PlayState.storyModeDifficulty = curDifficulty;
+			PlayState.storyModeDifficulty = currentlyDifficulty;
 
 			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
 			if(colorTween != null) {
@@ -368,7 +368,7 @@ class FreeplayState extends MusicBeatState
 			removeVirtualPad();
 			#end
 			persistentUpdate = false;
-			openSubState(new ResetScoreSubState(songs[currentlySelected].songName, curDifficulty, songs[currentlySelected].songCharacter));
+			openSubState(new ResetScoreSubState(songs[currentlySelected].songName, currentlyDifficulty, songs[currentlySelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		super.update(elapsed);
@@ -384,22 +384,22 @@ class FreeplayState extends MusicBeatState
 
 	function changeDiff(change:Int = 0)
 	{
-		curDifficulty += change;
+		currentlyDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = CoolUtil.difficulties.length-1;
-		if (curDifficulty >= CoolUtil.difficulties.length)
-			curDifficulty = 0;
+		if (currentlyDifficulty < 0)
+			currentlyDifficulty = CoolUtil.difficulties.length-1;
+		if (currentlyDifficulty >= CoolUtil.difficulties.length)
+			currentlyDifficulty = 0;
 
-		lastDifficultyName = CoolUtil.difficulties[curDifficulty];
+		lastDifficultyName = CoolUtil.difficulties[currentlyDifficulty];
 
 		#if !switch
-		intendedScore = Highscore.getScore(songs[currentlySelected].songName, curDifficulty);
-		intendedRating = Highscore.getRating(songs[currentlySelected].songName, curDifficulty);
-		intendedMiss = Highscore.getMiss(songs[currentlySelected].songName, curDifficulty);
+		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
+		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
+		intendedMiss = Highscore.getMiss(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
 
-		PlayState.storyModeDifficulty = curDifficulty;
+		PlayState.storyModeDifficulty = currentlyDifficulty;
 		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
 	}
@@ -431,9 +431,8 @@ class FreeplayState extends MusicBeatState
 		// selector.y = (70 * currentlySelected) + 30;
 
 		#if !switch
-		intendedScore = Highscore.getScore(songs[currentlySelected].songName, curDifficulty);
-		intendedRating = Highscore.getRating(songs[currentlySelected].songName, curDifficulty);
-		intendedMiss = Highscore.getMiss(songs[currentlySelected].songName, curDifficulty);
+		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
+		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
 
 		var optionFreak:Int = 0;
@@ -489,18 +488,18 @@ class FreeplayState extends MusicBeatState
 		
 		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
 		{
-			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
+			currentlyDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
 		}
 		else
 		{
-			curDifficulty = 0;
+			currentlyDifficulty = 0;
 		}
 
 		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
 		//trace('Pos of ' + lastDifficultyName + ' is ' + newPos);
 		if(newPos > -1)
 		{
-			curDifficulty = newPos;
+			currentlyDifficulty = newPos;
 		}
 	}
 
@@ -514,7 +513,7 @@ class FreeplayState extends MusicBeatState
 	}
 }
 
-class SongMetadata
+class SongMetaData
 {
 	public var songName:String = "";
 	public var week:Int = 0;

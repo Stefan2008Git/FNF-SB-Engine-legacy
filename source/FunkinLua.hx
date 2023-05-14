@@ -119,7 +119,7 @@ class FunkinLua {
 		set('songName', PlayState.SONG.song);
 		set('songPath', Paths.formatToSongPath(PlayState.SONG.song));
 		set('startedCountdown', false);
-		set('curStage', PlayState.SONG.stage);
+		set('currentlyStage', PlayState.SONG.stage);
 		set('isStoryMode', PlayState.isStoryMode);
 		set('difficulty', PlayState.storyModeDifficulty);
 		var difficultyName:String = CoolUtil.difficulties[PlayState.storyModeDifficulty];

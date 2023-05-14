@@ -136,7 +136,7 @@ class PlayState extends MusicBeatState
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
-	public static var curStage:String = '';
+	public static var currentlyStage:String = '';
 	public static var isPixelStage:Bool = false;
 	public static var SONG:SwagSong = null;
 	public static var isStoryMode:Bool = false;
@@ -438,34 +438,34 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
-		curStage = SONG.stage;
-		//trace('stage is: ' + curStage);
+		currentlyStage = SONG.stage;
+		//trace('stage is: ' + currentlyStage);
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			switch (songName)
 			{
 				case 'spookeez' | 'south' | 'monster':
-					curStage = 'spooky';
+					currentlyStage = 'spooky';
 				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
-					curStage = 'philly';
+					currentlyStage = 'philly';
 				case 'milf' | 'satin-panties' | 'high':
-					curStage = 'limo';
+					currentlyStage = 'limo';
 				case 'cocoa' | 'eggnog':
-					curStage = 'mall';
+					currentlyStage = 'mall';
 				case 'winter-horrorland':
-					curStage = 'mallEvil';
+					currentlyStage = 'mallEvil';
 				case 'senpai' | 'roses':
-					curStage = 'school';
+					currentlyStage = 'school';
 				case 'thorns':
-					curStage = 'schoolEvil';
+					currentlyStage = 'schoolEvil';
 				case 'ugh' | 'guns' | 'stress':
-					curStage = 'tank';
+					currentlyStage = 'tank';
 				default:
-					curStage = 'stage';
+					currentlyStage = 'stage';
 			}
 		}
-		SONG.stage = curStage;
+		SONG.stage = currentlyStage;
 
-		var stageData:StageFile = StageData.getStageFile(curStage);
+		var stageData:StageFile = StageData.getStageFile(currentlyStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 			stageData = {
 				directory: "",
@@ -512,7 +512,7 @@ class PlayState extends MusicBeatState
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
-		switch (curStage)
+		switch (currentlyStage)
 		{
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
@@ -851,13 +851,13 @@ class PlayState extends MusicBeatState
 		add(gfGroup); //Needed for blammed lights
 
 		// freakty layering but whatev it works LOL
-		if (curStage == 'limo')
+		if (currentlyStage == 'limo')
 			add(limo);
 
 		add(dadGroup);
 		add(boyfriendGroup);
 
-		switch(curStage)
+		switch(currentlyStage)
 		{
 			case 'spooky':
 				add(halloweenWhite);
@@ -904,13 +904,13 @@ class PlayState extends MusicBeatState
 
 		// STAGE SCRIPTS
 		#if (MODS_ALLOWED && LUA_ALLOWED)
-		startLuasOnFolder('stages/' + curStage + '.lua');
+		startLuasOnFolder('stages/' + currentlyStage + '.lua');
 		#end
 
 		var gfVersion:String = SONG.gfVersion;
 		if(gfVersion == null || gfVersion.length < 1)
 		{
-			switch (curStage)
+			switch (currentlyStage)
 			{
 				case 'limo':
 					gfVersion = 'gf-car';
@@ -985,7 +985,7 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 
-		switch(curStage)
+		switch(currentlyStage)
 		{
 			case 'limo':
 				resetFastCar();
@@ -1181,7 +1181,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		judgementCounterTxt = new FlxText(20, 0, 0, "", 20);
+		judgementCounterTxt = new FlxText(25, 0, 0, "", 20);
 		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounterTxt.borderSize = 2;
 		judgementCounterTxt.borderQuality = 2;
@@ -1189,7 +1189,7 @@ class PlayState extends MusicBeatState
 		judgementCounterTxt.size = 22;
 		judgementCounterTxt.screenCenter(Y);
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}\n';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
 	    add(judgementCounterTxt);
 
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
@@ -1896,7 +1896,7 @@ class PlayState extends MusicBeatState
 				}
 
 				// head bopping for bg characters on Mall
-				if(curStage == 'mall') {
+				if(currentlyStage == 'mall') {
 					if(!ClientPrefs.lowQuality)
 						upperBoppers.dance(true);
 
@@ -2046,6 +2046,7 @@ class PlayState extends MusicBeatState
 		+ ' | Combo breaks: ' + songMisses
 		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' | ' + ratingName + ' [' + ratingFC + ']';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -2126,7 +2127,7 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
-		switch(curStage)
+		switch(currentlyStage)
 		{
 			case 'tank':
 				if(!ClientPrefs.lowQuality) tankWatchtower.dance();
@@ -2604,7 +2605,7 @@ class PlayState extends MusicBeatState
 	{
 		callOnLuas('onUpdate', [elapsed]);
 
-		switch (curStage)
+		switch (currentlyStage)
 		{
 			case 'tank':
 				moveTank(elapsed);
@@ -3213,7 +3214,7 @@ class PlayState extends MusicBeatState
 						gf.heyTimer = time;
 					}
 
-					if(curStage == 'mall') {
+					if(currentlyStage == 'mall') {
 						bottomBoppers.animation.play('hey', true);
 						heyTimer = time;
 					}
@@ -3343,7 +3344,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Trigger BG Ghouls':
-				if(curStage == 'schoolEvil' && !ClientPrefs.lowQuality) {
+				if(currentlyStage == 'schoolEvil' && !ClientPrefs.lowQuality) {
 					bgGhouls.dance(true);
 					bgGhouls.visible = true;
 				}
@@ -4621,7 +4622,7 @@ class PlayState extends MusicBeatState
 
 	function killHenchmen():Void
 	{
-		if(!ClientPrefs.lowQuality && ClientPrefs.violence && curStage == 'limo') {
+		if(!ClientPrefs.lowQuality && ClientPrefs.violence && currentlyStage == 'limo') {
 			if(limoKillingState < 1) {
 				limoMetalPole.x = -400;
 				limoMetalPole.visible = true;
@@ -4635,7 +4636,7 @@ class PlayState extends MusicBeatState
 
 	function resetLimoKill():Void
 	{
-		if(curStage == 'limo') {
+		if(currentlyStage == 'limo') {
 			limoMetalPole.x = -500;
 			limoMetalPole.visible = false;
 			limoLight.x = -500;
@@ -4757,7 +4758,7 @@ class PlayState extends MusicBeatState
 			dad.dance();
 		}
 
-		switch (curStage)
+		switch (currentlyStage)
 		{
 			case 'tank':
 				if(!ClientPrefs.lowQuality) tankWatchtower.dance();
@@ -4807,7 +4808,7 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
+		if (currentlyStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikefreak();
 		}
@@ -4978,7 +4979,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nMisses: ${songMisses}';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
 	}
 
 

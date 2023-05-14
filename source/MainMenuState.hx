@@ -43,6 +43,9 @@ class MainMenuState extends MusicBeatState
 
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
+	var versionSb:FlxText;
+	var versionPsych:FlxText;
+	var versionFnf:FlxText;
 	var debugKeys:Array<FlxKey>;
 
 	var cameraFollow:FlxObject;
@@ -136,15 +139,15 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
-		var versionSb:FlxText = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
+		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 		versionSb.scrollFactor.set();
 		versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionSb);
-		var versionPsych:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
+		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
 		versionPsych.scrollFactor.set();
 		versionPsych.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionPsych);
-		var versionFnf:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
+		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
 		versionFnf.scrollFactor.set();
 		versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);

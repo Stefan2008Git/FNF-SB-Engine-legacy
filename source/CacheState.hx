@@ -89,7 +89,7 @@ class CacheState extends FlxState
 		loadingSpeen.antialiasing = ClientPrefs.globalAntialiasing;
 		add(loadingSpeen);
 		
-		loadingTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		loadingTxt = new FlxText(12, FlxG.height - 25, 0, "", 8);
 		loadingTxt.scrollFactor.set();
 		loadingTxt.setFormat("VCR OSD Mono", 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		loadingTxt.borderSize = 1.25;
