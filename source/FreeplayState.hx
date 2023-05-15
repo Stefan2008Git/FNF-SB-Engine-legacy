@@ -36,13 +36,11 @@ class FreeplayState extends MusicBeatState
 
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
-	var diffText:FlxText;
+	var difficultyText:FlxText;
 	var lerpScore:Int = 0;
-	var lerpMiss:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
-	var intendedMiss:Int = 0;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -144,9 +142,9 @@ class FreeplayState extends MusicBeatState
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
-		diffText = new FlxText(scoreText.x, scoreText.y + 150, 0, "", 24);
-		diffText.font = scoreText.font;
-		add(diffText);
+		difficultyText = new FlxText(scoreText.x, scoreText.y + 150, 0, "", 24);
+		difficultyText.font = scoreText.font;
+		add(difficultyText);
 
 		add(scoreText);
 
@@ -221,12 +219,9 @@ class FreeplayState extends MusicBeatState
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
-		lerpMiss = Math.floor(FlxMath.lerp(lerpMiss, intendedMiss, CoolUtil.boundTo(elapsed * 12, 0, 1)));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
-		if (Math.abs(lerpMiss - intendedMiss) <= 1)
-			lerpMiss = intendedMiss;
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			lerpRating = intendedRating;
 
@@ -239,7 +234,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.');
+		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
 
@@ -396,11 +391,10 @@ class FreeplayState extends MusicBeatState
 		#if !switch
 		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
 		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
-		intendedMiss = Highscore.getMiss(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
 
 		PlayState.storyModeDifficulty = currentlyDifficulty;
-		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		difficultyText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
 	}
 
@@ -508,8 +502,8 @@ class FreeplayState extends MusicBeatState
 
 		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
-		diffText.x -= diffText.width / 2;
+		difficultyText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		difficultyText.x -= difficultyText.width / 2;
 	}
 }
 
