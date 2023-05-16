@@ -29,7 +29,7 @@ class PauseSubState extends MusicBeatSubstate
 	public static var optionMenu:Bool;
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
-	var curTime:Float = Math.max(0, Conductor.songPosition);
+	var currentlyTime:Float = Math.max(0, Conductor.songPosition);
 	//var autoplayText:FlxText;
 
 	public static var songName:String = '';
@@ -178,13 +178,13 @@ class PauseSubState extends MusicBeatSubstate
 				if (controls.UI_LEFT_P)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-					curTime -= 1000;
+					currentlyTime -= 1000;
 					holdTime = 0;
 				}
 				if (controls.UI_RIGHT_P)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-					curTime += 1000;
+					currentlyTime += 1000;
 					holdTime = 0;
 				}
 
@@ -193,11 +193,11 @@ class PauseSubState extends MusicBeatSubstate
 					holdTime += elapsed;
 					if(holdTime > 0.5)
 					{
-						curTime += 45000 * elapsed * (controls.UI_LEFT ? -1 : 1);
+						currentlyTime += 45000 * elapsed * (controls.UI_LEFT ? -1 : 1);
 					}
 
-					if(curTime >= FlxG.sound.music.length) curTime -= FlxG.sound.music.length;
-					else if(curTime < 0) curTime += FlxG.sound.music.length;
+					if(currentlyTime >= FlxG.sound.music.length) currentlyTime -= FlxG.sound.music.length;
+					else if(currentlyTime < 0) currentlyTime += FlxG.sound.music.length;
 					updateSkipTimeText();
 				}
 		}
@@ -240,17 +240,17 @@ class PauseSubState extends MusicBeatSubstate
 					restartSong();
 					PlayState.chartingMode = false;
 				case 'Skip Time':
-					if(curTime < Conductor.songPosition)
+					if(currentlyTime < Conductor.songPosition)
 					{
-						PlayState.startOnTime = curTime;
+						PlayState.startOnTime = currentlyTime;
 						restartSong(true);
 					}
 					else
 					{
-						if (curTime != Conductor.songPosition)
+						if (currentlyTime != Conductor.songPosition)
 						{
-							PlayState.instance.clearNotesBefore(curTime);
-							PlayState.instance.setSongTime(curTime);
+							PlayState.instance.clearNotesBefore(currentlyTime);
+							PlayState.instance.setSongTime(currentlyTime);
 						}
 						close();
 					}
@@ -353,7 +353,7 @@ class PauseSubState extends MusicBeatSubstate
 
 				if(item == skipTimeTracker)
 				{
-					curTime = Math.max(0, Conductor.songPosition);
+					currentlyTime = Math.max(0, Conductor.songPosition);
 					updateSkipTimeText();
 				}
 			}
@@ -402,6 +402,6 @@ class PauseSubState extends MusicBeatSubstate
 
 	function updateSkipTimeText()
 	{
-		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
+		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(currentlyTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
 	}
 }

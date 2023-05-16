@@ -33,7 +33,7 @@ class MasterEditorMenu extends MusicBeatState
 	private var directories:Array<String> = [null];
 
 	private var currentlySelected = 0;
-	private var curDirectory = 0;
+	private var currentlyDirectory = 0;
 	private var directoryTxt:FlxText;
 
 	var velocityBG:FlxBackdrop;
@@ -88,7 +88,7 @@ class MasterEditorMenu extends MusicBeatState
 		}
 
 		var found:Int = directories.indexOf(Paths.currentModDirectory);
-		if(found > -1) curDirectory = found;
+		if(found > -1) currentlyDirectory = found;
 		changeDirectory();
 		#end
 		changeSelection();
@@ -185,19 +185,19 @@ class MasterEditorMenu extends MusicBeatState
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
-		curDirectory += change;
+		currentlyDirectory += change;
 
-		if(curDirectory < 0)
-			curDirectory = directories.length - 1;
-		if(curDirectory >= directories.length)
-			curDirectory = 0;
+		if(currentlyDirectory < 0)
+			currentlyDirectory = directories.length - 1;
+		if(currentlyDirectory >= directories.length)
+			currentlyDirectory = 0;
 	
 		WeekData.setDirectoryFromWeek();
-		if(directories[curDirectory] == null || directories[curDirectory].length < 1)
+		if(directories[currentlyDirectory] == null || directories[currentlyDirectory].length < 1)
 			directoryTxt.text = '< No Mod Directory Loaded >';
 		else
 		{
-			Paths.currentModDirectory = directories[curDirectory];
+			Paths.currentModDirectory = directories[currentlyDirectory];
 			directoryTxt.text = '< Loaded Mod Directory: ' + Paths.currentModDirectory + ' >';
 		}
 		directoryTxt.text = directoryTxt.text.toUpperCase();

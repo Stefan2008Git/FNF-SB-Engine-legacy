@@ -1189,7 +1189,7 @@ class PlayState extends MusicBeatState
 		judgementCounterTxt.size = 22;
 		judgementCounterTxt.screenCenter(Y);
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 	    add(judgementCounterTxt);
 
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
@@ -1200,7 +1200,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) {
 			watermarkTxt.y = 140;
 		}
-		watermarkTxt.text =  currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB Engine: " + MainMenuState.sbEngineVersion + " (Psych Engine: " + MainMenuState.psychEngineVersion + ") ";
+		watermarkTxt.text =  currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB: " + MainMenuState.sbEngineVersion + " (PE: " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
@@ -2046,7 +2046,7 @@ class PlayState extends MusicBeatState
 		+ ' | Combo breaks: ' + songMisses
 		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' | ' + ratingName + ' [' + ratingFC + ']';
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -2828,19 +2828,17 @@ class PlayState extends MusicBeatState
 				{
 					songTime = (songTime + Conductor.songPosition) / 2;
 					Conductor.lastSongPos = Conductor.songPosition;
-					// Conductor.songPosition += FlxG.elapsed * 1000;
-					// trace('MISSED FRAME');
 				}
 
 				if(updateTime) {
-					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
-					if(curTime < 0) curTime = 0;
-					songPercent = (curTime / songLength);
+					var currentlyTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
+					if(currentlyTime < 0) currentlyTime = 0;
+					songPercent = (currentlyTime / songLength);
 
-					var songCalc:Float = (songLength - curTime);
-					if(ClientPrefs.timeBarType == 'Time Elapsed') songCalc = curTime;
+					var songCalculating:Float = (songLength - currentlyTime);
+					if(ClientPrefs.timeBarType == 'Time Elapsed') songCalculating = currentlyTime;
 
-					var secondsTotal:Int = Math.floor(songCalc / 1000);
+					var secondsTotal:Int = Math.floor(songCalculating / 1000);
 					if(secondsTotal < 0) secondsTotal = 0;
 
 					if(ClientPrefs.timeBarType != 'Song Name')
@@ -4979,7 +4977,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo breaks: ${songMisses}';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 	}
 
 
