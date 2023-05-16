@@ -373,12 +373,11 @@ class TitleState extends MusicBeatState
 
 		credTextfreak.visible = false;
 
-		psychEngineLogo = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('psychEngineLogo'));
+		psychEngineLogo = new FlxSprite(0, FlxG.height * 0.47).loadGraphic(Paths.image('psychEngineLogo'));
 		add(psychEngineLogo);
 		psychEngineLogo.visible = false;
 		psychEngineLogo.setGraphicSize(Std.int(psychEngineLogo.width * 0.8));
 		psychEngineLogo.updateHitbox();
-		psychEngineLogo.screenCenter(X);
 		psychEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
@@ -596,7 +595,7 @@ class TitleState extends MusicBeatState
 		{
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
 			money.screenCenter(X);
-			money.y += (i * 60) + 200 + offset;
+			FlxTween.quadMotion(money, -300, -100, 30 + (i * 70), 150 + (i * 130), 100 + (i * 70), 80 + (i * 130), 0.4, true, {ease: FlxEase.quadInOut});
 			if(credGroup != null && textGroup != null) {
 				credGroup.add(money);
 				textGroup.add(money);
@@ -608,8 +607,15 @@ class TitleState extends MusicBeatState
 	{
 		if(textGroup != null && credGroup != null) {
 			var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
-			coolText.screenCenter(X);
-			coolText.y += (textGroup.length * 60) + 200 + offset;
+			coolText.x = -1500;
+		    FlxTween.quadMotion(coolText, -300, -100, 10
+			        + (textGroup.length * 40), 150
+			        + (textGroup.length * 130), 30
+			        + (textGroup.length * 40),
+			80
+			+ (textGroup.length * 130), 0.4, true, {
+				    ease: FlxEase.quadInOut
+			        });
 			credGroup.add(coolText);
 			textGroup.add(coolText);
 		}
@@ -661,6 +667,15 @@ class TitleState extends MusicBeatState
 				case 8:
 					addMoreText('Psych Engine v' + MainMenuState.psychEngineVersion, -40);
 					psychEngineLogo.visible = true;
+					psychEngineLogo.x = -1500;
+					FlxTween.quadMotion(psychEngineLogo, -700, -700, 50
+						+ (textGroup.length * 130), 150
+						+ (textGroup.length * 50), 100
+						+ (textGroup.length * 130),
+						80
+						+ (textGroup.length * 50), 0.4, true, {
+							ease: FlxEase.quadInOut
+						});
 				case 9:
 					deleteCoolText();
 					psychEngineLogo.visible = false;
@@ -752,6 +767,7 @@ class TitleState extends MusicBeatState
 				remove(psychEngineLogo);
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
+				FlxTween.tween(gfDance, {y: 20}, 2.3, {ease: FlxEase.expoInOut, startDelay: 0.8});
 			    FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 
 			    logoBl.angle = -4;

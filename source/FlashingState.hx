@@ -17,6 +17,7 @@ class FlashingState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
 	override function create()
@@ -26,8 +27,14 @@ class FlashingState extends MusicBeatState
 
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
-		add(bg);
+		background = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+        background.scrollFactor.set();
+		background.updateHitbox();
+		background.screenCenter();
+		background.visible = false;
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.color = 0xFFFFA500;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
@@ -35,21 +42,19 @@ class FlashingState extends MusicBeatState
 
 		#if android
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Hey, watch out!\n
-			Be careful when you touch the phone fast!\n
-			You can break your phone screen if you do that,also\n
-			This Mod contains some flashing lights!\n
-			Press A to disable them now or go to Options Menu.\n
-			Press B to ignore this message.\n
-			You've been warned!",
+			"WARNING:\nFNF': SB Engine Up may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.\n\n"
+			+ "FNF': SB Engine is a modified Psych Engine with some changes and addition and wasn't meant to be an attack on ShadowMario"
+			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will."
+			+ " It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
+			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.",
 			32);
 		#else
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Hey, watch out!\n
-			This Mod contains some flashing lights!\n
-			Press ENTER to disable them now or go to Options Menu.\n
-			Press ESCAPE to ignore this message.\n
-			You've been warned!",
+			"WARNING:\nFNF': SB Engine may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised.\n\n"
+			+ "FNF': SB Engine is a non-profit modification, aimed for entertainment purposes, and wasn't meant to be an attack on ShadowMario"
+			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin'; Psych Engine was, is and will."
+			+ " It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
+			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.",
 			32);
 		#end
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -74,12 +79,18 @@ class FlashingState extends MusicBeatState
 					ClientPrefs.saveSettings();
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
+						#if android
+						virtualPad.alpha = 0.1;
+						#end
 						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
 							MusicBeatState.switchState(new TitleState());
 						});
 					});
 				} else {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					#if android
+					FlxTween.tween(virtualPad, {alpha: 0}, 1);
+					#end
 					FlxTween.tween(warnText, {alpha: 0}, 1, {
 						onComplete: function (twn:FlxTween) {
 							MusicBeatState.switchState(new TitleState());
