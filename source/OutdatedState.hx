@@ -16,8 +16,10 @@ class OutdatedState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
-	var warnText:FlxText;
+	var warningText:FlxText;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -25,16 +27,21 @@ class OutdatedState extends MusicBeatState
 
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+        background.scrollFactor.set();
+		background.updateHitbox();
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.color = 0xFF353535;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
 		#if android
-		warnText = new FlxText(0, 0, FlxG.width,
-			"Sup bro, looks like you're running an   \n
+		warningText = new FlxText(0, 0, FlxG.width,
+			"Hello player, looks like you're running an   \n
 			outdated version of SB Engine With Android Support (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
 			Press B to proceed anyway.\n
@@ -42,8 +49,8 @@ class OutdatedState extends MusicBeatState
 			Thank you for using the Port of the Engine!",
 			32);
 		#else
-		warnText = new FlxText(0, 0, FlxG.width,
-			"Sup bro, looks like you're running an   \n
+		warningText = new FlxText(0, 0, FlxG.width,
+			"Hello player, looks like you're running an   \n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
 			Press ESCAPE to proceed anyway.\n
@@ -51,10 +58,10 @@ class OutdatedState extends MusicBeatState
 			Thank you for using the Engine!",
 			32);
 		#end
-		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		warnText.borderSize = 2.4;
-		warnText.screenCenter(Y);
-		add(warnText);
+		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		warningText.borderSize = 2.4;
+		warningText.screenCenter(Y);
+		add(warningText);
 
 		#if android
 		addVirtualPad(NONE, A_B);
@@ -75,7 +82,7 @@ class OutdatedState extends MusicBeatState
 			if(leftState)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxTween.tween(warnText, {alpha: 0}, 1, {
+				FlxTween.tween(warningText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
 						MusicBeatState.switchState(new MainMenuState());
 					}
