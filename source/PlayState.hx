@@ -2046,7 +2046,6 @@ class PlayState extends MusicBeatState
 		+ ' | Combo breaks: ' + songMisses
 		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' | ' + ratingName + ' [' + ratingFC + ']';
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
