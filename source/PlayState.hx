@@ -1181,7 +1181,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		judgementCounterTxt = new FlxText(25, 0, 0, "", 20);
+		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounterTxt.borderSize = 2;
 		judgementCounterTxt.borderQuality = 2;
@@ -2046,6 +2046,7 @@ class PlayState extends MusicBeatState
 		+ ' | Combo breaks: ' + songMisses
 		+ ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' 
 		+ ' | ' + ratingName + ' [' + ratingFC + ']';
+		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
