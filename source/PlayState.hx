@@ -1181,7 +1181,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		judgementCounterTxt = new FlxText(25, 0, 0, "", 20);
+		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 		judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgementCounterTxt.borderSize = 2;
 		judgementCounterTxt.borderQuality = 2;
@@ -1200,7 +1200,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) {
 			watermarkTxt.y = 140;
 		}
-		watermarkTxt.text =  currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB: " + MainMenuState.sbEngineVersion + " (PE: " + MainMenuState.psychEngineVersion + ") ";
+		watermarkTxt.text =  currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
