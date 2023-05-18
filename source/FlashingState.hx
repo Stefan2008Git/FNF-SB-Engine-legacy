@@ -37,6 +37,7 @@ class FlashingState extends MusicBeatState
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
+		velocityBG.color = 0xFF7B7B7B;
 		add(velocityBG);
 
 		#if android
@@ -45,7 +46,7 @@ class FlashingState extends MusicBeatState
 			+ "FNF': SB Engine is a modified Psych Engine with some changes and addition and wasn't meant to be an attack on ShadowMario"
 			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will."
 			+ " It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
-			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine it's: " + MainMenuState.sbEngineVersion + "",
+			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion + "",
 			32);
 		#else
 		warningText = new FlxText(0, 0, FlxG.width,
@@ -53,7 +54,7 @@ class FlashingState extends MusicBeatState
 			+ "FNF': SB Engine is a modified Psych Engine with some changes and addition and wasn't meant to be an attack on ShadowMario"
 			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin'; Psych Engine was, is and will."
 			+ " It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
-			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine it's: " + MainMenuState.sbEngineVersion + "",
+			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version: " + MainMenuState.sbEngineVersion + "",
 			32);
 		#end
 		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
