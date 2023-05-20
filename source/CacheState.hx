@@ -63,7 +63,7 @@ class CacheState extends FlxState
 		sbEngineLogo = new FlxSprite().loadGraphic(Paths.image("sbEngineLogo"));
 		sbEngineLogo.screenCenter();
 		sbEngineLogo.y -= 60;
-		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		sbEngineLogo.antialiasing = true;
 		add(sbEngineLogo);
 		
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xFFFFA500], 1, 90, true);

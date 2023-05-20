@@ -667,7 +667,7 @@ class TitleState extends MusicBeatState
 				case 8:
 					addMoreText('Psych Engine v' + MainMenuState.psychEngineVersion, -40);
 					psychEngineLogo.visible = true;
-					psychEngineLogo.x = -500;
+					psychEngineLogo.x = -1500;
 					FlxTween.quadMotion(psychEngineLogo, -700, -700, 50
 						+ (textGroup.length * 130), 150
 						+ (textGroup.length * 50), 100

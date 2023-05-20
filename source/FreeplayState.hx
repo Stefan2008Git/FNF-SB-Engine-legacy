@@ -36,7 +36,7 @@ class FreeplayState extends MusicBeatState
 
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
-	var difficultyTxt:FlxText;
+	var difficultyText:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
@@ -51,8 +51,6 @@ class FreeplayState extends MusicBeatState
 	var velocityBG:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
-
-	var replayText:FlxText;
 
 	override function create()
 	{
@@ -140,19 +138,15 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
+		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 200, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
-		difficultyTxt = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
-		difficultyTxt.font = scoreText.font;
-		add(difficultyTxt);
+		difficultyText = new FlxText(scoreText.x, scoreText.y + 150, 0, "", 24);
+		difficultyText.font = scoreText.font;
+		add(difficultyText);
 
 		add(scoreText);
-
-		replayText = new FlxText(FlxG.width * 0.7 - 270, scoreText.y + 65, 600, "", 20);
-		replayText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
-		add(replayText);
 
 		if(currentlySelected >= songs.length) currentlySelected = 0;
 		bg.color = songs[currentlySelected].color;
@@ -243,19 +237,12 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
-		#if android
-		replayText.text = 'Press BACK to show the replays of ${songs[currentlySelected].songName.toUpperCase()}';
-		#else
-		replayText.text = 'Press ALT to show the replays of ${songs[currentlySelected].songName.toUpperCase()}';
-		#end
-
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
-		var alt =  FlxG.keys.justPressed.ALT #if android || FlxG.android.justReleased.BACK #end;
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end) shiftMult = 3;
@@ -299,7 +286,6 @@ class FreeplayState extends MusicBeatState
 		else if (controls.UI_RIGHT_P)
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
-		#if sys else if (alt && ClientPrefs.saveReplay) MusicBeatState.switchState(new ReplaySelectState(songs[currentlySelected].songName)); #end
 
 		if (controls.BACK)
 		{
@@ -408,7 +394,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		PlayState.storyModeDifficulty = currentlyDifficulty;
-		difficultyTxt.text = '< ' + CoolUtil.difficultyString() + ' >';
+		difficultyText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
 	}
 
@@ -516,8 +502,8 @@ class FreeplayState extends MusicBeatState
 
 		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		difficultyTxt.x = Std.int(scoreBG.x + (scoreBG.width / 2));
-		difficultyTxt.x -= difficultyTxt.width / 2;
+		difficultyText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		difficultyText.x -= difficultyText.width / 2;
 	}
 }
 

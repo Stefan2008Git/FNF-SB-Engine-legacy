@@ -60,7 +60,6 @@ import animateatlas.AtlasFrameMaker;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
-import ReplayState.ReplayPauseSubstate;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
 
@@ -73,7 +72,6 @@ import sys.io.File;
 import vlc.MP4Handler;
 #end
 
-using CoolUtil;
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -299,12 +297,10 @@ class PlayState extends MusicBeatState
 
 	#if desktop
 	// Discord RPC variables
-	var storyModedifficultyTxt:String = "";
+	var storyModeDifficultyText:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
 	#end
-
-	var inReplay:Bool;
 
 	//Achievement freak
 	var keysPressed:Array<Bool> = [];
@@ -341,14 +337,6 @@ class PlayState extends MusicBeatState
 
 		// for lua
 		instance = this;
-
-		if (!inReplay)
-		{
-			ReplayState.hits = [];
-			ReplayState.miss = [];
-			ReplayState.judgements = [];
-			ReplayState.sustainHits = [];
-		}
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -431,7 +419,7 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		#if desktop
-		storyModedifficultyTxt = CoolUtil.difficulties[storyModeDifficulty];
+		storyModeDifficultyText = CoolUtil.difficulties[storyModeDifficulty];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
@@ -1394,7 +1382,7 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -2150,7 +2138,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if desktop
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2547,11 +2535,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 			#end
 		}
@@ -2566,11 +2554,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 			}
 		}
 		#end
@@ -2583,7 +2571,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		}
 		#end
 
@@ -3081,15 +3069,11 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
-		
-		if (inReplay)
-			openSubState(new ReplayPauseSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-	    else
-			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 		#end
 	}
 
@@ -3134,7 +3118,7 @@ class PlayState extends MusicBeatState
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyModedifficultyTxt + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3687,42 +3671,18 @@ class PlayState extends MusicBeatState
 			}
 			playbackRate = 1;
 
-			if (inReplay)
-			{
-				MusicBeatState.switchState(new FreeplayState());
-				return;
-			}
-	
-			else if (chartingMode)
+			if (chartingMode)
 			{
 				openChartEditor();
 				return;
 			}
 
-			else if (isStoryMode)
+			if (isStoryMode)
 			{
 				campaignScore += songScore;
 				campaignMisses += songMisses;
 
 				storyPlaylist.remove(storyPlaylist[0]);
-
-				#if sys
-				if (!inReplay)
-				{
-					var files:Array<String> = CoolUtil.coolPathArray(Paths.getPreloadPath('replays/'));
-					var length:Null<Int> = null;
-					var song:String = SONG.song.coolSongFormatter().toLowerCase();
-
-					if (files == null)
-						length = 0;
-
-					else
-						length = files.length;
-
-					if (ClientPrefs.saveReplay)
-						File.saveContent(Paths.getPreloadPath('replays/$song ${length}.json'), ReplayState.stringify());
-				}
-				#end
 
 				if (storyPlaylist.length <= 0)
 				{
@@ -3863,7 +3823,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	private function popUpScore(?note:Note, ?optionalRating:Float):Void
+	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
 		//trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
@@ -3880,15 +3840,6 @@ class PlayState extends MusicBeatState
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
-
-		if (!inReplay)
-		{
-			ReplayState.hits.push(note.strumTime);
-			ReplayState.judgements.push(noteDiff);
-		}
-	
-		if (optionalRating != null)
-			noteDiff = optionalRating;
 
 		//tryna do MS based judgment due to popular demand
 		var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
@@ -4312,11 +4263,6 @@ class PlayState extends MusicBeatState
 
 		if (!boyfriend.stunned)
 		{
-			if (!inReplay)
-			{
-				ReplayState.miss.push([Std.int(Conductor.songPosition), direction]);
-			}
-
 			health -= 0.05 * healthLoss;
 			if(instakillOnMiss)
 			{
@@ -4453,12 +4399,6 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
-
-			else if (!inReplay && note.isSustainNote)
-			{
-				ReplayState.sustainHits.push(Std.int(note.strumTime));
-			}
-
 			health += note.hitHealth * healthGain;
 
 			if(!note.noAnimation) {
@@ -4499,9 +4439,12 @@ class PlayState extends MusicBeatState
 					time += 0.15;
 				}
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
-			} 
-			else {
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, 0);
+			} else {
+				var spr = playerStrums.members[note.noteData];
+				if(spr != null)
+				{
+					spr.playAnim('confirm', true);
+				}
 			}
 			note.wasGoodHit = true;
 			vocals.volume = 1;
@@ -4984,13 +4927,6 @@ class PlayState extends MusicBeatState
 			spr.playAnim('confirm', true);
 			spr.resetAnim = time;
 		}
-	}
-
-	function StrumPress(id:Int, ?time:Float = 0)
-	{
-		var spr:StrumNote = playerStrums.members[id];
-		spr.playAnim('pressed');
-		spr.resetAnim = time == null ? 0 : time;
 	}
 
 	public var ratingName:String = '?';

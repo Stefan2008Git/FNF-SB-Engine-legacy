@@ -34,7 +34,7 @@ class GameExitState extends MusicBeatState
 {
 	var options:Array<String> = ['Yes', 'No'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private static var currentlySelected:Int = 0;
+	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
     public static var menuText:Alphabet;
 	var checker:FlxBackdrop;
@@ -119,21 +119,21 @@ class GameExitState extends MusicBeatState
 		}
 
 		if (controls.ACCEPT) {
-			openSelectedSubstate(options[currentlySelected]);
+			openSelectedSubstate(options[curSelected]);
 		}
 	}
 	
 	function changeSelection(change:Int = 0) {
-		currentlySelected += change;
-		if (currentlySelected < 0)
-			currentlySelected = options.length - 1;
-		if (currentlySelected >= options.length)
-			currentlySelected = 0;
+		curSelected += change;
+		if (curSelected < 0)
+			curSelected = options.length - 1;
+		if (curSelected >= options.length)
+			curSelected = 0;
 
 		var bullFreak:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = bullFreak - currentlySelected;
+			item.targetY = bullFreak - curSelected;
 			bullFreak++;
 
 			item.alpha = 0.6;
