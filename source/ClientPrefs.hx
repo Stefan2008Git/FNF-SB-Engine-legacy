@@ -40,6 +40,7 @@ class ClientPrefs {
 	public static var controllerMode:Bool = #if android true #else false #end;
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
+	public static var saveReplay:Bool = true;
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -133,6 +134,7 @@ class ClientPrefs {
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
+		FlxG.save.data.saveReplay = saveReplay;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
 	
@@ -267,6 +269,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
+		}
+		if(FlxG.save.data.saveReplay != null) {
+			saveReplay = FlxG.save.data.saveReplay;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
