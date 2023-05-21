@@ -12,7 +12,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import openfl.utils.Assets;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
@@ -622,7 +622,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		bg.color = FlxColor.WHITE;
 		add(bg);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

@@ -51,7 +51,7 @@ class CreditsState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 		

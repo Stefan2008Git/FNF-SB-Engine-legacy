@@ -31,7 +31,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -250,7 +250,7 @@ class ChartingState extends MusicBeatState
 		bg.color = 0xFFFFA500;
 		add(bg);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

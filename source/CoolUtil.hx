@@ -5,7 +5,7 @@ import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;

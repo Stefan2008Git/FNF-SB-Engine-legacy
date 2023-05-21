@@ -62,7 +62,7 @@ class GameExitState extends MusicBeatState
 		DiscordClient.changePresence("Game Closing Menu", null);
 		#end
 
-		checker = new FlxBackdrop(Paths.image('checker'), XY, -0, -0);
+		checker = new FlxBackdrop(Paths.image('checker'));
 		checker.scrollFactor.set();
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);

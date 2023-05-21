@@ -28,7 +28,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -239,7 +239,7 @@ class TitleState extends MusicBeatState
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			add(bg);
 
-			checker = new FlxBackdrop(Paths.image('checker'), XY, -0, -0);
+			checker = new FlxBackdrop(Paths.image('checker'));
 			checker.scrollFactor.set();
 			checker.scale.set(0.7, 0.7);
 			checker.screenCenter(X);

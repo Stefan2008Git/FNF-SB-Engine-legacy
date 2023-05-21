@@ -35,12 +35,12 @@ jobs:
           sudo apt-get install libvlccore-dev
           haxelib setup ~/haxelib
           haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install lime 7.9.0
+          haxelib install openfl 9.1.0
+          haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
-          haxelib install flixel-tools
+          haxelib install flixel-addons 2.11.0
           haxelib install flixel-ui
           haxelib install flixel-addons
           haxelib install tjson
@@ -57,8 +57,10 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
           haxelib set flixel 4.11.0
-          haxelib set hxCodec 2.5.1
+          haxelib set flixel-addons 2.11.0
       - name: Compile
         run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -81,14 +83,14 @@ jobs:
         run: |
           haxelib setup C:/haxelib
           haxelib install hxcpp > nul
-          haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install lime 7.9.0
+          haxelib install openfl 9.1.0
+          haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
@@ -104,7 +106,10 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
-          haxelib set hxCodec 2.5.1
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
+          haxelib set flixel 4.11.0
+          haxelib set flixel-addons 2.11.0
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -127,14 +132,14 @@ jobs:
         run: |
           haxelib setup ~/haxelib
           haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install lime 7.9.0
+          haxelib install openfl 9.1.0
+          haxelib --never install flixel 4.11.0
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
@@ -147,7 +152,10 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
-          haxelib set hxCodec 2.5.1
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
+          haxelib set flixel 4.11.0
+          haxelib set flixel-addons 2.11.0
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
@@ -190,11 +198,11 @@ jobs:
           haxelib --quiet install hxcpp 4.2.1 > /dev/null
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
-          haxelib --quiet install flixel
+          haxelib --quiet install flixel 4.11.0
           haxelib --quiet run lime setup flixel
           haxelib --quiet install flixel-tools
           haxelib --quiet install flixel-ui
-          haxelib --quiet install flixel-addons
+          haxelib --quiet install flixel-addons 2.11.0
           haxelib --quiet install tjson
           haxelib --quiet install hxjsonast
           haxelib --quiet install hscript
@@ -214,6 +222,8 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
           haxelib set lime 7.9.0
           haxelib set openfl 9.1.0
+          haxelib set flixel 4.11.0
+          haxelib set flixel-addons 2.11.0
           haxelib set hxcpp 4.2.1
           haxelib list
         env:

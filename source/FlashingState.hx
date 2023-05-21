@@ -35,7 +35,7 @@ class FlashingState extends MusicBeatState
 		background.color = 0xFF353535;
 		add(background);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

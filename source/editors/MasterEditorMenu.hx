@@ -12,7 +12,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -54,7 +54,7 @@ class MasterEditorMenu extends MusicBeatState
 		bg.color = 0xFFFFA500;
 		add(bg);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
