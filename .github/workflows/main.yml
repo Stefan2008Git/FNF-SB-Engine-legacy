@@ -90,7 +90,7 @@ jobs:
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
-          haxelib install flixel-ui
+          haxelib install flixel-ui 2.4.0
           haxelib install flixel-addons 2.11.0
           haxelib install tjson
           haxelib install hxjsonast
@@ -111,7 +111,7 @@ jobs:
           haxelib set openfl 9.1.0
           haxelib set flixel 4.11.0
           haxelib set flixel-addons 2.11.0
-          haxelib set hxCodec 2.5.2
+          haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
