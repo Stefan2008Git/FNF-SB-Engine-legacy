@@ -27,159 +27,102 @@ import Controls;
 
 using StringTools;
 
-class VisualsUISubState extends BaseOptionsMenu
-{
-	public function new()
-	{
+class VisualsUISubState extends BaseOptionsMenu {
+	public function new() {
 		title = 'Visuals and UI';
-		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
+		rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Note Splashes',
-			"If unchecked, hitting \"Sick!\" notes won't show particles.",
-			'noteSplashes',
-			'bool',
-			true);
+		var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Sick!\" notes won't show particles.", 'noteSplashes', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Hide HUD',
-			'If checked, hides most HUD elements.',
-			'hideHud',
-			'bool',
-			false);
+		var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Hide Watermark',
-			'If checked, hides watermark with song name, difficulty name and SB Engine version.',
-			'hideWatermark',
-			'bool',
-			false);
+		var option:Option = new Option('Hide Watermark', 'If checked, hides watermark with song name, difficulty name and SB Engine version.',
+			'hideWatermark', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Hide Judgement Counter',
-			'If checked, hides Judgement Counter.',
-			'hideJudgementCounter',
-			'bool',
-			false);
+		var option:Option = new Option('Hide Judgement Counter', 'If checked, hides Judgement Counter.', 'hideJudgementCounter', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Colorblind Filter',
-			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)',
-			'colorblindMode',
-			'string',
-			'None', 
-			['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
+			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)', 'colorblindMode',
+			'string', 'None', ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
 		option.onChange = ColorblindFilter.applyFiltersOnGame;
 		addOption(option);
-		
-		var option:Option = new Option('Time Bar:',
-			"What should the Time Bar display?",
-			'timeBarType',
-			'string',
-			'Time Left',
+
+		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
-		var option:Option = new Option('Flashing Lights',
-			"Uncheck this if you're sensitive to flashing lights!",
-			'flashing',
-			'bool',
-			true);
+		var option:Option = new Option('Flashing Lights', "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Camera Zooms',
-			"If unchecked, the camera won't zoom in on a beat hit.",
-			'camZooms',
-			'bool',
-			true);
+		var option:Option = new Option('Camera Zooms', "If unchecked, the camera won't zoom in on a beat hit.", 'camZooms', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Score Text Zoom on Hit',
-			"If unchecked, disables the Score text zooming\neverytime you hit a note.",
-			'scoreZoom',
-			'bool',
-			true);
+		var option:Option = new Option('Score Text Zoom on Hit', "If unchecked, disables the Score text zooming\neverytime you hit a note.", 'scoreZoom',
+			'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Transparency',
-			'How much transparent should the health bar and icons be.',
-			'healthBarAlpha',
-			'percent',
-			1);
+		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
-		
-		var option:Option = new Option('FPS Counter',
-			'If unchecked, hides FPS Counter.',
-			'showFPS',
-			'bool',
-			true);
+
+		var option:Option = new Option('FPS Counter', 'If unchecked, hides FPS Counter.', 'showFPS', 'bool', true);
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 
-		var option:Option = new Option('Total Memory counter',
-			"If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter first!",
-			'totalMemory',
-			'bool',
-			false);
+		var option:Option = new Option('Total Memory counter', "If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter first!",
+			'totalMemory', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('SB Engine version text',
-			"If unchecked, hides current SB Engine version.\nRequest: You need to turn on FPS counter first!",
-			'sbEngineVersion',
-			'bool',
-			false);
+			"If unchecked, hides current SB Engine version.\nRequest: You need to turn on FPS counter first!", 'sbEngineVersion', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Debug info',
-			"If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!",
-			'debugInfo',
-			'bool',
+		var option:Option = new Option('Debug info', "If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!", 'debugInfo', 'bool',
 			false);
 		addOption(option);
 
 		var option:Option = new Option('Rainbow FPS',
 			"If checked, enables radnom color's for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!",
-			'rainbowFPS',
-			'bool',
-			false);
+			'rainbowFPS', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Pause Screen Song:',
-			"What song do you prefer for the Pause Screen?",
-			'pauseMusic',
-			'string',
-			'Tea Time',
+		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
-		
+
 		#if CHECK_FOR_UPDATES
-		var option:Option = new Option('Check for Updates',
-			'On Release builds, turn this on to check for updates when you start the game.',
-			'checkForUpdates',
-			'bool',
-			true);
+		var option:Option = new Option('Check for Updates', 'On Release builds, turn this on to check for updates when you start the game.',
+			'checkForUpdates', 'bool', true);
 		addOption(option);
 		#end
 
 		var option:Option = new Option('Combo Stacking',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
-			'comboStacking',
-			'bool',
-			true);
+			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);
+
+		var option:Option = new Option('Simple Main Menu',
+			'Change main menu style.\nOriginal - Original main menu with animated sprites!\nClassic - Basic main menu without sprites, but with alphabet text.',
+			'mainMenuStyle', 'string', 'Original', // Credits:  Joalor64 (Creator of Joalor64.)
+			['Classic', 'Original']);
+		addOption(option);
+		option.onChange = onChangeMainMenu;
 
 		super();
 	}
 
 	var changedMusic:Bool = false;
-	function onChangePauseMusic()
-	{
-		if(ClientPrefs.pauseMusic == 'None')
+
+	function onChangePauseMusic() {
+		if (ClientPrefs.pauseMusic == 'None')
 			FlxG.sound.music.volume = 0;
 		else
 			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
@@ -187,15 +130,21 @@ class VisualsUISubState extends BaseOptionsMenu
 		changedMusic = true;
 	}
 
-	override function destroy()
-	{
-		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+	override function destroy() {
+		if (changedMusic)
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		super.destroy();
 	}
 
-	function onChangeFPSCounter()
-	{
-		if(Main.fpsVar != null)
+	function onChangeFPSCounter() {
+		if (Main.fpsVar != null)
 			Main.fpsVar.visible = ClientPrefs.showFPS;
+	}
+
+	function onChangeMainMenu() {
+		if (ClientPrefs.mainMenuStyle == 'Classic')
+			MusicBeatState.switchState(new ClassicMainMenuState());
+		else
+			MusicBeatState.switchState(new MainMenuState());
 	}
 }
