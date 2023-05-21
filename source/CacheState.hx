@@ -11,7 +11,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxPoint;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import lime.app.Application;
 #if windows
 import Discord.DiscordClient;
