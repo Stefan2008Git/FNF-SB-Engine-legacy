@@ -150,10 +150,7 @@ class OptionsState extends MusicBeatState {
 				MusicBeatState.switchState(new PlayState());
 				PauseSubState.optionMenu = false;
 			} else {
-				if (ClientPrefs.mainMenuStyle == 'Classic')
-					MusicBeatState.switchState(new ClassicMainMenuState());
-				else
-					MusicBeatState.switchState(new MainMenuState());
+				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
