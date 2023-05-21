@@ -45,7 +45,7 @@ jobs:
           haxelib install flixel-addons
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib install hxCodec 5.2.2
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -58,7 +58,7 @@ jobs:
         run: |
           haxelib run lime setup -alias -y
           haxelib set flixel 4.11.0
-          haxelib set hxCodec 5.2.2
+          haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -91,7 +91,7 @@ jobs:
           haxelib install flixel-addons
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib install hxCodec 5.2.2
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -105,7 +105,7 @@ jobs:
         run: |
           haxelib run lime setup -alias -y
           haxelib set flixel 4.11.0
-          haxelib set hxCodec 5.2.2
+          haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
       - name: Publish Artifact
@@ -138,7 +138,7 @@ jobs:
           haxelib install flixel-addons
           haxelib install tjson
           haxelib install hxjsonast
-          haxelib install hxCodec 5.2.2
+          haxelib install hxCodec 2.5.1
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib install hscript
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -149,7 +149,7 @@ jobs:
         run: |
           haxelib run lime setup -alias -y
           haxelib set flixel 4.11.0
-          haxelib set hxCodec 5.2.2
+          haxelib set hxCodec 2.5.1
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
