@@ -64,7 +64,6 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
-	var psychEngineLogo:FlxSprite;
 	var checker:FlxBackdrop;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
@@ -240,7 +239,7 @@ class TitleState extends MusicBeatState
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			add(bg);
 
-			checker = new FlxBackdrop(Paths.image('checker'));
+			checker = new FlxBackdrop(Paths.image('checker'), XY, -0, -0);
 			checker.scrollFactor.set();
 			checker.scale.set(0.7, 0.7);
 			checker.screenCenter(X);
@@ -372,13 +371,6 @@ class TitleState extends MusicBeatState
 		// credTextfreak.alignment = CENTER;
 
 		credTextfreak.visible = false;
-
-		psychEngineLogo = new FlxSprite(0, FlxG.height * 0.47).loadGraphic(Paths.image('psychEngineLogo'));
-		add(psychEngineLogo);
-		psychEngineLogo.visible = false;
-		psychEngineLogo.setGraphicSize(Std.int(psychEngineLogo.width * 0.8));
-		psychEngineLogo.updateHitbox();
-		psychEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -666,19 +658,8 @@ class TitleState extends MusicBeatState
 					createCoolText(['Forked', 'From'], -40);
 				case 8:
 					addMoreText('Psych Engine v' + MainMenuState.psychEngineVersion, -40);
-					psychEngineLogo.visible = true;
-					psychEngineLogo.x = -1500;
-					FlxTween.quadMotion(psychEngineLogo, -700, -700, 50
-						+ (textGroup.length * 130), 150
-						+ (textGroup.length * 50), 100
-						+ (textGroup.length * 130),
-						80
-						+ (textGroup.length * 50), 0.4, true, {
-							ease: FlxEase.quadInOut
-						});
 				case 9:
 					deleteCoolText();
-					psychEngineLogo.visible = false;
 				case 10:
 					createCoolText([curWacky[0]]);
 				case 12:
@@ -727,7 +708,6 @@ class TitleState extends MusicBeatState
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
 
 					default: //Go back to normal ugly ass boring GF
-						remove(psychEngineLogo);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
@@ -743,7 +723,6 @@ class TitleState extends MusicBeatState
 				{
 					new FlxTimer().start(3.2, function(tmr:FlxTimer)
 					{
-						remove(psychEngineLogo);
 						remove(credGroup);
 						FlxG.camera.flash(FlxColor.WHITE, 0.6);
 						transitioning = false;
@@ -751,7 +730,6 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{
-					remove(psychEngineLogo);
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
@@ -764,7 +742,6 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
-				remove(psychEngineLogo);
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				FlxTween.tween(gfDance, {y: 20}, 2.3, {ease: FlxEase.expoInOut, startDelay: 0.8});

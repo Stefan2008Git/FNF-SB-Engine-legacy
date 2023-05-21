@@ -454,11 +454,11 @@ class StoryMenuState extends MusicBeatState
 			currentlyDifficulty = 0;
 		}
 
-		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
-		//trace('Pos of ' + lastDifficultyName + ' is ' + newPos);
-		if(newPos > -1)
+		var newPosition:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		//trace('Pos of ' + lastDifficultyName + ' is ' + newPosition);
+		if(newPosition > -1)
 		{
-			currentlyDifficulty = newPos;
+			currentlyDifficulty = newPosition;
 		}
 		updateText();
 	}

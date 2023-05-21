@@ -622,7 +622,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		bg.color = FlxColor.WHITE;
 		add(bg);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

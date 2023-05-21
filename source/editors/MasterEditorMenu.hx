@@ -54,7 +54,7 @@ class MasterEditorMenu extends MusicBeatState
 		bg.color = 0xFFFFA500;
 		add(bg);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

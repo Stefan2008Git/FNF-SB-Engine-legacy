@@ -363,13 +363,13 @@ class ModsMenuState extends MusicBeatState
 		{
 			var doRestart:Bool = (mods[0].restart);
 
-			var newPos:Int = currentlySelected + change;
-			if(newPos < 0)
+			var newPosition:Int = currentlySelected + change;
+			if(newPosition < 0)
 			{
 				modsList.push(modsList.shift());
 				mods.push(mods.shift());
 			}
-			else if(newPos >= mods.length)
+			else if(newPosition >= mods.length)
 			{
 				modsList.insert(0, modsList.pop());
 				mods.insert(0, mods.pop());
@@ -377,12 +377,12 @@ class ModsMenuState extends MusicBeatState
 			else
 			{
 				var lastArray:Array<Dynamic> = modsList[currentlySelected];
-				modsList[currentlySelected] = modsList[newPos];
-				modsList[newPos] = lastArray;
+				modsList[currentlySelected] = modsList[newPosition];
+				modsList[newPosition] = lastArray;
 
 				var lastMod:ModMetadata = mods[currentlySelected];
-				mods[currentlySelected] = mods[newPos];
-				mods[newPos] = lastMod;
+				mods[currentlySelected] = mods[newPosition];
+				mods[newPosition] = lastMod;
 			}
 			changeSelection(change);
 

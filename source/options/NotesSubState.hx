@@ -58,7 +58,7 @@ class NotesSubState extends MusicBeatSubstate
 		blackBG.alpha = 0.4;
 		add(blackBG);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

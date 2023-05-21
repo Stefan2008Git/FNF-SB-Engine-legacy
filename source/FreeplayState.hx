@@ -98,7 +98,7 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
@@ -138,11 +138,11 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 200, 0xFF000000);
+		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
-		difficultyText = new FlxText(scoreText.x, scoreText.y + 150, 0, "", 24);
+		difficultyText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
@@ -489,11 +489,11 @@ class FreeplayState extends MusicBeatState
 			currentlyDifficulty = 0;
 		}
 
-		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
-		//trace('Pos of ' + lastDifficultyName + ' is ' + newPos);
-		if(newPos > -1)
+		var newPosition:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		//trace('Position of: ' + lastDifficultyName + ' is ' + newPosition);
+		if(newPosition > -1)
 		{
-			currentlyDifficulty = newPos;
+			currentlyDifficulty = newPosition;
 		}
 	}
 

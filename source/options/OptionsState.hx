@@ -80,7 +80,7 @@ class OptionsState extends MusicBeatState
 		bg.color = 0xFFFFA500;
 		bg.updateHitbox();
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY, -0, -0);
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 

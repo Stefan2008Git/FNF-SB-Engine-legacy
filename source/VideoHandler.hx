@@ -7,10 +7,6 @@ import openfl.events.Event;
 import sys.FileSystem;
 import hxcodec.vlc.VLCBitmap;
 
-/**
- * Handles video playback.
- * Use bitmap to connect to a graphic or use `VideoSprite`.
- */
 class VideoHandler extends VLCBitmap
 {
 	public var canSkip:Bool = true;
