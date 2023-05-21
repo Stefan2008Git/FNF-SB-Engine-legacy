@@ -11,7 +11,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxPoint;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
-import flixel.sound.FlxSound;
 import lime.app.Application;
 #if windows
 import Discord.DiscordClient;
@@ -52,7 +51,7 @@ class CacheState extends FlxState
 
 		super.create();
 
-		checker = new FlxBackdrop(Paths.image('checker'));
+		checker = new FlxBackdrop(Paths.image('checker'), XY, -0, -0);
 		checker.scrollFactor.set();
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
