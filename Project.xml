@@ -139,6 +139,9 @@
 <!-- Show debug traces for hxCodec -->
     <haxedef name="HXC_DEBUG_TRACE" if="debug" />
 
+	<!-- It's ignoring all warning when you compile the game -->
+	<haxedef name="no-deprecation-warnings"/>
+
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
 
