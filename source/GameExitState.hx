@@ -30,26 +30,27 @@ import lime.app.Application;
 
 using StringTools;
 
-class GameExitState extends MusicBeatState
-{
+class GameExitState extends MusicBeatState {
 	var options:Array<String> = ['Yes', 'No'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+
 	private static var currentlySelected:Int = 0;
 	public static var menuBG:FlxSprite;
-    public static var menuText:Alphabet;
+	public static var menuText:Alphabet;
+
 	var checker:FlxBackdrop;
 	var alertMessage:String = "";
 
 	function openSelectedSubstate(label:String) {
-		switch(label) {
+		switch (label) {
 			case 'Yes':
-                Application.current.window.alert(alertMessage, "SB Engine: " + MainMenuState.sbEngineVersion);
-                #if desktop
-		        DiscordClient.shutdown();
-	            #end
-		        System.exit(1);
+				Application.current.window.alert(alertMessage, "SB Engine: " + MainMenuState.sbEngineVersion);
+				#if desktop
+				DiscordClient.shutdown();
+				#end
+				System.exit(1);
 			case 'No':
-                FlxG.sound.play(Paths.sound('cancelMenu'));
+				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 		}
 	}
@@ -70,19 +71,18 @@ class GameExitState extends MusicBeatState
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
-        menuText = new Alphabet(0, 0, "Quit the game?", true, false, 0, 1);
-        menuText.screenCenter();
-        menuText.y -= 150;
+		menuText = new Alphabet(0, 0, "Quit the game?", true, false, 0, 1);
+		menuText.screenCenter();
+		menuText.y -= 150;
 		menuText.alpha = 1;
-        add(menuText);
+		add(menuText);
 
 		alertMessage += "Alert: " + "\nThanks for using SB Engine";
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...options.length)
-		{
+		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
@@ -115,14 +115,17 @@ class GameExitState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			if (ClientPrefs.mainMenuStyle == 'Classic')
+				MusicBeatState.switchState(new ClassicMainMenuState());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[currentlySelected]);
 		}
 	}
-	
+
 	function changeSelection(change:Int = 0) {
 		currentlySelected += change;
 		if (currentlySelected < 0)

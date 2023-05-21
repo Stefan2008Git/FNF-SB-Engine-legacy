@@ -18,8 +18,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import openfl.utils.Assets;
 
-class AndroidControlsSubState extends FlxSubState
-{
+class AndroidControlsSubState extends FlxSubState {
 	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 	var virtualPad:FlxVirtualPad;
 	var hitbox:FlxHitbox;
@@ -38,10 +37,8 @@ class AndroidControlsSubState extends FlxSubState
 	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
-	override function create()
-	{
-		background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height,
-			FlxColor.ORANGE);
+	override function create() {
+		background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.ORANGE);
 		background.alpha = 0.00001;
 		background.scrollFactor.set();
 		add(background);
@@ -50,10 +47,8 @@ class AndroidControlsSubState extends FlxSubState
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
-		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function()
-		{
-			if (resetButton.visible)
-			{
+		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function() {
+			if (resetButton.visible) {
 				virtualPad.buttonUp.x = FlxG.width - 258;
 				virtualPad.buttonUp.y = FlxG.height - 408;
 				virtualPad.buttonDown.x = FlxG.width - 258;
@@ -136,25 +131,10 @@ class AndroidControlsSubState extends FlxSubState
 		super.create();
 
 		FlxTween.tween(background, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(velocityBG, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(hitbox, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(leftArrow, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(rightArrow, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(tipText, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(rightPosition, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(leftPosition, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(downPosition, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(upPosition, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(inputText, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(noAndroidControlsText, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
-		FlxTween.tween(resetButton, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
-	override function update(elapsed:Float)
-	{
-		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK)
-		{
+	override function update(elapsed:Float) {
+		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK) {
 			AndroidControls.setMode(currentlySelected);
 
 			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom')
@@ -170,27 +150,20 @@ class AndroidControlsSubState extends FlxSubState
 		leftArrow.x = inputText.x - 60;
 		rightArrow.x = inputText.x + inputText.width + 10;
 
-		for (touch in FlxG.touches.list)
-		{
+		for (touch in FlxG.touches.list) {
 			if (touch.overlaps(leftArrow) && touch.justPressed)
 				changeSelection(-1);
 			else if (touch.overlaps(rightArrow) && touch.justPressed)
 				changeSelection(1);
 
-			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom')
-			{
-				if (buttonBinded)
-				{
-					if (touch.justReleased)
-					{
+			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom') {
+				if (buttonBinded) {
+					if (touch.justReleased) {
 						bindButton = null;
 						buttonBinded = false;
-					}
-					else
+					} else
 						moveButton(touch, bindButton);
-				}
-				else
-				{
+				} else {
 					if (virtualPad.buttonUp.justPressed)
 						moveButton(touch, virtualPad.buttonUp);
 
@@ -206,8 +179,7 @@ class AndroidControlsSubState extends FlxSubState
 			}
 		}
 
-		if (virtualPad != null)
-		{
+		if (virtualPad != null) {
 			if (virtualPad.buttonUp != null)
 				upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
 
@@ -222,8 +194,7 @@ class AndroidControlsSubState extends FlxSubState
 		}
 	}
 
-	function changeSelection(change:Int = 0):Void
-	{
+	function changeSelection(change:Int = 0):Void {
 		currentlySelected += change;
 
 		if (currentlySelected < 0)
@@ -235,8 +206,7 @@ class AndroidControlsSubState extends FlxSubState
 
 		var daChoice:String = controlsItems[Math.floor(currentlySelected)];
 
-		switch (daChoice)
-		{
+		switch (daChoice) {
 			case 'Pad-Right':
 				hitbox.visible = false;
 				virtualPad.destroy();
@@ -273,8 +243,7 @@ class AndroidControlsSubState extends FlxSubState
 		rightPosition.visible = daChoice == 'Pad-Custom';
 	}
 
-	function moveButton(touch:FlxTouch, button:FlxButton):Void
-	{
+	function moveButton(touch:FlxTouch, button:FlxButton):Void {
 		bindButton = button;
 		bindButton.x = touch.x - Std.int(bindButton.width / 2);
 		bindButton.y = touch.y - Std.int(bindButton.height / 2);

@@ -110,7 +110,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Simple Main Menu',
-			'Change main menu style.\nOriginal - Original main menu with animated sprites!\nClassic - Basic main menu without sprites, but with alphabet text.',
+			'Change main menu style.\nOriginal - Original main menu with animated sprites.\nClassic - Basic main menu without sprites, but with alphabet text.',
 			'mainMenuStyle', 'string', 'Original', // Credits:  Joalor64 (Creator of Joalor64.)
 			['Classic', 'Original']);
 		addOption(option);

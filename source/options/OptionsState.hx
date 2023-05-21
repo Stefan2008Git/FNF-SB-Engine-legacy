@@ -28,15 +28,22 @@ import Controls;
 
 using StringTools;
 
-class OptionsState extends MusicBeatState
-{
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
+class OptionsState extends MusicBeatState {
+	var options:Array<String> = [
+		'Note Colors',
+		'Controls',
+		'Adjust Delay and Combo',
+		'Graphics',
+		'Visuals and UI',
+		'Gameplay'
+	];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+
 	private static var currentlySelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String) {
-		switch(label) {
+		switch (label) {
 			case 'Note Colors':
 				#if android
 				removeVirtualPad();
@@ -91,8 +98,7 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...options.length)
-		{
+		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
@@ -144,7 +150,10 @@ class OptionsState extends MusicBeatState
 				MusicBeatState.switchState(new PlayState());
 				PauseSubState.optionMenu = false;
 			} else {
-				MusicBeatState.switchState(new MainMenuState());
+				if (ClientPrefs.mainMenuStyle == 'Classic')
+					MusicBeatState.switchState(new ClassicMainMenuState());
+				else
+					MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
@@ -161,7 +170,7 @@ class OptionsState extends MusicBeatState
 		}
 		#end
 	}
-	
+
 	function changeSelection(change:Int = 0) {
 		currentlySelected += change;
 		if (currentlySelected < 0)
