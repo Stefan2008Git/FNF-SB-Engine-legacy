@@ -58,7 +58,7 @@ class OutdatedState extends MusicBeatState
 			Thank you for using the Engine!",
 			32);
 		#end
-		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		warningText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		warningText.borderSize = 2.4;
 		warningText.screenCenter(Y);
 		add(warningText);

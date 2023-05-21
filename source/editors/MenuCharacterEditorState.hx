@@ -73,7 +73,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		add(grpWeekCharacters);
 
 		txtOffsets = new FlxText(20, 10, 0, "[0, 0]", 32);
-		txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		txtOffsets.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 		txtOffsets.alpha = 0.7;
 		add(txtOffsets);
 
@@ -86,7 +86,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			"Arrow Buttons - Change Offset (Hold A for 10x speed)
 			\nB - Play \"Start Press\" animation (Boyfriend Character Type)", 16);
 		#end
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
+		tipText.setFormat(Paths.font("bahnschrift.ttf"), 16, FlxColor.WHITE, CENTER);
 		tipText.scrollFactor.set();
 		add(tipText);
 

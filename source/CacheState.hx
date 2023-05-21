@@ -76,7 +76,7 @@ class CacheState extends FlxState
 		
 		randomTxt = new FlxText(20, FlxG.height - 80, 1000, "", 26);
 		randomTxt.scrollFactor.set();
-		randomTxt.setFormat("VCR OSD Mono", 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		randomTxt.setFormat("Bahnschrift", 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(randomTxt);
 		
 		loadingSpeen = new FlxSprite().loadGraphic(Paths.image("loading_speen"));
@@ -90,7 +90,7 @@ class CacheState extends FlxState
 		
 		loadingTxt = new FlxText(12, FlxG.height - 25, 0, "", 8);
 		loadingTxt.scrollFactor.set();
-		loadingTxt.setFormat("VCR OSD Mono", 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		loadingTxt.setFormat("Bahnschrift", 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		loadingTxt.borderSize = 1.25;
 		loadingTxt.text = " Loading... ";
 		add(loadingTxt);

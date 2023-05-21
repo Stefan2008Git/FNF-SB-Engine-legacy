@@ -72,7 +72,7 @@ class NotesSubState extends MusicBeatSubstate
 		#else
 		var resetText:FlxText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
 		#end
-		resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		resetText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		add(resetText);
 
 		for (i in 0...ClientPrefs.arrowHSV.length) {

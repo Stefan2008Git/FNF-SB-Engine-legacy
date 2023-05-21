@@ -80,27 +80,27 @@ class PauseSubState extends MusicBeatSubstate
 		var songNameTxt:FlxText = new FlxText(20, 15, 0, "", 32);
 		songNameTxt.text += "Song: " + PlayState.SONG.song;
 		songNameTxt.scrollFactor.set();
-		songNameTxt.setFormat(Paths.font("vcr.ttf"), 32);
+		songNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 32);
 		songNameTxt.updateHitbox();
 		add(songNameTxt);
 
 		var difficultyNameTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
 		difficultyNameTxt.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameTxt.scrollFactor.set();
-		difficultyNameTxt.setFormat(Paths.font('vcr.ttf'), 32);
+		difficultyNameTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		difficultyNameTxt.updateHitbox();
 		add(difficultyNameTxt);
 
 		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
 		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterTxt.scrollFactor.set();
-		deathCounterTxt.setFormat(Paths.font('vcr.ttf'), 32);
+		deathCounterTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		deathCounterTxt.updateHitbox();
 		add(deathCounterTxt);
 
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
-		practiceText.setFormat(Paths.font('vcr.ttf'), 32);
+		practiceText.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
@@ -108,7 +108,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
-		chartingText.setFormat(Paths.font('vcr.ttf'), 32);
+		chartingText.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
 		chartingText.y = FlxG.height - (chartingText.height + 20);
 		chartingText.updateHitbox();
@@ -377,7 +377,7 @@ class PauseSubState extends MusicBeatSubstate
 			if(menuItems[i] == 'Skip Time')
 			{
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
-				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				skipTimeText.setFormat(Paths.font("bahnschrift.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				skipTimeText.scrollFactor.set();
 				skipTimeText.borderSize = 2;
 				skipTimeTracker = item;

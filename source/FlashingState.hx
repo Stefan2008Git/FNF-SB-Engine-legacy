@@ -56,7 +56,7 @@ class FlashingState extends MusicBeatState
 			+ "Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version it's: " + MainMenuState.sbEngineVersion + "",
 			32);
 		#end
-		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		warningText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		warningText.borderSize = 2.4;
 		warningText.screenCenter(Y);
 		add(warningText);

@@ -54,7 +54,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("_sans", 12, color);
+		defaultTextFormat = new TextFormat("Bahnschrift", 14, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";

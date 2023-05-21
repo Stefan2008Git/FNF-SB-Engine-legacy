@@ -79,7 +79,7 @@ class FlxSplash extends FlxState
 		_text = new TextField();
 		_text.selectable = false;
 		_text.embedFonts = true;
-		var dtf = new TextFormat('VCR OSD Mono', 25, 0xffffff);
+		var dtf = new TextFormat('Bahnschrift', 25, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		_text.defaultTextFormat = dtf;
 		_text.text = "Wait";
@@ -90,7 +90,7 @@ class FlxSplash extends FlxState
 		#if FLX_SOUND_SYSTEM
 		if (!muted)
 		{
-			FlxG.sound.play(Paths.sound('startup'));
+			FlxG.sound.load(FlxAssets.getSound("flixel/sounds/flixel")).play();
 		}
 		#end
 	}
