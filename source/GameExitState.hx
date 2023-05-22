@@ -133,11 +133,11 @@ class GameExitState extends MusicBeatState {
 		if (currentlySelected >= options.length)
 			currentlySelected = 0;
 
-		var bullFreak:Int = 0;
+		var value:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = bullFreak - currentlySelected;
-			bullFreak++;
+			item.targetY = value - currentlySelected;
+			value++;
 
 			item.alpha = 0.6;
 			if (item.targetY == 0) {

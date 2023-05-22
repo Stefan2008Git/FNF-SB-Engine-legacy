@@ -32,10 +32,7 @@ class ClassicMainMenuState extends MusicBeatState {
 	var options:Array<String> = ['Story Mode', 'Freeplay', #if (MODS_ALLOWED) 'Mods', #end 'Credits', 'Options'];
 
 	var orange:FlxSprite;
-	var velocityBG:FlxBackdrop;
-	var versionSb:FlxText;
-	var versionPsych:FlxText;
-	var versionFnf:FlxText;
+	var alphaMainMenuText:FlxText;
 	var debugKeys:Array<FlxKey>;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -111,10 +108,6 @@ class ClassicMainMenuState extends MusicBeatState {
 		orange.color = 0xFFFFA500;
 		add(orange);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
-		velocityBG.velocity.set(50, 50);
-		add(velocityBG);
-
 		cameraFollow = new FlxObject(0, 0, 1, 1);
 		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 		add(cameraFollow);
@@ -122,18 +115,10 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		initOptions();
 
-		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + MainMenuState.sbEngineVersion + " (Modified Psych Engine)", 16);
-		versionSb.scrollFactor.set();
-		versionSb.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionSb);
-		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + MainMenuState.psychEngineVersion, 16);
-		versionPsych.scrollFactor.set();
-		versionPsych.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionPsych);
-		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
-		versionFnf.scrollFactor.set();
-		versionFnf.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionFnf);
+		alphaMainMenuText = new FlxText(12, FlxG.height - 24, 0, " Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
+		alphaMainMenuText.scrollFactor.set();
+		alphaMainMenuText.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(alphaMainMenuText);
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
 		add(selectorLeft);
@@ -183,10 +168,8 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		if (controls.ACCEPT) {
 			FlxG.sound.play(Paths.sound('confirmMenu'));
-
 			if (ClientPrefs.flashing)
 				FlxFlicker.flicker(orange, 1.1, 0.15, false);
-
 			grpOptions.forEach(function(grpOptions:Alphabet) {
 				FlxFlicker.flicker(grpOptions, 1, 0.06, false, false, function(flick:FlxFlicker) {
 					openSelectedSubstate(options[currentlySelected]);
@@ -195,7 +178,6 @@ class ClassicMainMenuState extends MusicBeatState {
 		}
 
 		if (controls.ACCEPT && !ClientPrefs.flashing) {
-			FlxG.sound.play(Paths.sound('confirmMenu'));
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				openSelectedSubstate(options[currentlySelected]);
 			});
@@ -215,11 +197,11 @@ class ClassicMainMenuState extends MusicBeatState {
 		if (currentlySelected >= options.length)
 			currentlySelected = 0;
 
-		var bullShit:Int = 0;
+		var value:Int = 0;
 
 		for (item in grpOptions.members) {
-			item.targetY = bullShit - currentlySelected;
-			bullShit++;
+			item.targetY = value - currentlySelected;
+			value++;
 
 			item.alpha = 0.6;
 			if (item.targetY == 0) {

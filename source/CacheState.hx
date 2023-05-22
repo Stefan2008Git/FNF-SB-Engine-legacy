@@ -84,7 +84,7 @@ class CacheState extends FlxState {
 		loadingSpeen.antialiasing = ClientPrefs.globalAntialiasing;
 		add(loadingSpeen);
 
-		loadingTxt = new FlxText(12, FlxG.height - 27, 0, "", 8);
+		loadingTxt = new FlxText(12, FlxG.height - 30, 0, "", 8);
 		loadingTxt.scrollFactor.set();
 		loadingTxt.setFormat("Bahnschrift", 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		loadingTxt.borderSize = 1.25;
