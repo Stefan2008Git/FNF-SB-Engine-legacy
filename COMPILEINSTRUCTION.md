@@ -17,13 +17,9 @@ Other installations you'd need are the additional libraries, a fully updated lis
 
 ``haxelib install openfl 9.1.0``
 
-``haxelib install flixel``
+``haxelib install flixel 4.11.0``
 
-``haxelib run lime setup flixel``
-
-``haxelib run lime setup``
-
-``haxelib install flixel-tools``
+``haxelib install flixel-tools 2.11.0``
 
 ``haxelib install hxCodec 2.5.1``
 
