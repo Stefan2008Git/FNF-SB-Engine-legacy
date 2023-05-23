@@ -49,4 +49,4 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 
 ## For more changelogs go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/CHANGELOG.md)
 
-## Fore Building and compiling go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/COMPILE INSTRUCTION.md)
+## Fore Building and compiling go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/COMPILEINSTRUCTION.md)
