@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 12.04.2023
+
+### Changelogs 
+-Added checker background, logo angle on title screen from Kade Engine :D. (NEW!)
+- Added back mods menu button and state too. (CHANGED!)
+- Added note angle and flash camera when you reset value color for notes colors options. Credits for: DENPA Engine
+- Added a small changes for freeplay menu. (CHANGED!)
+- Added back watermark, but fixed the position for downscroll users, added judgement counter, added when you have disabled autoplay it's showing: "[AUTOPLAY] is disabled!", but if you have enabled autoplay it's showing normally and maked the position for autoplay to look like Kade Engine. (BRAND NEW!)
+- New SB Engine logo added by me (Stefan2008). (BRAND NEW!)
+- New icon app maked by me (Stefan2008). (BRAND NEW!)
+## [2.3.0] - 12.04.2023
+
+### Changelogs
+- Fixed the scroll thing for Chart editor to Android (BUGFIX)
+- Added a new change's for crash handler. It's showing engine version (NEW)
+- Removed internal audio support from game (REMOVED)
+
 ## [2.2.0] - 02.04.2023
 ### Changelogs
 - Added a loading screen with some radnom tip, gradient bar and logo
