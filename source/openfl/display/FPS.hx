@@ -14,7 +14,6 @@ import openfl.display._internal.stats.DrawCallContext;
 #if flash
 import openfl.Lib;
 #end
-
 #if openfl
 import openfl.system.System;
 #end
@@ -27,25 +26,27 @@ import openfl.system.System;
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
-
-enum GLInfo
-{
+enum GLInfo {
 	RENDERER;
 	SHADING_LANGUAGE_VERSION;
 }
-class FPS extends TextField
-{
+
+class FPS extends TextField {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Int;
 
+	public var currentlyMemory:Float;
+	public var maximumMemory:Float;
+	public var realAlpha:Float = 1;
+	public var redText:Bool = false;
+
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
-	{
+	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000) {
 		super();
 
 		this.x = x;
@@ -64,8 +65,7 @@ class FPS extends TextField
 		times = [];
 
 		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
+		addEventListener(Event.ENTER_FRAME, function(e) {
 			var time = Lib.getTimer();
 			__enterFrame(time - currentTime);
 		});
@@ -86,66 +86,71 @@ class FPS extends TextField
 
 	// Event Handlers
 	@:noCompletion
-	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
-	{
+	private #if !flash override #end function __enterFrame(deltaTime:Float):Void {
 		currentTime += deltaTime;
 		times.push(currentTime);
 
-		while (times[0] < currentTime - 1000)
-		{
+		while (times[0] < currentTime - 1000) {
 			times.shift();
 		}
 
-		if (ClientPrefs.rainbowFPS)
-		{
+		var minAlpha:Float = 0.5;
+		var aggressor:Float = 1;
+
+		if (ClientPrefs.rainbowFPS) {
 			if (textColor >= array.length)
 				textColor = 0;
-				textColor = Math.round(FlxMath.lerp(0, array.length, skippedFrames / (ClientPrefs.framerate / 3)));
-				(cast(Lib.current.getChildAt(0), Main)).changeFPSColor(array[textColor]);
-				textColor++;
-				skippedFrames++;
-				if (skippedFrames > (ClientPrefs.framerate / 3))
-					skippedFrames = 0;
+			textColor = Math.round(FlxMath.lerp(0, array.length, skippedFrames / (ClientPrefs.framerate / 3)));
+			(cast(Lib.current.getChildAt(0), Main)).changeFPSColor(array[textColor]);
+			textColor++;
+			skippedFrames++;
+			if (skippedFrames > (ClientPrefs.framerate / 3))
+				skippedFrames = 0;
 		}
+
+		if ((FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this.width)
+			&& (FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height)
+			&& FlxG.mouse.visible) {
+			minAlpha = 0.1;
+			aggressor = 2.5;
+		}
+
+		if (!redText)
+			realAlpha = CoolUtil.boundTo(realAlpha - (deltaTime / 1000) * aggressor, minAlpha, 1);
+		else
+			realAlpha = CoolUtil.boundTo(realAlpha + (deltaTime / 1000), 0.3, 1);
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
-		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
+		if (currentFPS > ClientPrefs.framerate)
+			currentFPS = ClientPrefs.framerate;
 
-		if (currentCount != cacheCount)
-		{
+		if (currentCount != cacheCount) {
 			text = "FPS: " + currentFPS;
-			var memoryMegas:Float = 0;
-			var memoryPeak:Float = 0;
-			
-			#if openfl
-			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			if (memoryMegas > memoryPeak)
-				memoryPeak = memoryMegas;
-			text += "\nMemory: " + memoryMegas + " MB";
-			if(ClientPrefs.totalMemory)
-			{
-			text += "\nMemory peak: " + memoryPeak + " MB";
-		    }
-			if(ClientPrefs.sbEngineVersion)
-			{
-			text += "\nEngine version: " + MainMenuState.sbEngineVersion;
-		    }
-			if(ClientPrefs.debugInfo)
-			{
-			text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';
-				if (FlxG.state.subState != null)
-			text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}';
-			text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-			text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-			text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
-		    }
-			#end
 
-			textColor = 0xFFFFFFFF;
-			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
-			{
-				textColor = 0xFFFF0000;
+			currentlyMemory = obtainMemory();
+			if (currentlyMemory >= maximumMemory)
+				maximumMemory = currentlyMemory;
+			text += "\nMemory: " + ${CoolUtil.formatMemory(Std.int(currentlyMemory))} '';
+			if (ClientPrefs.totalMemory) {
+				text += "\nMemory peak: " + ${CoolUtil.formatMemory(Std.int(maximumMemory))};
+			}
+			if (ClientPrefs.sbEngineVersion) {
+				text += "\nEngine version: " + MainMenuState.sbEngineVersion;
+			}
+			if (ClientPrefs.debugInfo) {
+				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';
+				if (FlxG.state.subState != null)
+					text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}';
+				text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
+				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+			}
+
+			textColor = FlxColor.fromRGBFloat(255, 255, 255, realAlpha);
+			if (currentFPS <= ClientPrefs.framerate / 2) {
+				textColor = FlxColor.fromRGBFloat(255, 0, 0, realAlpha);
+				redText = true;
 			}
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
@@ -160,13 +165,15 @@ class FPS extends TextField
 		cacheCount = currentCount;
 	}
 
-        private function getGLInfo(info:GLInfo):String
-	{
+	function obtainMemory():Dynamic {
+		return System.totalMemory;
+	}
+
+	private function getGLInfo(info:GLInfo):String {
 		@:privateAccess
 		var gl:Dynamic = Lib.current.stage.context3D.gl;
 
-		switch (info)
-		{
+		switch (info) {
 			case RENDERER:
 				return Std.string(gl.getParameter(gl.RENDERER));
 			case SHADING_LANGUAGE_VERSION:
