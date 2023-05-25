@@ -168,6 +168,7 @@ class ChartingState extends MusicBeatState {
 
 	var gridBG:FlxSprite;
 	var nextGridBG:FlxSprite;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
 	var daquantspot = 0;
@@ -249,10 +250,10 @@ class ChartingState extends MusicBeatState {
 
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
-		var background:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.scrollFactor.set();
-		bg.color = 0xFFFFA500;
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.scrollFactor.set();
+		background.color = 0xFFFFA500;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);

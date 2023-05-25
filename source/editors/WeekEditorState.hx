@@ -338,9 +338,8 @@ class WeekEditorState extends MusicBeatState {
 
 		var isMissing:Bool = true;
 		if (assetName != null && assetName.length > 0) {
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsImages('menubackgrounds/menu_' +
-				assetName)) || #end Assets.exists(Paths.getPath('images/menubackgrounds/menu_'
-				+ assetName + '.png', IMAGE), IMAGE)) {
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsImages('menubackgrounds/menu_' + assetName))
+				|| #end Assets.exists(Paths.getPath('images/menubackgrounds/menu_' + assetName + '.png', IMAGE), IMAGE)) {
 				bgSprite.loadGraphic(Paths.image('menubackgrounds/menu_' + assetName));
 				isMissing = false;
 			}
@@ -358,8 +357,8 @@ class WeekEditorState extends MusicBeatState {
 
 		var isMissing:Bool = true;
 		if (assetName != null && assetName.length > 0) {
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsImages('storymenu/' + assetName)) || #end Assets.exists(Paths.getPath('images/storymenu/'
-				+ assetName + '.png', IMAGE), IMAGE)) {
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsImages('storymenu/' + assetName))
+				|| #end Assets.exists(Paths.getPath('images/storymenu/' + assetName + '.png', IMAGE), IMAGE)) {
 				weekThing.loadGraphic(Paths.image('storymenu/' + assetName));
 				isMissing = false;
 			}
@@ -606,10 +605,10 @@ class WeekEditorFreeplayState extends MusicBeatState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.color = FlxColor.WHITE;
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.color = FlxColor.WHITE;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
@@ -711,7 +710,7 @@ class WeekEditorFreeplayState extends MusicBeatState {
 		bgColorStepperB = new FlxUINumericStepper(150, 40, 20, 255, 0, 255, 0);
 
 		var copyColor:FlxButton = new FlxButton(10, bgColorStepperR.y + 25, "Copy Color", function() {
-			Clipboard.text = bg.color.red + ',' + bg.color.green + ',' + bg.color.blue;
+			Clipboard.text = background.color.red + ',' + background.color.green + ',' + background.color.blue;
 		});
 		var pasteColor:FlxButton = new FlxButton(140, copyColor.y, "Paste Color", function() {
 			if (Clipboard.text != null) {
@@ -762,7 +761,8 @@ class WeekEditorFreeplayState extends MusicBeatState {
 		weekFile.songs[currentlySelected][2][0] = Math.round(bgColorStepperR.value);
 		weekFile.songs[currentlySelected][2][1] = Math.round(bgColorStepperG.value);
 		weekFile.songs[currentlySelected][2][2] = Math.round(bgColorStepperB.value);
-		bg.color = FlxColor.fromRGB(weekFile.songs[currentlySelected][2][0], weekFile.songs[currentlySelected][2][1], weekFile.songs[currentlySelected][2][2]);
+		background.color = FlxColor.fromRGB(weekFile.songs[currentlySelected][2][0], weekFile.songs[currentlySelected][2][1],
+			weekFile.songs[currentlySelected][2][2]);
 	}
 
 	function changeSelection(change:Int = 0) {

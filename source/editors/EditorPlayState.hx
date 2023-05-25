@@ -56,6 +56,7 @@ class EditorPlayState extends MusicBeatState {
 	var beatTxt:FlxText;
 	var sectionTxt:FlxText;
 	var tipText:FlxText;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
 	var timerToStart:Float = 0;
@@ -69,10 +70,10 @@ class EditorPlayState extends MusicBeatState {
 	override function create() {
 		instance = this;
 
-		var background:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.scrollFactor.set();
-		bg.color = FlxColor.ORANGE;
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.scrollFactor.set();
+		background.color = FlxColor.ORANGE;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);

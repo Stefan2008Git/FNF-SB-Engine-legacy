@@ -35,6 +35,7 @@ class MasterEditorMenu extends MusicBeatState {
 	private var currentlyDirectory = 0;
 	private var directoryTxt:FlxText;
 
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
 	override function create() {
@@ -47,10 +48,10 @@ class MasterEditorMenu extends MusicBeatState {
 		DiscordClient.changePresence("Editors Main Menu", null);
 		#end
 
-		var background:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.scrollFactor.set();
-		bg.color = 0xFFFFA500;
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.scrollFactor.set();
+		background.color = 0xFFFFA500;
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
