@@ -28,6 +28,7 @@ class AndroidControlsSubState extends FlxSubState {
 	var rightPosition:FlxText;
 	var inputText:FlxText;
 	var noAndroidControlsText:FlxText;
+	var tipText:FlxText;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 	var currentlySelected:Int = AndroidControls.getMode();
@@ -100,9 +101,9 @@ class AndroidControlsSubState extends FlxSubState {
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
 		tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2.4;
+		tipText.borderSize = 1.25;
 		tipText.scrollFactor.set();
 		add(tipText);
 

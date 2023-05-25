@@ -37,7 +37,8 @@ class OptionsState extends MusicBeatState {
 		'Visuals and UI',
 		'Gameplay'
 	];
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var optionsSelect:FlxTypedGroup<Alphabet>;
+	var tipText:FlxText;
 
 	private static var currentlySelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -76,6 +77,7 @@ class OptionsState extends MusicBeatState {
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
 	override function create() {
@@ -83,26 +85,25 @@ class OptionsState extends MusicBeatState {
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFFFA500;
-		bg.updateHitbox();
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.color = 0xFFFFA500;
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.updateHitbox();
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+		optionsSelect = new FlxTypedGroup<Alphabet>();
+		add(optionsSelect);
 
 		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText);
+			optionsSelect.add(optionText);
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true, false);
@@ -111,7 +112,7 @@ class OptionsState extends MusicBeatState {
 		add(selectorRight);
 
 		#if android
-		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press C to customize your android controls', 16);
+		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press C to customize your android controls', 16);
 		tipText.setFormat(Paths.font('bahnschrift.ttf'), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 1.25;
 		tipText.scrollFactor.set();
@@ -180,7 +181,7 @@ class OptionsState extends MusicBeatState {
 
 		var optionFreak:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in optionsSelect.members) {
 			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 

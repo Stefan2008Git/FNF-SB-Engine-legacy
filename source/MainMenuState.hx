@@ -34,8 +34,10 @@ class MainMenuState extends MusicBeatState {
 
 	var optionSelect:Array<String> = ['story_mode', 'freeplay', #if MODS_ALLOWED 'mods', #end 'credits', 'options'];
 
+	var background:FlxSprite;
 	var orange:FlxSprite;
 	var velocityBG:FlxBackdrop;
+	var buttonBackground:FlxSprite;
 	var versionSb:FlxText;
 	var versionPsych:FlxText;
 	var versionFnf:FlxText;
@@ -72,13 +74,13 @@ class MainMenuState extends MusicBeatState {
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionSelect.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set();
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
+		background = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		background.scrollFactor.set();
+		background.setGraphicSize(Std.int(background.width * 1.175));
+		background.updateHitbox();
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		add(background);
 
 		orange = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		orange.scrollFactor.set();
@@ -94,8 +96,8 @@ class MainMenuState extends MusicBeatState {
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
-		var buttonBackground:FlxSprite = new FlxSprite(-120).loadGraphic(Paths.image('buttonBackground'));
-		buttonBackground.setGraphicSize(Std.int(bg.width * 1.175));
+		buttonBackground = new FlxSprite(-120).loadGraphic(Paths.image('buttonBackground'));
+		buttonBackground.setGraphicSize(Std.int(background.width * 1.175));
 		buttonBackground.updateHitbox();
 		buttonBackground.screenCenter();
 		buttonBackground.antialiasing = ClientPrefs.globalAntialiasing;

@@ -218,14 +218,14 @@ class TitleState extends MusicBeatState {
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite();
+		var background:FlxSprite = new FlxSprite();
 
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none") {
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-			add(bg);
+			background.loadGraphic(Paths.image(titleJSON.backgroundSprite));
+			add(background);
 		} else {
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-			add(bg);
+			background.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+			add(background);
 
 			checker = new FlxBackdrop(Paths.image('checker'));
 			checker.scrollFactor.set();
@@ -235,7 +235,7 @@ class TitleState extends MusicBeatState {
 			checker.antialiasing = ClientPrefs.globalAntialiasing;
 			add(checker);
 		}
-		add(bg);
+		add(background);
 
 		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');

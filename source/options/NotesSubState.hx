@@ -29,10 +29,10 @@ import Controls;
 
 using StringTools;
 
-class NotesSubState extends MusicBeatSubstate
-{
+class NotesSubState extends MusicBeatSubstate {
 	private static var currentlySelected:Int = 0;
 	private static var typeSelected:Int = 0;
+
 	private var grpNumbers:FlxTypedGroup<Alphabet>;
 	private var grpNotes:FlxTypedGroup<FlxSprite>;
 	private var shaderArray:Array<ColorSwap> = [];
@@ -40,20 +40,22 @@ class NotesSubState extends MusicBeatSubstate
 	var holdTime:Float = 0;
 	var nextAccept:Int = 5;
 
-        var velocityBG:FlxBackdrop;
+	var background:FlxSprite;
+	var velocityBG:FlxBackdrop;
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
 
 	var posX = 230;
+
 	public function new() {
 		super();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFFFA500;
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-		
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.color = 0xFFFFA500;
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		add(background);
+
 		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
 		blackBG.alpha = 0.4;
 		add(blackBG);
@@ -111,35 +113,37 @@ class NotesSubState extends MusicBeatSubstate
 	}
 
 	var changingNote:Bool = false;
+
 	override function update(elapsed:Float) {
-		if(changingNote) {
-			if(holdTime < 0.5) {
-				if(controls.UI_LEFT_P) {
+		if (changingNote) {
+			if (holdTime < 0.5) {
+				if (controls.UI_LEFT_P) {
 					updateValue(-1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.UI_RIGHT_P) {
+				} else if (controls.UI_RIGHT_P) {
 					updateValue(1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
+				} else if (controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
 					resetValue(currentlySelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				if (controls.UI_LEFT_R || controls.UI_RIGHT_R) {
 					holdTime = 0;
-				} else if(controls.UI_LEFT || controls.UI_RIGHT) {
+				} else if (controls.UI_LEFT || controls.UI_RIGHT) {
 					holdTime += elapsed;
 				}
 			} else {
 				var add:Float = 90;
-				switch(typeSelected) {
-					case 1 | 2: add = 50;
+				switch (typeSelected) {
+					case 1 | 2:
+						add = 50;
 				}
-				if(controls.UI_LEFT) {
+				if (controls.UI_LEFT) {
 					updateValue(elapsed * -add);
-				} else if(controls.UI_RIGHT) {
+				} else if (controls.UI_RIGHT) {
 					updateValue(elapsed * add);
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				if (controls.UI_LEFT_R || controls.UI_RIGHT_R) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					holdTime = 0;
 				}
@@ -161,7 +165,7 @@ class NotesSubState extends MusicBeatSubstate
 				changeType(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if(controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
+			if (controls.RESET #if android || virtualPad.buttonC.justPressed #end) {
 				for (i in 0...3) {
 					resetValue(currentlySelected, i);
 				}
@@ -192,7 +196,7 @@ class NotesSubState extends MusicBeatSubstate
 		}
 
 		if (controls.BACK || (changingNote && controls.ACCEPT)) {
-			if(!changingNote) {
+			if (!changingNote) {
 				#if android
 				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.resetState();
@@ -206,7 +210,7 @@ class NotesSubState extends MusicBeatSubstate
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
-		if(nextAccept > 0) {
+		if (nextAccept > 0) {
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
@@ -215,7 +219,7 @@ class NotesSubState extends MusicBeatSubstate
 	function changeSelection(change:Int = 0) {
 		currentlySelected += change;
 		if (currentlySelected < 0)
-			currentlySelected = ClientPrefs.arrowHSV.length-1;
+			currentlySelected = ClientPrefs.arrowHSV.length - 1;
 		if (currentlySelected >= ClientPrefs.arrowHSV.length)
 			currentlySelected = 0;
 
@@ -265,41 +269,50 @@ class NotesSubState extends MusicBeatSubstate
 	function resetValue(selected:Int, type:Int) {
 		curValue = 0;
 		ClientPrefs.arrowHSV[selected][type] = 0;
-		switch(type) {
-			case 0: shaderArray[selected].hue = 0;
-			case 1: shaderArray[selected].saturation = 0;
-			case 2: shaderArray[selected].brightness = 0;
+		switch (type) {
+			case 0:
+				shaderArray[selected].hue = 0;
+			case 1:
+				shaderArray[selected].saturation = 0;
+			case 2:
+				shaderArray[selected].brightness = 0;
 		}
 
 		var item = grpNumbers.members[(selected * 3) + type];
 		item.changeText('0');
 		item.offset.x = (40 * (item.lettersArray.length - 1)) / 2;
 	}
+
 	function updateValue(change:Float = 0) {
 		curValue += change;
 		var roundedValue:Int = Math.round(curValue);
 		var max:Float = 180;
-		switch(typeSelected) {
-			case 1 | 2: max = 100;
+		switch (typeSelected) {
+			case 1 | 2:
+				max = 100;
 		}
 
-		if(roundedValue < -max) {
+		if (roundedValue < -max) {
 			curValue = -max;
-		} else if(roundedValue > max) {
+		} else if (roundedValue > max) {
 			curValue = max;
 		}
 		roundedValue = Math.round(curValue);
 		ClientPrefs.arrowHSV[currentlySelected][typeSelected] = roundedValue;
 
-		switch(typeSelected) {
-			case 0: shaderArray[currentlySelected].hue = roundedValue / 360;
-			case 1: shaderArray[currentlySelected].saturation = roundedValue / 100;
-			case 2: shaderArray[currentlySelected].brightness = roundedValue / 100;
+		switch (typeSelected) {
+			case 0:
+				shaderArray[currentlySelected].hue = roundedValue / 360;
+			case 1:
+				shaderArray[currentlySelected].saturation = roundedValue / 100;
+			case 2:
+				shaderArray[currentlySelected].brightness = roundedValue / 100;
 		}
 
 		var item = grpNumbers.members[(currentlySelected * 3) + typeSelected];
 		item.changeText(Std.string(roundedValue));
 		item.offset.x = (40 * (item.lettersArray.length - 1)) / 2;
-		if(roundedValue < 0) item.offset.x += 10;
+		if (roundedValue < 0)
+			item.offset.x += 10;
 	}
 }

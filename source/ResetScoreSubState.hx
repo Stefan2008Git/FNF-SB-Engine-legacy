@@ -6,9 +6,8 @@ import flixel.addons.transition.FlxTransitionableState;
 
 using StringTools;
 
-class ResetScoreSubState extends MusicBeatSubstate
-{
-	var bg:FlxSprite;
+class ResetScoreSubState extends MusicBeatSubstate {
+	var background:FlxSprite;
 	var alphabetArray:Array<Alphabet> = [];
 	var icon:HealthIcon;
 	var onYes:Bool = false;
@@ -20,8 +19,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 	var week:Int;
 
 	// Week -1 = Freeplay
-	public function new(song:String, difficulty:Int, character:String, week:Int = -1)
-	{
+	public function new(song:String, difficulty:Int, character:String, week:Int = -1) {
 		this.song = song;
 		this.difficulty = difficulty;
 		this.week = week;
@@ -29,17 +27,17 @@ class ResetScoreSubState extends MusicBeatSubstate
 		super();
 
 		var name:String = song;
-		if(week > -1) {
+		if (week > -1) {
 			name = WeekData.weeksLoaded.get(WeekData.weeksList[week]).weekName;
 		}
 		name += ' (' + CoolUtil.difficulties[difficulty] + ')?';
 
-		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
-		bg.scrollFactor.set();
-		add(bg);
+		background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		background.alpha = 0;
+		background.scrollFactor.set();
+		add(background);
 
-		var tooLong:Float = (name.length > 18) ? 0.8 : 1; //freaking Winter Horrorland
+		var tooLong:Float = (name.length > 18) ? 0.8 : 1; // freaking Winter Horrorland
 		var text:Alphabet = new Alphabet(0, 180, "Reset the score of", true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
@@ -47,11 +45,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(text);
 		var text:Alphabet = new Alphabet(0, text.y + 90, name, true, false, 0.05, tooLong);
 		text.screenCenter(X);
-		if(week == -1) text.x += 60 * tooLong;
+		if (week == -1)
+			text.x += 60 * tooLong;
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
-		if(week == -1) {
+		if (week == -1) {
 			icon = new HealthIcon(character);
 			icon.setGraphicSize(Std.int(icon.width * tooLong));
 			icon.updateHitbox();
@@ -70,40 +69,40 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-        #if android
-        addVirtualPad(LEFT_RIGHT, A);
-        addPadCamera();
-        #end
-
+		#if android
+		addVirtualPad(LEFT_RIGHT, A);
+		addPadCamera();
+		#end
 	}
 
-	override function update(elapsed:Float)
-	{
-		bg.alpha += elapsed * 1.5;
-		if(bg.alpha > 0.6) bg.alpha = 0.6;
+	override function update(elapsed:Float) {
+		background.alpha += elapsed * 1.5;
+		if (background.alpha > 0.6)
+			background.alpha = 0.6;
 
 		for (i in 0...alphabetArray.length) {
 			var spr = alphabetArray[i];
 			spr.alpha += elapsed * 2.5;
 		}
-		if(week == -1) icon.alpha += elapsed * 2.5;
+		if (week == -1)
+			icon.alpha += elapsed * 2.5;
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if android
-            FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-            #else
-            close();
-            #end
-		} else if(controls.ACCEPT) {
-			if(onYes) {
-				if(week == -1) {
+			#else
+			close();
+			#end
+		} else if (controls.ACCEPT) {
+			if (onYes) {
+				if (week == -1) {
 					Highscore.resetSong(song, difficulty);
 				} else {
 					Highscore.resetWeek(WeekData.weeksList[week], difficulty);
@@ -111,11 +110,11 @@ class ResetScoreSubState extends MusicBeatSubstate
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			#if android
-            FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-            #else
-            close();
-            #end
+			#else
+			close();
+			#end
 		}
 		super.update(elapsed);
 	}
@@ -129,6 +128,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
 		noText.alpha = alphas[1 - confirmInt];
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
-		if(week == -1) icon.animation.curAnim.curFrame = confirmInt;
+		if (week == -1)
+			icon.animation.curAnim.curFrame = confirmInt;
 	}
 }

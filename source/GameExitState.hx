@@ -32,7 +32,7 @@ using StringTools;
 
 class GameExitState extends MusicBeatState {
 	var options:Array<String> = ['Yes', 'No'];
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var optionsSelect:FlxTypedGroup<Alphabet>;
 
 	private static var currentlySelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -41,7 +41,7 @@ class GameExitState extends MusicBeatState {
 	var checker:FlxBackdrop;
 	var alertMessage:String = "";
 
-	function openSelectedSubstate(label:String) {
+	function openSelectedState(label:String) {
 		switch (label) {
 			case 'Yes':
 				Application.current.window.alert(alertMessage, "SB Engine: " + MainMenuState.sbEngineVersion);
@@ -79,14 +79,14 @@ class GameExitState extends MusicBeatState {
 
 		alertMessage += "Alert: " + "\nThanks for using SB Engine";
 
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+		optionsSelect = new FlxTypedGroup<Alphabet>();
+		add(optionsSelect);
 
 		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText);
+			optionsSelect.add(optionText);
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true, false);
@@ -122,7 +122,7 @@ class GameExitState extends MusicBeatState {
 		}
 
 		if (controls.ACCEPT) {
-			openSelectedSubstate(options[currentlySelected]);
+			openSelectedState(options[currentlySelected]);
 		}
 	}
 
@@ -135,7 +135,7 @@ class GameExitState extends MusicBeatState {
 
 		var value:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in optionsSelect.members) {
 			item.targetY = value - currentlySelected;
 			value++;
 

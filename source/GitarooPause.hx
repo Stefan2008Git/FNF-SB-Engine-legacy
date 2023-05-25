@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 class GitarooPause extends MusicBeatState {
+	var background:FlxSprite;
 	var replayButton:FlxSprite;
 	var cancelButton:FlxSprite;
 
@@ -18,8 +19,8 @@ class GitarooPause extends MusicBeatState {
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pauseAlt/pauseBG'));
-		add(bg);
+		background = new FlxSprite().loadGraphic(Paths.image('pauseAlt/pauseBG'));
+		add(background);
 
 		var bf:FlxSprite = new FlxSprite(0, 30);
 		bf.frames = Paths.getSparrowAtlas('pauseAlt/bfLol');

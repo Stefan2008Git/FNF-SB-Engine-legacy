@@ -49,7 +49,7 @@ class FreeplayState extends MusicBeatState {
 
 	private var iconArray:Array<HealthIcon> = [];
 
-	var bg:FlxSprite;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -92,10 +92,10 @@ class FreeplayState extends MusicBeatState {
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-		bg.screenCenter();
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.screenCenter();
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
@@ -146,8 +146,8 @@ class FreeplayState extends MusicBeatState {
 
 		if (currentlySelected >= songs.length)
 			currentlySelected = 0;
-		bg.color = songs[currentlySelected].color;
-		intendedColor = bg.color;
+		background.color = songs[currentlySelected].color;
+		intendedColor = background.color;
 
 		if (lastDifficultyName == '') {
 			lastDifficultyName = CoolUtil.defaultDifficulty;
@@ -400,7 +400,7 @@ class FreeplayState extends MusicBeatState {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+			colorTween = FlxTween.color(background, 1, background.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
 					colorTween = null;
 				}

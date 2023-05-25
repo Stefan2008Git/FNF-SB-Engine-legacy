@@ -25,11 +25,11 @@ using StringTools;
 class CreditsState extends MusicBeatState {
 	var currentlySelected:Int = -1;
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var optionsSelect:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
 
-	var bg:FlxSprite;
+	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var descText:FlxText;
 	var intendedColor:Int;
@@ -45,16 +45,16 @@ class CreditsState extends MusicBeatState {
 		#end
 
 		persistentUpdate = true;
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		add(bg);
-		bg.screenCenter();
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.screenCenter();
+		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
 		add(velocityBG);
 
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+		optionsSelect = new FlxTypedGroup<Alphabet>();
+		add(optionsSelect);
 
 		#if MODS_ALLOWED
 		var path:String = SUtil.getPath() + 'modsList.txt';
@@ -251,7 +251,7 @@ class CreditsState extends MusicBeatState {
 			optionText.forceX = optionText.x;
 			// optionText.yMult = 90;
 			optionText.targetY = i;
-			grpOptions.add(optionText);
+			optionsSelect.add(optionText);
 
 			if (isSelectable) {
 				if (creditsStuff[i][5] != null) {
@@ -287,8 +287,8 @@ class CreditsState extends MusicBeatState {
 		descBox.sprTracker = descText;
 		add(descText);
 
-		bg.color = getCurrentBGColor();
-		intendedColor = bg.color;
+		background.color = getCurrentBGColor();
+		intendedColor = background.color;
 		changeSelection();
 
 		#if android
@@ -351,7 +351,7 @@ class CreditsState extends MusicBeatState {
 			}
 		}
 
-		for (item in grpOptions.members) {
+		for (item in optionsSelect.members) {
 			if (!item.isBold) {
 				var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
 				if (item.targetY == 0) {
@@ -386,7 +386,7 @@ class CreditsState extends MusicBeatState {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+			colorTween = FlxTween.color(background, 1, background.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
 					colorTween = null;
 				}
@@ -395,7 +395,7 @@ class CreditsState extends MusicBeatState {
 
 		var value:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in optionsSelect.members) {
 			item.targetY = value - currentlySelected;
 			value++;
 

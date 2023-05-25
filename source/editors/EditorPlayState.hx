@@ -69,7 +69,7 @@ class EditorPlayState extends MusicBeatState {
 	override function create() {
 		instance = this;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var background:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		bg.color = FlxColor.ORANGE;
 		add(bg);

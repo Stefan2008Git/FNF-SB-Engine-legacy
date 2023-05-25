@@ -38,7 +38,7 @@ class ModsMenuState extends MusicBeatState {
 
 	static var changedAThing = false;
 
-	var bg:FlxSprite;
+	var background:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
@@ -77,10 +77,10 @@ class ModsMenuState extends MusicBeatState {
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-		bg.screenCenter();
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		background.screenCenter();
+		add(background);
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
 		if (FlxG.random.bool(0.1))
@@ -291,11 +291,11 @@ class ModsMenuState extends MusicBeatState {
 			currentlySelected = 0;
 
 		if (mods.length < 1)
-			bg.color = defaultColor;
+			background.color = defaultColor;
 		else
-			bg.color = mods[currentlySelected].color;
+			background.color = mods[currentlySelected].color;
 
-		intendedColor = bg.color;
+		intendedColor = background.color;
 		changeSelection();
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -449,7 +449,7 @@ class ModsMenuState extends MusicBeatState {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+			colorTween = FlxTween.color(background, 1, background.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
 					colorTween = null;
 				}

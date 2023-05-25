@@ -31,18 +31,19 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	var options:Array<String> = ['Story Mode', 'Freeplay', #if (MODS_ALLOWED) 'Mods', #end 'Credits', 'Options'];
 
+	var background:FlxSprite;
 	var orange:FlxSprite;
 	var alphaMainMenuText:FlxText;
 	var debugKeys:Array<FlxKey>;
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var optionsSelect:FlxTypedGroup<Alphabet>;
 
 	public static var menuBG:FlxSprite;
 
 	var cameraFollow:FlxObject;
 	var cameraFollowPosition:FlxObject;
 
-	function openSelectedSubstate(label:String) {
+	function openSelectedState(label:String) {
 		switch (label) {
 			case 'Story Mode':
 				MusicBeatState.switchState(new StoryMenuState());
@@ -90,13 +91,13 @@ class ClassicMainMenuState extends MusicBeatState {
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (options.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set();
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
+		background = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		background.scrollFactor.set();
+		background.setGraphicSize(Std.int(background.width * 1.175));
+		background.updateHitbox();
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		add(background);
 
 		orange = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		orange.scrollFactor.set();
@@ -140,14 +141,14 @@ class ClassicMainMenuState extends MusicBeatState {
 	}
 
 	function initOptions() {
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+		optionsSelect = new FlxTypedGroup<Alphabet>();
+		add(optionsSelect);
 
 		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText);
+			optionsSelect.add(optionText);
 		}
 	}
 
@@ -168,18 +169,16 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		if (controls.ACCEPT) {
 			FlxG.sound.play(Paths.sound('confirmMenu'));
-			if (ClientPrefs.flashing)
-				FlxFlicker.flicker(orange, 1.1, 0.15, false);
-			grpOptions.forEach(function(grpOptions:Alphabet) {
-				FlxFlicker.flicker(grpOptions, 1, 0.06, false, false, function(flick:FlxFlicker) {
-					openSelectedSubstate(options[currentlySelected]);
+			optionsSelect.forEach(function(optionsSelect:Alphabet) {
+				FlxFlicker.flicker(optionsSelect, 1, 0.06, false, false, function(flick:FlxFlicker) {
+					openSelectedState(options[currentlySelected]);
 				});
 			});
 		}
 
 		if (controls.ACCEPT && !ClientPrefs.flashing) {
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
-				openSelectedSubstate(options[currentlySelected]);
+				openSelectedState(options[currentlySelected]);
 			});
 		}
 
@@ -199,7 +198,7 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		var value:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in optionsSelect.members) {
 			item.targetY = value - currentlySelected;
 			value++;
 
