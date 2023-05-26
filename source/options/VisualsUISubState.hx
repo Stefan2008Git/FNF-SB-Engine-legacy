@@ -77,8 +77,12 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 
-		var option:Option = new Option('Total Memory counter', "If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter first!",
-			'totalMemory', 'bool', false);
+		var option:Option = new Option('Memory counter', "If unchecked, hides memory's.\nRequest: You need to turn on FPS counter first!", 'memory', 'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Total Memory counter',
+			"If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter and Memory counter first!", 'totalMemory', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('SB Engine version text',

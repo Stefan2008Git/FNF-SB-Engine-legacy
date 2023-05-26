@@ -35,7 +35,7 @@ class FPS extends TextField {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
-	public var currentFPS(default, null):Int;
+	public var currentlyFPS(default, null):Int;
 
 	public var currentlyMemory:Float;
 	public var maximumMemory:Float;
@@ -52,10 +52,10 @@ class FPS extends TextField {
 		this.x = x;
 		this.y = y;
 
-		currentFPS = 0;
+		currentlyFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("Bahnschrift", 14, color);
+		defaultTextFormat = new TextFormat("_sans", 12, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
@@ -121,17 +121,19 @@ class FPS extends TextField {
 			realAlpha = CoolUtil.boundTo(realAlpha + (deltaTime / 1000), 0.3, 1);
 
 		var currentCount = times.length;
-		currentFPS = Math.round((currentCount + cacheCount) / 2);
-		if (currentFPS > ClientPrefs.framerate)
-			currentFPS = ClientPrefs.framerate;
+		currentlyFPS = Math.round((currentCount + cacheCount) / 2);
+		if (currentlyFPS > ClientPrefs.framerate)
+			currentlyFPS = ClientPrefs.framerate;
 
 		if (currentCount != cacheCount) {
-			text = "FPS: " + currentFPS;
+			text = "FPS: " + currentlyFPS;
 
 			currentlyMemory = obtainMemory();
 			if (currentlyMemory >= maximumMemory)
 				maximumMemory = currentlyMemory;
-			text += "\nMemory: " + ${CoolUtil.formatMemory(Std.int(currentlyMemory))} '';
+			if (ClientPrefs.memory) {
+				text += "\nMemory: " + ${CoolUtil.formatMemory(Std.int(currentlyMemory))};
+			}
 			if (ClientPrefs.totalMemory) {
 				text += "\nMemory peak: " + ${CoolUtil.formatMemory(Std.int(maximumMemory))};
 			}
@@ -148,7 +150,7 @@ class FPS extends TextField {
 			}
 
 			textColor = FlxColor.fromRGBFloat(255, 255, 255, realAlpha);
-			if (currentFPS <= ClientPrefs.framerate / 2) {
+			if (currentlyFPS <= ClientPrefs.framerate / 2) {
 				textColor = FlxColor.fromRGBFloat(255, 0, 0, realAlpha);
 				redText = true;
 			}

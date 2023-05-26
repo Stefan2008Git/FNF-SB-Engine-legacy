@@ -33,7 +33,8 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	var background:FlxSprite;
 	var orange:FlxSprite;
-	var alphaMainMenuText:FlxText;
+	var sbEngineVersionTxt:FlxText;
+	var fnfVersionTxt:FlxText;
 	var debugKeys:Array<FlxKey>;
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
@@ -116,14 +117,18 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		initOptions();
 
-		alphaMainMenuText = new FlxText(12, FlxG.height - 24, 0, " Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
-		alphaMainMenuText.scrollFactor.set();
-		alphaMainMenuText.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(alphaMainMenuText);
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+		sbEngineVersionTxt.scrollFactor.set();
+		sbEngineVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(sbEngineVersionTxt);
+		fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
+		fnfVersionTxt.scrollFactor.set();
+		fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(fnfVersionTxt);
 
-		selectorLeft = new Alphabet(0, 0, '>', true);
+		selectorLeft = new Alphabet(0, 0, '( ', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true);
+		selectorRight = new Alphabet(0, 0, ' )', true);
 		add(selectorRight);
 
 		changeSelection();

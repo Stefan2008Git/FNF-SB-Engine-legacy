@@ -12,10 +12,12 @@ class ClientPrefs {
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = #if android false #else true #end;
 	public static var rainbowFPS:Bool = false;
+	public static var memory:Bool = false;
 	public static var totalMemory:Bool = false;
 	public static var sbEngineVersion:Bool = false;
 	public static var debugInfo:Bool = false;
 	public static var flashing:Bool = true;
+	public static var resultsScreen:Bool = false;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
@@ -96,10 +98,12 @@ class ClientPrefs {
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.rainbowFPS = rainbowFPS;
+		FlxG.save.data.memory = memory;
 		FlxG.save.data.totalMemory = totalMemory;
 		FlxG.save.data.sbEngineVersion = sbEngineVersion;
 		FlxG.save.data.debugInfo = debugInfo;
 		FlxG.save.data.flashing = flashing;
+		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
@@ -162,6 +166,9 @@ class ClientPrefs {
 		if (FlxG.save.data.rainbowFPS != null) {
 			rainbowFPS = FlxG.save.data.rainbowFPS;
 		}
+		if (FlxG.save.data.memory != null) {
+			memory = FlxG.save.data.memory;
+		}
 		if (FlxG.save.data.totalMemory != null) {
 			totalMemory = FlxG.save.data.totalMemory;
 		}
@@ -173,6 +180,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;
+		}
+		if (FlxG.save.data.resultsScreen != null) {
+			resultsScreen = FlxG.save.data.resultsScreen;
 		}
 		if (FlxG.save.data.globalAntialiasing != null) {
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;
