@@ -20,6 +20,8 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 	var songNameText:FlxText;
 	var difficultyNameTxt:FlxText;
 	var judgementCounterTxt:FlxText;
+	var pressEnterTxt:FlxText;
+	var pressEnterTxtSine:Float = 0;
 
 	public var iconPlayer1:HealthIcon;
 	public var iconPlayer2:HealthIcon;
@@ -72,6 +74,16 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		judgementCounterTxt.screenCenter(X);
 		add(judgementCounterTxt);
 
+		#if android
+		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Tap on A button to countie]", 32);
+		#else
+		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Press ENTER to countie]", 32);
+		#end
+		pressEnterTxt.setFormat(Paths.font("bahnschrift.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		pressEnterTxt.scrollFactor.set();
+		pressEnterTxt.visible = true;
+		add(pressEnterTxt);
+
 		iconPlayer1 = new HealthIcon(PlayState.SONG.player1, true);
 		iconPlayer1.setGraphicSize(Std.int(iconPlayer1.width * 1.2));
 		iconPlayer1.updateHitbox();
@@ -89,6 +101,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		judgementCounterTxt.alpha = 0;
 		iconPlayer1.alpha = 0;
 		iconPlayer2.alpha = 0;
+		pressEnterTxt.alpha = 0;
 
 		iconPlayer1.setPosition(FlxG.width - iconPlayer1.width - 10, FlxG.height - iconPlayer1.height - 15);
 		iconPlayer2.setPosition(10, iconPlayer1.y);
@@ -101,6 +114,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		FlxTween.tween(judgementCounterTxt, {alpha: 1, y: judgementCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 		FlxTween.tween(iconPlayer1, {alpha: 1, y: FlxG.height - iconPlayer1.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
 		FlxTween.tween(iconPlayer2, {alpha: 1, y: FlxG.height - iconPlayer2.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
+		FlxTween.tween(pressEnterTxt, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.10});
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
@@ -111,6 +125,11 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (pressEnterTxt.visible) {
+			pressEnterTxtSine += 150 * elapsed;
+			pressEnterTxt.alpha = 1 - Math.sin((Math.PI * pressEnterTxtSine) / 150);
+		}
 
 		if (controls.ACCEPT) {
 			if (PlayState.isStoryMode)

@@ -1180,7 +1180,6 @@ class PlayState extends MusicBeatState {
 		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 		autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		autoplayTxt.scrollFactor.set();
-		autoplayTxt.borderSize = 1.25;
 		autoplayTxt.visible = cpuControlled;
 		add(autoplayTxt);
 		if (ClientPrefs.downScroll) {
