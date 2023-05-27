@@ -34,6 +34,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		background.scrollFactor.set();
 		background.updateHitbox();
 		background.screenCenter();
+		background.alpha = 0;
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		add(background);
 
@@ -75,11 +76,11 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		add(judgementCounterTxt);
 
 		#if android
-		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Tap on A button to countie]", 32);
+		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Tap on A button to continue]", 32);
 		#else
-		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Press ENTER to countie]", 32);
+		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Press ENTER to continue]", 32);
 		#end
-		pressEnterTxt.setFormat(Paths.font("bahnschrift.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		pressEnterTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		pressEnterTxt.scrollFactor.set();
 		pressEnterTxt.visible = true;
 		add(pressEnterTxt);
@@ -136,6 +137,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 				MusicBeatState.switchState(new StoryMenuState());
 			else
 				MusicBeatState.switchState(new FreeplayState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
 	}
 }

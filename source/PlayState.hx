@@ -1178,7 +1178,7 @@ class PlayState extends MusicBeatState {
 		add(watermarkTxt);
 
 		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
-		autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		autoplayTxt.scrollFactor.set();
 		autoplayTxt.visible = cpuControlled;
 		add(autoplayTxt);
@@ -3648,7 +3648,7 @@ class PlayState extends MusicBeatState {
 						ratingName + (' [' + ratingFC + '] ')));
 				else
 					MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('tea-time'), 0.5);
 				changedDifficulty = false;
 			}
 			transitioning = true;
