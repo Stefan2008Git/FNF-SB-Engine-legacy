@@ -31,7 +31,6 @@ class ClassicMainMenuState extends MusicBeatState {
 	var options:Array<String> = ['Story Mode', 'Freeplay', #if (MODS_ALLOWED) 'Mods', #end 'Credits', 'Options'];
 
 	var background:FlxSprite;
-	var orange:FlxSprite;
 	var sbEngineVersionTxt:FlxText;
 	var fnfVersionTxt:FlxText;
 	var debugKeys:Array<FlxKey>;
@@ -99,16 +98,6 @@ class ClassicMainMenuState extends MusicBeatState {
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		add(background);
 
-		orange = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		orange.scrollFactor.set();
-		orange.setGraphicSize(Std.int(orange.width * 1.175));
-		orange.updateHitbox();
-		orange.screenCenter();
-		orange.visible = false;
-		orange.antialiasing = ClientPrefs.globalAntialiasing;
-		orange.color = 0xFFFFA500;
-		add(orange);
-
 		cameraFollow = new FlxObject(0, 0, 1, 1);
 		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 		add(cameraFollow);
@@ -125,9 +114,9 @@ class ClassicMainMenuState extends MusicBeatState {
 		fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(fnfVersionTxt);
 
-		selectorLeft = new Alphabet(0, 0, '( ', true);
+		selectorLeft = new Alphabet(0, 0, '< ', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, ' )', true);
+		selectorRight = new Alphabet(0, 0, ' >', true);
 		add(selectorRight);
 
 		changeSelection();

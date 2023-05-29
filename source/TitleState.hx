@@ -59,7 +59,7 @@ class TitleState extends MusicBeatState {
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
 	var credGroup:FlxGroup;
 	var credTextfreak:Alphabet;
 	var textGroup:FlxGroup;
@@ -284,7 +284,7 @@ class TitleState extends MusicBeatState {
 		}
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xFFFFA500], 2, true);
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xFF800080], 2, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();

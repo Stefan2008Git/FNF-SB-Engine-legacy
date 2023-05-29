@@ -33,7 +33,7 @@ using StringTools;
 class CacheState extends FlxState {
 	var checker:FlxBackdrop;
 	var sbEngineLogo:FlxSprite;
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFFA500);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
 	var bottomPanel:FlxSprite;
 	var randomTxt:FlxText;
 	var loadingSpeen:FlxSprite;
@@ -61,7 +61,7 @@ class CacheState extends FlxState {
 		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		add(sbEngineLogo);
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xFFFFA500], 1, 90, true);
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xFF800080], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);

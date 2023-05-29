@@ -80,7 +80,7 @@ class CreditsState extends MusicBeatState {
 		}
 		#end
 
-		var pisspoop:Array<Array<String>> = [
+		var creditName:Array<Array<String>> = [
 			// Name - Icon name - Description - Link - BG Color
 			['SB Engine Team'],
 			[
@@ -88,7 +88,7 @@ class CreditsState extends MusicBeatState {
 				'stefan',
 				'Main Programmer of SB Engine',
 				'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ',
-				'FFA500'
+				'800080'
 			],
 			[
 				'MaysLastPlays',
@@ -235,7 +235,7 @@ class CreditsState extends MusicBeatState {
 			]
 		];
 
-		for (i in pisspoop) {
+		for (i in creditName) {
 			creditsStuff.push(i);
 		}
 

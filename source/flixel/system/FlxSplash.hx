@@ -14,8 +14,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
-class FlxSplash extends FlxState
-{
+class FlxSplash extends FlxState {
 	public static var nextState:Class<FlxState>;
 
 	/**
@@ -35,12 +34,11 @@ class FlxSplash extends FlxState
 	var _cachedTimestep:Bool;
 	var _cachedAutoPause:Bool;
 
-    var background:FlxSprite;
+	var background:FlxSprite;
 
-	override public function create():Void
-	{
-        background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-        background.scrollFactor.set();
+	override public function create():Void {
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		background.scrollFactor.set();
 		background.updateHitbox();
 		background.screenCenter();
 		background.antialiasing = ClientPrefs.globalAntialiasing;
@@ -61,11 +59,10 @@ class FlxSplash extends FlxState
 		#end
 
 		_times = [0.041, 0.184, 0.334, 0.495, 0.636];
-		_colors = [0xffffa500, 0xffdc8f01, 0xffffa500, 0xffdc8f01, 0xffffa500];
+		_colors = [0xFFFFA500, 0xffdc8f01, 0xFFFFA500, 0xffdc8f01, 0xFFFFA500];
 		_functions = [drawOrange1, drawOrange2, drawOrange3, drawOrange4, drawOrange5];
 
-		for (time in _times)
-		{
+		for (time in _times) {
 			new FlxTimer().start(time, timerCallback);
 		}
 
@@ -88,15 +85,13 @@ class FlxSplash extends FlxState
 		onResize(stageWidth, stageHeight);
 
 		#if FLX_SOUND_SYSTEM
-		if (!muted)
-		{
+		if (!muted) {
 			FlxG.sound.load(FlxAssets.getSound("flixel/sounds/flixel")).play();
 		}
 		#end
 	}
 
-	override public function destroy():Void
-	{
+	override public function destroy():Void {
 		_sprite = null;
 		_gfx = null;
 		_text = null;
@@ -106,8 +101,7 @@ class FlxSplash extends FlxState
 		super.destroy();
 	}
 
-	override public function onResize(Width:Int, Height:Int):Void
-	{
+	override public function onResize(Width:Int, Height:Int):Void {
 		super.onResize(Width, Height);
 
 		_sprite.x = (Width / 2);
@@ -121,24 +115,21 @@ class FlxSplash extends FlxState
 		_sprite.scaleY = _text.scaleY = FlxG.game.scaleY;
 	}
 
-	function timerCallback(Timer:FlxTimer):Void
-	{
+	function timerCallback(Timer:FlxTimer):Void {
 		_functions[_currentlyPart]();
 		_text.textColor = _colors[_currentlyPart];
 		_text.text = "Haxe it's best. Try it :)!";
 		_currentlyPart++;
 
-		if (_currentlyPart == 5)
-		{
+		if (_currentlyPart == 5) {
 			// Make the logo a tad bit longer, so our users fully appreciate our hard work :D
 			FlxTween.tween(_sprite, {alpha: 0}, 3.0, {ease: FlxEase.quadOut, onComplete: onComplete});
 			FlxTween.tween(_text, {alpha: 0}, 3.0, {ease: FlxEase.quadOut});
 		}
 	}
 
-	function drawOrange1():Void
-	{
-		_gfx.beginFill(0xffffa500);
+	function drawOrange1():Void {
+		_gfx.beginFill(0xFFFFA500);
 		_gfx.moveTo(0, -37);
 		_gfx.lineTo(1, -37);
 		_gfx.lineTo(37, 0);
@@ -151,8 +142,7 @@ class FlxSplash extends FlxState
 		_gfx.endFill();
 	}
 
-	function drawOrange2():Void
-	{
+	function drawOrange2():Void {
 		_gfx.beginFill(0xffdc8f01);
 		_gfx.moveTo(-50, -50);
 		_gfx.lineTo(-25, -50);
@@ -163,9 +153,8 @@ class FlxSplash extends FlxState
 		_gfx.endFill();
 	}
 
-	function drawOrange3():Void
-	{
-		_gfx.beginFill(0xffffa500);
+	function drawOrange3():Void {
+		_gfx.beginFill(0xFFFFA500);
 		_gfx.moveTo(50, -50);
 		_gfx.lineTo(25, -50);
 		_gfx.lineTo(1, -37);
@@ -175,8 +164,7 @@ class FlxSplash extends FlxState
 		_gfx.endFill();
 	}
 
-	function drawOrange4():Void
-	{
+	function drawOrange4():Void {
 		_gfx.beginFill(0xffdc8f01);
 		_gfx.moveTo(-50, 50);
 		_gfx.lineTo(-25, 50);
@@ -187,9 +175,8 @@ class FlxSplash extends FlxState
 		_gfx.endFill();
 	}
 
-	function drawOrange5():Void
-	{
-		_gfx.beginFill(0xffffa500);
+	function drawOrange5():Void {
+		_gfx.beginFill(0xFFFFA500);
 		_gfx.moveTo(50, 50);
 		_gfx.lineTo(25, 50);
 		_gfx.lineTo(1, 37);
@@ -199,8 +186,7 @@ class FlxSplash extends FlxState
 		_gfx.endFill();
 	}
 
-	function onComplete(Tween:FlxTween):Void
-	{
+	function onComplete(Tween:FlxTween):Void {
 		FlxG.cameras.bgColor = _cachedBgColor;
 		FlxG.fixedTimestep = _cachedTimestep;
 		FlxG.autoPause = _cachedAutoPause;

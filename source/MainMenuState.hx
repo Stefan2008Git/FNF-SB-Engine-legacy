@@ -35,7 +35,7 @@ class MainMenuState extends MusicBeatState {
 	var optionSelect:Array<String> = ['story_mode', 'freeplay', #if MODS_ALLOWED 'mods', #end 'credits', 'options'];
 
 	var background:FlxSprite;
-	var orange:FlxSprite;
+	var purple:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var buttonBackground:FlxSprite;
 	var versionSb:FlxText;
@@ -82,15 +82,15 @@ class MainMenuState extends MusicBeatState {
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		add(background);
 
-		orange = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		orange.scrollFactor.set();
-		orange.setGraphicSize(Std.int(orange.width * 1.175));
-		orange.updateHitbox();
-		orange.screenCenter();
-		orange.visible = false;
-		orange.antialiasing = ClientPrefs.globalAntialiasing;
-		orange.color = 0xFFFFA500;
-		add(orange);
+		purple = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		purple.scrollFactor.set();
+		purple.setGraphicSize(Std.int(purple.width * 1.175));
+		purple.updateHitbox();
+		purple.screenCenter();
+		purple.visible = false;
+		purple.antialiasing = ClientPrefs.globalAntialiasing;
+		purple.color = 0xFF800080;
+		add(purple);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(50, 50);
@@ -207,7 +207,7 @@ class MainMenuState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				if (ClientPrefs.flashing)
-					FlxFlicker.flicker(orange, 1.1, 0.15, false);
+					FlxFlicker.flicker(purple, 1.1, 0.15, false);
 
 				menuItems.forEach(function(spr:FlxSprite) {
 					if (currentlySelected != spr.ID) {
@@ -257,9 +257,7 @@ class MainMenuState extends MusicBeatState {
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite) {
-			// spr.screenCenter(X);
-		});
+		menuItems.forEach(function(spr:FlxSprite) {});
 	}
 
 	function changeItem(huh:Int = 0) {

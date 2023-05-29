@@ -252,7 +252,7 @@ class ChartingState extends MusicBeatState {
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		background.color = 0xFFFFA500;
+		background.color = 0xFF800080;
 		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));

@@ -50,7 +50,7 @@ class MasterEditorMenu extends MusicBeatState {
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		background.color = 0xFFFFA500;
+		background.color = 0xFF800080;
 		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
@@ -71,7 +71,7 @@ class MasterEditorMenu extends MusicBeatState {
 		}
 
 		#if MODS_ALLOWED
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFFFFA500);
+		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF800080);
 		textBG.alpha = 0.6;
 		add(textBG);
 
