@@ -1019,11 +1019,18 @@ class PlayState extends MusicBeatState {
 		}
 		updateTime = showTime;
 
-		timeBarBG = new AttachedSprite('timeBar');
-		timeBarBG.x = timeTxt.x;
-		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-		timeBarBG.scrollFactor.set();
-		timeBarBG.screenCenter(X);
+		if (ClientPrefs.sbEngineTimeBar) {
+			timeBarBG = new AttachedSprite('sbEngineTimeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+			timeBarBG.screenCenter(X);
+		} else {
+			timeBarBG = new AttachedSprite('timeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+		}
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime;
 		timeBarBG.color = FlxColor.BLACK;
@@ -1034,8 +1041,12 @@ class PlayState extends MusicBeatState {
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		timeBar.createFilledBar(0xFF000000, 0xFF800080);
-		timeBar.numDivisions = 800; // How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		if (ClientPrefs.sbEngineTimeBar) {
+			timeBar.createFilledBar(0xFF000000, 0xFF800080);
+		} else {
+			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
+		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
 		add(timeBar);

@@ -114,9 +114,9 @@ class ClassicMainMenuState extends MusicBeatState {
 		fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(fnfVersionTxt);
 
-		selectorLeft = new Alphabet(0, 0, '< ', true);
+		selectorLeft = new Alphabet(0, 0, '> ', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, ' >', true);
+		selectorRight = new Alphabet(0, 0, ' <', true);
 		add(selectorRight);
 
 		changeSelection();

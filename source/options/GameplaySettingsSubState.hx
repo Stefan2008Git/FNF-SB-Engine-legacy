@@ -39,6 +39,23 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'controllerMode', 'bool', #if android true #else false #end);
 		addOption(option);
 
+		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
+			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
+		addOption(option);
+
+		var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Sick!\" notes won't show particles.", 'noteSplashes', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Hide Watermark', 'If checked, hides watermark with song name, difficulty name and SB Engine version.',
+			'hideWatermark', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Hide Judgement Counter', 'If checked, hides Judgement Counter.', 'hideJudgementCounter', 'bool', false);
+		addOption(option);
+
 		// I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', // Name
 			'If checked, notes go Down instead of Up, simple enough.', // Description
@@ -58,6 +75,21 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Disable Reset Button', "If checked, pressing Reset won't do anything.", 'noReset', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Camera Zooms', "If unchecked, the camera won't zoom in on a beat hit.", 'camZooms', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Score Text Zoom on Hit', "If unchecked, disables the Score text zooming\neverytime you hit a note.", 'scoreZoom',
+			'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
 		addOption(option);
 
 		#if android
@@ -119,6 +151,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Results screen',
 			"If checked, you will have results screen about your rating, accruracy and rating name when you finish the song.", 'resultsScreen', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('SB Engine timebar style',
+			"If checked, you will have SB Engine time bar.\nIf unchecked, you will have basic Psych Engine timebar style", 'sbEngineTimeBar', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Combo Stacking',
+			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);
 
 		super();
