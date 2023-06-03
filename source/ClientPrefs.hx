@@ -22,6 +22,7 @@ class ClientPrefs {
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
+	public static var velocityBackground:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
@@ -109,6 +110,7 @@ class ClientPrefs {
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
+		FlxG.save.data.velocityBackground = velocityBackground;
 		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.colorblindMode = colorblindMode;
@@ -200,6 +202,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.shaders != null) {
 			shaders = FlxG.save.data.shaders;
+		}
+		if (FlxG.save.data.velocityBackground != null) {
+			velocityBackground = FlxG.save.data.velocityBackground;
 		}
 		if (FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;

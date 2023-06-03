@@ -68,6 +68,11 @@ class GameExitState extends MusicBeatState {
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);
+		if (ClientPrefs.velocityBackground) {
+			checker.visible = true;
+		} else {
+			checker.visible = false;
+		}
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 

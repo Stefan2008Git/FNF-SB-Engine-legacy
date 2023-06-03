@@ -157,18 +157,29 @@ class NoteOffsetState extends MusicBeatState {
 		barPercent = ClientPrefs.noteOffset;
 		updateNoteDelay();
 
-		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('timeBar'));
-		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
-		timeBarBG.updateHitbox();
-		timeBarBG.cameras = [camHUD];
-		timeBarBG.screenCenter(X);
+		if (ClientPrefs.sbEngineTimeBar) {
+			timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineTimeBar'));
+			timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
+			timeBarBG.updateHitbox();
+			timeBarBG.cameras = [camHUD];
+			timeBarBG.screenCenter(X);
+		} else {
+			timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('timeBar'));
+			timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
+			timeBarBG.updateHitbox();
+			timeBarBG.cameras = [camHUD];
+		}
 		timeBarBG.visible = false;
 
 		timeBar = new FlxBar(0, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this, 'barPercent', delayMin,
 			delayMax);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
-		timeBar.createFilledBar(0xFF000000, 0xFF800080);
+		if (ClientPrefs.sbEngineTimeBar) {
+			timeBar.createFilledBar(0xFF000000, 0xFF800080);
+		} else {
+			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
 		timeBar.numDivisions = 800; // How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.visible = false;
 		timeBar.cameras = [camHUD];
