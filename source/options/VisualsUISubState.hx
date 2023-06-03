@@ -32,12 +32,6 @@ class VisualsUISubState extends BaseOptionsMenu {
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Colorblind Filter',
-			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)', 'colorblindMode',
-			'string', 'None', ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
-		option.onChange = ColorblindFilter.applyFiltersOnGame;
-		addOption(option);
-
 		var option:Option = new Option('Flashing Lights', "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
@@ -66,6 +60,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'rainbowFPS', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('Velocity background', 'If unchecked, this option is disabling velocity background for optimization.',
+			'velocityBackground', 'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
@@ -78,8 +76,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 		option.onChange = onChangeMainMenu;
 
-		var option:Option = new Option('Velocity background', 'If unchecked, this option is disabling velocity background for optimization.',
-			'velocityBackground', 'bool', true);
+		var option:Option = new Option('Colorblind Filter',
+			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)', 'colorblindMode',
+			'string', 'None', ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
+		option.onChange = ColorblindFilter.applyFiltersOnGame;
 		addOption(option);
 
 		super();

@@ -1,5 +1,8 @@
 package;
 
+#if desktop
+import Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -44,6 +47,11 @@ class CacheState extends FlxState {
 
 	override function create() {
 		FlxG.worldBounds.set(0, 0);
+
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("Starting game...", null);
+		#end
 
 		super.create();
 
@@ -96,6 +104,10 @@ class CacheState extends FlxState {
 		loadingTxt.text = " Loading... ";
 		add(loadingTxt);
 
+		#if (desktop || android)
+		FlxG.mouse.visible = false;
+		#end
+
 		new FlxTimer().start(10, function(tmr:FlxTimer) {
 			goToState();
 		});
@@ -104,6 +116,7 @@ class CacheState extends FlxState {
 	}
 
 	var selectedSomething:Bool = false;
+
 	var timer:Float = 0;
 
 	override function update(elapsed:Float) {

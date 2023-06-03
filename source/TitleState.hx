@@ -206,6 +206,11 @@ class TitleState extends MusicBeatState {
 			checker.scale.set(0.7, 0.7);
 			checker.screenCenter(X);
 			checker.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+			if (ClientPrefs.velocityBackground) {
+				checker.visible = true;
+			} else {
+				checker.visible = false;
+			}
 			checker.antialiasing = ClientPrefs.globalAntialiasing;
 			add(checker);
 		}
@@ -271,7 +276,6 @@ class TitleState extends MusicBeatState {
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
-		// titleText.screenCenter(X);
 		add(titleText);
 
 		credGroup = new FlxGroup();
@@ -419,7 +423,6 @@ class TitleState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
-				// FlxG.sound.music.stop();
 
 				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -487,7 +490,7 @@ class TitleState extends MusicBeatState {
 		}
 	}
 
-	private var sickBeats:Int = 0; // Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	private var sickBeats:Int = 0;
 
 	public static var closedState:Bool = false;
 
