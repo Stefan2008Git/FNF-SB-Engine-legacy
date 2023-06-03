@@ -38,6 +38,7 @@ class GameExitState extends MusicBeatState {
 	public static var menuBG:FlxSprite;
 	public static var menuText:Alphabet;
 
+	var purpleBackground:FlxSprite;
 	var checker:FlxBackdrop;
 	var alertMessage:String = "";
 
@@ -62,6 +63,20 @@ class GameExitState extends MusicBeatState {
 		#if desktop
 		DiscordClient.changePresence("Game Closing Menu", null);
 		#end
+
+		purpleBackground = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		purpleBackground.scrollFactor.set();
+		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
+		purpleBackground.updateHitbox();
+		purpleBackground.screenCenter();
+		if (ClientPrefs.velocityBackground) {
+			purpleBackground.visible = false;
+		} else {
+			purpleBackground.visible = true;
+		}
+		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
+		purpleBackground.color = 0xFF800080;
+		add(purpleBackground);
 
 		checker = new FlxBackdrop(Paths.image('checker'));
 		checker.scrollFactor.set();
