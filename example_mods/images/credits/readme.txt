@@ -1,0 +1,1 @@
+Add your custom credits icon here. Reccomended size for one icon it's: 150x150 for better quality.
