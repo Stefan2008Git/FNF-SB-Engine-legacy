@@ -12,12 +12,10 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
-
 #if desktop
 import Discord.DiscordClient;
 #end
-
-//crash handler stuff
+// crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
@@ -29,8 +27,7 @@ import sys.io.Process;
 
 using StringTools;
 
-class Main extends Sprite
-{
+class Main extends Sprite {
 	var game = {
 		width: 1280,
 		height: 720,
@@ -42,63 +39,56 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPS;
+	public static var changeID:Int = 0;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
-	public static function main():Void
-	{
+	public static function main():Void {
 		Lib.current.addChild(new Main());
 	}
 
-	public function new()
-	{
+	public function new() {
 		super();
 
-    SUtil.gameCrashCheck();
-		if (stage != null)
-		{
+		SUtil.gameCrashCheck();
+		if (stage != null) {
 			init();
-		}
-		else
-		{
+		} else {
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 	}
 
-	private function init(?E:Event):Void
-	{
-		if (hasEventListener(Event.ADDED_TO_STAGE))
-		{
+	private function init(?E:Event):Void {
+		if (hasEventListener(Event.ADDED_TO_STAGE)) {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
 		setupGame();
 	}
 
-	private function setupGame():Void
-	{
+	private function setupGame():Void {
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (game.zoom == -1.0)
-		{
+		if (game.zoom == -1.0) {
 			var ratioX:Float = stageWidth / game.width;
 			var ratioY:Float = stageHeight / game.height;
 			game.zoom = Math.min(ratioX, ratioY);
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-	
+
 		SUtil.doTheCheck();
-	
+
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
+			game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+		if (fpsVar != null) {
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
 
@@ -106,7 +96,7 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-		
+
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
@@ -121,16 +111,14 @@ class Main extends Sprite
 		#end
 	}
 
-	public function changeFPSColor(color:FlxColor)
-	{
+	public function changeFPSColor(color:FlxColor) {
 		fpsVar.textColor = color;
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
 	// very cool person for real they don't get enough credit for their work
 	#if CRASH_HANDLER
-	function onCrash(e:UncaughtErrorEvent):Void
-	{
+	function onCrash(e:UncaughtErrorEvent):Void {
 		var errorMessage:String = "";
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
@@ -141,10 +129,8 @@ class Main extends Sprite
 
 		path = SUtil.getPath() + "crash/" + "SB Engine_" + dateNow + ".log";
 
-		for (stackItem in callStack)
-		{
-			switch (stackItem)
-			{
+		for (stackItem in callStack) {
+			switch (stackItem) {
 				case FilePos(s, file, line, column):
 					errorMessage += file + " (Line " + line + ")\n";
 				default:
@@ -152,7 +138,9 @@ class Main extends Sprite
 			}
 		}
 
-		errorMessage += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
+		errorMessage += "\nUncaught Error: "
+			+ e.error
+			+ "\nPlease report this error to the GitHub page: https://github.com/Stefan2008Git/FNF-SB-Engine\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists(SUtil.getPath() + "crash/"))
 			FileSystem.createDirectory(SUtil.getPath() + "crash/");
@@ -163,9 +151,9 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errorMessage, "Error! SB Engine version: " + MainMenuState.sbEngineVersion);
-        #if desktop
+		#if desktop
 		DiscordClient.shutdown();
-	    #end
+		#end
 		Sys.exit(1);
 	}
 	#end
