@@ -25,6 +25,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flash.geom.Rectangle;
 import Controls;
 
 using StringTools;
@@ -38,7 +39,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
-	private var descBox:FlxSprite;
+	var descBox:AttachedSprite;
 	private var descText:FlxText;
 
 	var background:FlxSprite;
@@ -84,8 +85,9 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 
-		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.alpha = 0.6;
+		descBox = new AttachedSprite();
+		descBox.alphaMult = 0.5;
+		makeDescBoxGraphic();
 		add(descBox);
 
 		var titleText:Alphabet = new Alphabet(0, 0, title, true, false, 0, 0.6);
@@ -326,6 +328,40 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		curOption = optionsArray[currentlySelected]; // shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+	}
+
+	var cornerSize:Int = 11;
+
+	function makeDescBoxGraphic() {
+		descBox.makeGraphic(1100, 450, FlxColor.BLACK);
+		descBox.pixels.fillRect(new Rectangle(0, 190, descBox.width, 5), 0x0);
+
+		descBox.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0); // top left
+		drawCircleCornerOnSelector(false, false);
+		descBox.pixels.fillRect(new Rectangle(descBox.width - cornerSize, 0, cornerSize, cornerSize), 0x0); // top right
+		drawCircleCornerOnSelector(true, false);
+		descBox.pixels.fillRect(new Rectangle(0, descBox.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom left
+		drawCircleCornerOnSelector(false, true);
+		descBox.pixels.fillRect(new Rectangle(descBox.width - cornerSize, descBox.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom right
+		drawCircleCornerOnSelector(true, true);
+	}
+
+	function drawCircleCornerOnSelector(flipX:Bool, flipY:Bool) {
+		var antiX:Float = (descBox.width - cornerSize);
+		var antiY:Float = flipY ? (descBox.height - 1) : 0;
+		if (flipY)
+			antiY -= 2;
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 1), Std.int(Math.abs(antiY - 8)), 10, 3), FlxColor.BLACK);
+		if (flipY)
+			antiY += 1;
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 2), Std.int(Math.abs(antiY - 6)), 9, 2), FlxColor.BLACK);
+		if (flipY)
+			antiY += 1;
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 3), Std.int(Math.abs(antiY - 5)), 8, 1), FlxColor.BLACK);
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 4), Std.int(Math.abs(antiY - 4)), 7, 1), FlxColor.BLACK);
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 5), Std.int(Math.abs(antiY - 3)), 6, 1), FlxColor.BLACK);
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 6), Std.int(Math.abs(antiY - 2)), 5, 1), FlxColor.BLACK);
+		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 8), Std.int(Math.abs(antiY - 1)), 3, 1), FlxColor.BLACK);
 	}
 
 	function reloadCheckboxes() {
