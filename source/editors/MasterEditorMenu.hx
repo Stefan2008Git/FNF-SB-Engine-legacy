@@ -123,7 +123,10 @@ class MasterEditorMenu extends MusicBeatState {
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MasterEditorMenu());
+			if (ClientPrefs.mainMenuStyle == 'Classic')
+				MusicBeatState.switchState(new ClassicMainMenuState());
+			else
+				MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT) {
