@@ -85,12 +85,12 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		pressEnterTxt.visible = true;
 		add(pressEnterTxt);
 
-		iconPlayer1 = new HealthIcon(PlayState.SONG.player1, true);
+		iconPlayer1 = new HealthIcon(PlayState.instance.boyfriend.healthIcon, true);
 		iconPlayer1.setGraphicSize(Std.int(iconPlayer1.width * 1.2));
 		iconPlayer1.updateHitbox();
 		add(iconPlayer1);
 
-		iconPlayer2 = new HealthIcon(PlayState.SONG.player2, false);
+		iconPlayer2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
 		iconPlayer2.setGraphicSize(Std.int(iconPlayer2.width * 1.2));
 		iconPlayer2.updateHitbox();
 		add(iconPlayer2);
