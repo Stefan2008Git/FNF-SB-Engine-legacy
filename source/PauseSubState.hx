@@ -4,6 +4,7 @@ import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.keyboard.FlxKey;
@@ -39,7 +40,13 @@ class PauseSubState extends MusicBeatSubstate {
 	var skipTimeTracker:Alphabet;
 	var currentlyTime:Float = Math.max(0, Conductor.songPosition);
 
-	var background:FlxSprite;
+	var blackBackground:FlxSprite;
+	var purpleBackground:FlxSprite;
+	var checker:FlxBackdrop;
+	var songNameTxt:FlxText;
+	var difficultyNameTxt:FlxText;
+	var deathCounterTxt:FlxText;
+	var chartingText:FlxText;
 
 	// var autoplayText:FlxText;
 	public static var songName:String = '';
@@ -80,26 +87,57 @@ class PauseSubState extends MusicBeatSubstate {
 
 		FlxG.sound.list.add(pauseMusic);
 
-		background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		background.alpha = 0;
-		background.scrollFactor.set();
-		add(background);
+		blackBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackBackground.alpha = 0;
+		if (ClientPrefs.velocityBackground) {
+			blackBackground.visible = true;
+		} else {
+			blackBackground.visible = false;
+		}
+		add(blackBackground);
 
-		var songNameTxt:FlxText = new FlxText(20, 15, 0, "", 32);
+		purpleBackground = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		purpleBackground.scrollFactor.set();
+		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
+		purpleBackground.updateHitbox();
+		purpleBackground.screenCenter();
+		if (ClientPrefs.velocityBackground) {
+			purpleBackground.visible = false;
+		} else {
+			purpleBackground.visible = true;
+		}
+		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
+		purpleBackground.color = 0xFF800080;
+		add(purpleBackground);
+
+		checker = new FlxBackdrop(Paths.image('checker'));
+		checker.scrollFactor.set();
+		checker.scale.set(0.7, 0.7);
+		checker.screenCenter(X);
+		checker.velocity.set(150, 80);
+		if (ClientPrefs.velocityBackground) {
+			checker.visible = true;
+		} else {
+			checker.visible = false;
+		}
+		checker.antialiasing = ClientPrefs.globalAntialiasing;
+		add(checker);
+
+		songNameTxt = new FlxText(20, 15, 0, "", 32);
 		songNameTxt.text += "Song: " + PlayState.SONG.song;
 		songNameTxt.scrollFactor.set();
-		songNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 32);
+		songNameTxt.setFormat("Bahnschrift", 32);
 		songNameTxt.updateHitbox();
 		add(songNameTxt);
 
-		var difficultyNameTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
+		difficultyNameTxt = new FlxText(20, 15 + 32, 0, "", 32);
 		difficultyNameTxt.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameTxt.scrollFactor.set();
 		difficultyNameTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		difficultyNameTxt.updateHitbox();
 		add(difficultyNameTxt);
 
-		var deathCounterTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		deathCounterTxt = new FlxText(20, 15 + 64, 0, "", 32);
 		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterTxt.scrollFactor.set();
 		deathCounterTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
@@ -114,7 +152,7 @@ class PauseSubState extends MusicBeatSubstate {
 		practiceText.visible = PlayState.instance.practiceMode;
 		add(practiceText);
 
-		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
+		chartingText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font('bahnschrift.ttf'), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -131,10 +169,12 @@ class PauseSubState extends MusicBeatSubstate {
 		difficultyNameTxt.x = FlxG.width - (difficultyNameTxt.width + 20);
 		deathCounterTxt.x = FlxG.width - (deathCounterTxt.width + 20);
 
-		FlxTween.tween(background, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(songNameTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
-		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(checker, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(songNameTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
+		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.11});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
 		add(grpMenufreak);
@@ -358,7 +398,7 @@ class PauseSubState extends MusicBeatSubstate {
 
 			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
-				skipTimeText.setFormat(Paths.font("bahnschrift.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				skipTimeText.scrollFactor.set();
 				skipTimeText.borderSize = 2;
 				skipTimeTracker = item;
