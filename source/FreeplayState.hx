@@ -356,7 +356,7 @@ class FreeplayState extends MusicBeatState {
 			FlxG.sound.music.volume = 0;
 			FlxG.sound.play(Paths.sound('confirmMenu')); //
 			destroyFreeplayVocals();
-		} else if (controls.RESET #if android || _virtualpad.buttonY.justPressed #end) {
+		} else if (controls.RESET #if android || virtualPad.buttonY.justPressed #end) {
 			#if android
 			removeVirtualPad();
 			#end
