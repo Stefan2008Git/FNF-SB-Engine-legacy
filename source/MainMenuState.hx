@@ -38,6 +38,7 @@ class MainMenuState extends MusicBeatState {
 	var purple:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var buttonBackground:FlxSprite;
+	var sbEngineLogo:FlxSprite;
 	var versionSb:FlxText;
 	var versionPsych:FlxText;
 	var versionFnf:FlxText;
@@ -152,7 +153,7 @@ class MainMenuState extends MusicBeatState {
 		versionFnf.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionFnf);
 
-		var sbEngineLogo:FlxSprite = new FlxSprite(-130, 120).loadGraphic(Paths.image('sbEngineLogo'));
+		sbEngineLogo = new FlxSprite(-130, 120).loadGraphic(Paths.image('sbEngineLogo'));
 		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		add(sbEngineLogo);
 
