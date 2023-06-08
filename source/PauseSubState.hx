@@ -48,6 +48,8 @@ class PauseSubState extends MusicBeatSubstate {
 	var deathCounterTxt:FlxText;
 	var chartingText:FlxText;
 
+	public var iconPlayer2:HealthIcon;
+
 	// var autoplayText:FlxText;
 	public static var songName:String = '';
 
@@ -133,20 +135,25 @@ class PauseSubState extends MusicBeatSubstate {
 		difficultyNameTxt = new FlxText(20, 15 + 32, 0, "", 32);
 		difficultyNameTxt.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameTxt.scrollFactor.set();
-		difficultyNameTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
+		difficultyNameTxt.setFormat("Bahnschrift", 32);
 		difficultyNameTxt.updateHitbox();
 		add(difficultyNameTxt);
 
 		deathCounterTxt = new FlxText(20, 15 + 64, 0, "", 32);
 		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterTxt.scrollFactor.set();
-		deathCounterTxt.setFormat(Paths.font('bahnschrift.ttf'), 32);
+		deathCounterTxt.setFormat("Bahnschrift", 32);
 		deathCounterTxt.updateHitbox();
 		add(deathCounterTxt);
 
+		iconPlayer2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
+		iconPlayer2.setGraphicSize(Std.int(iconPlayer2.width * 1.2));
+		iconPlayer2.updateHitbox();
+		add(iconPlayer2);
+
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
-		practiceText.setFormat(Paths.font('bahnschrift.ttf'), 32);
+		practiceText.setFormat("Bahnschrift", 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
@@ -154,7 +161,7 @@ class PauseSubState extends MusicBeatSubstate {
 
 		chartingText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
-		chartingText.setFormat(Paths.font('bahnschrift.ttf'), 32);
+		chartingText.setFormat("Bahnschrift", 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
 		chartingText.y = FlxG.height - (chartingText.height + 20);
 		chartingText.updateHitbox();
@@ -164,10 +171,10 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterTxt.alpha = 0;
 		difficultyNameTxt.alpha = 0;
 		songNameTxt.alpha = 0;
-
 		songNameTxt.x = FlxG.width - (songNameTxt.width + 20);
 		difficultyNameTxt.x = FlxG.width - (difficultyNameTxt.width + 20);
 		deathCounterTxt.x = FlxG.width - (deathCounterTxt.width + 20);
+		iconPlayer2.alpha = 0;
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
@@ -175,6 +182,7 @@ class PauseSubState extends MusicBeatSubstate {
 		FlxTween.tween(songNameTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
 		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.11});
+		FlxTween.tween(iconPlayer2, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.13});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
 		add(grpMenufreak);

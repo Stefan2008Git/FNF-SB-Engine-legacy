@@ -62,7 +62,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		difficultyNameTxt = new FlxText(0, 155 + songNameText.height, 0, '', 100);
 		difficultyNameTxt.text = "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameTxt.scrollFactor.set();
-		difficultyNameTxt.setFormat(Paths.font('bahnschrift.ttf'), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		difficultyNameTxt.setFormat("Bahnschrift", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		difficultyNameTxt.updateHitbox();
 		difficultyNameTxt.screenCenter(X);
 		add(difficultyNameTxt);
