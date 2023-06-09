@@ -31,6 +31,7 @@ import flash.net.FileFilter;
 import haxe.Json;
 import DialogueBoxPsych;
 import lime.system.Clipboard;
+import Alphabet;
 #if sys
 import sys.io.File;
 #end
@@ -40,7 +41,7 @@ using StringTools;
 class DialogueEditorState extends MusicBeatState {
 	var character:DialogueCharacter;
 	var box:FlxSprite;
-	var daText:Alphabet;
+	var daText:TypedAlphabet;
 
 	var selectedText:FlxText;
 	var animText:FlxText;
@@ -274,31 +275,26 @@ class DialogueEditorState extends MusicBeatState {
 	private static var DEFAULT_SPEED:Float = 0.05;
 	private static var DEFAULT_BUBBLETYPE:String = "normal";
 
-	function reloadText(speed:Float = 0.05) {
-		if (daText != null) {
-			daText.killTheTimer();
-			daText.kill();
-			remove(daText);
-			daText.destroy();
-		}
-
-		if (Math.isNaN(speed) || speed < 0.001)
-			speed = 0.0;
-
+	function reloadText(skipDialogue:Bool) {
 		var textToType:String = lineInputText.text;
 		if (textToType == null || textToType.length < 1)
 			textToType = ' ';
 
-		Alphabet.setDialogueSound(soundInputText.text);
-		daText = new Alphabet(DialogueBoxPsych.DEFAULT_TEXT_X, DialogueBoxPsych.DEFAULT_TEXT_Y, textToType, false, true, speed, 0.7);
-		add(daText);
+		daText.text = textToType;
+		daText.resetDialogue();
 
-		if (speed > 0) {
+		if (skipDialogue)
+			daText.finishText();
+		else if (daText.delay > 0) {
 			if (character.jsonFile.animations.length > curAnim && character.jsonFile.animations[curAnim] != null) {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 			}
 			characterAnimSpeed();
 		}
+
+		daText.y = DialogueBoxPsych.DEFAULT_TEXT_Y;
+		if (daText.rows > 2)
+			daText.y -= DialogueBoxPsych.LONG_TEXT_ADD;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -316,7 +312,6 @@ class DialogueEditorState extends MusicBeatState {
 			if (sender == characterInputText) {
 				character.reloadCharacterJson(characterInputText.text);
 				reloadCharacter();
-				updateTextBox();
 
 				if (character.jsonFile.animations.length > 0) {
 					curAnim = 0;
@@ -345,21 +340,30 @@ class DialogueEditorState extends MusicBeatState {
 					characterAnimSpeed();
 				}
 				dialogueFile.dialogue[currentlySelected].portrait = characterInputText.text;
+				reloadText(false);
+				updateTextBox();
 			} else if (sender == lineInputText) {
-				reloadText(0);
 				dialogueFile.dialogue[currentlySelected].text = lineInputText.text;
+				daText.text = lineInputText.text;
+				if (daText.text == null)
+					daText.text = '';
+				reloadText(true);
 			} else if (sender == soundInputText) {
+				daText.finishText();
 				dialogueFile.dialogue[currentlySelected].sound = soundInputText.text;
-				reloadText(0);
+				daText.sound = soundInputText.text;
+				if (daText.sound == null)
+					daText.sound = '';
 			}
 		} else if (id == FlxUINumericStepper.CHANGE_EVENT && (sender == speedStepper)) {
-			reloadText(speedStepper.value);
 			dialogueFile.dialogue[currentlySelected].speed = speedStepper.value;
 			if (Math.isNaN(dialogueFile.dialogue[currentlySelected].speed)
 				|| dialogueFile.dialogue[currentlySelected].speed == null
 				|| dialogueFile.dialogue[currentlySelected].speed < 0.001) {
 				dialogueFile.dialogue[currentlySelected].speed = 0.0;
 			}
+			daText.delay = dialogueFile.dialogue[currentlySelected].speed;
+			reloadText(false);
 		}
 	}
 
@@ -409,7 +413,7 @@ class DialogueEditorState extends MusicBeatState {
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if (#if !android FlxG.keys.justPressed.SPACE #else virtualPad.buttonC.justPressed #end) {
-				reloadText(speedStepper.value);
+				reloadText(false);
 			}
 			if (#if !android FlxG.keys.justPressed.ESCAPE #else FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
@@ -479,11 +483,20 @@ class DialogueEditorState extends MusicBeatState {
 		angryCheckbox.checked = (curDialogue.boxState == 'angry');
 		speedStepper.value = curDialogue.speed;
 
+		if (curDialogue.sound == null)
+			curDialogue.sound = '';
+		soundInputText.text = curDialogue.sound;
+
+		daText.delay = speedStepper.value;
+		daText.sound = soundInputText.text;
+		if (daText.sound != null && daText.sound.trim() == '')
+			daText.sound = 'dialogue';
+
 		curAnim = 0;
 		character.reloadCharacterJson(characterInputText.text);
 		reloadCharacter();
 		updateTextBox();
-		reloadText(curDialogue.speed);
+		reloadText(false);
 
 		var leLength:Int = character.jsonFile.animations.length;
 		if (leLength > 0) {

@@ -46,6 +46,8 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	public static var hitboxSelection:String = 'classicHitbox'; // starting new way to change between hitboxes yay
+	public static var hitboxAlpha:Float = 0.2;
 	public static var mainMenuStyle:String = 'Original';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -139,6 +141,8 @@ class ClientPrefs {
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
+		FlxG.save.data.hitboxSelection = hitboxSelection;
+		FlxG.save.data.hitboxAlpha = hitboxAlpha;
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
 		FlxG.save.data.comboStacking = comboStacking;
 
@@ -285,6 +289,12 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
+		}
+		if (FlxG.save.data.hitboxSelection != null) {
+			hitboxSelection = FlxG.save.data.hitboxSelection;
+		}
+		if (FlxG.save.data.hitboxAlpha != null) {
+			hitboxAlpha = FlxG.save.data.hitboxAlpha;
 		}
 		if (FlxG.save.data.mainMenuStyle != null) {
 			mainMenuStyle = FlxG.save.data.mainMenuStyle;

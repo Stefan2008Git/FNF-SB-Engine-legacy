@@ -105,20 +105,25 @@ class OptionsState extends MusicBeatState {
 		add(optionsSelect);
 
 		for (i in 0...options.length) {
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
+			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.x = 128;
 			optionText.screenCenter(Y);
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			optionsSelect.add(optionText);
 		}
 
-		selectorLeft = new Alphabet(0, 0, '>', true, false);
+		selectorLeft = new Alphabet(0, 0, '>', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true, false);
+		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
 		#if android
-		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press C to customize your android controls', 16);
+		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press X to customize your android controls!', 16);
+		tipText.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		add(tipText);
+		tipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your hitbox mode!', 16);
 		tipText.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 1.25;
 		tipText.scrollFactor.set();
@@ -129,8 +134,8 @@ class OptionsState extends MusicBeatState {
 		ClientPrefs.saveSettings();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C);
-		virtualPad.y = -24;
+		addVirtualPad(UP_DOWN, A_B_X_Y);
+		virtualPad.y = -48;
 		#end
 
 		super.create();
@@ -168,38 +173,45 @@ class OptionsState extends MusicBeatState {
 			openSelectedSubstate(options[currentlySelected]);
 		}
 
+	#if android
+	if (virtualPad.buttonX.justPressed) {
 		#if android
-		if (virtualPad.buttonC.justPressed) {
-			#if android
-			removeVirtualPad();
-			#end
-			openSubState(new android.AndroidControlsSubState());
-		}
+		removeVirtualPad();
 		#end
+		openSubState(new android.AndroidControlsSubState());
 	}
+	if (virtualPad.buttonY.justPressed) {
+		#if android
+		removeVirtualPad();
+		#end
+		openSubState(new android.AndroidHitboxSelectorSubState());
+	}
+	}
+	#end
+}
 
-	function changeSelection(change:Int = 0) {
-		currentlySelected += change;
-		if (currentlySelected < 0)
-			currentlySelected = options.length - 1;
-		if (currentlySelected >= options.length)
-			currentlySelected = 0;
+function changeSelection(change:Int = 0) {
+	currentlySelected += change;
+	if (currentlySelected < 0)
+		currentlySelected = options.length - 1;
+	if (currentlySelected >= options.length)
+		currentlySelected = 0;
 
-		var optionFreak:Int = 0;
+	var optionFreak:Int = 0;
 
-		for (item in optionsSelect.members) {
-			item.targetY = optionFreak - currentlySelected;
-			optionFreak++;
+	for (item in optionsSelect.members) {
+		item.targetY = optionFreak - currentlySelected;
+		optionFreak++;
 
-			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
-				selectorLeft.x = item.x - 63;
-				selectorLeft.y = item.y;
-				selectorRight.x = item.x + item.width + 15;
-				selectorRight.y = item.y;
-			}
+		item.alpha = 0.6;
+		if (item.targetY == 0) {
+			item.alpha = 1;
+			selectorLeft.x = item.x - 63;
+			selectorLeft.y = item.y;
+			selectorRight.x = item.x + item.width + 15;
+			selectorRight.y = item.y;
 		}
-		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
+	FlxG.sound.play(Paths.sound('scrollMenu'));
+}
 }

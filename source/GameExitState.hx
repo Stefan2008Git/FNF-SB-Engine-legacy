@@ -91,7 +91,7 @@ class GameExitState extends MusicBeatState {
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
-		menuText = new Alphabet(0, 0, "Quit the game?", true, false, 0, 1);
+		menuText = new Alphabet(0, 0, "Quit the game?", true);
 		menuText.screenCenter();
 		menuText.y -= 150;
 		menuText.alpha = 1;
@@ -103,15 +103,15 @@ class GameExitState extends MusicBeatState {
 		add(optionsSelect);
 
 		for (i in 0...options.length) {
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
+			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			optionsSelect.add(optionText);
 		}
 
-		selectorLeft = new Alphabet(0, 0, '>', true, false);
+		selectorLeft = new Alphabet(0, 0, '>', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true, false);
+		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
 		changeSelection();

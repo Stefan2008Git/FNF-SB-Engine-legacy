@@ -456,7 +456,7 @@ class TitleState extends MusicBeatState {
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0) {
 		for (i in 0...textArray.length) {
-			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
+			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 			money.screenCenter(X);
 			FlxTween.quadMotion(money, -300, -100, 30 + (i * 70), 150 + (i * 130), 100 + (i * 70), 80 + (i * 130), 0.4, true, {ease: FlxEase.quadInOut});
 			if (credGroup != null && textGroup != null) {
@@ -468,7 +468,7 @@ class TitleState extends MusicBeatState {
 
 	function addMoreText(text:String, ?offset:Float = 0) {
 		if (textGroup != null && credGroup != null) {
-			var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
+			var coolText:Alphabet = new Alphabet(0, 0, text, true);
 			coolText.x = -1500;
 			FlxTween.quadMotion(coolText, -300, -100, 10
 				+ (textGroup.length * 40), 150

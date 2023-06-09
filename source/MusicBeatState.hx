@@ -21,8 +21,7 @@ import flixel.FlxState;
 import flixel.FlxCamera;
 import flixel.FlxBasic;
 
-class MusicBeatState extends FlxUIState
-{
+class MusicBeatState extends FlxUIState {
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
 
@@ -44,8 +43,7 @@ class MusicBeatState extends FlxUIState
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 
-	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
-	{
+	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode) {
 		virtualPad = new FlxVirtualPad(DPad, Action);
 		add(virtualPad);
 
@@ -54,8 +52,7 @@ class MusicBeatState extends FlxUIState
 		controls.trackedinputsUI = [];
 	}
 
-	public function removeVirtualPad()
-	{
+	public function removeVirtualPad() {
 		if (trackedinputsUI != [])
 			controls.removeFlxInput(trackedinputsUI);
 
@@ -63,18 +60,20 @@ class MusicBeatState extends FlxUIState
 			remove(virtualPad);
 	}
 
-	public function addAndroidControls()
-	{
+	public function addAndroidControls() {
 		androidControls = new AndroidControls();
 
-		switch (AndroidControls.getMode())
-		{
+		switch (AndroidControls.getMode()) {
 			case 0 | 1 | 2: // RIGHT_FULL | LEFT_FULL | CUSTOM
 				controls.setVirtualPadNOTES(androidControls.virtualPad, RIGHT_FULL, NONE);
 			case 3: // BOTH_FULL
 				controls.setVirtualPadNOTES(androidControls.virtualPad, BOTH_FULL, NONE);
 			case 4: // HITBOX
-				controls.setHitBox(androidControls.hitbox);
+				if (ClientPrefs.hitboxSelection != 'newHitbox') {
+					controls.setNewHitBox(androidControls.hitbox);
+				} else {
+					controls.setNewHitBox(androidControls.newHitbox);
+				}
 			case 5: // KEYBOARD
 		}
 
@@ -90,8 +89,7 @@ class MusicBeatState extends FlxUIState
 		add(androidControls);
 	}
 
-	public function removeAndroidControls()
-	{
+	public function removeAndroidControls() {
 		if (trackedinputsNOTES != [])
 			controls.removeFlxInput(trackedinputsNOTES);
 
@@ -99,10 +97,8 @@ class MusicBeatState extends FlxUIState
 			remove(androidControls);
 	}
 
-	public function addPadCamera()
-	{
-		if (virtualPad != null)
-		{
+	public function addPadCamera() {
+		if (virtualPad != null) {
 			var camControls = new flixel.FlxCamera();
 			FlxG.cameras.add(camControls, false);
 			camControls.bgColor.alpha = 0;
@@ -111,8 +107,7 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
-	override function destroy()
-	{
+	override function destroy() {
 		#if android
 		if (trackedinputsNOTES != [])
 			controls.removeFlxInput(trackedinputsNOTES);
@@ -124,14 +119,12 @@ class MusicBeatState extends FlxUIState
 		super.destroy();
 
 		#if android
-		if (virtualPad != null)
-		{
+		if (virtualPad != null) {
 			virtualPad = FlxDestroyUtil.destroy(virtualPad);
 			virtualPad = null;
 		}
 
-		if (androidControls != null)
-		{
+		if (androidControls != null) {
 			androidControls = FlxDestroyUtil.destroy(androidControls);
 			androidControls = null;
 		}
@@ -143,27 +136,24 @@ class MusicBeatState extends FlxUIState
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
 
-		if(!skip) {
+		if (!skip) {
 			openSubState(new CustomFadeTransition(0.7, true));
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 	}
 
-	override function update(elapsed:Float)
-	{
-		//everyStep();
+	override function update(elapsed:Float) {
+		// everyStep();
 		var oldStep:Int = curStep;
 
 		updateCurStep();
 		updateBeat();
 
-		if (oldStep != curStep)
-		{
-			if(curStep > 0)
+		if (oldStep != curStep) {
+			if (curStep > 0)
 				stepHit();
 
-			if(PlayState.SONG != null)
-			{
+			if (PlayState.SONG != null) {
 				if (oldStep < curStep)
 					updateSection();
 				else
@@ -171,16 +161,16 @@ class MusicBeatState extends FlxUIState
 			}
 		}
 
-		if(FlxG.save.data != null) FlxG.save.data.fullscreen = FlxG.fullscreen;
+		if (FlxG.save.data != null)
+			FlxG.save.data.fullscreen = FlxG.fullscreen;
 
 		super.update(elapsed);
 	}
 
-	private function updateSection():Void
-	{
-		if(stepsToDo < 1) stepsToDo = Math.round(getBeatsOnSection() * 4);
-		while(curStep >= stepsToDo)
-		{
+	private function updateSection():Void {
+		if (stepsToDo < 1)
+			stepsToDo = Math.round(getBeatsOnSection() * 4);
+		while (curStep >= stepsToDo) {
 			curSection++;
 			var beats:Float = getBeatsOnSection();
 			stepsToDo += Math.round(beats * 4);
@@ -188,35 +178,33 @@ class MusicBeatState extends FlxUIState
 		}
 	}
 
-	private function rollbackSection():Void
-	{
-		if(curStep < 0) return;
+	private function rollbackSection():Void {
+		if (curStep < 0)
+			return;
 
 		var lastSection:Int = curSection;
 		curSection = 0;
 		stepsToDo = 0;
-		for (i in 0...PlayState.SONG.notes.length)
-		{
-			if (PlayState.SONG.notes[i] != null)
-			{
+		for (i in 0...PlayState.SONG.notes.length) {
+			if (PlayState.SONG.notes[i] != null) {
 				stepsToDo += Math.round(getBeatsOnSection() * 4);
-				if(stepsToDo > curStep) break;
-				
+				if (stepsToDo > curStep)
+					break;
+
 				curSection++;
 			}
 		}
 
-		if(curSection > lastSection) sectionHit();
+		if (curSection > lastSection)
+			sectionHit();
 	}
 
-	private function updateBeat():Void
-	{
+	private function updateBeat():Void {
 		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep/4;
+		curDecBeat = curDecStep / 4;
 	}
 
-	private function updateCurStep():Void
-	{
+	private function updateCurStep():Void {
 		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
 		var Freak = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
@@ -228,18 +216,18 @@ class MusicBeatState extends FlxUIState
 		// Custom made Trans in
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
-		if(!FlxTransitionableState.skipNextTransIn) {
+		if (!FlxTransitionableState.skipNextTransIn) {
 			leState.openSubState(new CustomFadeTransition(0.6, false));
-			if(nextState == FlxG.state) {
+			if (nextState == FlxG.state) {
 				CustomFadeTransition.finishCallback = function() {
 					FlxG.resetState();
 				};
-				//trace('resetted');
+				// trace('resetted');
 			} else {
 				CustomFadeTransition.finishCallback = function() {
 					FlxG.switchState(nextState);
 				};
-				//trace('changed state');
+				// trace('changed state');
 			}
 			return;
 		}
@@ -257,26 +245,23 @@ class MusicBeatState extends FlxUIState
 		return leState;
 	}
 
-	public function stepHit():Void
-	{
+	public function stepHit():Void {
 		if (curStep % 4 == 0)
 			beatHit();
 	}
 
-	public function beatHit():Void
-	{
-		//trace('Beat: ' + curBeat);
+	public function beatHit():Void {
+		// trace('Beat: ' + curBeat);
 	}
 
-	public function sectionHit():Void
-	{
-		//trace('Section: ' + curSection + ', Beat: ' + curBeat + ', Step: ' + curStep);
+	public function sectionHit():Void {
+		// trace('Section: ' + curSection + ', Beat: ' + curBeat + ', Step: ' + curStep);
 	}
 
-	function getBeatsOnSection()
-	{
+	function getBeatsOnSection() {
 		var val:Null<Float> = 4;
-		if(PlayState.SONG != null && PlayState.SONG.notes[curSection] != null) val = PlayState.SONG.notes[curSection].sectionBeats;
+		if (PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
+			val = PlayState.SONG.notes[curSection].sectionBeats;
 		return val == null ? 4 : val;
 	}
 }

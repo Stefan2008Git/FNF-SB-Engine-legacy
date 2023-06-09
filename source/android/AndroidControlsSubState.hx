@@ -1,5 +1,6 @@
 package android;
 
+import android.flixel.FlxNewHitbox;
 import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
 import android.flixel.FlxVirtualPad;
@@ -22,6 +23,7 @@ class AndroidControlsSubState extends FlxSubState {
 	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 	var virtualPad:FlxVirtualPad;
 	var hitbox:FlxHitbox;
+	var newHitbox:FlxNewHitbox;
 	var upPosition:FlxText;
 	var downPosition:FlxText;
 	var leftPosition:FlxText;
@@ -74,6 +76,10 @@ class AndroidControlsSubState extends FlxSubState {
 		virtualPad = new FlxVirtualPad(NONE, NONE);
 		virtualPad.visible = false;
 		add(virtualPad);
+
+		newHitbox = new FlxNewHitbox();
+		newHitbox.visible = false;
+		add(newHitbox);
 
 		hitbox = new FlxHitbox();
 		hitbox.visible = false;
