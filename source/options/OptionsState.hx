@@ -173,45 +173,44 @@ class OptionsState extends MusicBeatState {
 			openSelectedSubstate(options[currentlySelected]);
 		}
 
-	#if android
-	if (virtualPad.buttonX.justPressed) {
 		#if android
-		removeVirtualPad();
-		#end
-		openSubState(new android.AndroidControlsSubState());
-	}
-	if (virtualPad.buttonY.justPressed) {
-		#if android
-		removeVirtualPad();
-		#end
-		openSubState(new android.AndroidHitboxSelectorSubState());
-	}
-	}
-	#end
-}
-
-function changeSelection(change:Int = 0) {
-	currentlySelected += change;
-	if (currentlySelected < 0)
-		currentlySelected = options.length - 1;
-	if (currentlySelected >= options.length)
-		currentlySelected = 0;
-
-	var optionFreak:Int = 0;
-
-	for (item in optionsSelect.members) {
-		item.targetY = optionFreak - currentlySelected;
-		optionFreak++;
-
-		item.alpha = 0.6;
-		if (item.targetY == 0) {
-			item.alpha = 1;
-			selectorLeft.x = item.x - 63;
-			selectorLeft.y = item.y;
-			selectorRight.x = item.x + item.width + 15;
-			selectorRight.y = item.y;
+		if (virtualPad.buttonX.justPressed) {
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new android.AndroidControlsSubState());
 		}
+		if (virtualPad.buttonY.justPressed) {
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new android.AndroidHitboxSelectorSubState());
+		}
+		#end
 	}
-	FlxG.sound.play(Paths.sound('scrollMenu'));
-}
+
+	function changeSelection(change:Int = 0) {
+		currentlySelected += change;
+		if (currentlySelected < 0)
+			currentlySelected = options.length - 1;
+		if (currentlySelected >= options.length)
+			currentlySelected = 0;
+
+		var optionFreak:Int = 0;
+
+		for (item in optionsSelect.members) {
+			item.targetY = optionFreak - currentlySelected;
+			optionFreak++;
+
+			item.alpha = 0.6;
+			if (item.targetY == 0) {
+				item.alpha = 1;
+				selectorLeft.x = item.x - 63;
+				selectorLeft.y = item.y;
+				selectorRight.x = item.x + item.width + 15;
+				selectorRight.y = item.y;
+			}
+		}
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+	}
 }

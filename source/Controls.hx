@@ -3,6 +3,7 @@ package;
 #if android
 import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
+import android.flixel.FlxNewHitbox;
 import android.flixel.FlxVirtualPad;
 #end
 import flixel.FlxG;
