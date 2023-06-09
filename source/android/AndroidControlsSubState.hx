@@ -1,8 +1,8 @@
 package android;
 
-import android.flixel.FlxNewHitbox;
 import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
+import android.flixel.FlxNewHitbox;
 import android.flixel.FlxVirtualPad;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -245,6 +245,17 @@ class AndroidControlsSubState extends FlxSubState {
 			case 'Keyboard':
 				hitbox.visible = false;
 				virtualPad.visible = false;
+		}
+
+		if (daChoice != "Hitbox") {
+			hitbox.visible = false;
+			newHitbox.visible = false;
+		} else {
+			if (ClientPrefs.hitboxSelection != 'New') {
+				hitbox.visible = true;
+			} else {
+				newHitbox.visible = true;
+			}
 		}
 
 		noAndroidControlsText.visible = daChoice == 'Keyboard';

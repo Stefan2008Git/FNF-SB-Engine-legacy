@@ -37,8 +37,8 @@ class AndroidHitboxSelectorSubState extends BaseOptionsMenu {
 		title = 'Hitbox Settings';
 		rpcTitle = 'Hitbox Settings Menu'; // hi, you can ask what is that, i will answer it's all what you needed lol.
 
-		var option:Option = new Option('Hitbox Mode:', "Choose your Hitbox Style!  -mariomaster", 'hitboxSelection', 'string', 'classicHitbox',
-			['classicHitbox', 'newHitbox']);
+		var option:Option = new Option('Hitbox Mode:', "Choose your Hitbox Style!  -mariomaster", 'hitboxSelection', 'string', 'Original',
+			['Original', 'New']);
 		addOption(option);
 
 		var option:Option = new Option('Hitbox Opacity', // mariomaster was here again

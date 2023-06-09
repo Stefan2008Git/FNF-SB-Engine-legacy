@@ -46,7 +46,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	public static var hitboxSelection:String = 'classicHitbox'; // starting new way to change between hitboxes yay
+	public static var hitboxSelection:String = 'Original'; // starting new way to change between hitboxes yay
 	public static var hitboxAlpha:Float = 0.2;
 	public static var mainMenuStyle:String = 'Original';
 	public static var gameplaySettings:Map<String, Dynamic> = [
