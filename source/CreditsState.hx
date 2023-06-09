@@ -3,18 +3,18 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import flash.geom.Rectangle;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flash.geom.Rectangle;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -26,7 +26,7 @@ using StringTools;
 class CreditsState extends MusicBeatState {
 	var currentlySelected:Int = -1;
 
-	private var optionsSelect:FlxTypedGroup<Alphabet>;
+	private var optionSelect:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
 
@@ -59,8 +59,8 @@ class CreditsState extends MusicBeatState {
 		}
 		add(velocityBG);
 
-		optionsSelect = new FlxTypedGroup<Alphabet>();
-		add(optionsSelect);
+		optionSelect = new FlxTypedGroup<Alphabet>();
+		add(optionSelect);
 
 		#if MODS_ALLOWED
 		var path:String = SUtil.getPath() + 'modsList.txt';
@@ -252,7 +252,7 @@ class CreditsState extends MusicBeatState {
 			optionText.targetY = i;
 			optionText.changeX = false;
 			optionText.snapToPosition();
-			optionsSelect.add(optionText);
+			optionSelect.add(optionText);
 
 			if (isSelectable) {
 				if (creditsStuff[i][5] != null) {
@@ -317,7 +317,7 @@ class CreditsState extends MusicBeatState {
 				var downP = controls.UI_DOWN_P;
 
 				if (upP) {
-					changeSelection(shiftMult);
+					changeSelection(-shiftMult);
 					holdTime = 0;
 				}
 				if (downP) {
@@ -352,7 +352,7 @@ class CreditsState extends MusicBeatState {
 			}
 		}
 
-		for (item in optionsSelect.members) {
+		for (item in optionSelect.members) {
 			if (!item.bold) {
 				var lerpVal:Float = CoolUtil.boundTo(elapsed * 12, 0, 1);
 				if (item.targetY == 0) {
@@ -392,13 +392,13 @@ class CreditsState extends MusicBeatState {
 			});
 		}
 
-		var value:Int = 0;
+		var creditsSelect:Int = 0;
 
-		for (item in optionsSelect.members) {
-			item.targetY = value - currentlySelected;
-			value++;
+		for (item in optionSelect.members) {
+			item.targetY = creditsSelect - currentlySelected;
+			creditsSelect++;
 
-			if (!unselectableCheck(value - 1)) {
+			if (!unselectableCheck(creditsSelect - 1)) {
 				item.alpha = 0.6;
 				if (item.targetY == 0) {
 					item.alpha = 1;
