@@ -1334,28 +1334,8 @@ class PlayState extends MusicBeatState {
 				case 'stress':
 					startVideo('stressCutscene');
 
-<<<<<<< HEAD
-public function reloadHealthBarColors() {
-	healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-		FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-
-	healthBar.updateBar();
-}
-
-public function addCharacterToList(newCharacter:String, type:Int) {
-	switch (type) {
-		case 0:
-			if (!boyfriendMap.exists(newCharacter)) {
-				var newBoyfriend:Boyfriend = new Boyfriend(0, 0, newCharacter);
-				boyfriendMap.set(newCharacter, newBoyfriend);
-				boyfriendGroup.add(newBoyfriend);
-				startCharacterPos(newBoyfriend);
-				newBoyfriend.alpha = 0.00001;
-				startCharacterLua(newBoyfriend.curCharacter);
-=======
 				default:
 					startCountdown();
->>>>>>> parent of a8a15a9 (New stuff is here tho, so im gonna fix this later)
 			}
 			seenCutscene = true;
 		} else {

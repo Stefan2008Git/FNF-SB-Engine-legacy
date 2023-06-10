@@ -74,7 +74,6 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'mainMenuStyle', 'string', 'Original', // Credits:  Joalor64 (Creator of Joalor64 Engine Rewriten.)
 			['Classic', 'Original']);
 		addOption(option);
-		option.onChange = onChangeMainMenu;
 
 		var option:Option = new Option('Colorblind Filter',
 			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)', 'colorblindMode',
@@ -105,12 +104,5 @@ class VisualsUISubState extends BaseOptionsMenu {
 	function onChangeFPSCounter() {
 		if (Main.fpsVar != null)
 			Main.fpsVar.visible = ClientPrefs.showFPS;
-	}
-
-	function onChangeMainMenu() {
-		if (ClientPrefs.mainMenuStyle == 'Classic')
-			MusicBeatState.switchState(new ClassicMainMenuState());
-		else
-			MusicBeatState.switchState(new MainMenuState());
 	}
 }

@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.effects.FlxTrail;
 #if desktop
 import sys.thread.Thread;
 #end
@@ -172,7 +173,8 @@ class TitleState extends MusicBeatState {
 		#end
 	}
 
-	var logoBl:FlxSprite;
+	var fridayNightFunkinLogo:FlxSprite;
+	var fridayNightFunkinLogoTrail:FlxTrail;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
@@ -216,14 +218,19 @@ class TitleState extends MusicBeatState {
 		}
 		add(background);
 
-		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.updateHitbox();
-		add(logoBl);
-		logoBl.shader = swagShader.shader;
+		fridayNightFunkinLogo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
+		fridayNightFunkinLogo.frames = Paths.getSparrowAtlas('logoBumpin');
+		fridayNightFunkinLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		fridayNightFunkinLogo.animation.addByPrefix('bump', 'logo bumpin', 24, false);
+		fridayNightFunkinLogo.animation.play('bump');
+		fridayNightFunkinLogo.updateHitbox();
+		add(fridayNightFunkinLogo);
+		fridayNightFunkinLogo.shader = swagShader.shader;
+
+		fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 24, 0, 0.4, 0.02);
+		add(fridayNightFunkinLogoTrail);
+
+		FlxTween.tween(fridayNightFunkinLogo, {y: fridayNightFunkinLogo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
@@ -384,16 +391,16 @@ class TitleState extends MusicBeatState {
 					titleText.animation.play('press');
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
-				FlxTween.tween(logoBl, {x: -700}, 2, {
+				FlxTween.tween(fridayNightFunkinLogo, {x: -700}, 2, {
 					ease: FlxEase.backInOut,
 					type: ONESHOT,
-					onComplete: function(twn:FlxTween) logoBl.kill()
+					onComplete: function(twn:FlxTween) fridayNightFunkinLogo.kill()
 				});
-				FlxTween.tween(logoBl, {alpha: 0}, 1.3, {
+				FlxTween.tween(fridayNightFunkinLogo, {alpha: 0}, 1.3, {
 					ease: FlxEase.backInOut,
 					type: ONESHOT,
 					onComplete: function(twn:FlxTween) {
-						logoBl.kill();
+						fridayNightFunkinLogo.kill();
 					}
 				});
 				FlxTween.tween(gfDance, {x: 1350}, 2, {
@@ -496,8 +503,8 @@ class TitleState extends MusicBeatState {
 
 	override function beatHit() {
 		super.beatHit();
-		if (logoBl != null)
-			logoBl.animation.play('bump', true);
+		if (fridayNightFunkinLogo != null)
+			fridayNightFunkinLogo.animation.play('bump', true);
 
 		if (gfDance != null) {
 			danceLeft = !danceLeft;
@@ -559,15 +566,15 @@ class TitleState extends MusicBeatState {
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				FlxTween.tween(gfDance, {y: 20}, 2.3, {ease: FlxEase.expoInOut, startDelay: 0.8});
-				FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+				FlxTween.tween(fridayNightFunkinLogo, {y: -50}, 1.4, {ease: FlxEase.expoInOut});
 
-				logoBl.angle = -4;
+				fridayNightFunkinLogo.angle = -4;
 
 				new FlxTimer().start(0.01, function(tmr:FlxTimer) {
-					if (logoBl.angle == -4)
-						FlxTween.angle(logoBl, logoBl.angle, 4, 4, {ease: FlxEase.quartInOut});
-					if (logoBl.angle == 4)
-						FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut});
+					if (fridayNightFunkinLogo.angle == -4)
+						FlxTween.angle(fridayNightFunkinLogo, fridayNightFunkinLogo.angle, 4, 4, {ease: FlxEase.quartInOut});
+					if (fridayNightFunkinLogo.angle == 4)
+						FlxTween.angle(fridayNightFunkinLogo, fridayNightFunkinLogo.angle, -4, 4, {ease: FlxEase.quartInOut});
 				}, 0);
 				FlxG.camera.flash(FlxColor.WHITE, 3);
 				{

@@ -44,13 +44,13 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	var box:FlxSprite;
 	var daText:TypedAlphabet = null;
 
-	#if !android
 	private static var TIP_TEXT_MAIN:String = 'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
 	\nH - Toggle Speech Bubble
 	\nSpace - Reset text';
 
+	#if !android
 	private static var TIP_TEXT_OFFSET:String = 'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
@@ -71,7 +71,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	var tipText:FlxText;
 	var offsetLoopText:FlxText;
 	var offsetIdleText:FlxText;
-	var animText:FlxText;
+	var animationText:FlxText;
 
 	var camGame:FlxCamera;
 	var camHUD:FlxCamera;
@@ -157,14 +157,20 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		add(offsetIdleText);
 		offsetIdleText.visible = false;
 
-		animText = new FlxText(10, 22, FlxG.width - 20, '', 8);
-		animText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		animText.scrollFactor.set();
-		animText.cameras = [camHUD];
-		add(animText);
+		animationText = new FlxText(10, 22, FlxG.width - 20, '', 8);
+		animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		animationText.scrollFactor.set();
+		animationText.cameras = [camHUD];
+		add(animationText);
 
 		reloadCharacter();
 		updateTextBox();
+
+		daText = new TypedAlphabet(DialogueBoxPsych.DEFAULT_TEXT_X, DialogueBoxPsych.DEFAULT_TEXT_Y, '', 0.05, false);
+		daText.scaleX = 0.7;
+		daText.scaleY = 0.7;
+		daText.text = DEFAULT_TEXT;
+		hudGroup.add(daText);
 
 		addEditorBox();
 		FlxG.mouse.visible = true;
@@ -242,7 +248,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		UI_typebox.addGroup(tab_group);
 	}
 
-	var currentlySelectedAnim:String;
+	var currentlySelectedAnimation:String;
 	var animationArray:Array<String> = [];
 	var animationDropDown:FlxUIDropDownMenuCustom;
 	var animationInputText:FlxUIInputText;
@@ -259,14 +265,14 @@ class DialogueCharacterEditorState extends MusicBeatState {
 				ghostLoop.playAnim(anim);
 				ghostIdle.playAnim(anim, true);
 
-				currentlySelectedAnim = anim;
-				var animfreak:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnim);
-				offsetLoopText.text = 'Loop: ' + animfreak.loop_offsets;
-				offsetIdleText.text = 'Idle: ' + animfreak.idle_offsets;
+				currentlySelectedAnimation = anim;
+				var animationValue:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnimation);
+				offsetLoopText.text = 'Loop: ' + animationValue.loop_offsets;
+				offsetIdleText.text = 'Idle: ' + animationValue.idle_offsets;
 
-				animationInputText.text = animfreak.anim;
-				loopInputText.text = animfreak.loop_name;
-				idleInputText.text = animfreak.idle_name;
+				animationInputText.text = animationValue.anim;
+				loopInputText.text = animationValue.loop_name;
+				idleInputText.text = animationValue.idle_name;
 			}
 		});
 
@@ -296,7 +302,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 				character.reloadAnimations();
 				ghostLoop.reloadAnimations();
 				ghostIdle.reloadAnimations();
-				if (currentlySelectedAnim == theAnim) {
+				if (currentlySelectedAnimation == theAnim) {
 					ghostLoop.playAnim(theAnim);
 					ghostIdle.playAnim(theAnim, true);
 				}
@@ -443,7 +449,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		updateTextBox();
 	}
 
-	private static var DEFAULT_TEXT:String = 'Add here character for your dialogue';
+	private static var DEFAULT_TEXT:String = 'Zdravo, ja sam Boyfriend :D.';
 
 	function reloadCharacter() {
 		var charsArray:Array<DialogueCharacter> = [character, ghostLoop, ghostIdle];
@@ -469,17 +475,17 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		character.y += character.jsonFile.position[1] + mainGroup.y;
 		character.playAnim(character.jsonFile.animations[0].anim);
 		if (character.jsonFile.animations.length > 0) {
-			currentlySelectedAnim = character.jsonFile.animations[0].anim;
-			var animfreak:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnim);
-			ghostLoop.playAnim(animfreak.anim);
-			ghostIdle.playAnim(animfreak.anim, true);
-			offsetLoopText.text = 'Loop: ' + animfreak.loop_offsets;
-			offsetIdleText.text = 'Idle: ' + animfreak.idle_offsets;
+			currentlySelectedAnimation = character.jsonFile.animations[0].anim;
+			var animationValue:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnimation);
+			ghostLoop.playAnim(animationValue.anim);
+			ghostIdle.playAnim(animationValue.anim, true);
+			offsetLoopText.text = 'Loop: ' + animationValue.loop_offsets;
+			offsetIdleText.text = 'Idle: ' + animationValue.idle_offsets;
 		}
 
 		curAnim = 0;
 		#if !android
-		animText.text = 'Animation: '
+		animationText.text = 'Animation: '
 			+ character.jsonFile.animations[curAnim].anim
 				+ ' ('
 				+ (curAnim + 1)
@@ -487,7 +493,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 				+ character.jsonFile.animations.length
 				+ ') - Press W or S to scroll';
 		#else
-		animText.text = 'Animation: '
+		animationText.text = 'Animation: '
 			+ character.jsonFile.animations[curAnim].anim
 				+ ' ('
 				+ (curAnim + 1)
@@ -604,10 +610,10 @@ class DialogueCharacterEditorState extends MusicBeatState {
 			}
 
 			if (UI_mainbox.selected_tab_id == 'Animations'
-				&& currentlySelectedAnim != null
-				&& character.dialogueAnimations.exists(currentlySelectedAnim)) {
+				&& currentlySelectedAnimation != null
+				&& character.dialogueAnimations.exists(currentlySelectedAnimation)) {
 				var moved:Bool = false;
-				var animfreak:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnim);
+				var animationValue:DialogueAnimArray = character.dialogueAnimations.get(currentlySelectedAnimation);
 				var controlArrayLoop:Array<Bool> = [
 					#if !android FlxG.keys.justPressed.A #else virtualPad.buttonLeft.justPressed #end,
 					#if !android FlxG.keys.justPressed.W #else virtualPad.buttonUp.justPressed #end,
@@ -626,9 +632,9 @@ class DialogueCharacterEditorState extends MusicBeatState {
 					for (i in 0...controlArrayLoop.length) {
 						if (controlArrayLoop[i]) {
 							if (i % 2 == 1) {
-								animfreak.loop_offsets[1] += offsetAdd * negaMult[i];
+								animationValue.loop_offsets[1] += offsetAdd * negaMult[i];
 							} else {
-								animfreak.loop_offsets[0] += offsetAdd * negaMult[i];
+								animationValue.loop_offsets[0] += offsetAdd * negaMult[i];
 							}
 							moved = true;
 						}
@@ -637,9 +643,9 @@ class DialogueCharacterEditorState extends MusicBeatState {
 					for (i in 0...controlArrayIdle.length) {
 						if (controlArrayIdle[i]) {
 							if (i % 2 == 1) {
-								animfreak.idle_offsets[1] += offsetAdd * negaMult[i];
+								animationValue.idle_offsets[1] += offsetAdd * negaMult[i];
 							} else {
-								animfreak.idle_offsets[0] += offsetAdd * negaMult[i];
+								animationValue.idle_offsets[0] += offsetAdd * negaMult[i];
 							}
 							moved = true;
 						}
@@ -649,19 +655,9 @@ class DialogueCharacterEditorState extends MusicBeatState {
 				for (i in 0...controlArrayLoop.length) {
 					if (controlArrayLoop[i]) {
 						if (i % 2 == 1) {
-							animfreak.loop_offsets[1] += offsetAdd * negaMult[i];
+							animationValue.idle_offsets[1] += offsetAdd * negaMult[i];
 						} else {
-							animfreak.loop_offsets[0] += offsetAdd * negaMult[i];
-						}
-						moved = true;
-					}
-				}
-				for (i in 0...controlArrayIdle.length) {
-					if (controlArrayIdle[i]) {
-						if (i % 2 == 1) {
-							animfreak.idle_offsets[1] += offsetAdd * negaMult[i];
-						} else {
-							animfreak.idle_offsets[0] += offsetAdd * negaMult[i];
+							animationValue.idle_offsets[0] += offsetAdd * negaMult[i];
 						}
 						moved = true;
 					}
@@ -669,10 +665,10 @@ class DialogueCharacterEditorState extends MusicBeatState {
 				#end
 
 				if (moved) {
-					offsetLoopText.text = 'Loop: ' + animfreak.loop_offsets;
-					offsetIdleText.text = 'Idle: ' + animfreak.idle_offsets;
-					ghostLoop.offset.set(animfreak.loop_offsets[0], animfreak.loop_offsets[1]);
-					ghostIdle.offset.set(animfreak.idle_offsets[0], animfreak.idle_offsets[1]);
+					offsetLoopText.text = 'Loop: ' + animationValue.loop_offsets;
+					offsetIdleText.text = 'Idle: ' + animationValue.idle_offsets;
+					ghostLoop.offset.set(animationValue.loop_offsets[0], animationValue.loop_offsets[1]);
+					ghostIdle.offset.set(animationValue.idle_offsets[0], animationValue.idle_offsets[1]);
 				}
 			}
 
@@ -715,7 +711,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 					tipText.text = TIP_TEXT_OFFSET;
 					offsetLoopText.visible = true;
 					offsetIdleText.visible = true;
-					animText.visible = false;
+					animationText.visible = false;
 					currentGhosts = 0;
 				} else {
 					hudGroup.alpha = 1;
@@ -725,7 +721,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 					tipText.text = TIP_TEXT_MAIN;
 					offsetLoopText.visible = false;
 					offsetIdleText.visible = false;
-					animText.visible = true;
+					animationText.visible = true;
 					updateTextBox();
 					daText.resetDialogue();
 
@@ -736,7 +732,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 					character.playAnim(character.jsonFile.animations[curAnim].anim);
 					#if !android
-					animText.text = 'Animation: '
+					animationText.text = 'Animation: '
 						+ character.jsonFile.animations[curAnim].anim
 							+ ' ('
 							+ (curAnim + 1)
@@ -759,14 +755,14 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 			if (UI_mainbox.selected_tab_id == 'Character') {
 				var negaMult:Array<Int> = [1, -1];
-				var controlAnim:Array<Bool> = [
+				var controlAnimation:Array<Bool> = [
 					#if !android FlxG.keys.justPressed.W #else virtualPad.buttonUp.justPressed #end,
 					#if !android FlxG.keys.justPressed.S #else virtualPad.buttonDown.justPressed #end
 				];
 
-				if (controlAnim.contains(true)) {
-					for (i in 0...controlAnim.length) {
-						if (controlAnim[i] && character.jsonFile.animations.length > 0) {
+				if (controlAnimation.contains(true)) {
+					for (i in 0...controlAnimation.length) {
+						if (controlAnimation[i] && character.jsonFile.animations.length > 0) {
 							curAnim -= negaMult[i];
 							if (curAnim < 0)
 								curAnim = character.jsonFile.animations.length - 1;
@@ -779,23 +775,13 @@ class DialogueCharacterEditorState extends MusicBeatState {
 							}
 						}
 					}
-					#if !android
-					animText.text = 'Animation: '
+					animationText.text = 'Animation: '
 						+ character.jsonFile.animations[curAnim].anim
 							+ ' ('
 							+ (curAnim + 1)
 							+ ' / '
 							+ character.jsonFile.animations.length
 							+ ') - Press W or S to scroll';
-					#else
-					animText.text = 'Animation: '
-						+ character.jsonFile.animations[curAnim].anim
-							+ ' ('
-							+ (curAnim + 1)
-							+ ' / '
-							+ character.jsonFile.animations.length
-							+ ') - Press Up or Down Button to scroll';
-					#end
 				}
 			}
 

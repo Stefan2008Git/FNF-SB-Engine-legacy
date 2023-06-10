@@ -44,7 +44,7 @@ class DialogueEditorState extends MusicBeatState {
 	var daText:TypedAlphabet;
 
 	var selectedText:FlxText;
-	var animText:FlxText;
+	var animationText:FlxText;
 
 	var defaultLine:DialogueLine;
 	var dialogueFile:DialogueFile = null;
@@ -109,10 +109,15 @@ class DialogueEditorState extends MusicBeatState {
 		selectedText.scrollFactor.set();
 		add(selectedText);
 
-		animText = new FlxText(10, 62, FlxG.width - 20, '', 8);
-		animText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		animText.scrollFactor.set();
-		add(animText);
+		animationText = new FlxText(10, 62, FlxG.width - 20, '', 8);
+		animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		animationText.scrollFactor.set();
+		add(animationText);
+
+		daText = new TypedAlphabet(DialogueBoxPsych.DEFAULT_TEXT_X, DialogueBoxPsych.DEFAULT_TEXT_Y, DEFAULT_TEXT);
+		daText.scaleX = 0.7;
+		daText.scaleY = 0.7;
+		add(daText);
 		changeText();
 
 		#if android
@@ -250,7 +255,7 @@ class DialogueEditorState extends MusicBeatState {
 
 		if (character.animation.curAnim != null && character.jsonFile.animations != null) {
 			#if !android
-			animText.text = 'Animation: '
+			animationText.text = 'Animation: '
 				+ character.jsonFile.animations[curAnim].anim
 					+ ' ('
 					+ (curAnim + 1)
@@ -258,7 +263,7 @@ class DialogueEditorState extends MusicBeatState {
 					+ character.jsonFile.animations.length
 					+ ') - Press W or S to scroll';
 			#else
-			animText.text = 'Animation: '
+			animationText.text = 'Animation: '
 				+ character.jsonFile.animations[curAnim].anim
 					+ ' ('
 					+ (curAnim + 1)
@@ -267,11 +272,11 @@ class DialogueEditorState extends MusicBeatState {
 					+ ') - Press Up or Down Button to scroll';
 			#end
 		} else {
-			animText.text = 'ERROR! NO ANIMATIONS FOUND';
+			animationText.text = 'ERROR! NO ANIMATIONS FOUND';
 		}
 	}
 
-	private static var DEFAULT_TEXT:String = "Add your dialogues here";
+	private static var DEFAULT_TEXT:String = "coolswag";
 	private static var DEFAULT_SPEED:Float = 0.05;
 	private static var DEFAULT_BUBBLETYPE:String = "normal";
 
@@ -312,13 +317,12 @@ class DialogueEditorState extends MusicBeatState {
 			if (sender == characterInputText) {
 				character.reloadCharacterJson(characterInputText.text);
 				reloadCharacter();
-
 				if (character.jsonFile.animations.length > 0) {
 					curAnim = 0;
 					if (character.jsonFile.animations.length > curAnim && character.jsonFile.animations[curAnim] != null) {
 						character.playAnim(character.jsonFile.animations[curAnim].anim, daText.finishedText);
 						#if !android
-						animText.text = 'Animation: '
+						animationText.text = 'Animation: '
 							+ character.jsonFile.animations[curAnim].anim
 								+ ' ('
 								+ (curAnim + 1)
@@ -326,7 +330,7 @@ class DialogueEditorState extends MusicBeatState {
 								+ character.jsonFile.animations.length
 								+ ') - Press W or S to scroll';
 						#else
-						animText.text = 'Animation: '
+						animationText.text = 'Animation: '
 							+ character.jsonFile.animations[curAnim].anim
 								+ ' ('
 								+ (curAnim + 1)
@@ -335,7 +339,7 @@ class DialogueEditorState extends MusicBeatState {
 								+ ') - Press Up or Down Button to scroll';
 						#end
 					} else {
-						animText.text = 'ERROR! NO ANIMATIONS FOUND';
+						animationText.text = 'ERROR! NO ANIMATIONS FOUND';
 					}
 					characterAnimSpeed();
 				}
@@ -344,6 +348,7 @@ class DialogueEditorState extends MusicBeatState {
 				updateTextBox();
 			} else if (sender == lineInputText) {
 				dialogueFile.dialogue[currentlySelected].text = lineInputText.text;
+
 				daText.text = lineInputText.text;
 				if (daText.text == null)
 					daText.text = '';
@@ -415,7 +420,7 @@ class DialogueEditorState extends MusicBeatState {
 			if (#if !android FlxG.keys.justPressed.SPACE #else virtualPad.buttonC.justPressed #end) {
 				reloadText(false);
 			}
-			if (#if !android FlxG.keys.justPressed.ESCAPE #else FlxG.android.justReleased.BACK #end) {
+			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
@@ -437,16 +442,16 @@ class DialogueEditorState extends MusicBeatState {
 					else if (curAnim >= character.jsonFile.animations.length)
 						curAnim = 0;
 
-					var animToPlay:String = character.jsonFile.animations[curAnim].anim;
-					if (character.dialogueAnimations.exists(animToPlay)) {
-						character.playAnim(animToPlay, daText.finishedText);
-						dialogueFile.dialogue[currentlySelected].expression = animToPlay;
+					var animationToPlay:String = character.jsonFile.animations[curAnim].anim;
+					if (character.dialogueAnimations.exists(animationToPlay)) {
+						character.playAnim(animationToPlay, daText.finishedText);
+						dialogueFile.dialogue[currentlySelected].expression = animationToPlay;
 					}
 					#if !android
-					animText.text = 'Animation: ' + animToPlay + ' (' + (curAnim + 1) + ' / ' + character.jsonFile.animations.length
+					animationText.text = 'Animation: ' + animationToPlay + ' (' + (curAnim + 1) + ' / ' + character.jsonFile.animations.length
 						+ ') - Press W or S to scroll';
 					#else
-					animText.text = 'Animation: ' + animToPlay + ' (' + (curAnim + 1) + ' / ' + character.jsonFile.animations.length
+					animationText.text = 'Animation: ' + animationToPlay + ' (' + (curAnim + 1) + ' / ' + character.jsonFile.animations.length
 						+ ') - Press Up or Down Button to scroll';
 					#end
 				}
@@ -455,14 +460,14 @@ class DialogueEditorState extends MusicBeatState {
 				}
 			}
 
-			if (#if !android FlxG.keys.justPressed.O #else virtualPad.buttonA.justPressed #end) {
+			if (FlxG.keys.justPressed.O #if android || virtualPad.buttonA.justPressed #end) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[currentlySelected]);
 				if (dialogueFile.dialogue.length < 1) // You deleted everything, dumbo!
 				{
 					dialogueFile.dialogue = [copyDefaultLine()];
 				}
 				changeText();
-			} else if (#if !android FlxG.keys.justPressed.P #else virtualPad.buttonB.justPressed #end) {
+			} else if (FlxG.keys.justPressed.P #if android || virtualPad.buttonB.justPressed #end) {
 				dialogueFile.dialogue.insert(currentlySelected + 1, copyDefaultLine());
 				changeText(1);
 			}
@@ -495,8 +500,8 @@ class DialogueEditorState extends MusicBeatState {
 		curAnim = 0;
 		character.reloadCharacterJson(characterInputText.text);
 		reloadCharacter();
-		updateTextBox();
 		reloadText(false);
+		updateTextBox();
 
 		var leLength:Int = character.jsonFile.animations.length;
 		if (leLength > 0) {
@@ -509,7 +514,7 @@ class DialogueEditorState extends MusicBeatState {
 			}
 			character.playAnim(character.jsonFile.animations[curAnim].anim, daText.finishedText);
 			#if !android
-			animText.text = 'Animation: '
+			animationText.text = 'Animation: '
 				+ character.jsonFile.animations[curAnim].anim
 					+ ' ('
 					+ (curAnim + 1)
@@ -517,7 +522,7 @@ class DialogueEditorState extends MusicBeatState {
 					+ leLength
 					+ ') - Press W or S to scroll';
 			#else
-			animText.text = 'Animation: '
+			animationText.text = 'Animation: '
 				+ character.jsonFile.animations[curAnim].anim
 					+ ' ('
 					+ (curAnim + 1)
@@ -526,7 +531,7 @@ class DialogueEditorState extends MusicBeatState {
 					+ ') - Press Up or Down Button to scroll';
 			#end
 		} else {
-			animText.text = 'ERROR! NO ANIMATIONS FOUND';
+			animationText.text = 'ERROR! NO ANIMATIONS FOUND';
 		}
 		characterAnimSpeed();
 
@@ -547,16 +552,6 @@ class DialogueEditorState extends MusicBeatState {
 				rate = 48;
 			character.animation.curAnim.frameRate = rate;
 		}
-	}
-
-	function ClipboardAdd(prefix:String = ''):String {
-		if (prefix.toLowerCase().endsWith('v')) // probably copy paste attempt
-		{
-			prefix = prefix.substring(0, prefix.length - 1);
-		}
-
-		var text:String = prefix + Clipboard.text.replace('\n', '');
-		return text;
 	}
 
 	var _file:FileReference = null;
