@@ -124,7 +124,7 @@ class ClientPrefs {
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
-		FlxG.save.data.timeBarStyleType = timeBarStyleType;
+		FlxG.save.data.sbEngineTimeBar = sbEngineTimeBar;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
@@ -250,8 +250,8 @@ class ClientPrefs {
 		if (FlxG.save.data.timeBarType != null) {
 			timeBarType = FlxG.save.data.timeBarType;
 		}
-		if (FlxG.save.data.timeBarStyleType != null) {
-			timeBarStyleType = FlxG.save.data.timeBarStyleType;
+		if (FlxG.save.data.sbEngineTimeBar != null) {
+			sbEngineTimeBar = FlxG.save.data.sbEngineTimeBar;
 		}
 		if (FlxG.save.data.scoreZoom != null) {
 			scoreZoom = FlxG.save.data.scoreZoom;
