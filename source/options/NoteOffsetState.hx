@@ -159,7 +159,7 @@ class NoteOffsetState extends MusicBeatState {
 		barPercent = ClientPrefs.noteOffset;
 		updateNoteDelay();
 
-		if (ClientPrefs.timeBarStyleType == 'SB Engine') {
+		if (ClientPrefs.sbEngineTimeBar) {
 			timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineTimeBar'));
 			timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
 			timeBarBG.updateHitbox();
@@ -177,7 +177,7 @@ class NoteOffsetState extends MusicBeatState {
 			delayMax);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
-		if (ClientPrefs.timeBarStyleType == 'SB Engine') {
+		if (ClientPrefs.sbEngineTimeBar) {
 			timeBar.createFilledBar(0xFF000000, 0xFF800080);
 		} else {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);

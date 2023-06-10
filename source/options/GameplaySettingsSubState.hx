@@ -88,6 +88,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If checked, you will have results screen about your rating, accruracy and rating name when you finish the song.", 'resultsScreen', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('SB Engine timebar style',
+			"If checked, you will have SB Engine time bar.\nIf unchecked, you will have basic Psych Engine timebar style", 'sbEngineTimeBar', 'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Combo Stacking',
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);
@@ -98,11 +102,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		option.onChange = onChangeVibration;
 		#end
 
+<<<<<<< HEAD
 		var option:Option = new Option('Time bar style type',
 			"Choose you time bar style type:\nSB Engine: Basic long time bar with purple color.\nOpponent color: Basic long time bar with opponent color.\nPsych Engine: Basic Psych Engine time bar.",
 			'timeBarStyleType', 'string', 'SB Engine', ['SB Engine', 'Psych Engine']);
 		addOption(option);
 
+=======
+>>>>>>> parent of a8a15a9 (New stuff is here tho, so im gonna fix this later)
 		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
