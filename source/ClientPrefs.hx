@@ -35,7 +35,7 @@ class ClientPrefs {
 	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
-	public static var sbEngineTimeBar:Bool = true;
+	public static var timeBarStyleType:String = 'SB Engine';
 	public static var iconBounce:Bool = true;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
