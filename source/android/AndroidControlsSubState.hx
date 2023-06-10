@@ -240,7 +240,6 @@ class AndroidControlsSubState extends FlxSubState {
 				virtualPad = new FlxVirtualPad(BOTH_FULL, NONE);
 				add(virtualPad);
 			case 'Hitbox':
-				hitbox.visible = true;
 				virtualPad.visible = false;
 			case 'Keyboard':
 				hitbox.visible = false;
