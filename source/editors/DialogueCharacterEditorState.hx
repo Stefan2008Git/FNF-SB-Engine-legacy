@@ -44,13 +44,13 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	var box:FlxSprite;
 	var daText:TypedAlphabet = null;
 
+	#if !android
 	private static var TIP_TEXT_MAIN:String = 'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
 	\nH - Toggle Speech Bubble
 	\nSpace - Reset text';
 
-	#if !android
 	private static var TIP_TEXT_OFFSET:String = 'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
@@ -740,7 +740,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 							+ character.jsonFile.animations.length
 							+ ') - Press W or S to scroll';
 					#else
-					animText.text = 'Animation: '
+					animationText.text = 'Animation: '
 						+ character.jsonFile.animations[curAnim].anim
 							+ ' ('
 							+ (curAnim + 1)
