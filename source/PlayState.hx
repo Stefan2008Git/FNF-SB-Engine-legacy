@@ -1025,12 +1025,6 @@ class PlayState extends MusicBeatState {
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
-		} else if (ClientPrefs.timeBarStyleType == 'Opponent color') {
-			timeBarBG = new AttachedSprite('longTimeBar');
-			timeBarBG.x = timeTxt.x;
-			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			timeBarBG.scrollFactor.set();
-			timeBarBG.screenCenter(X);
 		} else {
 			timeBarBG = new AttachedSprite('timeBar');
 			timeBarBG.x = timeTxt.x;
@@ -1403,10 +1397,6 @@ public function addTextToDebug(text:String, color:FlxColor) {
 public function reloadHealthBarColors() {
 	healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 		FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-
-	if (ClientPrefs.timeBarStyleType:String = 'Opponent color') {
-		timeBar.createFilledBar(0xFF121212, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
-	}
 
 	healthBar.updateBar();
 }

@@ -100,7 +100,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Time bar style type',
 			"Choose you time bar style type:\nSB Engine: Basic long time bar with purple color.\nOpponent color: Basic long time bar with opponent color.\nPsych Engine: Basic Psych Engine time bar.",
-			'timeBarStyleType', 'string', 'SB Engine', ['SB Engine', 'Opponent color', 'Psych Engine']);
+			'timeBarStyleType', 'string', 'SB Engine', ['SB Engine', 'Psych Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
