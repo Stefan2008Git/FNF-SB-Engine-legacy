@@ -36,6 +36,8 @@ using StringTools;
 class CacheState extends FlxState {
 	var checker:FlxBackdrop;
 	var sbEngineLogo:FlxSprite;
+	var beginTween:FlxTween;
+	var endTween:FlxTween;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
 	var bottomPanel:FlxSprite;
 	var randomTxt:FlxText;
@@ -72,6 +74,9 @@ class CacheState extends FlxState {
 		sbEngineLogo.screenCenter();
 		sbEngineLogo.y -= 60;
 		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		sbEngineLogo.alpha = 0;
+		sbEngineLogo.scale.x = 0;
+		sbEngineLogo.scale.y = 0;
 		add(sbEngineLogo);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xFF800080], 1, 90, true);
@@ -104,12 +109,15 @@ class CacheState extends FlxState {
 		loadingTxt.text = " Loading... ";
 		add(loadingTxt);
 
+		FlxTween.tween(sbEngineLogo, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
+		beginTween = FlxTween.tween(sbEngineLogo.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
+
 		#if (desktop || android)
 		FlxG.mouse.visible = false;
 		#end
 
-		new FlxTimer().start(10, function(tmr:FlxTimer) {
-			goToState();
+		new FlxTimer().start(15, function(tmr:FlxTimer) {
+			FlxG.switchState(new TitleState());
 		});
 
 		super.create();
@@ -133,10 +141,6 @@ class CacheState extends FlxState {
 			}
 		}
 		super.update(elapsed);
-	}
-
-	function goToState() {
-		FlxG.switchState(new TitleState());
 	}
 
 	function changeText() {
