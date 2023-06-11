@@ -97,6 +97,13 @@ class CreditsState extends MusicBeatState {
 				'800080'
 			],
 			[
+				'Nurry',
+				'nury',
+				'Artist for SB Engine',
+				'https://youtube.com/@Nuury06',
+				'8A8AFF'
+			],
+			[
 				'MaysLastPlays',
 				'mayslastplay',
 				'Collaborator of SB Engine',
