@@ -3,7 +3,7 @@
 
 [![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
-used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
+Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## SB Engine Credits:
 * [Stefan2008](https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ) - Main Programmer
 * [Nuryy](https://youtube.com/@Nuury06) - Artist
