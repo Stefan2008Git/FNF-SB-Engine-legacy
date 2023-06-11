@@ -1,14 +1,14 @@
 # Friday Night Funkin': SB Engine
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/SB-Engine.png)
 
-[![GitHub all releases downloaded](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
+[![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## SB Engine Credits:
-* [Stefan2008](https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ) - Programmer
-* [Nurry](https://youtube.com/@Nuury06) - Artist
-* [MaysLastPlay](https://www.youtube.com/@MaysLastPlay) - Collaborator
-* [Fearester](https://www.youtube.com/@fearester1282) - Second Collaborator
+* [Stefan2008](https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ) - Main Programmer
+* [Nuryy](https://youtube.com/@Nuury06) - Artist
+* [MaysLastPlay](https://www.youtube.com/@MaysLastPlay) - Second Programmer
+* [Fearester](https://www.youtube.com/@fearester1282) - Third Programmer
 
 ### Psych Engine Credits:
 * [Shadow Mario](https://twitter.com/Shadow_Mario_) - Programmer
@@ -34,7 +34,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 # Added accruracy and watermark:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_3.png)
 
-# Added lua shader's. Here are 2 example's. Note: You need to enable "Shaders on lua" on graphic option's! [Thanks Lizzy Strawberry](https://www.youtube.com/@LizzyStrawberry):
+# Added lua shaders. Here are 2 example's. Note: You need to enable "Shaders on lua" on graphic option's! [Thanks Lizzy Strawberry](https://www.youtube.com/@LizzyStrawberry):
 ### Bloom effect:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_4.png)
 ### Glitch effect:
