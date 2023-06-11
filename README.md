@@ -5,23 +5,22 @@
 
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## SB Engine Credits:
-* Stefan2008 - Programmer
-* MaysLastPlay - Collaborator
-* Fearester - Second Collaborator
+* [Stefan2008](https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ) - Programmer
+* [Nurry](https://youtube.com/@Nuury06) - Artist
+* [MaysLastPlay](https://www.youtube.com/@MaysLastPlay) - Collaborator
+* [Fearester](https://www.youtube.com/@fearester1282) - Second Collaborator
 
 ### Psych Engine Credits:
-* Shadow Mario - Programmer
-* RiverOaken - Artist
-* Yoshubs - Assistant Programmer
-* bbpanzu - Ex-Programmer
-* Yoshubs - New Input System
-* SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform
-* KadeDev - Fixed some cool stuff on Chart Editor and other PRs
-* iFlicky - Composer of Psync and Tea Time, also made the Dialogue Sounds
-* PolybiusProxy - .MP4 Video Loader Library (hxCodec)
-* Keoiki - Note Splash Animations
-* Smokey - Sprite Atlas Support
-* Nebula the Zorua - LUA JIT Fork and some Lua reworks
+* [Shadow Mario](https://twitter.com/Shadow_Mario_) - Programmer
+* [RiverOaken](https://twitter.com/RiverOaken) - Artist
+* [bbpanzu](https://twitter.com/bbsub3) - Ex-Programmer
+* [SqirraRNG](https://twitter.com/gedehari) - Crash Handler and Base code for Chart Editor's Waveform
+* [KadeDev](https://twitter.com/kade0912) - Fixed some cool stuff on Chart Editor and other PRs
+* [iFlicky](https://twitter.com/flicky_i) - Composer of Psync and Tea Time, also made the Dialogue Sounds
+* [PolybiusProxy](https://twitter.com/polybiusproxy) - .MP4 Video Loader Library (hxCodec)
+* [Keoiki](https://twitter.com/Keoiki_) - Note Splash Animations
+* [Smokey](https://twitter.com/Smokey_5_) - Sprite Atlas Support
+* [Nebula the Zorua](https://twitter.com/Nebula_Zorua) - LUA JIT Fork and some Lua reworks
 
 
 # Welcome to SB Engine - (Modified Psych Engine) with some change's and addition: 
