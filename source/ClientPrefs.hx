@@ -46,9 +46,11 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
-	public static var hitboxSelection:String = 'Original'; // starting new way to change between hitboxes yay
+	public static var hitboxSelection:String = 'Original';
 	public static var hitboxAlpha:Float = 0.2;
 	public static var mainMenuStyle:String = 'Original';
+	public static var iconBounceType:String = 'Vanilla FNF';
+	public static var objectEffects:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -144,6 +146,8 @@ class ClientPrefs {
 		FlxG.save.data.hitboxSelection = hitboxSelection;
 		FlxG.save.data.hitboxAlpha = hitboxAlpha;
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
+		FlxG.save.data.iconBounceType = iconBounceType;
+		FlxG.save.data.objectEffects = objectEffects;
 		FlxG.save.data.comboStacking = comboStacking;
 
 		FlxG.save.flush();
@@ -298,6 +302,12 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.mainMenuStyle != null) {
 			mainMenuStyle = FlxG.save.data.mainMenuStyle;
+		}
+		if (FlxG.save.data.iconBounceType != null) {
+			iconBounceType = FlxG.save.data.iconBounceType;
+		}
+		if (FlxG.save.data.objectEffects != null) {
+			objectEffects = FlxG.save.data.objectEffects;
 		}
 		if (FlxG.save.data.gameplaySettings != null) {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

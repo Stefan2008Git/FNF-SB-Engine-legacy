@@ -64,6 +64,11 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'velocityBackground', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Effects on objects',
+			'If unchecked, this option is disabling every single effects on object for optimization.\nExample: Logo and girlfriend using FlxTrail',
+			'objectEffects', 'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);

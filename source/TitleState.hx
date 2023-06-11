@@ -174,8 +174,10 @@ class TitleState extends MusicBeatState {
 	}
 
 	var fridayNightFunkinLogo:FlxSprite;
+	var beginTween:FlxTween;
 	var fridayNightFunkinLogoTrail:FlxTrail;
 	var gfDance:FlxSprite;
+	var gfDanceTrail:FlxTrail;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
@@ -224,21 +226,48 @@ class TitleState extends MusicBeatState {
 		fridayNightFunkinLogo.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		fridayNightFunkinLogo.animation.play('bump');
 		fridayNightFunkinLogo.updateHitbox();
+		if (ClientPrefs.objectEffects) {
+			fridayNightFunkinLogo.alpha = 0;
+			fridayNightFunkinLogo.scale.x = 0;
+			fridayNightFunkinLogo.scale.y = 0;
+		} else {
+			fridayNightFunkinLogo.alpha = 1;
+			fridayNightFunkinLogo.scale.x = 1;
+			fridayNightFunkinLogo.scale.y = 1;
+		}
 		add(fridayNightFunkinLogo);
 		fridayNightFunkinLogo.shader = swagShader.shader;
 
-		fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 24, 0, 0.4, 0.02);
+		if (ClientPrefs.objectEffects) {
+			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 24, 0, 0.4, 0.02);
+		} else {
+			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 0, 0, 0, 0);
+		}
 		add(fridayNightFunkinLogoTrail);
-
-		FlxTween.tween(fridayNightFunkinLogo, {y: fridayNightFunkinLogo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
+		if (ClientPrefs.objectEffects) {
+			gfDance.alpha = 0;
+			gfDance.scale.x = 0;
+			gfDance.scale.y = 0;
+		} else {
+			gfDance.alpha = 1;
+			gfDance.scale.x = 1;
+			gfDance.scale.y = 1;
+		}
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
+
+		if (ClientPrefs.objectEffects) {
+			gfDanceTrail = new FlxTrail(gfDance, 24, 0, 0.4, 0.02);
+		} else {
+			gfDanceTrail = new FlxTrail(gfDance, 0, 0, 0, 0);
+		}
+		add(gfDanceTrail);
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xFF800080], 2, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
@@ -319,8 +348,6 @@ class TitleState extends MusicBeatState {
 	}
 
 	var transitioning:Bool = false;
-
-	private static var playJingle:Bool = false;
 
 	var newTitle:Bool = false;
 	var titleTimer:Float = 0;
@@ -565,8 +592,22 @@ class TitleState extends MusicBeatState {
 			{
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
-				FlxTween.tween(gfDance, {y: 20}, 2.3, {ease: FlxEase.expoInOut, startDelay: 0.8});
-				FlxTween.tween(fridayNightFunkinLogo, {y: -50}, 1.4, {ease: FlxEase.expoInOut});
+				if (ClientPrefs.objectEffects) {
+					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+				} else {
+					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+				}
+				if (ClientPrefs.objectEffects) {
+					FlxTween.tween(fridayNightFunkinLogo, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
+					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
+					FlxTween.tween(gfDance, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
+					beginTween = FlxTween.tween(gfDance.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
+				} else {
+					FlxTween.tween(fridayNightFunkinLogo, {alpha: 0}, 0, {ease: FlxEase.quadInOut});
+					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 0, y: 0}, 0, {ease: FlxEase.quadInOut});
+					FlxTween.tween(gfDance, {alpha: 0}, 0, {ease: FlxEase.quadInOut});
+					beginTween = FlxTween.tween(gfDance.scale, {x: 0, y: 0}, 0, {ease: FlxEase.quadInOut});
+				}
 
 				fridayNightFunkinLogo.angle = -4;
 
@@ -583,9 +624,7 @@ class TitleState extends MusicBeatState {
 					transitioning = false;
 				};
 			}
-			playJingle = false;
-		} else // Default! Edit this one!!
-		{
+		} else {
 			remove(credGroup);
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 		}

@@ -37,7 +37,6 @@ class CacheState extends FlxState {
 	var checker:FlxBackdrop;
 	var sbEngineLogo:FlxSprite;
 	var beginTween:FlxTween;
-	var endTween:FlxTween;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
 	var bottomPanel:FlxSprite;
 	var randomTxt:FlxText;

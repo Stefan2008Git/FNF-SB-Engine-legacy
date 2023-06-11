@@ -2688,13 +2688,24 @@ class PlayState extends MusicBeatState {
 			openChartEditor();
 		}
 
-		var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
-		iconPlayer1.scale.set(mult, mult);
-		iconPlayer1.updateHitbox();
+		if (ClientPrefs.iconBounceType == 'Psych Engine') {
+			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconPlayer1.scale.set(mult, mult);
+			iconPlayer1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20 * playbackRate), 0, 1));
-		iconPlayer2.scale.set(mult, mult);
-		iconPlayer2.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconPlayer2.scale.set(mult, mult);
+			iconPlayer2.updateHitbox();
+		}
+		if (ClientPrefs.iconBounceType == 'Vanilla FNF') {
+			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconPlayer1.scale.set(mult, mult);
+			iconPlayer1.updateHitbox();
+
+			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconPlayer2.scale.set(mult, mult);
+			iconPlayer2.updateHitbox();
+		}
 
 		var iconOffset:Int = 26;
 
