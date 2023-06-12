@@ -1019,17 +1019,25 @@ class PlayState extends MusicBeatState {
 		}
 		updateTime = showTime;
 
-		if (ClientPrefs.sbEngineTimeBar) {
+		if (ClientPrefs.hudStyle == 'SB Engine') {
 			timeBarBG = new AttachedSprite('sbEngineTimeBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
-		} else {
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
 			timeBarBG = new AttachedSprite('timeBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
+		}
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			timeBarBG = new AttachedSprite('longTimeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+			timeBarBG.screenCenter(X);
 		}
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime;
@@ -1041,9 +1049,10 @@ class PlayState extends MusicBeatState {
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		if (ClientPrefs.sbEngineTimeBar) {
+		if (ClientPrefs.hudStyle == 'SB Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFF800080);
-		} else {
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
 		timeBar.numDivisions = 800;
@@ -1158,12 +1167,29 @@ class PlayState extends MusicBeatState {
 		add(iconPlayer2);
 		reloadHealthBarColors();
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
-		scoreTxt.borderSize = 1.25;
-		scoreTxt.visible = !ClientPrefs.hideHud;
-		add(scoreTxt);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.scrollFactor.set();
+			scoreTxt.borderSize = 1.25;
+			scoreTxt.visible = !ClientPrefs.hideHud;
+			add(scoreTxt);
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.scrollFactor.set();
+			scoreTxt.borderSize = 1.25;
+			scoreTxt.visible = !ClientPrefs.hideHud;
+			add(scoreTxt);
+		}
+		if (ClientPrefs.hudStyle == 'Better HUD') {
+			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.scrollFactor.set();
+			scoreTxt.visible = !ClientPrefs.hideHud;
+			add(scoreTxt);
+		}
 
 		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 		judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1436,6 +1462,10 @@ class PlayState extends MusicBeatState {
 	public function reloadHealthBarColors() {
 		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			timeBar.createFilledBar(0xFF121212, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		}
 
 		healthBar.updateBar();
 	}
@@ -1992,9 +2022,24 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function updateScore(miss:Bool = false) {
-		scoreTxt.text = 'Score: ' + songScore + ' | Combo breaks: ' + songMisses + ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%'
-			+ ' | ' + ratingName + ' [' + ratingFC + ']';
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			scoreTxt.text = 'Score: ' + songScore + ' | Combo breaks: ' + songMisses + ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2)
+				+ '%' + ' | ' + ratingName + ' [' + ratingFC + ']';
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			scoreTxt.text = 'Score: '
+				+ songScore
+				+ ' | Misses: '
+				+ songMisses
+				+ ' | Rating: '
+				+ ratingName
+				+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		}
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			scoreTxt.text = 'Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%'
+				+ ' // ' + ratingName + ' (' + ratingFC + ')';
+		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
 			if (scoreTxtTween != null) {
@@ -2688,7 +2733,16 @@ class PlayState extends MusicBeatState {
 			openChartEditor();
 		}
 
-		if (ClientPrefs.iconBounceType == 'Psych Engine') {
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconPlayer1.scale.set(mult, mult);
+			iconPlayer1.updateHitbox();
+
+			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconPlayer2.scale.set(mult, mult);
+			iconPlayer2.updateHitbox();
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
 			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
@@ -2697,12 +2751,12 @@ class PlayState extends MusicBeatState {
 			iconPlayer2.scale.set(mult, mult);
 			iconPlayer2.updateHitbox();
 		}
-		if (ClientPrefs.iconBounceType == 'Vanilla FNF') {
-			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
 			iconPlayer2.scale.set(mult, mult);
 			iconPlayer2.updateHitbox();
 		}

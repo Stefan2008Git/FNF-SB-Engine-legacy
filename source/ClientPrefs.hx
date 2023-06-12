@@ -49,7 +49,7 @@ class ClientPrefs {
 	public static var hitboxSelection:String = 'Original';
 	public static var hitboxAlpha:Float = 0.2;
 	public static var mainMenuStyle:String = 'Original';
-	public static var iconBounceType:String = 'Vanilla FNF';
+	public static var hudStyle:String = 'SB Engine';
 	public static var objectEffects:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -146,7 +146,7 @@ class ClientPrefs {
 		FlxG.save.data.hitboxSelection = hitboxSelection;
 		FlxG.save.data.hitboxAlpha = hitboxAlpha;
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
-		FlxG.save.data.iconBounceType = iconBounceType;
+		FlxG.save.data.hudStyle = hudStyle;
 		FlxG.save.data.objectEffects = objectEffects;
 		FlxG.save.data.comboStacking = comboStacking;
 
@@ -303,8 +303,8 @@ class ClientPrefs {
 		if (FlxG.save.data.mainMenuStyle != null) {
 			mainMenuStyle = FlxG.save.data.mainMenuStyle;
 		}
-		if (FlxG.save.data.iconBounceType != null) {
-			iconBounceType = FlxG.save.data.iconBounceType;
+		if (FlxG.save.data.hudStyle != null) {
+			hudStyle = FlxG.save.data.hudStyle;
 		}
 		if (FlxG.save.data.objectEffects != null) {
 			objectEffects = FlxG.save.data.objectEffects;

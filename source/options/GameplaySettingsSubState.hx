@@ -106,8 +106,8 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
-		var option:Option = new Option('Icon bounce:', "What should the icon bounce want to look like?", 'iconBounceType', 'string', 'Vanilla FNF',
-			['Psych Engine', 'Vanilla FNF']);
+		var option:Option = new Option('HUD type:', "What should the HUD on game you want to look like?", 'hudStyle', 'string', 'SB Engine',
+			['SB Engine', 'Psych Engine', 'Better UI']);
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
