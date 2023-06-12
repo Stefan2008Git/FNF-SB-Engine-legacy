@@ -3,6 +3,7 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import flixel.FlxCamera;
 import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
@@ -30,8 +31,10 @@ using StringTools;
 
 class FreeplayState extends MusicBeatState {
 	var songs:Array<SongMetaData> = [];
-	var loading:Bool = false;
-	var loaded:Bool = false;
+
+	private var cameraBackground:FlxCamera;
+
+	public var cameraInterface:FlxCamera;
 
 	var selector:FlxText;
 
@@ -41,26 +44,23 @@ class FreeplayState extends MusicBeatState {
 
 	private static var lastDifficultyName:String = '';
 
-	var scoreBG:FlxSprite;
+	var scoreBackground:FlxSprite;
 	var scoreText:FlxText;
 	var difficultyText:FlxText;
-	var loadingTxt:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
-	private var grpSongs:FlxTypedGroup<Alphabet>;
-	private var curPlaying:Bool = false;
-
+	private var groupSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
-
-	var barValue:Float = 0;
 
 	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
+
+	var cameraZoom:FlxTween;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -69,6 +69,19 @@ class FreeplayState extends MusicBeatState {
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
+
+		cameraBackground = new FlxCamera();
+		cameraInterface = new FlxCamera();
+
+		cameraInterface.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(cameraBackground);
+		FlxG.cameras.add(cameraInterface, false);
+
+		FlxG.cameras.setDefaultDrawTarget(cameraInterface, true);
+
+		cameraInterface.alpha = 0;
+		FlxTween.tween(cameraInterface, {alpha: 1}, 0.3, {ease: FlxEase.linear, startDelay: 0.8});
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -114,14 +127,14 @@ class FreeplayState extends MusicBeatState {
 		}
 		add(velocityBG);
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
-		add(grpSongs);
+		groupSongs = new FlxTypedGroup<Alphabet>();
+		add(groupSongs);
 
 		for (i in 0...songs.length) {
 			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
 			songText.isMenuItem = true;
 			songText.targetY = i - currentlySelected;
-			grpSongs.add(songText);
+			groupSongs.add(songText);
 
 			var maxWidth = 980;
 			if (songText.width > maxWidth) {
@@ -141,21 +154,15 @@ class FreeplayState extends MusicBeatState {
 
 		scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
 		scoreText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
+		add(scoreText);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
-		scoreBG.alpha = 0.6;
-		add(scoreBG);
+		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
+		scoreBackground.alpha = 0.6;
+		add(scoreBackground);
 
 		difficultyText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
-
-		loadingTxt = new FlxText(0, FlxG.height - 148, 800, "", 32);
-		loadingTxt.font = scoreText.font;
-		loadingTxt.alpha = 0;
-		add(loadingTxt);
-
-		add(scoreText);
 
 		if (currentlySelected >= songs.length)
 			currentlySelected = 0;
@@ -168,13 +175,15 @@ class FreeplayState extends MusicBeatState {
 		currentlyDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 
 		changeSelection();
-		changeDiff();
+		changeDifficulty();
+
+		cameraZoom = FlxTween.tween(this, {}, 0);
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		textBG.alpha = 0.6;
-		add(textBG);
+		var textBackground:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBackground.alpha = 0.6;
+		add(textBackground);
 
 		#if PRELOAD_ALL
 		#if android
@@ -188,10 +197,16 @@ class FreeplayState extends MusicBeatState {
 		var leText:String = "Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
 		var size:Int = 18;
 		#end
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		var text:FlxText = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
 		text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
 		add(text);
+
+		scoreText.cameras = [cameraInterface];
+		scoreBackground.cameras = [cameraInterface];
+		difficultyText.cameras = [cameraInterface];
+		textBackground.cameras = [cameraInterface];
+		text.cameras = [cameraInterface];
 
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
@@ -275,23 +290,24 @@ class FreeplayState extends MusicBeatState {
 
 				if (holdTime > 0.5 && checkNewHold - checkLastHold > 0) {
 					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
-					changeDiff();
+					changeDifficulty();
 				}
 			}
 		}
 
 		if (controls.UI_LEFT_P)
-			changeDiff(-1);
+			changeDifficulty(-1);
 		else if (controls.UI_RIGHT_P)
-			changeDiff(1);
+			changeDifficulty(1);
 		else if (upP || downP)
-			changeDiff();
+			changeDifficulty();
 
 		if (controls.BACK) {
 			persistentUpdate = false;
 			if (colorTween != null) {
 				colorTween.cancel();
 			}
+			FlxTween.tween(cameraInterface, {alpha: 0}, 0.3, {ease: FlxEase.linear, startDelay: 0.2});
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (ClientPrefs.mainMenuStyle == 'Classic')
 				MusicBeatState.switchState(new ClassicMainMenuState());
@@ -342,6 +358,8 @@ class FreeplayState extends MusicBeatState {
 				colorTween.cancel();
 			}
 
+			FlxTween.tween(cameraInterface, {alpha: 0}, 0.3, {ease: FlxEase.linear, startDelay: 0.4});
+
 			if (FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end) {
 				LoadingState.loadAndSwitchState(new ChartingState());
 			} else {
@@ -370,7 +388,7 @@ class FreeplayState extends MusicBeatState {
 		vocals = null;
 	}
 
-	function changeDiff(change:Int = 0) {
+	function changeDifficulty(change:Int = 0) {
 		currentlyDifficulty += change;
 
 		if (currentlyDifficulty < 0)
@@ -429,7 +447,7 @@ class FreeplayState extends MusicBeatState {
 
 		iconArray[currentlySelected].alpha = 1;
 
-		for (item in grpSongs.members) {
+		for (item in groupSongs.members) {
 			item.targetY = optionFreak - currentlySelected;
 			optionFreak++;
 
@@ -483,9 +501,9 @@ class FreeplayState extends MusicBeatState {
 	private function positionHighscore() {
 		scoreText.x = FlxG.width - scoreText.width - 6;
 
-		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
-		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		difficultyText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		scoreBackground.scale.x = FlxG.width - scoreText.x + 6;
+		scoreBackground.x = FlxG.width - (scoreBackground.scale.x / 2);
+		difficultyText.x = Std.int(scoreBackground.x + (scoreBackground.width / 2));
 		difficultyText.x -= difficultyText.width / 2;
 	}
 }

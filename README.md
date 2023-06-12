@@ -49,3 +49,5 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## For more changelogs go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/CHANGELOG.md)
 
 ## For Building and compiling go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/COMPILEINSTRUCTION.md)
+
+### Did you finded bugs or issue on engine? Join on [Discord](https://discord.gg/dEf8aK8ygG) server for help!
