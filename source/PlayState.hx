@@ -1038,6 +1038,7 @@ class PlayState extends MusicBeatState {
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
+			insert(members.indexOf(timeBarBG), timeBar);
 		}
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime;
@@ -1183,7 +1184,7 @@ class PlayState extends MusicBeatState {
 			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
-		if (ClientPrefs.hudStyle == 'Better HUD') {
+		if (ClientPrefs.hudStyle == 'Better UI') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.scrollFactor.set();
@@ -1214,13 +1215,38 @@ class PlayState extends MusicBeatState {
 			+ MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
-		autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
-		autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		autoplayTxt.scrollFactor.set();
-		autoplayTxt.visible = cpuControlled;
-		add(autoplayTxt);
-		if (ClientPrefs.downScroll) {
-			autoplayTxt.y = timeBarBG.y - 500;
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "AUTOPLAY", 32);
+			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.scrollFactor.set();
+			autoplayTxt.visible = cpuControlled;
+			add(autoplayTxt);
+			if (ClientPrefs.downScroll) {
+				autoplayTxt.y = timeBarBG.y - 500;
+			}
+		}
+
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.scrollFactor.set();
+			autoplayTxt.borderSize = 1.25;
+			autoplayTxt.visible = cpuControlled;
+			add(autoplayTxt);
+			if (ClientPrefs.downScroll) {
+				autoplayTxt.y = timeBarBG.y - 78;
+			}
+		}
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
+			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.scrollFactor.set();
+			autoplayTxt.visible = cpuControlled;
+			add(autoplayTxt);
+			if (ClientPrefs.downScroll) {
+				autoplayTxt.y = timeBarBG.y - 500;
+			}
 		}
 
 		strumLineNotes.cameras = [camHUD];
