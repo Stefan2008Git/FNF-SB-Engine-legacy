@@ -6,6 +6,8 @@ import Discord.DiscordClient;
 #end
 import Section.SwagSection;
 import Song.SwagSong;
+import WiggleEffect;
+import WiggleEffect.WiggleEffectType;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -219,6 +221,12 @@ class PlayState extends MusicBeatState {
 	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
 
+	public static var the3DWorldEffectFlag:WiggleEffect;
+	public static var the3DWorldEffectHeatWaveHor:WiggleEffect;
+	public static var the3DWorldEffectWavy:WiggleEffect;
+	public static var the3DWorldEffectHeatWaveVer:WiggleEffect;
+	public static var the3DWorldEffectDreamy:WiggleEffect;
+
 	public var iconPlayer1:HealthIcon;
 	public var iconPlayer2:HealthIcon;
 	public var camHUD:FlxCamera;
@@ -388,6 +396,36 @@ class PlayState extends MusicBeatState {
 		for (i in 0...keysArray.length) {
 			keysPressed.push(false);
 		}
+
+		the3DWorldEffectFlag = new WiggleEffect();
+		the3DWorldEffectFlag.effectType = WiggleEffectType.FLAG;
+		the3DWorldEffectFlag.waveAmplitude = 0.1;
+		the3DWorldEffectFlag.waveFrequency = 5;
+		the3DWorldEffectFlag.waveSpeed = 2.25;
+
+		the3DWorldEffectHeatWaveHor = new WiggleEffect();
+		the3DWorldEffectHeatWaveHor.effectType = WiggleEffectType.HEAT_WAVE_HORIZONTAL;
+		the3DWorldEffectHeatWaveHor.waveAmplitude = 0.1;
+		the3DWorldEffectHeatWaveHor.waveFrequency = 5;
+		the3DWorldEffectHeatWaveHor.waveSpeed = 2.25;
+
+		the3DWorldEffectHeatWaveVer = new WiggleEffect();
+		the3DWorldEffectHeatWaveVer.effectType = WiggleEffectType.HEAT_WAVE_VERTICAL;
+		the3DWorldEffectHeatWaveVer.waveAmplitude = 0.1;
+		the3DWorldEffectHeatWaveVer.waveFrequency = 5;
+		the3DWorldEffectHeatWaveVer.waveSpeed = 2.25;
+
+		the3DWorldEffectDreamy = new WiggleEffect();
+		the3DWorldEffectDreamy.effectType = WiggleEffectType.DREAMY;
+		the3DWorldEffectDreamy.waveAmplitude = 0.1;
+		the3DWorldEffectDreamy.waveFrequency = 5;
+		the3DWorldEffectDreamy.waveSpeed = 2.25;
+
+		the3DWorldEffectWavy = new WiggleEffect();
+		the3DWorldEffectWavy.effectType = WiggleEffectType.WAVY;
+		the3DWorldEffectWavy.waveAmplitude = 0.2;
+		the3DWorldEffectWavy.waveFrequency = 3;
+		the3DWorldEffectWavy.waveSpeed = 1.25;
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -2590,6 +2628,12 @@ class PlayState extends MusicBeatState {
 
 	override public function update(elapsed:Float) {
 		callOnLuas('onUpdate', [elapsed]);
+
+		the3DWorldEffectFlag.update(elapsed);
+		the3DWorldEffectHeatWaveHor.update(elapsed);
+		the3DWorldEffectHeatWaveVer.update(elapsed);
+		the3DWorldEffectDreamy.update(elapsed);
+		the3DWorldEffectWavy.update(elapsed);
 
 		switch (currentlyStage) {
 			case 'tank':
