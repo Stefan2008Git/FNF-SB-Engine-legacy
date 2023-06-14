@@ -351,9 +351,6 @@ class PlayState extends MusicBeatState {
 	public static var lastScore:Array<FlxSprite> = [];
 
 	override public function create() {
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		// for lua
 		instance = this;
 

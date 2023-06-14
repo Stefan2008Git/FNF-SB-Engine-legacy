@@ -30,7 +30,7 @@ class MainMenuState extends MusicBeatState {
 	public static var currentlySelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-	private var camGame:FlxCamera;
+	private var cameraGame:FlxCamera;
 
 	var optionSelect:Array<String> = ['story_mode', 'freeplay', #if MODS_ALLOWED 'mods', #end 'credits', 'options'];
 
@@ -64,10 +64,10 @@ class MainMenuState extends MusicBeatState {
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-		camGame = new FlxCamera();
+		cameraGame = new FlxCamera();
 
-		FlxG.cameras.reset(camGame);
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.reset(cameraGame);
+		FlxG.cameras.setDefaultDrawTarget(cameraGame, true);
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -140,6 +140,9 @@ class MainMenuState extends MusicBeatState {
 			menuItem.updateHitbox();
 		}
 
+		FlxTween.tween(cameraGame, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
+		FlxTween.tween(background, {angle: 0}, 1, {ease: FlxEase.quartInOut});
+
 		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 		versionSb.scrollFactor.set();
 		versionSb.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -204,6 +207,8 @@ class MainMenuState extends MusicBeatState {
 
 			if (controls.BACK) {
 				selectedSomething = true;
+				FlxTween.tween(cameraGame, {zoom: 10}, 1.6, {ease: FlxEase.expoIn});
+				FlxTween.tween(background, {angle: 90}, 1.6, {ease: FlxEase.expoIn});
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
@@ -216,6 +221,8 @@ class MainMenuState extends MusicBeatState {
 					FlxFlicker.flicker(purple, 1.1, 0.15, false);
 
 				menuItems.forEach(function(spr:FlxSprite) {
+					FlxTween.tween(cameraGame, {zoom: 10}, 1.6, {ease: FlxEase.expoIn});
+					FlxTween.tween(background, {angle: 90}, 1.6, {ease: FlxEase.expoIn});
 					if (currentlySelected != spr.ID) {
 						FlxTween.tween(spr, {x: 1200}, 2, {
 							ease: FlxEase.backInOut,
