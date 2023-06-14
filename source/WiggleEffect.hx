@@ -61,11 +61,11 @@ class WiggleShader extends FlxShader {
 		//uniform float tx, ty; // x,y waves phase
 		uniform float uTime;
 		
-		const int EFFECT_TYPE_DREAMY = 0;
-		const int EFFECT_TYPE_WAVY = 1;
-		const int EFFECT_TYPE_HEAT_WAVE_HORIZONTAL = 2;
-		const int EFFECT_TYPE_HEAT_WAVE_VERTICAL = 3;
-		const int EFFECT_TYPE_FLAG = 4;
+		const int EFFECT_TYPE_DREAMY;
+		const int EFFECT_TYPE_WAVY;
+		const int EFFECT_TYPE_HEAT_WAVE_HORIZONTAL;
+		const int EFFECT_TYPE_HEAT_WAVE_VERTICAL;
+		const int EFFECT_TYPE_FLAG;
 		
 		uniform int effectType;
 		
@@ -86,18 +86,18 @@ class WiggleShader extends FlxShader {
 
 		vec2 sineWave(vec2 pt)
 		{
-			float x = 0.0;
-			float y = 0.0;
+			float x;
+			float y;
 			
 			if (effectType == EFFECT_TYPE_DREAMY) 
 			{
 				float offsetX = sin(pt.y * uFrequency + uTime * uSpeed) * uWaveAmplitude;
-                pt.x += offsetX; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
+                pt.x += offsetX; // * (pt.y); // <- Uncomment to stop bottom part of the screen from moving
 			}
 			else if (effectType == EFFECT_TYPE_WAVY) 
 			{
 				float offsetY = sin(pt.x * uFrequency + uTime * uSpeed) * uWaveAmplitude;
-				pt.y += offsetY; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
+				pt.y += offsetY; // * (pt.y ); // <- Uncomment to stop bottom part of the screen from moving
 			}
 			else if (effectType == EFFECT_TYPE_HEAT_WAVE_HORIZONTAL)
 			{
@@ -109,8 +109,8 @@ class WiggleShader extends FlxShader {
 			}
 			else if (effectType == EFFECT_TYPE_FLAG)
 			{
-				y = sin(pt.y * uFrequency + 10.0 * pt.x + uTime * uSpeed) * uWaveAmplitude;
-				x = sin(pt.x * uFrequency + 5.0 * pt.y + uTime * uSpeed) * uWaveAmplitude;
+				y = sin(pt.y * uFrequency + 10.0. * pt.x + uTime * uSpeed) * uWaveAmplitude;
+				x = sin(pt.x * uFrequency + 5.0. * pt.y + uTime * uSpeed) * uWaveAmplitude;
 			}
 			
 			return vec2(pt.x + x, pt.y + y);
@@ -118,6 +118,7 @@ class WiggleShader extends FlxShader {
 
 		void main()
 		{
+			#pragma body
 			vec2 uv = sineWave(openfl_TextureCoordv);
 			gl_FragColor = texture2D(bitmap, uv);
 		}')
