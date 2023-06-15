@@ -1,7 +1,7 @@
 # Friday Night Funkin': SB Engine
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/SB-Engine.png)
 
-[![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
+[![GitHub Releases](https://img.shields.io/github/Downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ## SB Engine Credits:
