@@ -116,7 +116,7 @@ class CacheState extends FlxState {
 		#end
 
 		new FlxTimer().start(15, function(tmr:FlxTimer) {
-			FlxG.switchState(new TitleState());
+			FlxG.switchState(new TitleScreenState());
 		});
 
 		super.create();

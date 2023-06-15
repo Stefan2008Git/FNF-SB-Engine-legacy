@@ -3,7 +3,6 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flixel.FlxCamera;
 import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
@@ -32,10 +31,6 @@ using StringTools;
 class FreeplayState extends MusicBeatState {
 	var songs:Array<SongMetaData> = [];
 
-	private var cameraBackground:FlxCamera;
-
-	public var cameraInterface:FlxCamera;
-
 	var selector:FlxText;
 
 	private static var currentlySelected:Int = 0;
@@ -60,8 +55,6 @@ class FreeplayState extends MusicBeatState {
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
-	var cameraZoom:FlxTween;
-
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -69,19 +62,6 @@ class FreeplayState extends MusicBeatState {
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
-
-		cameraBackground = new FlxCamera();
-		cameraInterface = new FlxCamera();
-
-		cameraInterface.bgColor.alpha = 0;
-
-		FlxG.cameras.reset(cameraBackground);
-		FlxG.cameras.add(cameraInterface, false);
-
-		FlxG.cameras.setDefaultDrawTarget(cameraInterface, true);
-
-		cameraInterface.alpha = 0;
-		FlxTween.tween(cameraInterface, {alpha: 1}, 0.3, {ease: FlxEase.linear, startDelay: 0.8});
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -177,8 +157,6 @@ class FreeplayState extends MusicBeatState {
 		changeSelection();
 		changeDifficulty();
 
-		cameraZoom = FlxTween.tween(this, {}, 0);
-
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
 		var textBackground:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
@@ -201,12 +179,6 @@ class FreeplayState extends MusicBeatState {
 		text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
 		add(text);
-
-		scoreText.cameras = [cameraInterface];
-		scoreBackground.cameras = [cameraInterface];
-		difficultyText.cameras = [cameraInterface];
-		textBackground.cameras = [cameraInterface];
-		text.cameras = [cameraInterface];
 
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
@@ -307,7 +279,6 @@ class FreeplayState extends MusicBeatState {
 			if (colorTween != null) {
 				colorTween.cancel();
 			}
-			FlxTween.tween(cameraInterface, {alpha: 0}, 0.3, {ease: FlxEase.linear, startDelay: 0.2});
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (ClientPrefs.mainMenuStyle == 'Classic')
 				MusicBeatState.switchState(new ClassicMainMenuState());
@@ -358,8 +329,6 @@ class FreeplayState extends MusicBeatState {
 				colorTween.cancel();
 			}
 
-			FlxTween.tween(cameraInterface, {alpha: 0}, 0.3, {ease: FlxEase.linear, startDelay: 0.4});
-
 			if (FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end) {
 				LoadingState.loadAndSwitchState(new ChartingState());
 			} else {
@@ -367,7 +336,6 @@ class FreeplayState extends MusicBeatState {
 			}
 
 			FlxG.sound.music.volume = 0;
-			FlxG.sound.play(Paths.sound('confirmMenu')); //
 			destroyFreeplayVocals();
 		} else if (controls.RESET #if android || virtualPad.buttonY.justPressed #end) {
 			#if android

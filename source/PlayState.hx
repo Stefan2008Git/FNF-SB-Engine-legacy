@@ -226,6 +226,8 @@ class PlayState extends MusicBeatState {
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
+	var notesHitArray:Array<Date> = [];
+
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
 
@@ -1038,7 +1040,7 @@ class PlayState extends MusicBeatState {
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
-			insert(members.indexOf(timeBarBG), timeBar);
+			timeBarBG.sprTracker = timeBar;
 		}
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime;
@@ -1055,6 +1057,10 @@ class PlayState extends MusicBeatState {
 		}
 		if (ClientPrefs.hudStyle == 'Psych Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+			insert(members.indexOf(timeBarBG), timeBar);
 		}
 		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
@@ -1216,7 +1222,7 @@ class PlayState extends MusicBeatState {
 		add(watermarkTxt);
 
 		if (ClientPrefs.hudStyle == 'SB Engine') {
-			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "AUTOPLAY", 32);
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
 			autoplayTxt.visible = cpuControlled;
@@ -1395,7 +1401,6 @@ class PlayState extends MusicBeatState {
 		}
 		RecalculateRating();
 
-		// PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND freak THEM UP IDK HOW HAXE WORKS
 		if (ClientPrefs.hitsoundVolume > 0)
 			precacheList.set('hitsound', 'sound');
 		precacheList.set('missnote1', 'sound');
@@ -1488,10 +1493,6 @@ class PlayState extends MusicBeatState {
 	public function reloadHealthBarColors() {
 		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
-
-		if (ClientPrefs.hudStyle == 'Better UI') {
-			timeBar.createFilledBar(0xFF121212, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
-		}
 
 		healthBar.updateBar();
 	}
@@ -2063,8 +2064,8 @@ class PlayState extends MusicBeatState {
 				+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 		}
 		if (ClientPrefs.hudStyle == 'Better UI') {
-			scoreTxt.text = 'Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%'
-				+ ' // ' + ratingName + ' (' + ratingFC + ')';
+			scoreTxt.text = 'NPS: ' + npsCounter + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
+				+ Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
 		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
@@ -2738,14 +2739,31 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		for (i in 0...notesHitArray.length) {
+			var valueNoteHit:Date = notesHitArray[i];
+			if (valueNoteHit != null)
+				if (valueNoteHit.getTime() + 2000 < Date.now().getTime())
+					notesHitArray.remove(valueNoteHit);
+		}
+		npsCounter = Math.floor(notesHitArray.length / 2);
+
 		super.update(elapsed);
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
-		if (autoplayTxt.visible) {
-			autoplaySine += 180 * elapsed;
-			autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			if (autoplayTxt.visible) {
+				autoplaySine += 120 * elapsed;
+				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 120);
+			}
+		}
+
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			if (autoplayTxt.visible) {
+				autoplaySine += 180 * elapsed;
+				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
+			}
 		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause) {
@@ -3058,14 +3076,6 @@ class PlayState extends MusicBeatState {
 		persistentDraw = true;
 		paused = true;
 
-		// 1 / 1000 chance for Gitaroo Man easter egg
-		/*if (FlxG.random.bool(0.1))
-		{
-			// gitaroo man easter egg
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new GitarooPause());
-		}
-		else { */
 		if (FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
 			vocals.pause();
@@ -4311,7 +4321,12 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
+	var npsCounter:Int = 0;
+
 	function goodNoteHit(note:Note):Void {
+		if (!note.isSustainNote)
+			notesHitArray.push(Date.now());
+
 		if (!note.wasGoodHit) {
 			if (cpuControlled && (note.ignoreNote || note.hitCausesMiss))
 				return;

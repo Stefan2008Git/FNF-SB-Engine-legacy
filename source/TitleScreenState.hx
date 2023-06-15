@@ -52,7 +52,7 @@ typedef TitleData = {
 	bpm:Int
 }
 
-class TitleState extends MusicBeatState {
+class TitleScreenState extends MusicBeatState {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
@@ -457,6 +457,9 @@ class TitleState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
+
+				MainMenuState.firstStart = true;
+				MainMenuState.finishedFunnyMove = false;
 
 				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 					FlxG.sound.play(Paths.sound('cancelMenu'));

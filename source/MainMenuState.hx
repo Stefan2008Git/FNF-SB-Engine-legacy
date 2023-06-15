@@ -29,6 +29,9 @@ class MainMenuState extends MusicBeatState {
 	public static var psychEngineVersion:String = '0.6.2';
 	public static var currentlySelected:Int = 0;
 
+	public static var firstStart:Bool = true;
+	public static var finishedFunnyMove:Bool = false;
+
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var cameraGame:FlxCamera;
 
@@ -138,7 +141,19 @@ class MainMenuState extends MusicBeatState {
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			menuItem.updateHitbox();
+			if (firstStart)
+				FlxTween.tween(menuItem, {y: 60 + (i * 130)}, 1 + (i * 0.25), {
+					ease: FlxEase.expoInOut,
+					onComplete: function(flxTween:FlxTween) {
+						finishedFunnyMove = true;
+						changeItem();
+					}
+				});
+			else
+				menuItem.y = 60 + (i * 130);
 		}
+
+		firstStart = false;
 
 		FlxTween.tween(cameraGame, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
 		FlxTween.tween(background, {angle: 0}, 1, {ease: FlxEase.quartInOut});
@@ -207,10 +222,8 @@ class MainMenuState extends MusicBeatState {
 
 			if (controls.BACK) {
 				selectedSomething = true;
-				FlxTween.tween(cameraGame, {zoom: 10}, 1.6, {ease: FlxEase.expoIn});
-				FlxTween.tween(background, {angle: 90}, 1.6, {ease: FlxEase.expoIn});
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				MusicBeatState.switchState(new TitleScreenState());
 			}
 
 			if (controls.ACCEPT) {

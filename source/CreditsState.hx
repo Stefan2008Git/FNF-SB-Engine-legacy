@@ -106,14 +106,14 @@ class CreditsState extends MusicBeatState {
 			[
 				'MaysLastPlays',
 				'mays',
-				'Collaborator of SB Engine',
+				'Second Programmer of SB Engine',
 				'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA',
 				'5E99DF'
 			],
 			[
 				'Fearester',
 				'fearester',
-				'Collaborator of SB Engine',
+				'Third Programmer of SB Engine',
 				'https://www.youtube.com/@fearester1282',
 				'5E99DF'
 			],

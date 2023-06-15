@@ -52,7 +52,7 @@ class GameExitState extends MusicBeatState {
 				System.exit(1);
 			case 'No':
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				MusicBeatState.switchState(new TitleScreenState());
 		}
 	}
 

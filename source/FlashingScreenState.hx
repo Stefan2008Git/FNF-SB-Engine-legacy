@@ -95,7 +95,7 @@ class FlashingScreenState extends MusicBeatState {
 					FlxTween.tween(background, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText.scale, {x: 1.5, y: 1.5}, .5,
-						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleState()))});
+						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleScreenState()))});
 					FlxTween.tween(velocityBG, {alpha: 0}, 0.25, {startDelay: 0.25});
 				} else {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -105,7 +105,7 @@ class FlashingScreenState extends MusicBeatState {
 					FlxTween.tween(background, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText.scale, {x: 0, y: 0}, .5,
-						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleState()))});
+						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleScreenState()))});
 					FlxTween.tween(velocityBG, {alpha: 0}, 0.25, {startDelay: 0.25});
 				}
 			}

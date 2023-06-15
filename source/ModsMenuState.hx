@@ -404,8 +404,8 @@ class ModsMenuState extends MusicBeatState {
 			#end
 			saveTxt();
 			if (needToRestart) {
-				TitleState.initialized = false;
-				TitleState.closedState = false;
+				TitleScreenState.initialized = false;
+				TitleScreenState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
 				if (FreeplayState.vocals != null) {
 					FreeplayState.vocals.fadeOut(0.3);
