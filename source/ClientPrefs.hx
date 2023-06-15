@@ -48,6 +48,7 @@ class ClientPrefs {
 	public static var comboStacking = true;
 	public static var hitboxSelection:String = 'Original';
 	public static var hitboxAlpha:Float = 0.2;
+	public static var virtualPadAlpha:Float = 0.5;
 	public static var mainMenuStyle:String = 'Original';
 	public static var hudStyle:String = 'SB Engine';
 	public static var objectEffects:Bool = true;
@@ -145,6 +146,7 @@ class ClientPrefs {
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.hitboxSelection = hitboxSelection;
 		FlxG.save.data.hitboxAlpha = hitboxAlpha;
+		FlxG.save.data.virtualPadAlpha = virtualPadAlpha;
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
 		FlxG.save.data.hudStyle = hudStyle;
 		FlxG.save.data.objectEffects = objectEffects;
@@ -299,6 +301,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.hitboxAlpha != null) {
 			hitboxAlpha = FlxG.save.data.hitboxAlpha;
+		}
+		if (FlxG.save.data.virtualPadAlpha != null) {
+			virtualPadAlpha = FlxG.save.data.virtualPadAlpha;
 		}
 		if (FlxG.save.data.mainMenuStyle != null) {
 			mainMenuStyle = FlxG.save.data.mainMenuStyle;

@@ -123,7 +123,7 @@ class OptionsState extends MusicBeatState {
 		tipText.borderSize = 1.25;
 		tipText.scrollFactor.set();
 		add(tipText);
-		tipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your hitbox mode!', 16);
+		tipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your opacity for hitbox, virtual pads and hitbox style!', 16);
 		tipText.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 1.25;
 		tipText.scrollFactor.set();
@@ -135,7 +135,7 @@ class OptionsState extends MusicBeatState {
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_X_Y);
-		virtualPad.y = -48;
+		virtualPad.y = -44;
 		#end
 
 		super.create();
@@ -184,7 +184,7 @@ class OptionsState extends MusicBeatState {
 			#if android
 			removeVirtualPad();
 			#end
-			openSubState(new android.AndroidHitboxSelectorSubState());
+			openSubState(new android.AndroidControlsSettingsSubState());
 		}
 		#end
 	}
