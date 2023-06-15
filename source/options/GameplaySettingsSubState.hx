@@ -88,10 +88,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If checked, you will have results screen about your rating, accruracy and rating name when you finish the song.", 'resultsScreen', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('SB Engine timebar style',
-			"If checked, you will have SB Engine time bar.\nIf unchecked, you will have basic Psych Engine timebar style", 'sbEngineTimeBar', 'bool', true);
-		addOption(option);
-
 		var option:Option = new Option('Combo Stacking',
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);

@@ -35,8 +35,7 @@ class ClientPrefs {
 	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
-	public static var sbEngineTimeBar:Bool = true;
-	public static var iconBounce:Bool = true;
+	public static var sbEngineIconBounce:Bool = true;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
@@ -127,12 +126,11 @@ class ClientPrefs {
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
-		FlxG.save.data.sbEngineTimeBar = sbEngineTimeBar;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.iconBounce = iconBounce;
+		FlxG.save.data.sbEngineIconBounce = sbEngineIconBounce;
 
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;
@@ -226,8 +224,8 @@ class ClientPrefs {
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		if (FlxG.save.data.iconBounce != null) {
-			iconBounce = FlxG.save.data.iconBounce;
+		if (FlxG.save.data.sbEngineIconBounce != null) {
+			sbEngineIconBounce = FlxG.save.data.sbEngineIconBounce;
 		}
 		if (FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
@@ -255,9 +253,6 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.timeBarType != null) {
 			timeBarType = FlxG.save.data.timeBarType;
-		}
-		if (FlxG.save.data.sbEngineTimeBar != null) {
-			sbEngineTimeBar = FlxG.save.data.sbEngineTimeBar;
 		}
 		if (FlxG.save.data.scoreZoom != null) {
 			scoreZoom = FlxG.save.data.scoreZoom;

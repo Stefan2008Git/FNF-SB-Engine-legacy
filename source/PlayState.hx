@@ -265,7 +265,7 @@ class PlayState extends MusicBeatState {
 	var santa:BGSprite;
 	var heyTimer:Float;
 
-	var iconBounce:Bool = false;
+	var sbEngineIconBounce:Bool = false;
 
 	var bgGirls:BackgroundGirls;
 	var bgGhouls:BGSprite;
@@ -4675,10 +4675,10 @@ class PlayState extends MusicBeatState {
 		iconPlayer1.updateHitbox();
 		iconPlayer2.updateHitbox();
 
-		iconBounce = !iconBounce;
+		sbEngineIconBounce = !sbEngineIconBounce;
 
-		if (ClientPrefs.iconBounce) {
-			if (iconBounce) {
+		if (ClientPrefs.sbEngineIconBounce) {
+			if (sbEngineIconBounce) {
 				iconPlayer1.angle = 15;
 				iconPlayer2.angle = 15; // Credits: notweuz (Creator from OS Engine.)
 			} else {
