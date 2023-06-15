@@ -81,7 +81,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('SB Engine icon bounce', "If checked, you have SB Engine icon bounce.\nCredits: notweuz (Creator of OS Engine.)",
-			'iconBounce', 'bool', true);
+			'sbEngineIconBounce', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Results screen',

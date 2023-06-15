@@ -1035,7 +1035,7 @@ class PlayState extends MusicBeatState {
 			timeBarBG.scrollFactor.set();
 		}
 		if (ClientPrefs.hudStyle == 'Better UI') {
-			timeBarBG = new AttachedSprite('longTimeBar');
+			timeBarBG = new AttachedSprite('longBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
@@ -1059,7 +1059,6 @@ class PlayState extends MusicBeatState {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
 		if (ClientPrefs.hudStyle == 'Better UI') {
-			timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 			insert(members.indexOf(timeBarBG), timeBar);
 		}
 		timeBar.numDivisions = 800;
@@ -1141,9 +1140,21 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		healthBarBG = new AttachedSprite('healthBar');
-		healthBarBG.y = FlxG.height * 0.89;
-		healthBarBG.screenCenter(X);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			healthBarBG = new AttachedSprite('healthBar');
+			healthBarBG.y = FlxG.height * 0.89;
+			healthBarBG.screenCenter(X);
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			healthBarBG = new AttachedSprite('healthBar');
+			healthBarBG.y = FlxG.height * 0.89;
+			healthBarBG.screenCenter(X);
+		}
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			healthBarBG = new AttachedSprite('longBar');
+			healthBarBG.y = FlxG.height * 0.89;
+			healthBarBG.screenCenter(X);
+		}
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
 		healthBarBG.xAdd = -4;
@@ -1152,10 +1163,20 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.downScroll)
 			healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'health', 0, 2);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'health', 0, 2);
+		}
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'health', 0, 2);
+		}
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'health', 0, 2);
+			insert(members.indexOf(healthBarBG), healthBar);
+		}
 		healthBar.scrollFactor.set();
-		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		add(healthBar);
@@ -1493,6 +1514,10 @@ class PlayState extends MusicBeatState {
 	public function reloadHealthBarColors() {
 		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		}
 
 		healthBar.updateBar();
 	}
