@@ -61,7 +61,18 @@ class WeekEditorState extends MusicBeatState {
 		Paths.clearUnusedMemory();
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+		}
+
 		txtWeekTitle.alpha = 0.7;
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
@@ -87,7 +98,18 @@ class WeekEditorState extends MusicBeatState {
 		add(lock);
 
 		missingFileText = new FlxText(0, 0, FlxG.width, "");
-		missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		missingFileText.borderSize = 2;
 		missingFileText.visible = false;
 		add(missingFileText);
@@ -109,7 +131,18 @@ class WeekEditorState extends MusicBeatState {
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
-		txtTracklist.font = Paths.font("bahnschrift.ttf");
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			txtTracklist.setFormat("Bahnschrift");
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			txtTracklist.setFormat("VCR OSD Mono");
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			txtTracklist.setFormat("VCR OSD Mono");
+		}
+
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
 		add(txtWeekTitle);

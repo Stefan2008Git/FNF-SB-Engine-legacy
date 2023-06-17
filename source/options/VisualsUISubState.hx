@@ -74,6 +74,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 
+		var option:Option = new Option('Game engine type:', "What should the style on game do you you want to look like?", 'gameStyle', 'string', 'SB Engine',
+			['SB Engine', 'Psych Engine', 'Better UI']);
+		addOption(option);
+
 		var option:Option = new Option('Simple Main Menu',
 			'Change main menu style.\nOriginal - Original main menu with animated sprites.\nClassic - Basic main menu without sprites, but with alphabet text.',
 			'mainMenuStyle', 'string', 'Original', // Credits:  Joalor64 (Creator of Joalor64 Engine Rewriten.)

@@ -141,26 +141,70 @@ class EditorPlayState extends MusicBeatState {
 		noteTypeMap = null;
 
 		scoreTxt = new FlxText(10, FlxG.height - 50, FlxG.width - 20, "Hits: 0 | Misses: 0", 20);
-		scoreTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			scoreTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
 		sectionTxt = new FlxText(10, 580, FlxG.width - 20, "Section: 0", 20);
-		sectionTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			sectionTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		sectionTxt.scrollFactor.set();
 		sectionTxt.borderSize = 1.25;
 		add(sectionTxt);
 
 		beatTxt = new FlxText(10, sectionTxt.y + 30, FlxG.width - 20, "Beat: 0", 20);
-		beatTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			beatTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		beatTxt.scrollFactor.set();
 		beatTxt.borderSize = 1.25;
 		add(beatTxt);
 
 		stepTxt = new FlxText(10, beatTxt.y + 30, FlxG.width - 20, "Step: 0", 20);
-		stepTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			stepTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		stepTxt.scrollFactor.set();
 		stepTxt.borderSize = 1.25;
 		add(stepTxt);
@@ -170,7 +214,18 @@ class EditorPlayState extends MusicBeatState {
 		#else
 		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press ESC to Go Back to Chart Editor', 16);
 		#end
-		tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);

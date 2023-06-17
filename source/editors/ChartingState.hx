@@ -360,6 +360,7 @@ class ChartingState extends MusicBeatState {
 		UI_box.y = 25;
 		UI_box.scrollFactor.set();
 
+		#if !android
 		text = "W/S or Mouse Wheel - Change Conductor's strum time
 		\nA/D - Go to the previous/next section
 		\nLeft/Right - Change Snap
@@ -374,12 +375,36 @@ class ChartingState extends MusicBeatState {
 		\nEnter - Play your chart
 		\nQ/E - Decrease/Increase Note Sustain Length
 		\nSpace - Stop/Resume song";
+		#else
+		text = "Up or down - Change Conductor's strum time
+		\nLeft button/right button - Go to the previous/next section
+		\nLeft button/right button - Change Snap
+		\nUp button/down button - Change Conductor's Strum Time with Snapping
+		\nTap box on an arrow to select it
+		\nC button/D button - Zoom in/out
+		\n
+		\nBACK - Test your chart inside Chart Editor
+		\nA button - Play your chart
+		\nGo on note section box - Decrease/Increase Note Sustain Length
+		\nX button - Stop/Resume song";
+		#end
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+				tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			}
+
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+				tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			}
+
+			if (ClientPrefs.gameStyle == 'Better UI') {
+				tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			}
+
 			// tipText.borderSize = 2;
 			tipText.scrollFactor.set();
 			add(tipText);
@@ -2551,7 +2576,18 @@ class ChartingState extends MusicBeatState {
 					theType = '?';
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 100, theType, 24);
-				daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				if (ClientPrefs.gameStyle == 'SB Engine') {
+					daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				}
+
+				if (ClientPrefs.gameStyle == 'Psych Engine') {
+					daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				}
+
+				if (ClientPrefs.gameStyle == 'Better UI') {
+					daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				}
+
 				daText.xAdd = -32;
 				daText.yAdd = 6;
 				daText.borderSize = 1;
@@ -2577,7 +2613,17 @@ class ChartingState extends MusicBeatState {
 					text = note.eventLength + ' Events:\n' + note.eventName;
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 400, text, 12);
-				daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+				if (ClientPrefs.gameStyle == 'SB Engine') {
+					daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+				}
+
+				if (ClientPrefs.gameStyle == 'Psych Engine') {
+					daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+				}
+
+				if (ClientPrefs.gameStyle == 'Better UI') {
+					daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+				}
 				daText.xAdd = -410;
 				daText.borderSize = 1;
 				if (note.eventLength > 1)

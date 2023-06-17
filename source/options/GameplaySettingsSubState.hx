@@ -98,10 +98,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
-		var option:Option = new Option('HUD type:', "What should the HUD on game you want to look like?", 'hudStyle', 'string', 'SB Engine',
-			['SB Engine', 'Psych Engine', 'Better UI']);
-		addOption(option);
-
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;

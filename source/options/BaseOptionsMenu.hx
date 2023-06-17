@@ -96,11 +96,30 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		descText = new FlxText(50, 600, 1180, "", 32);
-		descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		descText.scrollFactor.set();
-		descText.borderSize = 2.4;
-		add(descText);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			descText = new FlxText(50, 600, 1180, "", 32);
+			descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			descText.scrollFactor.set();
+			descText.borderSize = 2.4;
+			add(descText);
+			descBox.sprTracker = descText;
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			descText = new FlxText(50, 600, 1180, "", 32);
+			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			descText.scrollFactor.set();
+			descText.borderSize = 2.4;
+			add(descText);
+			descBox.sprTracker = descText;
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			descText = new FlxText(50, 600, 1180, "", 32);
+			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			descText.scrollFactor.set();
+			descText.borderSize = 2.4;
+			add(descText);
+			descBox.sprTracker = descText;
+		}
 
 		for (i in 0...optionsArray.length) {
 			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);

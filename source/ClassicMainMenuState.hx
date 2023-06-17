@@ -105,13 +105,36 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		initOptions();
 
-		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+			sbEngineVersionTxt.scrollFactor.set();
+			sbEngineVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
+			fnfVersionTxt.scrollFactor.set();
+			fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+			sbEngineVersionTxt.scrollFactor.set();
+			sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
+			fnfVersionTxt.scrollFactor.set();
+			fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+			sbEngineVersionTxt.scrollFactor.set();
+			sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
+			fnfVersionTxt.scrollFactor.set();
+			fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		sbEngineVersionTxt.scrollFactor.set();
-		sbEngineVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(sbEngineVersionTxt);
-		fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 		fnfVersionTxt.scrollFactor.set();
-		fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(sbEngineVersionTxt);
 		add(fnfVersionTxt);
 
 		selectorLeft = new Alphabet(0, 0, '> ', true);

@@ -82,7 +82,18 @@ class MasterEditorMenu extends MusicBeatState {
 		add(textBG);
 
 		directoryTxt = new FlxText(textBG.x, textBG.y + 4, FlxG.width, '', 32);
-		directoryTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		}
+
 		directoryTxt.scrollFactor.set();
 		add(directoryTxt);
 

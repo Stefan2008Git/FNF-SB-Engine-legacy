@@ -41,8 +41,8 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 			'Original', ['Original', 'New']); // Credits: MarioMaster (Created hitbox selector)
 		addOption(option);
 
-		var option:Option = new Option('Hitbox Opacity:', 'Change hitbox opacity\nNote: (Only works on new hitbox, not on original one!)', 'hitboxAlpha',
-			'float', 0.2); // Credits: MarioMaster (Created hitbox opacity)
+		var option:Option = new Option('Hitbox Opacity:', 'Change hitbox opacity\nNote: (Using to much opacity its gonna be so weird on gameplay!)',
+			'hitboxAlpha', 'float', 0.2); // Credits: MarioMaster (Created hitbox opacity)
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -50,8 +50,7 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('Virtual pad Opacity:',
-			'Changes virtual pad opacity.\nMaximum value for opacity its: 1.\nMinimum value for opacity its: 0.1', 'virtualPadAlpha', 'float',
+		var option:Option = new Option('Virtual pad Opacity:', 'Changes virtual pad opacity', 'virtualPadAlpha', 'float',
 			0.5); // Credits: MarioMaster (Created hitbox opacity)
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.1;

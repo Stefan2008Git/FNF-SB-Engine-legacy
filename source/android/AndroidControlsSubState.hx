@@ -67,8 +67,21 @@ class AndroidControlsSubState extends FlxSubState {
 				virtualPad.buttonLeft.y = FlxG.height - 309;
 			}
 		});
-		resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
-		resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
+			resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
+		}
+
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
+			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+		}
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
+			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+		}
+
 		resetButton.color = FlxColor.RED;
 		resetButton.visible = false;
 		add(resetButton);
@@ -85,18 +98,36 @@ class AndroidControlsSubState extends FlxSubState {
 		hitbox.visible = false;
 		add(hitbox);
 
-		noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
-		noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+			noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			inputText = new FlxText(0, 100, 0, '', 32);
+			inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			inputText = new FlxText(0, 100, 0, '', 32);
+			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			inputText = new FlxText(0, 100, 0, '', 32);
+			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		noAndroidControlsText.borderSize = 2.4;
 		noAndroidControlsText.screenCenter();
 		noAndroidControlsText.visible = false;
-		add(noAndroidControlsText);
 
-		inputText = new FlxText(0, 100, 0, '', 32);
-		inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		inputText.borderSize = 2.4;
 		inputText.screenCenter(X);
+
 		add(inputText);
+		add(noAndroidControlsText);
 
 		leftArrow = new FlxSprite(inputText.x - 60, inputText.y - 25);
 		leftArrow.frames = FlxAtlasFrames.fromSparrow(Assets.getBitmapData('assets/android/menu/arrows.png'),
@@ -112,30 +143,70 @@ class AndroidControlsSubState extends FlxSubState {
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
-		tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+			tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.scrollFactor.set();
+
+			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
+			rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
+			leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
+			downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+			upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.hudStyle == 'Psych Engine') {
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.scrollFactor.set();
+
+			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
+			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
+			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
+			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.hudStyle == 'Better UI') {
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.scrollFactor.set();
+
+			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
+			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
+			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
+			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		tipText.scrollFactor.set();
-		add(tipText);
-
-		rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
-		rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		rightPosition.borderSize = 2.4;
-		add(rightPosition);
-
-		leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
-		leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		leftPosition.borderSize = 2.4;
-		add(leftPosition);
-
-		downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-		downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		downPosition.borderSize = 2.4;
-		add(downPosition);
-
-		upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
-		upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		upPosition.borderSize = 2.4;
+
+		add(tipText);
+		add(rightPosition);
+		add(leftPosition);
+		add(downPosition);
 		add(upPosition);
 
 		changeSelection();

@@ -1008,7 +1008,18 @@ class PlayState extends MusicBeatState {
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			timeTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -1021,20 +1032,20 @@ class PlayState extends MusicBeatState {
 		}
 		updateTime = showTime;
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			timeBarBG = new AttachedSprite('sbEngineTimeBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			timeBarBG = new AttachedSprite('timeBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			timeBarBG = new AttachedSprite('longBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
@@ -1052,13 +1063,13 @@ class PlayState extends MusicBeatState {
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFF800080);
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			insert(members.indexOf(timeBarBG), timeBar);
 		}
 		timeBar.numDivisions = 800;
@@ -1140,17 +1151,17 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			healthBarBG = new AttachedSprite('healthBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			healthBarBG = new AttachedSprite('healthBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			healthBarBG = new AttachedSprite('longBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
@@ -1163,15 +1174,15 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.downScroll)
 			healthBarBG.y = 0.11 * FlxG.height;
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 			insert(members.indexOf(healthBarBG), healthBar);
@@ -1195,7 +1206,7 @@ class PlayState extends MusicBeatState {
 		add(iconPlayer2);
 		reloadHealthBarColors();
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.scrollFactor.set();
@@ -1203,35 +1214,61 @@ class PlayState extends MusicBeatState {
 			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.scrollFactor.set();
 			scoreTxt.borderSize = 1.25;
 			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.scrollFactor.set();
 			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
 
-		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
-		judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
+			judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
+			judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
+			judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+		}
+
 		judgementCounterTxt.borderSize = 2;
 		judgementCounterTxt.borderQuality = 2;
 		judgementCounterTxt.scrollFactor.set();
 		judgementCounterTxt.size = 22;
 		judgementCounterTxt.screenCenter(Y);
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 		add(judgementCounterTxt);
 
 		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
@@ -1242,7 +1279,7 @@ class PlayState extends MusicBeatState {
 			+ MainMenuState.psychEngineVersion + ") ";
 		add(watermarkTxt);
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
@@ -1253,9 +1290,9 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
 			autoplayTxt.borderSize = 1.25;
 			autoplayTxt.visible = cpuControlled;
@@ -1265,9 +1302,9 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
-			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
 			autoplayTxt.visible = cpuControlled;
 			add(autoplayTxt);
@@ -1515,7 +1552,7 @@ class PlayState extends MusicBeatState {
 		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		}
 
@@ -2074,12 +2111,13 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function updateScore(miss:Bool = false) {
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			scoreTxt.text = 'Score: ' + songScore + ' | Combo breaks: ' + songMisses + ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2)
 				+ '%' + ' | ' + ratingName + ' [' + ratingFC + ']';
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt.text = 'Score: '
 				+ songScore
 				+ ' | Misses: '
@@ -2087,10 +2125,13 @@ class PlayState extends MusicBeatState {
 				+ ' | Rating: '
 				+ ratingName
 				+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			scoreTxt.text = 'NPS: ' + npsCounter + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
 				+ Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
@@ -2777,14 +2818,14 @@ class PlayState extends MusicBeatState {
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (autoplayTxt.visible) {
 				autoplaySine += 120 * elapsed;
 				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 120);
 			}
 		}
 
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			if (autoplayTxt.visible) {
 				autoplaySine += 180 * elapsed;
 				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
@@ -2802,7 +2843,7 @@ class PlayState extends MusicBeatState {
 			openChartEditor();
 		}
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
@@ -2811,7 +2852,7 @@ class PlayState extends MusicBeatState {
 			iconPlayer2.scale.set(mult, mult);
 			iconPlayer2.updateHitbox();
 		}
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
@@ -2820,7 +2861,7 @@ class PlayState extends MusicBeatState {
 			iconPlayer2.scale.set(mult, mult);
 			iconPlayer2.updateHitbox();
 		}
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
@@ -4701,7 +4742,7 @@ class PlayState extends MusicBeatState {
 
 		iconBounceAngle = !iconBounceAngle;
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (iconBounceAngle) {
 				iconPlayer1.angle = 15;
 				iconPlayer2.angle = 15; // Credits: notweuz (Creator from OS Engine.)

@@ -159,7 +159,7 @@ class NoteOffsetState extends MusicBeatState {
 		barPercent = ClientPrefs.noteOffset;
 		updateNoteDelay();
 
-		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineTimeBar'));
+		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('timeBar'));
 		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
 		timeBarBG.updateHitbox();
 		timeBarBG.cameras = [camHUD];
