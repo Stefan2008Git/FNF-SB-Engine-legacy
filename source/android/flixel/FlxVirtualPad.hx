@@ -17,8 +17,7 @@ import openfl.utils.Assets;
  * @original author Ka Wing Chin
  * @modification's author: Saw (M.A. Jigsaw)
  */
-class FlxVirtualPad extends FlxSpriteGroup
-{
+class FlxVirtualPad extends FlxSpriteGroup {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
@@ -45,14 +44,12 @@ class FlxVirtualPad extends FlxSpriteGroup
 	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
 	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
 	 */
-	public function new(DPad:FlxDPadMode, Action:FlxActionMode)
-	{
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode) {
 		super();
 
 		scrollFactor.set();
 
-		switch (DPad)
-		{
+		switch (DPad) {
 			case UP_DOWN:
 				add(buttonUp = createButton(0, FlxG.height - 255, 132, 127, 'up', 0x00FF00));
 				add(buttonDown = createButton(0, FlxG.height - 135, 132, 127, 'down', 0x00FFFF));
@@ -85,8 +82,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 			case NONE: // do nothing
 		}
 
-		switch (Action)
-		{
+		switch (Action) {
 			case A:
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 132, 127, 'a', 0xFF0000));
 			case B:
@@ -136,8 +132,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	/**
 	 * Clean up memory.
 	 */
-	override public function destroy():Void
-	{
+	override public function destroy():Void {
 		super.destroy();
 
 		buttonLeft = null;
@@ -161,8 +156,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		buttonZ = null;
 	}
 
-	private function createButton(X:Float, Y:Float, Width:Int, Height:Int, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
-	{
+	private function createButton(X:Float, Y:Float, Width:Int, Height:Int, Graphic:String, Color:Int = 0xFFFFFF):FlxButton {
 		var button:FlxButton = new FlxButton(X, Y);
 		button.frames = FlxTileFrames.fromFrame(FlxAtlasFrames.fromSparrow(Assets.getBitmapData('assets/android/virtualpad.png'),
 			Assets.getText('assets/android/virtualpad.xml'))
@@ -173,7 +167,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		button.immovable = true;
 		button.scrollFactor.set();
 		button.color = Color;
-		button.alpha = AndroidControls.getOpacity();
+		button.alpha = ClientPrefs.virtualPadAlpha;
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
 		#end
@@ -181,8 +175,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	}
 }
 
-enum FlxDPadMode
-{
+enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;
 	UP_LEFT_RIGHT;
@@ -192,8 +185,7 @@ enum FlxDPadMode
 	NONE;
 }
 
-enum FlxActionMode
-{
+enum FlxActionMode {
 	A;
 	B;
 	A_B;
