@@ -17,8 +17,7 @@ import openfl.utils.Assets;
  *
  * @author: Saw (M.A. Jigsaw)
  */
-class FlxHitbox extends FlxSpriteGroup
-{
+class FlxHitbox extends FlxSpriteGroup {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonDown:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
@@ -27,8 +26,7 @@ class FlxHitbox extends FlxSpriteGroup
 	/**
 	 * Create the zone.
 	 */
-	public function new()
-	{
+	public function new() {
 		super();
 
 		scrollFactor.set();
@@ -42,8 +40,7 @@ class FlxHitbox extends FlxSpriteGroup
 	/**
 	 * Clean up memory.
 	 */
-	override function destroy()
-	{
+	override function destroy() {
 		super.destroy();
 
 		buttonLeft = null;
@@ -52,8 +49,7 @@ class FlxHitbox extends FlxSpriteGroup
 		buttonRight = null;
 	}
 
-	private function createHint(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
-	{
+	private function createHint(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton {
 		var hintTween:FlxTween = null;
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(FlxGraphic.fromFrame(FlxAtlasFrames.fromSparrow(Assets.getBitmapData('assets/android/hitbox.png'),
@@ -66,25 +62,27 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.scrollFactor.set();
 		hint.color = Color;
 		hint.alpha = 0.00001;
-		hint.onDown.callback = function()
-		{
+		hint.onDown.callback = function() {
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity()}, 0.001, {ease: FlxEase.circInOut, onComplete: function(twn:FlxTween)
-			{
-				hintTween = null;
-			}});
+			hintTween = FlxTween.tween(hint, {alpha: ClientPrefs.hitboxAlpha()}, 0.001, {
+				ease: FlxEase.circInOut,
+				onComplete: function(twn:FlxTween) {
+					hintTween = null;
+				}
+			});
 		}
-		hint.onUp.callback = function()
-		{
+		hint.onUp.callback = function() {
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, 0.001, {ease: FlxEase.circInOut,	onComplete: function(twn:FlxTween)
-			{
-				hintTween = null;
-			}});
+			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, 0.001, {
+				ease: FlxEase.circInOut,
+				onComplete: function(twn:FlxTween) {
+					hintTween = null;
+				}
+			});
 		}
 		hint.onOver.callback = hint.onDown.callback;
 		hint.onOut.callback = hint.onUp.callback;
