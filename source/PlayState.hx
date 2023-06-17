@@ -265,7 +265,7 @@ class PlayState extends MusicBeatState {
 	var santa:BGSprite;
 	var heyTimer:Float;
 
-	var sbEngineIconBounce:Bool = false;
+	var iconBounceAngle:Bool = false;
 
 	var bgGirls:BackgroundGirls;
 	var bgGhouls:BGSprite;
@@ -3785,7 +3785,6 @@ class PlayState extends MusicBeatState {
 						ratingName + (' [' + ratingFC + '] ')));
 				else
 					MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('tea-time'), 0.5);
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4700,10 +4699,10 @@ class PlayState extends MusicBeatState {
 		iconPlayer1.updateHitbox();
 		iconPlayer2.updateHitbox();
 
-		sbEngineIconBounce = !sbEngineIconBounce;
+		iconBounceAngle = !iconBounceAngle;
 
-		if (ClientPrefs.sbEngineIconBounce) {
-			if (sbEngineIconBounce) {
+		if (ClientPrefs.hudStyle == 'SB Engine') {
+			if (iconBounceAngle) {
 				iconPlayer1.angle = 15;
 				iconPlayer2.angle = 15; // Credits: notweuz (Creator from OS Engine.)
 			} else {

@@ -35,7 +35,6 @@ class ClientPrefs {
 	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
-	public static var sbEngineIconBounce:Bool = true;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
@@ -130,8 +129,6 @@ class ClientPrefs {
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.sbEngineIconBounce = sbEngineIconBounce;
-
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;
 		FlxG.save.data.goodWindow = goodWindow;
@@ -223,9 +220,6 @@ class ClientPrefs {
 				FlxG.drawFramerate = framerate;
 				FlxG.updateFramerate = framerate;
 			}
-		}
-		if (FlxG.save.data.sbEngineIconBounce != null) {
-			sbEngineIconBounce = FlxG.save.data.sbEngineIconBounce;
 		}
 		if (FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
