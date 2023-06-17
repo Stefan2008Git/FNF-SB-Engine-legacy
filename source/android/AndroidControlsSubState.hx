@@ -67,17 +67,17 @@ class AndroidControlsSubState extends FlxSubState {
 				virtualPad.buttonLeft.y = FlxG.height - 309;
 			}
 		});
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 			resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
 		}
 
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
 		}
 
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
 		}
@@ -98,21 +98,21 @@ class AndroidControlsSubState extends FlxSubState {
 		hitbox.visible = false;
 		add(hitbox);
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
 			noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			inputText = new FlxText(0, 100, 0, '', 32);
 			inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
 			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			inputText = new FlxText(0, 100, 0, '', 32);
 			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
 			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			inputText = new FlxText(0, 100, 0, '', 32);
@@ -143,7 +143,7 @@ class AndroidControlsSubState extends FlxSubState {
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		if (ClientPrefs.hudStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine') {
 			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
 			tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.scrollFactor.set();
@@ -161,7 +161,7 @@ class AndroidControlsSubState extends FlxSubState {
 			upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.hudStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
 			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.scrollFactor.set();
@@ -179,7 +179,7 @@ class AndroidControlsSubState extends FlxSubState {
 			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.hudStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
 			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.scrollFactor.set();
