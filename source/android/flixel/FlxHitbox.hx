@@ -62,27 +62,13 @@ class FlxHitbox extends FlxSpriteGroup {
 		hint.scrollFactor.set();
 		hint.color = Color;
 		hint.alpha = 0.00001;
-		hint.onDown.callback = function() {
-			if (hintTween != null)
-				hintTween.cancel();
-
-			hintTween = FlxTween.tween(hint, {alpha: ClientPrefs.hitboxAlpha()}, 0.001, {
-				ease: FlxEase.circInOut,
-				onComplete: function(twn:FlxTween) {
-					hintTween = null;
-				}
-			});
+		hint.onDown.callback = hint.onOver.callback = function() {
+			if (hint.alpha != ClientPrefs.hitboxAlpha)
+				hint.alpha = ClientPrefs.hitboxAlpha;
 		}
-		hint.onUp.callback = function() {
-			if (hintTween != null)
-				hintTween.cancel();
-
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, 0.001, {
-				ease: FlxEase.circInOut,
-				onComplete: function(twn:FlxTween) {
-					hintTween = null;
-				}
-			});
+		hint.onUp.callback = hint.onOut.callback = function() {
+			if (hint.alpha != 0.00001)
+				hint.alpha = 0.00001;
 		}
 		hint.onOver.callback = hint.onDown.callback;
 		hint.onOut.callback = hint.onUp.callback;
