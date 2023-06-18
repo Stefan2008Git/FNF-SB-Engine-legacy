@@ -381,9 +381,9 @@ class ChartingState extends MusicBeatState {
 		\nLeft button/right button - Change Snap
 		\nUp button/down button - Change Conductor's Strum Time with Snapping
 		\nTap box on an arrow to select it
-		\nC button/D button - Zoom in/out
+		\nC button/Z button - Zoom in/out
 		\n
-		\nBACK - Test your chart inside Chart Editor
+		\nB button - Test your chart inside Chart Editor
 		\nA button - Play your chart
 		\nGo on note section box - Decrease/Increase Note Sustain Length
 		\nX button - Stop/Resume song";

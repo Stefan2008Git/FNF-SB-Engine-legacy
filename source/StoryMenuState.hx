@@ -89,7 +89,18 @@ class StoryMenuState extends MusicBeatState {
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
-		rankText.setFormat("Bahnschrift", 32);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			rankText.setFormat("Bahnschrift", 32);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			rankText.setFormat("Bahnschrift", 32);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			rankText.setFormat("VCR OSD Mono", 32);
+		}
+
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 

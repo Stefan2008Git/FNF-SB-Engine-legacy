@@ -20,6 +20,7 @@ class ClientPrefs {
 	public static var resultsScreen:Bool = false;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
+	public static var opponentArrowGlow:Bool = true;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var velocityBackground:Bool = true;
@@ -111,6 +112,7 @@ class ClientPrefs {
 		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
+		FlxG.save.data.opponentArrowGlow = opponentArrowGlow;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.velocityBackground = velocityBackground;
@@ -201,6 +203,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.noteSplashes != null) {
 			noteSplashes = FlxG.save.data.noteSplashes;
+		}
+		if (FlxG.save.data.opponentArrowGlow != null) {
+			opponentArrowGlow = FlxG.save.data.opponentArrowGlow;
 		}
 		if (FlxG.save.data.lowQuality != null) {
 			lowQuality = FlxG.save.data.lowQuality;

@@ -4369,7 +4369,9 @@ class PlayState extends MusicBeatState {
 		if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
-		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		if (ClientPrefs.opponentArrowGlow) {
+			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		}
 		note.hitByOpponent = true;
 
 		callOnLuas('opponentNoteHit', [
