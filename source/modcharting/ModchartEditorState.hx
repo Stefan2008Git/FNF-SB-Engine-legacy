@@ -2016,7 +2016,7 @@ class ModchartEditorState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
         {
 	#if android
-	SUtil.saveContent(Paths.formatToSongPath(_song.song) + postfix, ".json", data.trim());
+	SUtil.saveContent("modchart", ".json", data.trim());
 	#else
             _file = new FileReference();
             _file.addEventListener(openfl.events.Event.COMPLETE, onSaveComplete);
