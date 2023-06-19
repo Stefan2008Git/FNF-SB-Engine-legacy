@@ -52,6 +52,8 @@ import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
 
+import modcharting.ModchartEditorState;
+
 using StringTools;
 
 #if sys
@@ -1726,6 +1728,11 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.justPressed.X #if android || virtualPad.buttonC.justPressed #end && curZoom < zoomList.length - 1) {
 				curZoom++;
 				updateZoom();
+			}
+
+			if (FlxG.keys.justPressed.NINE) {
+				autosaveSong();
+				LoadingState.loadAndSwitchState(new ModchartEditorState());
 			}
 
 			if (FlxG.keys.justPressed.TAB) {
