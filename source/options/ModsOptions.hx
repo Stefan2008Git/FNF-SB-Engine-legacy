@@ -11,7 +11,6 @@ import lime.utils.Assets;
 import flixel.FlxSubState;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import *;
 import options.*;
 import flash.text.TextField;
 import flixel.FlxSave;
