@@ -3981,7 +3981,7 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart1 = 'pixelUI/';
 			pixelfreakPart2 = '-pixel';
 		}
-
+        if (!cpuControlled) {
 		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
@@ -4115,6 +4115,7 @@ class PlayState extends MusicBeatState {
 			},
 			startDelay: Conductor.crochet * 0.002 / playbackRate
 		});
+	}
 	}
 
 	public var strumsBlocked:Array<Bool> = [];
