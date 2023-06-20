@@ -13,7 +13,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import options.*;
 import flash.text.TextField;
-import flixel.FlxSave;
+import flixel.util.FlxSave;
 import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
@@ -24,7 +24,7 @@ import meta.data.dependency.Discord.DiscordClient;
 
 using StringTools;
 
-class ModOptionSelectState extends MusicBeatState {
+class ModsOptions extends MusicBeatState {
     private var mods:Array<String>;
     private var grpOptions:FlxTypedGroup<Alphabet>;
     private static var curSelected:Int = 0;
