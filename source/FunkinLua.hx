@@ -1552,6 +1552,28 @@ class FunkinLua {
 			}
 		});
 
+		if (ClientPrefs.shaders == true) {
+		    Lua_helper.add_callback(lua, "addWavyShader", function(tag:String, wavyType:String) {
+				if (PlayState.instance.modchartSprites.exists(tag)) {
+					var wiggleEffectValue:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+					switch (wavyType) {
+						case "FLAG":
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectFlag.shader;
+						case "DREAMY":
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectDreamy.shader;
+						case "HEAT_WAVE_HORIZONTAL":
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectHeatWaveHorizontal.shader;
+						case "HEAT_WAVE_VERTICAL":
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectHeatWaveVertical.shader;
+						case "WAVY":
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectWavy.shader;
+						default:
+							wiggleEffectValue.shader = PlayState.the3DWorldEffectWavy.shader;
+					}
+				}
+			});
+		}
+
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true) {
 			if (PlayState.instance.getLuaObject(obj) != null) {
 				var freak:FlxSprite = PlayState.instance.getLuaObject(obj);
