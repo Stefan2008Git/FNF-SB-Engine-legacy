@@ -128,11 +128,8 @@
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 
-<!-- Show debug traces for hxCodec -->
+    <!-- Show debug traces for hxCodec -->
     <haxedef name="HXC_DEBUG_TRACE" if="debug" />
-
-	<!-- It's ignoring all warning when you compile the game -->
-	<haxedef name="no-deprecation-warnings"/>
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
@@ -178,6 +175,9 @@
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
+
+	<!-- It's ignoring all warning when you compile the game -->
+	<haxedef name="no-deprecation-warnings"/>
 
 	<!-- _________________________________ Android Stuff _______________________________ -->
 	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
