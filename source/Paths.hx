@@ -495,7 +495,7 @@ class Paths
 	}
 	static public function optionsExist(?key:String = null) // basically checks if a mod contains options
 		{
-			var modsFolder:Array<String> = Mods.getModDirectories();
+			var modsFolder:Array<String> = getModDirectories();
 			modsFolder.insert(0, '');
 	
 			if (key == null) {
