@@ -80,18 +80,7 @@ class PlayState extends MusicBeatState {
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
-	public static var ratingStuff:Array<Dynamic> = [
-		['You are gonna die!', 0.2], // From 0% to 19%
-		['Freak', 0.4], // From 20% to 39%
-		['Really bad', 0.5], // From 40% to 49%
-		['Bad', 0.6], // From 50% to 59%
-		['Nice', 0.69], // From 60% to 68%
-		['Epic', 0.7], // 69%
-		['Good', 0.8], // From 70% to 79%
-		['Very good', 0.9], // From 80% to 89%
-		['Sick!', 1], // From 90% to 99%
-		['Perfect!!', 1] // The value on this one isn't used actually, since Perfect is always "1"
-	];
+	public static var ratingStuff:Array<Dynamic> = [];
 
 	// event variables
 	private var isCameraOnForcedPos:Bool = false;
@@ -197,6 +186,8 @@ class PlayState extends MusicBeatState {
 	public var goods:Int = 0;
 	public var bads:Int = 0;
 	public var freaks:Int = 0;
+	public var nps:Int = 0;
+	public var maximumNPS:Int = 0;
 
 	private var generatedMusic:Bool = false;
 
@@ -348,6 +339,8 @@ class PlayState extends MusicBeatState {
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 
+	var healthCounter:Float;
+
 	override public function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -389,6 +382,51 @@ class PlayState extends MusicBeatState {
 		rating.score = 50;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
+
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			ratingStuff = [
+				['You are gonna die!', 0.2], // From 0% to 19%
+                ['Freak', 0.4], // From 20% to 39%
+                ['Really bad', 0.5], // From 40% to 49%
+                ['Bad', 0.6], // From 50% to 59%
+                ['Nice', 0.69], // From 60% to 68%
+                ['Epic', 0.7], // 69%
+                ['Good', 0.8], // From 70% to 79%
+                ['Very good', 0.9], // From 80% to 89%
+                ['Sick!', 1], // From 90% to 99%
+                ['Perfect!!', 1] // The value on this one isn't used actually, since Perfect is always "1"
+		];
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			ratingStuff = [
+			    ['You Suck!', 0.2], //From 0% to 19%
+				['####', 0.4], //From 20% to 39%
+				['Bad', 0.5], //From 40% to 49%
+				['Bruh', 0.6], //From 50% to 59%
+				['Meh', 0.69], //From 60% to 68%
+				['Nice', 0.7], //69%
+				['Good', 0.8], //From 70% to 79%
+				['Great', 0.9], //From 80% to 89%
+				['Sick!', 1], //From 90% to 99%
+				['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		];
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			ratingStuff = [
+				['F', 0.2], //From 0% to 19%
+				['E', 0.4], //From 20% to 39%
+				['D', 0.5], //From 40% to 49%
+				['C', 0.6], //From 50% to 59%
+				['B', 0.69], //From 60% to 68%
+				['A', 0.7], //69%
+				['AA', 0.8], //From 70% to 79%
+				['AAA', 0.9], //From 80% to 89%
+				['AAAA', 1], //From 90% to 99%
+				['AAAAA', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		];
+		}
 
 		// For the "Just the Two of Us" achievement
 		for (i in 0...keysArray.length) {
@@ -2143,7 +2181,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreTxt.text = 'NPS: ' + npsCounter + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
+			scoreTxt.text = 'NPS: ' + nps + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
 				+ Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
@@ -2819,13 +2857,23 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		for (i in 0...notesHitArray.length) {
-			var valueNoteHit:Date = notesHitArray[i];
-			if (valueNoteHit != null)
-				if (valueNoteHit.getTime() + 2000 < Date.now().getTime())
-					notesHitArray.remove(valueNoteHit);
+		{
+			var valueNoteHit = notesHitArray.length-1;
+			while (valueNoteHit >= 0)
+			{
+				var npsCounter:Date = notesHitArray[valueNoteHit];
+				if (npsCounter != null && npsCounter.getTime() + 1000 / playbackRate < Date.now().getTime())
+					notesHitArray.remove(npsCounter);
+				else
+					valueNoteHit = 0;
+				valueNoteHit--;
+			}
+			nps = notesHitArray.length;
+			if (nps > maximumNPS)
+				maximumNPS = nps;
 		}
-		npsCounter = Math.floor(notesHitArray.length / 2);
+
+		healthCounter = health * 100;
 
 		super.update(elapsed);
 
@@ -3840,6 +3888,7 @@ class PlayState extends MusicBeatState {
 						ratingName + (' [' + ratingFC + '] ')));
 				else
 					MusicBeatState.switchState(new FreeplayState());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4402,7 +4451,7 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-	var npsCounter:Int = 0;
+
 
 	function goodNoteHit(note:Note):Void {
 		if (!note.isSustainNote)
@@ -4996,7 +5045,18 @@ class PlayState extends MusicBeatState {
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
-		judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+	    }
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+	    }
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+	    }
 	}
 
 	var curLight:Int = -1;
