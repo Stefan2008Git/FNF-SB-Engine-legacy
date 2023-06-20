@@ -386,4 +386,8 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}
+	function closeState() {
+		close();
+		FlxG.sound.play(Paths.sound('cancelMenu'));
+	};
 }
