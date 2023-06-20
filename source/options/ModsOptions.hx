@@ -155,6 +155,7 @@ class ModOptions extends BaseOptionsMenu {
         rpcTitle = 'Mod Options Menu'; // for Discord Rich Presence
 
         var directory:String = modName == '' ? 'mods/options' : 'mods/$modName/options';
+        directory = SUtil.getPath() + directory;
 
         if (FileSystem.exists(directory)) {
             for (file in FileSystem.readDirectory(directory)) {
