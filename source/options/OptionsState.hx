@@ -25,11 +25,13 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
+import options.*;
 
 using StringTools;
 
 class OptionsState extends MusicBeatState {
 	var options:Array<String> = [
+	        'Mod Options',
 		'Note Colors',
 		'Controls',
 		'Adjust Delay and Combo',
@@ -45,6 +47,15 @@ class OptionsState extends MusicBeatState {
 
 	function openSelectedSubstate(label:String) {
 		switch (label) {
+			case 'Mod Options':
+			    	if (Paths.optionsExist()) {
+					FlxG.switchState(new ModsOptions());
+				 } else {
+				        if (ClientPrefs.mainMenuStyle == 'Classic')
+					        MusicBeatState.switchState(new ClassicMainMenuState());
+				        else
+					        MusicBeatState.switchState(new MainMenuState());
+				}
 			case 'Note Colors':
 				#if android
 				removeVirtualPad();
