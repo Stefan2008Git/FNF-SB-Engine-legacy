@@ -19,7 +19,7 @@ Other installations you'd need are the additional libraries, a fully updated lis
 
 ``haxelib install flixel 4.11.0``
 
-``haxelib install flixel-tools 2.11.0``
+``haxelib install flixel-addons 2.11.0``
 
 ``haxelib install hxCodec 2.5.1``
 
