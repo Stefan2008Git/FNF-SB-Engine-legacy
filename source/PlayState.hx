@@ -1178,9 +1178,11 @@ class PlayState extends MusicBeatState {
 
 		generateSong(SONG.song);
 
-		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
-		playfieldRenderer.cameras = [camHUD];
-		add(playfieldRenderer);
+        if (ClientPrefs.UltimateModchart) {
+		    playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
+		    playfieldRenderer.cameras = [camHUD];
+		    add(playfieldRenderer);
+		}
 		add(grpNoteSplashes);
 
 		#if LUA_ALLOWED
@@ -1566,8 +1568,10 @@ class PlayState extends MusicBeatState {
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
-
-        ModchartFuncs.loadLuaFunctions();
+        
+		if (ClientPrefs.UltimateModchart) {
+            ModchartFuncs.loadLuaFunctions();
+		}
 
 		callOnLuas('onCreatePost', []);
 
@@ -4025,7 +4029,7 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart1 = 'pixelUI/';
 			pixelfreakPart2 = '-pixel';
 		}
-        if (!cpuControlled) {
+        if (!cpuControlled || ClientPrefs.lessLag) {
 		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();

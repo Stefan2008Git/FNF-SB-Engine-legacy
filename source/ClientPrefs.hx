@@ -10,6 +10,8 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
+	public static var UltimateModchart:Bool = false;
+	public static var lessLag:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var rainbowFPS:Bool = false;
 	public static var memory:Bool = false;
@@ -101,6 +103,8 @@ class ClientPrefs {
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
+		FlxG.save.data.UltimateModchart = UltimateModchart;
+		FlxG.save.data.lessLag = lessLag;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.rainbowFPS = rainbowFPS;
@@ -164,6 +168,12 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
+		}
+		if (FlxG.save.data.UltimateModchart != null) {
+			UltimateModchart = FlxG.save.data.UltimateModchart;
+		}
+		if (FlxG.save.data.lessLag != null) {
+			lessLag = FlxG.save.data.lessLag;
 		}
 		if (FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
@@ -368,5 +378,16 @@ class ClientPrefs {
 			len = copiedArray.length;
 		}
 		return copiedArray;
+	}
+
+	public static function addSave(name:String, value:Dynamic):Void {
+		FlxG.save.data[name] = value;
+	}
+
+	public static function getValueFromSave(name:String):Dynamic {
+		if (FlxG.save.data[name] != null) {
+			return FlxG.save.data[name];
+		}
+		return null;
 	}
 }

@@ -71,7 +71,7 @@ class PlayfieldRenderer extends FlxSprite //extending flxsprite just so i can ed
     }
 
 
-    public function new(strumGroup:FlxTypedGroup<StrumNoteType>, notes:FlxTypedGroup<Note>,instance:ModchartMusicBeatState) 
+    public function new(strumGroup:FlxTypedGroup<StrumNoteType>, notes:FlxTypedGroup<Note>,instance:ModchartMusicBeatState,?ogvisible:Bool = false) 
     {
         super(0,0);
         this.strumGroup = strumGroup;
@@ -80,9 +80,10 @@ class PlayfieldRenderer extends FlxSprite //extending flxsprite just so i can ed
         if (Std.isOfType(instance, PlayState))
             playStateInstance = cast instance; //so it just casts once
 
-
-        strumGroup.visible = false; //drawing with renderer instead
-        notes.visible = false;
+        if (!ogvisible) {
+            strumGroup.visible = false; //drawing with renderer instead
+            notes.visible = false;
+        }
         
         //fix stupid crash because the renderer in playstate is still technically null at this point and its needed for json loading
         instance.playfieldRenderer = this;
