@@ -381,12 +381,12 @@ class ClientPrefs {
 	}
 
 	public static function addSave(name:String, value:Dynamic):Void {
-		FlxG.save.data[toString(name)] = value;
+		FlxG.save.data[name.toString()] = value;
 	}
 
 	public static function getValueFromSave(name:String):Dynamic {
-		if (FlxG.save.data[toString(name)] != null) {
-			return FlxG.save.data[toString(name)];
+		if (FlxG.save.data[name.toString()] != null) {
+			return FlxG.save.data[name.toString()];
 		}
 		return null;
 	}
