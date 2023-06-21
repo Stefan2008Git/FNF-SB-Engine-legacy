@@ -113,11 +113,11 @@ class Option {
 	}
 
     public function setModValue(value:Dynamic) {
-		ClientPrefs.addSave(variable, value);
+		ModOptionSaver.addSave(variable, value);
 	}
 
 	public function getModValue() {
-		return ClientPrefs.getValueFromSave(variable);
+		return ModOptionSaver.getValueFromSave(variable);
 	}
 
 	public function getVariable() {

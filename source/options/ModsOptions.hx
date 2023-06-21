@@ -206,7 +206,7 @@ class ModOptions extends BaseOptionsMenu {
         return variable != null ? variable : defaultValue;
     }
     private function getValuefromVariable(variable:Dynamic) {
-        return ClientPrefs.getValueFromSave(variable);
+        return ModOptionSaver.getValueFromSave(variable);
     }
 }
 

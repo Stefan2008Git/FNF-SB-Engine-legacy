@@ -216,7 +216,7 @@ class FunkinLua {
 		#end
 
 		Lua_helper.add_callback(lua, "getModProperty", function(variable:Dynamic) {
-			return ClientPrefs.getValueFromSave(variable);
+			return ModOptionSaver.getValueFromSave(variable);
 		});
 
 		// custom substate
