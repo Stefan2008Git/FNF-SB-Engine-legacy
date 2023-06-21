@@ -100,6 +100,17 @@ class ClientPrefs {
 		// trace(defaultKeys);
 	}
 
+	public static function addSave(name:String, value:Dynamic):Void {
+		FlxG.save.data[name] = value;
+	}
+
+	public static function getValueFromSave(name:String):Dynamic {
+		if (FlxG.save.data[name] != null) {
+			return FlxG.save.data[name];
+		}
+		return null;
+	}
+
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
@@ -378,16 +389,5 @@ class ClientPrefs {
 			len = copiedArray.length;
 		}
 		return copiedArray;
-	}
-
-	public function addSave(name:String, value:Dynamic):Void {
-		FlxG.save.data[name] = value;
-	}
-
-	public function getValueFromSave(name:String):Dynamic {
-		if (FlxG.save.data[name] != null) {
-			return FlxG.save.data[name];
-		}
-		return null;
 	}
 }
