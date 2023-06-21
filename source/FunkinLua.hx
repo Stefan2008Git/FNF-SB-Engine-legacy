@@ -1553,22 +1553,22 @@ class FunkinLua {
 		});
 
 		if (ClientPrefs.shaders == true) {
-		    Lua_helper.add_callback(lua, "addWavyShader", function(tag:String, wavyType:String) {
+		    Lua_helper.add_callback(lua, "addWiggleEffect", function(tag:String, wavyType:String) {
 				if (PlayState.instance.modchartSprites.exists(tag)) {
 					var wiggleEffectValue:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
 					switch (wavyType) {
-						case "FLAG":
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectFlag.shader;
-						case "DREAMY":
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectDreamy.shader;
-						case "HEAT_WAVE_HORIZONTAL":
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectHeatWaveHorizontal.shader;
-						case "HEAT_WAVE_VERTICAL":
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectHeatWaveVertical.shader;
-						case "WAVY":
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectWavy.shader;
+						case "flagEffect":
+							wiggleEffectValue.shader = PlayState.theWiggleFlagEffect.shader;
+						case "dreamyEffect":
+							wiggleEffectValue.shader = PlayState.theWiggleDreamyEffect.shader;
+						case "heatWaveHorizontalEffect":
+							wiggleEffectValue.shader = PlayState.theWiggleHorizontalWaveHeatEffect.shader;
+						case "heatWaveVerticalEffect":
+							wiggleEffectValue.shader = PlayState.theWiggleVerticalWaveHeatEffect.shader;
+						case "wavyEffect":
+							wiggleEffectValue.shader = PlayState.theWiggleWavyEffect.shader;
 						default:
-							wiggleEffectValue.shader = PlayState.the3DWorldEffectWavy.shader;
+							wiggleEffectValue.shader = PlayState.theWiggleWavyEffect.shader;
 					}
 				}
 			});

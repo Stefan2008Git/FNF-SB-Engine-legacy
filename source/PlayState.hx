@@ -212,11 +212,11 @@ class PlayState extends MusicBeatState {
 	public var autoplaySine:Float = 0;
 	public var autoplayTxt:FlxText;
 
-	public static var the3DWorldEffectFlag:WiggleEffect;
-	public static var the3DWorldEffectHeatWaveHorizontal:WiggleEffect;
-	public static var the3DWorldEffectWavy:WiggleEffect;
-	public static var the3DWorldEffectHeatWaveVertical:WiggleEffect;
-	public static var the3DWorldEffectDreamy:WiggleEffect;
+	public static var theWiggleFlagEffect:WiggleEffect;
+	public static var theWiggleHorizontalWaveHeatEffect:WiggleEffect;
+	public static var theWiggleWavyEffect:WiggleEffect;
+	public static var theWiggleVerticalWaveHeatEffect:WiggleEffect;
+	public static var theWiggleDreamyEffect:WiggleEffect;
 
 	public var iconPlayer1:HealthIcon;
 	public var iconPlayer2:HealthIcon;
@@ -437,35 +437,35 @@ class PlayState extends MusicBeatState {
 			keysPressed.push(false);
 		}
 
-		the3DWorldEffectFlag = new WiggleEffect();
-		the3DWorldEffectFlag.effectType = WiggleEffectType.FLAG;
-		the3DWorldEffectFlag.waveAmplitude = 0.1;
-		the3DWorldEffectFlag.waveFrequency = 5;
-		the3DWorldEffectFlag.waveSpeed = 2.25;
+		theWiggleFlagEffect = new WiggleEffect();
+		theWiggleFlagEffect.effectType = WiggleEffectType.FLAG;
+		theWiggleFlagEffect.waveAmplitude = 0.1;
+		theWiggleFlagEffect.waveFrequency = 5;
+		theWiggleFlagEffect.waveSpeed = 2.25;
 
-		the3DWorldEffectHeatWaveHorizontal = new WiggleEffect();
-		the3DWorldEffectHeatWaveHorizontal.effectType = WiggleEffectType.HEAT_WAVE_HORIZONTAL;
-		the3DWorldEffectHeatWaveHorizontal.waveAmplitude = 0.1;
-		the3DWorldEffectHeatWaveHorizontal.waveFrequency = 5;
-		the3DWorldEffectHeatWaveHorizontal.waveSpeed = 2.25;
+		theWiggleHorizontalWaveHeatEffect = new WiggleEffect();
+		theWiggleHorizontalWaveHeatEffect.effectType = WiggleEffectType.HEAT_WAVE_HORIZONTAL;
+		theWiggleHorizontalWaveHeatEffect.waveAmplitude = 0.1;
+		theWiggleHorizontalWaveHeatEffect.waveFrequency = 5;
+		theWiggleHorizontalWaveHeatEffect.waveSpeed = 2.25;
 
-		the3DWorldEffectHeatWaveVertical = new WiggleEffect();
-		the3DWorldEffectHeatWaveVertical.effectType = WiggleEffectType.HEAT_WAVE_VERTICAL;
-		the3DWorldEffectHeatWaveVertical.waveAmplitude = 0.1;
-		the3DWorldEffectHeatWaveVertical.waveFrequency = 5;
-		the3DWorldEffectHeatWaveVertical.waveSpeed = 2.25;
+		theWiggleVerticalWaveHeatEffect = new WiggleEffect();
+		theWiggleVerticalWaveHeatEffect.effectType = WiggleEffectType.HEAT_WAVE_VERTICAL;
+		theWiggleVerticalWaveHeatEffect.waveAmplitude = 0.1;
+		theWiggleVerticalWaveHeatEffect.waveFrequency = 5;
+		theWiggleVerticalWaveHeatEffect.waveSpeed = 2.25;
 
-		the3DWorldEffectDreamy = new WiggleEffect();
-		the3DWorldEffectDreamy.effectType = WiggleEffectType.DREAMY;
-		the3DWorldEffectDreamy.waveAmplitude = 0.1;
-		the3DWorldEffectDreamy.waveFrequency = 5;
-		the3DWorldEffectDreamy.waveSpeed = 2.25;
+		theWiggleDreamyEffect = new WiggleEffect();
+		theWiggleDreamyEffect.effectType = WiggleEffectType.DREAMY;
+		theWiggleDreamyEffect.waveAmplitude = 0.1;
+		theWiggleDreamyEffect.waveFrequency = 5;
+		theWiggleDreamyEffect.waveSpeed = 2.25;
 
-		the3DWorldEffectWavy = new WiggleEffect();
-		the3DWorldEffectWavy.effectType = WiggleEffectType.WAVY;
-		the3DWorldEffectWavy.waveAmplitude = 0.2;
-		the3DWorldEffectWavy.waveFrequency = 3;
-		the3DWorldEffectWavy.waveSpeed = 1.25;
+		theWiggleWavyEffect = new WiggleEffect();
+		theWiggleWavyEffect.effectType = WiggleEffectType.WAVY;
+		theWiggleWavyEffect.waveAmplitude = 0.2;
+		theWiggleWavyEffect.waveFrequency = 3;
+		theWiggleWavyEffect.waveSpeed = 1.25;
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -2734,11 +2734,11 @@ class PlayState extends MusicBeatState {
 	override public function update(elapsed:Float) {
 		callOnLuas('onUpdate', [elapsed]);
 
-		the3DWorldEffectFlag.update(elapsed);
-		the3DWorldEffectHeatWaveHorizontal.update(elapsed);
-		the3DWorldEffectHeatWaveVertical.update(elapsed);
-		the3DWorldEffectDreamy.update(elapsed);
-		the3DWorldEffectWavy.update(elapsed);
+		theWiggleFlagEffect.update(elapsed);
+		theWiggleHorizontalWaveHeatEffect.update(elapsed);
+		theWiggleVerticalWaveHeatEffect.update(elapsed);
+		theWiggleDreamyEffect.update(elapsed);
+		theWiggleWavyEffect.update(elapsed);
 
 		switch (currentlyStage) {
 			case 'tank':

@@ -26,4 +26,13 @@ Here's how you can use each shader available from 0.5.1 to 0.5.2h | 0.6.2! :
 
 -- clearEffects(camera:String)
 
-to see an example of using some of these shaders, drop the shaders Example.lua file in your song's data folder!
+To see an example of using some of these shaders, drop the shaders Example.lua file in your song's data folder!
+
+WiggleEffect shaders
+Here's how you can use wiggle effect shaders for background or something (Request: "addWiggleEffect"):
+
+-- flagEffect
+-- dreamyEffect
+-- heatWaveHorizontalEffect
+-- heatWaveVerticalEffect
+-- wavyEffect
