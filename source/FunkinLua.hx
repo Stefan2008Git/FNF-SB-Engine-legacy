@@ -215,14 +215,6 @@ class FunkinLua {
 		set('buildTarget', 'unknown');
 		#end
 
-		Lua_helper.add_callback(lua, "enableUltimateModchart", function(?value:Bool = false) {
-			PlayState.playfieldRenderer = new PlayfieldRenderer(PlayState.strumLineNotes, PlayState.notes, PlayState, value);
-		    PlayState.playfieldRenderer.cameras = [camHUD];
-		    PlayState.add(playfieldRenderer);
-			ModchartFuncs.loadLuaFunctions();
-			ClientPrefs.UltimateModchart = true;
-		});
-
 		Lua_helper.add_callback(lua, "getModProperty", function(variable:Dynamic) {
 			return ClientPrefs.getValueFromSave(variable);
 		});
