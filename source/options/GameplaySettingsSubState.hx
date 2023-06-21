@@ -39,6 +39,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'controllerMode', 'bool', #if android true #else false #end);
 		addOption(option);
 
+		var option:Option = new Option('Less Lag or More Fps', "Check this if you want to play with less lag.\nIt's automatically added on botPlay.",
+		'lessLag', 'bool', false);
+	    addOption(option);
+
 		var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Sick!\" notes won't show particles.", 'noteSplashes', 'bool', true);
 		addOption(option);
 
@@ -54,6 +58,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Hide Judgement Counter', 'If checked, hides Judgement Counter.', 'hideJudgementCounter', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Ultimate Modchart', // Name
+			"If checked, it will enable an ultimate modcharts works\nbut normal modchart won't work.\nThanks TheZoroForce240!", // Description
+			'UltimateModchart', // Save data variable name
+			'bool', // Variable type
+			false); // Default value
 		addOption(option);
 
 		// I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here

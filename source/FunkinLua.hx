@@ -49,6 +49,10 @@ import hscript.Interp;
 import hscript.Expr;
 #end
 
+import modcharting.ModchartFuncs;
+import modcharting.NoteMovement;
+import modcharting.PlayfieldRenderer;
+
 using StringTools;
 
 class FunkinLua {
@@ -210,6 +214,18 @@ class FunkinLua {
 		#else
 		set('buildTarget', 'unknown');
 		#end
+
+		Lua_helper.add_callback(lua, "enableUltimateModchart", function(?value:Bool = false) {
+			PlayState.playfieldRenderer = new PlayfieldRenderer(PlayState.strumLineNotes, PlayState.notes, PlayState, value);
+		    PlayState.playfieldRenderer.cameras = [camHUD];
+		    PlayState.add(playfieldRenderer);
+			ModchartFuncs.loadLuaFunctions();
+			ClientPrefs.UltimateModchart = true;
+		});
+
+		Lua_helper.add_callback(lua, "getModProperty", function(variable:Dynamic) {
+			return ClientPrefs.getValueFromSave(variable);
+		});
 
 		// custom substate
 		Lua_helper.add_callback(lua, "openCustomSubstate", function(name:String, pauseGame:Bool = false) {

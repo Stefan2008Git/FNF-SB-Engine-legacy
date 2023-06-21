@@ -165,7 +165,7 @@ class ModOptions extends BaseOptionsMenu {
 
                 if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
                     var jsonFile:OptionData = cast Json.parse(File.getContent(path));
-                    var defVal:Dynamic = Reflect.field(save.data, jsonFile.saveKey);
+                    var defVal:Dynamic = getValuefromVariable(jsonFile.saveKey);
                     defVal = defVal == null ? defVal = jsonFile.defaultValue : defVal;
 
                     var option:SoftcodeOption = new SoftcodeOption(jsonFile.name, jsonFile.description, jsonFile.saveKey, jsonFile.type, defVal,
@@ -195,7 +195,7 @@ class ModOptions extends BaseOptionsMenu {
         save.bind('options', dir);
 
         for (option in optionsArray) {
-            Reflect.setField(save.data, option.getVariable(), option.getValue());
+            option.setModValue(option.getModValue());
         }
 
         save.flush();
@@ -204,6 +204,9 @@ class ModOptions extends BaseOptionsMenu {
 
     private function quickTernary(variable:Dynamic, defaultValue:Dynamic):Dynamic {
         return variable != null ? variable : defaultValue;
+    }
+    private function getValuefromVariable(variable:Dynamic) {
+        return ClientPrefs.getValueFromSave(variable);
     }
 }
 

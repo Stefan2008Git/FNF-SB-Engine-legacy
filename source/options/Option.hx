@@ -112,6 +112,14 @@ class Option {
 		Reflect.setProperty(ClientPrefs, variable, value);
 	}
 
+    public function setModValue(value:Dynamic) {
+		ClientPrefs.addSave(variable, value);
+	}
+
+	public function getModValue() {
+		return ClientPrefs.getValueFromSave(variable);
+	}
+
 	public function getVariable() {
 		return variable;
 	}
