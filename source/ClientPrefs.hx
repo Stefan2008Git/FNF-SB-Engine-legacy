@@ -386,7 +386,7 @@ class ClientPrefs {
 
 	public static function getValueFromSave(name:String):Dynamic {
 		if (FlxG.save.data[name] != null) {
-			return FlxG.save.data[name]:Dynamic;
+			return FlxG.save.data[name];
 		}
 		return null;
 	}
