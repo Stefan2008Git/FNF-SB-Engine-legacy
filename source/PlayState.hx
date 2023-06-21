@@ -1572,6 +1572,17 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.UltimateModchart) {
             ModchartFuncs.loadLuaFunctions();
 		}
+	
+        for (funkin in PlayState.instance.luaArray)
+        {
+            Lua_helper.add_callback(funkin.lua, 'enableUltimateModchart', function(?ogvisible = false){
+                    playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this, ogvisible);
+                    playfieldRenderer.cameras = [camHUD];
+                    add(playfieldRenderer);
+		    ModchartFuncs.loadLuaFunctions();
+		    ClientPrefs.UltimateModchart = true;
+            });
+	}
 
 		callOnLuas('onCreatePost', []);
 
