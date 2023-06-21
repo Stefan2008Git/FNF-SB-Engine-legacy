@@ -284,6 +284,12 @@ class PlayState extends MusicBeatState {
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	var allNotesMs:Float = 0;
+	var averageMs:Float = 0;
+
+	public var msScoreLabel:FlxText;
+	public var msScoreLabelTween:FlxTween;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -1389,6 +1395,16 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		msScoreLabel = new FlxText(0, 0, 400, "", 32);
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    msScoreLabel.setFormat(Paths.font('vcr.ttf'), 32, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			msScoreLabel.visible = true;
+		}
+		msScoreLabel.alpha = 0;
+		msScoreLabel.scrollFactor.set();
+		msScoreLabel.borderSize = 2;
+		add( msScoreLabel);
+
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1400,6 +1416,7 @@ class PlayState extends MusicBeatState {
 		iconPlayer2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
+		msScoreLabel.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -2006,6 +2023,21 @@ class PlayState extends MusicBeatState {
 
 			var swagCounter:Int = 0;
 
+			if (ClientPrefs.gameStyle == 'Better UI') {
+				if (ClientPrefs.downScroll) {
+					msScoreLabel.x = playerStrums.members[1].x-100;
+					msScoreLabel.y = playerStrums.members[1].y+100;
+				} else {
+					msScoreLabel.x = playerStrums.members[1].x-100;
+					msScoreLabel.y = playerStrums.members[1].y-50;
+				}
+
+				if (ClientPrefs.middleScroll) {
+					msScoreLabel.x = playerStrums.members[0].x-250;
+					msScoreLabel.y = playerStrums.members[1].y+30;
+				}
+			}
+
 			if (startOnTime < 0)
 				startOnTime = 0;
 
@@ -2205,7 +2237,8 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreTxt.text = 'NPS: ' + nps + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
+			scoreTxt.text = 'NPS: ' + nps + ' | Average: ' + Math.round(averageMs) + 'ms'
+			+ ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
 				+ Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
@@ -3966,7 +3999,22 @@ class PlayState extends MusicBeatState {
 
 	private function popUpScore(note:Note = null):Void {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
-		// trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
+		allNotesMs += noteDiff;
+		averageMs = allNotesMs/songHits;
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			msScoreLabel.alpha = 1;
+			msScoreLabel.text =Std.string(Math.round(noteDiff)) + "ms";
+			if (msScoreLabelTween != null){
+				msScoreLabelTween.cancel(); msScoreLabelTween.destroy(); // top 10 awesome code
+			}
+			msScoreLabelTween = FlxTween.tween(msScoreLabel, {alpha: 0}, 0.25, {
+				onComplete: function(tw:FlxTween) {msScoreLabelTween = null;}, startDelay: 0.7
+			});
+			if (noteDiff >= ClientPrefs.sickWindow) msScoreLabel.color = FlxColor.LIME;
+			if (noteDiff >= ClientPrefs.goodWindow) msScoreLabel.color = FlxColor.ORANGE;
+			if (noteDiff >= ClientPrefs.badWindow) msScoreLabel.color = FlxColor.RED;
+			if (!msScoreLabel.visible) msScoreLabel.color = FlxColor.PURPLE;
+		}
 
 		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
