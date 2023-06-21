@@ -380,11 +380,11 @@ class ClientPrefs {
 		return copiedArray;
 	}
 
-	public static function addSave(name:String, value:Dynamic):Void {
+	public function addSave(name:String, value:Dynamic):Void {
 		FlxG.save.data[name] = value;
 	}
 
-	public static function getValueFromSave(name:String):Dynamic {
+	public function getValueFromSave(name:String):Dynamic {
 		if (FlxG.save.data[name] != null) {
 			return FlxG.save.data[name];
 		}
