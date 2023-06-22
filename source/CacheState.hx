@@ -116,7 +116,7 @@ class CacheState extends FlxState {
 		#end
 
 		new FlxTimer().start(15, function(tmr:FlxTimer) {
-			FlxG.switchState(new TitleScreenState());
+			goToTitleScreenState();
 		});
 
 		super.create();
@@ -140,6 +140,12 @@ class CacheState extends FlxState {
 			}
 		}
 		super.update(elapsed);
+	}
+
+	function goToTitleScreenState() {
+    FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() {
+		FlxG.switchState(new TitleScreenState());
+	    });
 	}
 
 	function changeText() {
