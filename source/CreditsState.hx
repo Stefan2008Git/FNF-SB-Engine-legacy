@@ -118,6 +118,50 @@ class CreditsState extends MusicBeatState {
 				'5E99DF'
 			],
 			[''],
+			['Special credits'],
+			[
+				'Stefan Ro 123',
+				'stefan-ro123',
+				'Fixed Wiggle effect shaders to run possible on PC and Android',
+				'https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ',
+				'fc0000'
+			],
+			[
+				'Lizzy Strawbery',
+				'lizzy',
+				'Fixed lua shaders from Psych Engine 0.5.1',
+				'https://www.youtube.com/@LizzyStrawberry',
+				'ff03d9'
+			],
+			[
+				'Joalor64',
+				'joalor',
+				'For simple main menu and Joalor64 Engine Rewriten',
+				'https://www.youtube.com/channel/UC4tRMRL_iAHX5n1qQpHibfg',
+				'00FFF6'
+			],
+			[
+				'Notweuz',
+				'weuz',
+				'Creator of OS Engine',
+				'https://www.youtube.com/channel/UC2XJzq2EaMQUw61IC_sComw',
+				'8633F2'
+			],
+			[
+				'JustXale',
+				'xale',
+				'For health bar counter and Grafex Engine team',
+				'https://www.youtube.com/channel/UC2XJzq2EaMQUw61IC_sComw',
+				'f7a300'
+			],
+			[
+				'MarioMaster',
+				'mario',
+				'Created hitbox selector and virtual pad opacity',
+				'https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw',
+				'fc0000'
+			],
+			[''],
 			['Psych Engine Team'],
 			[
 				'Shadow Mario',

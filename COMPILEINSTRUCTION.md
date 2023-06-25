@@ -13,6 +13,8 @@ IF YOU WANT TO COMPILE THE GAME YOURSELF, CONTINUE READING!!!
 
 Other installations you'd need are the additional libraries, a fully updated list will be in `Project.xml` in the project root. Currently, these are all of the things you need to install:
 
+``haxelib install hxcpp 4.2.1``
+
 ``haxelib install lime 7.9.0``
 
 ``haxelib install openfl 9.1.0``
