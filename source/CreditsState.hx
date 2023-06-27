@@ -151,7 +151,7 @@ class CreditsState extends MusicBeatState {
 				'JustXale',
 				'xale',
 				'For health bar counter and Grafex Engine team',
-				'https://www.youtube.com/channel/UC2XJzq2EaMQUw61IC_sComw',
+				'https://github.com/JustXale',
 				'f7a300'
 			],
 			[
