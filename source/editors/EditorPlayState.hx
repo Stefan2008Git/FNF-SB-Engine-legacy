@@ -11,12 +11,14 @@ import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.ui.FlxBar;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import flixel.util.FlxStringUtil;
 import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
 import FunkinLua;
@@ -51,6 +53,7 @@ class EditorPlayState extends MusicBeatState {
 		super();
 	}
 
+	var timeTxt:FlxText;
 	var scoreTxt:FlxText;
 	var stepTxt:FlxText;
 	var beatTxt:FlxText;
@@ -62,10 +65,18 @@ class EditorPlayState extends MusicBeatState {
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 
+	private var updateTime:Bool = true;
+
+	var songPercent:Float = 0;
+	var songLength:Float = 0;
+
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
 	public static var instance:EditorPlayState;
+
+	private var timeBarBG:AttachedSprite;
+	public var timeBar:FlxBar;
 
 	override function create() {
 		instance = this;
@@ -98,6 +109,79 @@ class EditorPlayState extends MusicBeatState {
 
 		comboGroup = new FlxTypedGroup<FlxSprite>();
 		add(comboGroup);
+
+		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
+		timeTxt = new FlxText(PlayState.STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			timeTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		timeTxt.scrollFactor.set();
+		timeTxt.alpha = 0;
+		timeTxt.borderSize = 2;
+		timeTxt.visible = showTime;
+		if (ClientPrefs.downScroll)
+			timeTxt.y = FlxG.height - 44;
+
+		if (ClientPrefs.timeBarType == 'Song Name') {
+			timeTxt.text = PlayState.SONG.song;
+		}
+		updateTime = showTime;
+
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			timeBarBG = new AttachedSprite('sbEngineTimeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+			timeBarBG.screenCenter(X);
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			timeBarBG = new AttachedSprite('timeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			timeBarBG = new AttachedSprite('longBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+			timeBarBG.screenCenter(X);
+			timeBarBG.sprTracker = timeBar;
+		}
+		timeBarBG.alpha = 0;
+		timeBarBG.visible = showTime;
+		timeBarBG.color = FlxColor.BLACK;
+		timeBarBG.xAdd = -4;
+		timeBarBG.yAdd = -4;
+		add(timeBarBG);
+
+		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+			'songPercent', 0, 1);
+		timeBar.scrollFactor.set();
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			timeBar.createFilledBar(0xFF000000, 0xFF800080);
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			insert(members.indexOf(timeBarBG), timeBar);
+		}
+		timeBar.numDivisions = 800;
+		timeBar.alpha = 0;
+		timeBar.visible = showTime;
+		add(timeBar);
+		add(timeTxt);
+		timeBarBG.sprTracker = timeBar;
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		opponentStrums = new FlxTypedGroup<StrumNote>();
@@ -288,6 +372,9 @@ class EditorPlayState extends MusicBeatState {
 
 		// NEW freak
 		noteData = songData.notes;
+
+		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 		var playerCounter:Int = 0;
 
@@ -565,11 +652,32 @@ class EditorPlayState extends MusicBeatState {
 			});
 		}
 
+		songLength = FlxG.sound.music.length;
+	   	Conductor.songPosition = FlxG.sound.music.time;
+		if (updateTime) {
+			var currentlyTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
+			if (currentlyTime < 0)
+				currentlyTime = 0;
+			songPercent = (currentlyTime / songLength);
+
+			var songCalculating:Float = (songLength - currentlyTime);
+			if (ClientPrefs.timeBarType == 'Time Elapsed')
+				songCalculating = currentlyTime;
+
+			var secondsTotal:Int = Math.floor(songCalculating / 1000);
+			if (secondsTotal < 0)
+				secondsTotal = 0;
+
+			if (ClientPrefs.timeBarType != 'Song Name')
+				timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
+		    }
+
 		keyfreak();
 		scoreTxt.text = 'Hits: ' + songHits + ' | Misses: ' + songMisses;
 		sectionTxt.text = 'Beat: ' + curSection;
 		beatTxt.text = 'Beat: ' + curBeat;
 		stepTxt.text = 'Step: ' + curStep;
+
 		super.update(elapsed);
 	}
 
