@@ -24,6 +24,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import lime.app.Application;
 import Controls;
 
 using StringTools;
@@ -191,12 +192,16 @@ class OptionsState extends MusicBeatState {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (PauseSubState.optionMenu) {
 				MusicBeatState.switchState(new PlayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + "Current song: " + PlayState.SONG.song;
 				PauseSubState.optionMenu = false;
 			} else {
-				if (ClientPrefs.mainMenuStyle == 'Classic')
+				if (ClientPrefs.mainMenuStyle == 'Classic') {
 					MusicBeatState.switchState(new ClassicMainMenuState());
-				else
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+				} else {
 					MusicBeatState.switchState(new MainMenuState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+				}
 			}
 		}
 

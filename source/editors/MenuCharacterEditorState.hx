@@ -29,6 +29,7 @@ import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
+import lime.app.Application;
 import haxe.Json;
 #if sys
 import sys.io.File;
@@ -331,6 +332,7 @@ class MenuCharacterEditorState extends MusicBeatState {
 			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
 			if (#if !android FlxG.keys.justPressed.ESCAPE #else FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 

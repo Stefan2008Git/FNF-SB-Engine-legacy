@@ -53,6 +53,7 @@ class GameExitState extends MusicBeatState {
 			case 'No':
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleScreenState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 	}
 

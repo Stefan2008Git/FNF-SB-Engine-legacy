@@ -13,6 +13,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import lime.app.Application;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
 
@@ -364,9 +365,11 @@ class PauseSubState extends MusicBeatSubstate {
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					MusicBeatState.switchState(new options.OptionsState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				case 'Chart Editor':
 					MusicBeatState.switchState(new editors.ChartingState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 					PlayState.chartingMode = true;
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
@@ -374,8 +377,10 @@ class PauseSubState extends MusicBeatSubstate {
 					WeekData.loadTheFirstEnabledMod();
 					if (PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));

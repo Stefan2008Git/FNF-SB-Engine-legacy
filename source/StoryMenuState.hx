@@ -17,6 +17,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
+import lime.app.Application;
 import WeekData;
 
 using StringTools;
@@ -292,10 +293,13 @@ class StoryMenuState extends MusicBeatState {
 		if (controls.BACK && !movedBack && !selectedWeek) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			if (ClientPrefs.mainMenuStyle == 'Classic')
+			if (ClientPrefs.mainMenuStyle == 'Classic') {
 				MusicBeatState.switchState(new ClassicMainMenuState());
-			else
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			} else {
 				MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			}
 		}
 
 		super.update(elapsed);
@@ -348,6 +352,7 @@ class StoryMenuState extends MusicBeatState {
 			PlayState.campaignMisses = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				LoadingState.loadAndSwitchState(new PlayState(), true);
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				FreeplayState.destroyFreeplayVocals();
 			});
 		} else {

@@ -21,6 +21,7 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
+import lime.app.Application;
 import WeekData;
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -304,10 +305,13 @@ class FreeplayState extends MusicBeatState {
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.mainMenuStyle == 'Classic')
+			if (ClientPrefs.mainMenuStyle == 'Classic') {
 				MusicBeatState.switchState(new ClassicMainMenuState());
-			else
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			} else {
 				MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			}
 		}
 
 		if (ctrl) {
@@ -357,6 +361,7 @@ class FreeplayState extends MusicBeatState {
 				LoadingState.loadAndSwitchState(new ChartingState());
 			} else {
 				LoadingState.loadAndSwitchState(new PlayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 			}
 
 			FlxG.sound.music.volume = 0;

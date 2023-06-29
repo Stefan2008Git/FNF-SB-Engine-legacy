@@ -46,16 +46,21 @@ class ClassicMainMenuState extends MusicBeatState {
 		switch (label) {
 			case 'Story Mode':
 				MusicBeatState.switchState(new StoryMenuState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 			case 'Freeplay':
 				MusicBeatState.switchState(new FreeplayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 			#if (MODS_ALLOWED)
 			case 'Mods':
 				MusicBeatState.switchState(new ModsMenuState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mods Menu";
 			#end
 			case 'Credits':
 				MusicBeatState.switchState(new CreditsState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Credits Menu";
 			case 'Options':
 				MusicBeatState.switchState(new options.OptionsState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 		}
 	}
 
@@ -201,6 +206,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		#if (desktop || android)
 		else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
 			MusicBeatState.switchState(new MasterEditorMenu());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 		}
 		#end
 	}

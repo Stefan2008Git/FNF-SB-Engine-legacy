@@ -21,6 +21,7 @@ import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
 import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
+import lime.app.Application;
 import FunkinLua;
 
 using StringTools;
@@ -476,6 +477,7 @@ class EditorPlayState extends MusicBeatState {
 
 	private function endSong() {
 		LoadingState.loadAndSwitchState(new editors.ChartingState());
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 	}
 
 	public var noteKillOffset:Float = 350;
@@ -489,6 +491,7 @@ class EditorPlayState extends MusicBeatState {
 			androidControls.visible = false;
 			#end
 			LoadingState.loadAndSwitchState(new editors.ChartingState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 		}
 
 		if (startingSong) {

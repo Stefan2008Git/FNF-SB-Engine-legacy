@@ -34,6 +34,7 @@ import flixel.FlxCamera;
 import flixel.group.FlxSpriteGroup;
 import lime.system.Clipboard;
 import Alphabet;
+import lime.app.Application;
 #if sys
 import sys.io.File;
 #end
@@ -832,6 +833,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 			if (#if !android FlxG.keys.justPressed.ESCAPE #else FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
 			}

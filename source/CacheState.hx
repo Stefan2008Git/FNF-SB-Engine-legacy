@@ -56,6 +56,8 @@ class CacheState extends FlxState {
 
 		super.create();
 
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+
 		checker = new FlxBackdrop(Paths.image('checker'));
 		checker.scrollFactor.set();
 		checker.scale.set(0.7, 0.7);

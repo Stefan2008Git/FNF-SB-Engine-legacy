@@ -51,6 +51,7 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
+import lime.app.Application;
 
 using StringTools;
 
@@ -1682,6 +1683,7 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.justPressed.ESCAPE #if android || virtualPad.buttonB.justPressed #end) {
 				autosaveSong();
 				LoadingState.loadAndSwitchState(new editors.EditorPlayState(sectionStartTime()));
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + PlayState.SONG.song;
 			}
 			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
 				autosaveSong();
@@ -1694,6 +1696,7 @@ class ChartingState extends MusicBeatState {
 				// if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
 				LoadingState.loadAndSwitchState(new PlayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 			}
 
 			if (currentlySelectedNote != null && currentlySelectedNote[1] > -1) {
@@ -1708,6 +1711,7 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end) {
 				// if(onMasterEditor) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				FlxG.mouse.visible = false;
 				return;

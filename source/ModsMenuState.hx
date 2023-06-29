@@ -14,6 +14,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import lime.app.Application;
 import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
@@ -500,10 +501,13 @@ class ModsMenuState extends MusicBeatState {
 				}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			} else {
-				if (ClientPrefs.mainMenuStyle == 'Classic')
+				if (ClientPrefs.mainMenuStyle == 'Classic') {
 					MusicBeatState.switchState(new ClassicMainMenuState());
-				else
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+				} else {
 					MusicBeatState.switchState(new MainMenuState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+				}
 			}
 		}
 

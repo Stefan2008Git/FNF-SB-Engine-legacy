@@ -38,6 +38,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
 import flixel.util.FlxTimer;
 import openfl.Assets;
+import lime.app.Application;
 
 using StringTools;
 
@@ -464,6 +465,7 @@ class TitleScreenState extends MusicBeatState {
 				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					MusicBeatState.switchState(new GameExitState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Game Exit Menu";
 				}
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {

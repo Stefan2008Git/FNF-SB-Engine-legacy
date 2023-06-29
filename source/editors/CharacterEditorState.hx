@@ -37,6 +37,7 @@ import Character;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
+import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -1052,8 +1053,10 @@ class CharacterEditorState extends MusicBeatState {
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				if (goToPlayState) {
 					MusicBeatState.switchState(new PlayState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				} else {
 					MusicBeatState.switchState(new editors.MasterEditorMenu());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
 				FlxG.mouse.visible = false;

@@ -117,7 +117,7 @@ class SUtil
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		SUtil.applicationAlert("Error! SB Engine version: " + MainMenuState.sbEngineVersion, errorMessage);
+		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
 		System.exit(0);
 	}
 

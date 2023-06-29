@@ -59,6 +59,7 @@ import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
+import lime.app.Application;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
@@ -3272,6 +3273,7 @@ class PlayState extends MusicBeatState {
 			vocals.pause();
 		}
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Paused current song: " + SONG.song;
 		// }
 
 		#if desktop
@@ -3891,6 +3893,7 @@ class PlayState extends MusicBeatState {
 							Highscore.floorDecimal(ratingPercent * 100, 2), ratingName + (' [' + ratingFC + '] ')));
 					else
 						MusicBeatState.switchState(new StoryMenuState());
+					    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 
 					if (!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('autoplay', false)) {
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
@@ -3933,10 +3936,12 @@ class PlayState extends MusicBeatState {
 						new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 							cancelMusicFadeTween();
 							LoadingState.loadAndSwitchState(new PlayState());
+							Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + SONG.song;
 						});
 					} else {
 						cancelMusicFadeTween();
 						LoadingState.loadAndSwitchState(new PlayState());
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + SONG.song;
 					}
 				}
 			} else {
@@ -3951,6 +3956,7 @@ class PlayState extends MusicBeatState {
 						ratingName + (' [' + ratingFC + '] ')));
 				else
 					MusicBeatState.switchState(new FreeplayState());
+				    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}

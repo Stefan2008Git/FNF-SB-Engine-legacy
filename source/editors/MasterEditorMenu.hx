@@ -13,6 +13,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
+import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -135,26 +136,35 @@ class MasterEditorMenu extends MusicBeatState {
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.mainMenuStyle == 'Classic')
+			if (ClientPrefs.mainMenuStyle == 'Classic') {
 				MusicBeatState.switchState(new ClassicMainMenuState());
-			else
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			} else {
 				MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
+			}
 		}
 
 		if (controls.ACCEPT) {
 			switch (options[currentlySelected]) {
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Character Editor Menu";
 				case 'Week Editor':
 					MusicBeatState.switchState(new WeekEditorState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Week Editor Menu";
 				case 'Menu Character Editor':
 					MusicBeatState.switchState(new MenuCharacterEditorState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Menu Character Editor Menu";
 				case 'Dialogue Portrait Editor':
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Portrait Editor Menu";
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Editor Menu";
 				case 'Chart Editor': // felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL

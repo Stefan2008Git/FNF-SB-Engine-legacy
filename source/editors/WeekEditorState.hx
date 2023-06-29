@@ -27,6 +27,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import lime.system.Clipboard;
+import lime.app.Application;
 import haxe.Json;
 #if sys
 import sys.io.File;
@@ -486,6 +487,7 @@ class WeekEditorState extends MusicBeatState {
 			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		}
@@ -712,6 +714,7 @@ class WeekEditorFreeplayState extends MusicBeatState {
 
 		var storyModeButton:FlxButton = new FlxButton(0, 685, "Story Mode", function() {
 			MusicBeatState.switchState(new WeekEditorState(weekFile));
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Week Editor Menu";
 		});
 		storyModeButton.screenCenter(X);
 		add(storyModeButton);
