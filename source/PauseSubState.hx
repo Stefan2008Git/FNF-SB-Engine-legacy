@@ -327,6 +327,7 @@ class PauseSubState extends MusicBeatSubstate {
 			switch (daSelected) {
 				case "Resume":
 					close();
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
@@ -337,9 +338,11 @@ class PauseSubState extends MusicBeatSubstate {
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					restartSong();
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				case 'Skip Time':
 					if (currentlyTime < Conductor.songPosition) {
 						PlayState.startOnTime = currentlyTime;
@@ -354,6 +357,7 @@ class PauseSubState extends MusicBeatSubstate {
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				case 'Toggle autoplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
