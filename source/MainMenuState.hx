@@ -304,7 +304,7 @@ class MainMenuState extends MusicBeatState {
 									MusicBeatState.switchState(new CreditsState());
 									Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Credits Menu";
 								case 'options':
-									LoadingState.loadAndSwitchState(new options.OptionsState());
+									MusicBeatState.switchState(new options.OptionsState());
 									Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 							}
 						});

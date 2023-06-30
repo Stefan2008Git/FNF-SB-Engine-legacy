@@ -44,9 +44,9 @@ class PauseSubState extends MusicBeatSubstate {
 	var blackBackground:FlxSprite;
 	var purpleBackground:FlxSprite;
 	var checker:FlxBackdrop;
-	var songNameTxt:FlxText;
-	var difficultyNameTxt:FlxText;
-	var deathCounterTxt:FlxText;
+	var songNameText:FlxText;
+	var difficultyNameText:FlxText;
+	var deathCounterText:FlxText;
 	var chartingText:FlxText;
 
 	public var iconPlayer2:HealthIcon;
@@ -126,59 +126,59 @@ class PauseSubState extends MusicBeatSubstate {
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
-		songNameTxt = new FlxText(20, 15, 0, "", 32);
-		songNameTxt.text += "Song: " + PlayState.SONG.song;
-		songNameTxt.scrollFactor.set();
+		songNameText = new FlxText(20, 15, 0, "", 32);
+		songNameText.text += "Song: " + PlayState.SONG.song;
+		songNameText.scrollFactor.set();
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			songNameTxt.setFormat("Bahnschrift", 32);
+			songNameText.setFormat("Bahnschrift", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			songNameTxt.setFormat("VCR OSD Mono", 32);
+			songNameText.setFormat("VCR OSD Mono", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			songNameTxt.setFormat("VCR OSD Mono", 32);
+			songNameText.setFormat("VCR OSD Mono", 32);
 		}
 
-		songNameTxt.updateHitbox();
-		add(songNameTxt);
+		songNameText.updateHitbox();
+		add(songNameText);
 
-		difficultyNameTxt = new FlxText(20, 15 + 32, 0, "", 32);
-		difficultyNameTxt.text += "Difficulty: " + CoolUtil.difficultyString();
-		difficultyNameTxt.scrollFactor.set();
+		difficultyNameText = new FlxText(20, 15 + 32, 0, "", 32);
+		difficultyNameText.text += "Difficulty: " + CoolUtil.difficultyString();
+		difficultyNameText.scrollFactor.set();
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			difficultyNameTxt.setFormat("Bahnschrift", 32);
+			difficultyNameText.setFormat("Bahnschrift", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			difficultyNameTxt.setFormat("VCR OSD Mono", 32);
+			difficultyNameText.setFormat("VCR OSD Mono", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			difficultyNameTxt.setFormat("VCR OSD Mono", 32);
+			difficultyNameText.setFormat("VCR OSD Mono", 32);
 		}
 
-		difficultyNameTxt.updateHitbox();
-		add(difficultyNameTxt);
+		difficultyNameText.updateHitbox();
+		add(difficultyNameText);
 
-		deathCounterTxt = new FlxText(20, 15 + 64, 0, "", 32);
-		deathCounterTxt.text = "Death counter: " + PlayState.deathCounter;
-		deathCounterTxt.scrollFactor.set();
+		deathCounterText = new FlxText(20, 15 + 64, 0, "", 32);
+		deathCounterText.text = "Death counter: " + PlayState.deathCounter;
+		deathCounterText.scrollFactor.set();
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			deathCounterTxt.setFormat("Bahnschrift", 32);
+			deathCounterText.setFormat("Bahnschrift", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			deathCounterTxt.setFormat("VCR OSD Mono", 32);
+			deathCounterText.setFormat("VCR OSD Mono", 32);
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			deathCounterTxt.setFormat("VCR OSD Mono", 32);
+			deathCounterText.setFormat("VCR OSD Mono", 32);
 		}
 
-		deathCounterTxt.updateHitbox();
-		add(deathCounterTxt);
+		deathCounterText.updateHitbox();
+		add(deathCounterText);
 
 		iconPlayer2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
 		iconPlayer2.setGraphicSize(Std.int(iconPlayer2.width * 1.2));
@@ -224,20 +224,20 @@ class PauseSubState extends MusicBeatSubstate {
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
 
-		deathCounterTxt.alpha = 0;
-		difficultyNameTxt.alpha = 0;
-		songNameTxt.alpha = 0;
-		songNameTxt.x = FlxG.width - (songNameTxt.width + 20);
-		difficultyNameTxt.x = FlxG.width - (difficultyNameTxt.width + 20);
-		deathCounterTxt.x = FlxG.width - (deathCounterTxt.width + 20);
+		deathCounterText.alpha = 0;
+		difficultyNameText.alpha = 0;
+		songNameText.alpha = 0;
+		songNameText.x = FlxG.width - (songNameText.width + 20);
+		difficultyNameText.x = FlxG.width - (difficultyNameText.width + 20);
+		deathCounterText.x = FlxG.width - (deathCounterText.width + 20);
 		iconPlayer2.alpha = 0;
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(checker, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
-		FlxTween.tween(songNameTxt, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
-		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
-		FlxTween.tween(deathCounterTxt, {alpha: 1, y: deathCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.11});
+		FlxTween.tween(songNameText, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(difficultyNameText, {alpha: 1, y: difficultyNameText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
+		FlxTween.tween(deathCounterText, {alpha: 1, y: deathCounterText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.11});
 		FlxTween.tween(iconPlayer2, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.13});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();

@@ -1364,7 +1364,7 @@ class PlayState extends MusicBeatState {
 			watermarkTxt.y = 140;
 		}
 		if (ClientPrefs.watermarkStyle == 'SB Engine') {
-		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + " \nPsych Engine v" + MainMenuState.psychEngineVersion + " \n " + currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
+		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + "\nPsych Engine v" + MainMenuState.psychEngineVersion + "\nTest: " + currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 		}
 		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
 		    watermarkTxt.text = currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
@@ -1435,6 +1435,9 @@ class PlayState extends MusicBeatState {
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
+		#if android
+		androidControls.cameras = [camHUD];
+		#end
 
 		#if android
 		addAndroidControls();
@@ -2251,7 +2254,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreTxt.text = 'NPS: ' + nps + ' | Average: ' + Math.round(averageMs) + 'ms'
+			scoreTxt.text = 'NPS: ' + nps + ' // Average: ' + Math.round(averageMs) + 'ms'
 			+ ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
 				+ Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
