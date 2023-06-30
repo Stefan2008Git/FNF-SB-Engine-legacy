@@ -106,6 +106,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
+		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',
+			['SB Engine', 'Kade Engine', 'Dave and Bambi']);
+		addOption(option);
+
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;

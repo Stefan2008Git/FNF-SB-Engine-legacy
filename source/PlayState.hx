@@ -1339,27 +1339,40 @@ class PlayState extends MusicBeatState {
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
 		add(judgementCounterTxt);
 
-		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		if (ClientPrefs.watermarkStyle == 'SB Engine') {
+		    watermarkTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+		}
+		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
+		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		}
+		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
+		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		}
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
-
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
-
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
-
 		watermarkTxt.scrollFactor.set();
 		watermarkTxt.borderSize = 1.25;
 		watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		if (ClientPrefs.downScroll) {
 			watermarkTxt.y = 140;
 		}
-		watermarkTxt.text = currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
+		if (ClientPrefs.watermarkStyle == 'SB Engine') {
+		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + " \nPsych Engine v" + MainMenuState.psychEngineVersion + " \n " + currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
+		}
+		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
+		    watermarkTxt.text = currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
 			+ MainMenuState.psychEngineVersion + ") ";
+		}
+		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
+		    watermarkTxt.text = currentlySong;
+		}
 		add(watermarkTxt);
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
