@@ -114,15 +114,15 @@ class EditorPlayState extends MusicBeatState {
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(PlayState.STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			timeTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		timeTxt.scrollFactor.set();
@@ -159,7 +159,7 @@ class EditorPlayState extends MusicBeatState {
 			timeBarBG.sprTracker = timeBar;
 		}
 		timeBarBG.alpha = 0;
-		timeBarBG.visible = showTime;
+		timeBarBG.visible = showTime && !ClientPrefs.showTimeBar;
 		timeBarBG.color = FlxColor.BLACK;
 		timeBarBG.xAdd = -4;
 		timeBarBG.yAdd = -4;
@@ -175,11 +175,12 @@ class EditorPlayState extends MusicBeatState {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			timeBar.createFilledBar(0xFF404040, 0xFF11FF00);
 			insert(members.indexOf(timeBarBG), timeBar);
 		}
 		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
-		timeBar.visible = showTime;
+		timeBar.visible = showTime && !ClientPrefs.showTimeBar;
 		add(timeBar);
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;

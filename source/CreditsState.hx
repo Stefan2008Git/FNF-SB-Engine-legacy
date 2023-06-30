@@ -162,6 +162,20 @@ class CreditsState extends MusicBeatState {
 				'https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw',
 				'fc0000'
 			],
+			[
+				'M.A. Jigsaw',
+				'jigsaw',
+				'Main Programmer of Psych Engine\nWith Android Support',
+				'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ',
+				'444444'
+			],
+			[
+				'Goldie',
+				'goldie',
+				'Virtual Pad Artist',
+				'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA',
+				'444444'
+			],
 			[''],
 			['Psych Engine Team'],
 			[
@@ -267,22 +281,6 @@ class CreditsState extends MusicBeatState {
 				"Composer of Friday Night Funkin'",
 				'https://twitter.com/kawaisprite',
 				'378FC7'
-			],
-			[''],
-			['Android Support'],
-			[
-				'M.A. Jigsaw',
-				'jigsaw',
-				'Main Programmer of Psych Engine\nWith Android Support',
-				'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ',
-				'444444'
-			],
-			[
-				'Goldie',
-				'goldie',
-				'Virtual Pad Artist',
-				'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA',
-				'444444'
 			]
 		];
 

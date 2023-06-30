@@ -45,7 +45,7 @@ class GameExitState extends MusicBeatState {
 	function openSelectedState(label:String) {
 		switch (label) {
 			case 'Yes':
-				Application.current.window.alert(alertMessage, "SB Engine: " + MainMenuState.sbEngineVersion);
+				Application.current.window.alert(alertMessage, "SB Engine v" + MainMenuState.sbEngineVersion);
 				#if desktop
 				DiscordClient.shutdown();
 				#end

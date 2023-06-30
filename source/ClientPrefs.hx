@@ -36,6 +36,7 @@ class ClientPrefs {
 	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
+	public static var showTimeBar:Bool = true;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
@@ -127,6 +128,7 @@ class ClientPrefs {
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
+		FlxG.save.data.showTimeBar = showTimeBar;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
@@ -252,6 +254,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.timeBarType != null) {
 			timeBarType = FlxG.save.data.timeBarType;
+		}
+		if (FlxG.save.data.showTimeBar != null) {
+			showTimeBar = FlxG.save.data.showTimeBar;
 		}
 		if (FlxG.save.data.scoreZoom != null) {
 			scoreZoom = FlxG.save.data.scoreZoom;

@@ -92,6 +92,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Show time bar',
+			"If unchecked, this is gonna unshow time bar on gameplay.", 'showTimeBar', 'bool', true);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
