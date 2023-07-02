@@ -171,13 +171,12 @@ class PlayState extends MusicBeatState {
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
-
+	public var healthBarOverlay:FlxSprite;
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
-
 	public var timeBar:FlxBar;
 
 	public var ratingsData:Array<Rating> = [];
@@ -1276,6 +1275,18 @@ class PlayState extends MusicBeatState {
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
+		healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
+		healthBarOverlay.y = FlxG.height * 0.89;
+		healthBarOverlay.screenCenter(X);
+		healthBarOverlay.scrollFactor.set();
+		healthBarOverlay.visible = !ClientPrefs.hideHud;
+        healthBarOverlay.color = FlxColor.BLACK;
+		healthBarOverlay.blend = MULTIPLY;
+		healthBarOverlay.x = healthBarBG.x-1.9;
+	    healthBarOverlay.alpha = ClientPrefs.healthBarAlpha;
+		healthBarOverlay.antialiasing = ClientPrefs.globalAntialiasing;
+		add(healthBarOverlay); healthBarOverlay.alpha = ClientPrefs.healthBarAlpha; if(ClientPrefs.downScroll) healthBarOverlay.y = 0.11 * FlxG.height;
+
 		iconPlayer1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconPlayer1.y = healthBar.y - 75;
 		iconPlayer1.visible = !ClientPrefs.hideHud;
@@ -1426,6 +1437,7 @@ class PlayState extends MusicBeatState {
 		watermarkTxt.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
+		healthBarOverlay.cameras = [camHUD];
 		iconPlayer1.cameras = [camHUD];
 		iconPlayer2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -1435,9 +1447,6 @@ class PlayState extends MusicBeatState {
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
-		#if android
-		androidControls.cameras = [camHUD];
-		#end
 
 		#if android
 		addAndroidControls();
