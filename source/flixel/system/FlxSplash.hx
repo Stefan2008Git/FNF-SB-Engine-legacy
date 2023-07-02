@@ -84,11 +84,7 @@ class FlxSplash extends FlxState {
 
 		onResize(stageWidth, stageHeight);
 
-		#if FLX_SOUND_SYSTEM
-		if (!muted) {
-			FlxG.sound.load(FlxAssets.getSound("flixel/sounds/flixel")).play();
-		}
-		#end
+		FlxG.sound.play(Paths.sound('intro'));
 	}
 
 	override public function destroy():Void {
