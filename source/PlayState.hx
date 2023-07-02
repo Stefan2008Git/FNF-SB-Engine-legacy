@@ -1137,7 +1137,7 @@ class PlayState extends MusicBeatState {
 			timeBarBG.sprTracker = timeBar;
 		}
 		timeBarBG.alpha = 0;
-		timeBarBG.visible = showTime && !ClientPrefs.showTimeBar;
+		timeBarBG.visible = showTime && ClientPrefs.showTimeBar;
 		timeBarBG.color = FlxColor.BLACK;
 		timeBarBG.xAdd = -4;
 		timeBarBG.yAdd = -4;
@@ -1157,7 +1157,7 @@ class PlayState extends MusicBeatState {
 		}
 		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
-		timeBar.visible = showTime && !ClientPrefs.showTimeBar;
+		timeBar.visible = showTime && ClientPrefs.showTimeBar;
 		add(timeBar);
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
