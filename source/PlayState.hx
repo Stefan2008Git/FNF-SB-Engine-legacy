@@ -65,10 +65,12 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
+
 #if VIDEOS_ALLOWED
 import vlc.MP4Handler;
 #end
