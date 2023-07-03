@@ -1361,15 +1361,8 @@ class PlayState extends MusicBeatState {
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
 		add(judgementCounterTxt);
 
-		if (ClientPrefs.watermarkStyle == 'SB Engine') {
-		    watermarkTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-		}
-		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
-		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		}
-		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
-		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		}
+		
+		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
@@ -1386,7 +1379,7 @@ class PlayState extends MusicBeatState {
 			watermarkTxt.y = 140;
 		}
 		if (ClientPrefs.watermarkStyle == 'SB Engine') {
-		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + "\nPsych Engine v" + MainMenuState.psychEngineVersion + "\nTest: " + currentlySong  + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
+		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + "\nPsych Engine v" + MainMenuState.psychEngineVersion + "\nTest ";
 		}
 		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
 		    watermarkTxt.text = currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
