@@ -1277,7 +1277,16 @@ class PlayState extends MusicBeatState {
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlayDaveAndBambi'));
+			healthBarBG.visible = false;
+		}
 		healthBarOverlay.y = FlxG.height * 0.89;
 		healthBarOverlay.screenCenter(X);
 		healthBarOverlay.scrollFactor.set();
