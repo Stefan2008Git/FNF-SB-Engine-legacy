@@ -3112,23 +3112,25 @@ class PlayState extends MusicBeatState {
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
+		var speed = 1;
+
 		if (iconBouncy) {
 			if (iconPlayer1.angle >= 0) {
 				if (iconPlayer1.angle != 0) {
-					//iconPlayer1.angle -= 1;
+					iconPlayer1.angle -= speed;
 				}
 			} else {
 				if (iconPlayer1.angle != 0) {
-					//iconPlayer1.angle += 1;
+					iconPlayer1.angle += speed;
 				}
 			}
 			if (iconPlayer2.angle >= 0) {
 				if (iconPlayer2.angle != 0) {
-					//iconPlayer2.angle -= 1;
+					iconPlayer2.angle -= speed;
 				}
 			} else {
 				if (iconPlayer2.angle != 0) {
-					//iconPlayer2.angle += 1;
+					iconPlayer2.angle += speed;
 				}
 			}
 		}
@@ -5109,7 +5111,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
+		/*if (ClientPrefs.gameStyle == 'Better UI') {
 			if (curBeat % gfSpeed == 0) 
 				{
 				curBeat % (gfSpeed * 2) == 0 ? 
@@ -5133,7 +5135,7 @@ class PlayState extends MusicBeatState {
 				iconPlayer1.updateHitbox();
 				iconPlayer2.updateHitbox();
 			}
-		}
+		}*/ //[OVERRIDES THE BEATHIT BOPPING]
 
 		if (gf != null
 			&& curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0
