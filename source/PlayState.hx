@@ -3179,11 +3179,11 @@ class PlayState extends MusicBeatState {
 			iconPlayer2.updateHitbox();
 		}
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconPlayer1.scale.set(mult, mult);
 			iconPlayer1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconPlayer2.scale.set(mult, mult);
 			iconPlayer2.updateHitbox();
 		}
