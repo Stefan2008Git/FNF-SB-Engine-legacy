@@ -78,6 +78,9 @@ import vlc.MP4Handler;
 using StringTools;
 
 class PlayState extends MusicBeatState {
+	//DAVE EN BAMBI BOUNCE ENABLER
+	public var iconBouncy:Bool = true;
+	
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
@@ -440,6 +443,12 @@ class PlayState extends MusicBeatState {
 				['AAAA', 1], //From 90% to 99%
 				['AAAAA', 1] //The value on this one isn't used actually, since Perfect is always "1"
 		];
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			iconBouncy = true; //enable
+		} else if (ClientPrefs.gameStyle != 'Better UI') {
+			iconBouncy = false; //disable
 		}
 
 		// For the "Just the Two of Us" achievement
@@ -3103,6 +3112,27 @@ class PlayState extends MusicBeatState {
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
+		if (iconBouncy) {
+			if (iconPlayer1.angle >= 0) {
+				if (iconPlayer1.angle != 0) {
+					iconPlayer1.angle -= 1;
+				}
+			} else {
+				if (iconPlayer1.angle != 0) {
+					iconPlayer1.angle += 1;
+				}
+			}
+			if (iconPlayer2.angle >= 0) {
+				if (iconPlayer2.angle != 0) {
+					iconPlayer2.angle -= 1;
+				}
+			} else {
+				if (iconPlayer2.angle != 0) {
+					iconPlayer2.angle += 1;
+				}
+			}
+		}
+		
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (autoplayTxt.visible) {
 				autoplaySine += 50 * elapsed;
@@ -5049,6 +5079,24 @@ class PlayState extends MusicBeatState {
 		iconPlayer2.updateHitbox();
 
 		iconBounceAngle = !iconBounceAngle;
+
+		if (iconBouncy) {
+			if (curBeat % gfSpeed = 0) {
+				if (curBeat % (gfSpeed * 2) == 0) {
+					iconPlayer1.scale.set(0.8, 0.8);
+					iconPlayer2.scale.set(1.2, 1.3);
+					
+					iconPlayer1.angle = -15;
+					iconPlayer2.angle = 15;
+				} else {
+					iconPlayer2.scale.set(0.8, 0.8);
+					iconPlayer1.scale.set(1.2, 1.3);
+					
+					iconPlayer2.angle = -15;
+					iconPlayer1.angle = 15;
+				}
+			}
+		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (iconBounceAngle) {
