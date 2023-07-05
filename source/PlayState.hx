@@ -5071,12 +5071,13 @@ class PlayState extends MusicBeatState {
 		if (generatedMusic) {
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
-
-		iconPlayer1.scale.set(1.2, 1.2);
-		iconPlayer2.scale.set(1.2, 1.2);
-
-		iconPlayer1.updateHitbox();
-		iconPlayer2.updateHitbox();
+		if (!iconBouncy) {
+			iconPlayer1.scale.set(1.2, 1.2);
+			iconPlayer2.scale.set(1.2, 1.2);
+			
+			iconPlayer1.updateHitbox();
+			iconPlayer2.updateHitbox();
+		}
 
 		iconBounceAngle = !iconBounceAngle;
 
