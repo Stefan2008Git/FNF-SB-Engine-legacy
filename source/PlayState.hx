@@ -281,6 +281,8 @@ class PlayState extends MusicBeatState {
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
 	public var judgementCounterTxt:FlxText;
+	public var sbEngineVersionTxt:FlxText;
+	public var psychEngineVersionTxt:FlxText;
 	public var watermarkTxt:FlxText;
 
 	var timeTxt:FlxText;
@@ -1361,34 +1363,160 @@ class PlayState extends MusicBeatState {
 		judgementCounterTxt.visible = !ClientPrefs.hideJudgementCounter && !ClientPrefs.hideHud;
 		add(judgementCounterTxt);
 
-		
-		watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-		watermarkTxt.scrollFactor.set();
-		watermarkTxt.borderSize = 1.25;
-		watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		if (ClientPrefs.downScroll) {
-			watermarkTxt.y = 140;
-		}
 		if (ClientPrefs.watermarkStyle == 'SB Engine') {
-		    watermarkTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion + "\nPsych Engine v" + MainMenuState.psychEngineVersion + "\nTest ";
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    sbEngineVersionTxt.scrollFactor.set();
+		    sbEngineVersionTxt.borderSize = 1.25;
+		    sbEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+		    sbEngineVersionTxt.text = " SB Engine v" + MainMenuState.sbEngineVersion;
+
+		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    psychEngineVersionTxt.scrollFactor.set();
+		    psychEngineVersionTxt.borderSize = 1.25;
+		    psychEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+		    psychEngineVersionTxt.text = " Psych Engine v" + MainMenuState.psychEngineVersion;
+
+		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    watermarkTxt.scrollFactor.set();
+		    watermarkTxt.borderSize = 1.25;
+		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 		}
 		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
-		    watermarkTxt.text = currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    sbEngineVersionTxt.scrollFactor.set();
+		    sbEngineVersionTxt.borderSize = 1.25;
+		    sbEngineVersionTxt.visible = false;
+
+		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    psychEngineVersionTxt.scrollFactor.set();
+		    psychEngineVersionTxt.borderSize = 1.25;
+		    psychEngineVersionTxt.visible = false;
+
+		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    watermarkTxt.scrollFactor.set();
+		    watermarkTxt.borderSize = 1.25;
+		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
 			+ MainMenuState.psychEngineVersion + ") ";
 		}
 		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
-		    watermarkTxt.text = currentlySong;
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    sbEngineVersionTxt.scrollFactor.set();
+		    sbEngineVersionTxt.borderSize = 1.25;
+		    sbEngineVersionTxt.visible = false;
+
+		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    psychEngineVersionTxt.scrollFactor.set();
+		    psychEngineVersionTxt.borderSize = 1.25;
+		    psychEngineVersionTxt.visible = false;
+
+		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    watermarkTxt.scrollFactor.set();
+		    watermarkTxt.borderSize = 1.25;
+		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			watermarkTxt.text =  currentlySong;
 		}
+
+		add(sbEngineVersionTxt);
+		add(psychEngineVersionTxt);
 		add(watermarkTxt);
+		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'SB Engine') {
+			sbEngineVersionTxt.y = 140;
+			psychEngineVersionTxt.y = 160;
+			watermarkTxt.y = 180;
+		}
+		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'Kade Engine') {
+			sbEngineVersionTxt.y = 0;
+			psychEngineVersionTxt.y = 0;
+			watermarkTxt.y = 140;
+		}
+		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'Dave and Bambi') {
+			sbEngineVersionTxt.y = 0;
+			psychEngineVersionTxt.y = 0;
+			watermarkTxt.y = 140;
+		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
@@ -1438,6 +1566,8 @@ class PlayState extends MusicBeatState {
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		judgementCounterTxt.cameras = [camHUD];
+		sbEngineVersionTxt.cameras = [camHUD];
+		psychEngineVersionTxt.cameras = [camHUD];
 		watermarkTxt.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
@@ -2975,7 +3105,7 @@ class PlayState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (autoplayTxt.visible) {
-				autoplaySine += 120 * elapsed;
+				autoplaySine += 50 * elapsed;
 				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 120);
 			}
 		}
@@ -4927,6 +5057,32 @@ class PlayState extends MusicBeatState {
 			} else {
 				iconPlayer1.angle = -15;
 				iconPlayer2.angle = -15;
+			}
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			if (curBeat % gfSpeed == 0) 
+				{
+				curBeat % (gfSpeed * 2) == 0 ? 
+				{
+					iconPlayer1.scale.set(1.2, 1.2);
+		            iconPlayer2.scale.set(1.2, 1.2);
+				} 
+				: 
+				{
+					iconPlayer1.scale.set(1.2, 1.2);
+		            iconPlayer2.scale.set(1.2, 1.2);
+					FlxTween.angle(iconPlayer1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconPlayer2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});	
+				}
+	
+				FlxTween.tween(iconPlayer1, {'scale.x': 0.8, 'scale.y': 0.8}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.tween(iconPlayer2, {'scale.x': 1.2, 'scale.y': 1.2}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconPlayer1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconPlayer2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+	
+				iconPlayer1.updateHitbox();
+				iconPlayer2.updateHitbox();
 			}
 		}
 

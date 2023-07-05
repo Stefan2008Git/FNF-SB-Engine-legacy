@@ -25,7 +25,7 @@ import flixel.input.keyboard.FlxKey;
 using StringTools;
 
 class MainMenuState extends MusicBeatState {
-	public static var sbEngineVersion:String = '2.7.0';
+	public static var sbEngineVersion:String = '2.8.0';
 	public static var psychEngineVersion:String = '0.6.2';
 	public static var currentlySelected:Int = 0;
 
