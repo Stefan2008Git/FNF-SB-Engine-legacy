@@ -5081,7 +5081,7 @@ class PlayState extends MusicBeatState {
 		iconBounceAngle = !iconBounceAngle;
 
 		if (iconBouncy) {
-			if (curBeat % gfSpeed = 0) {
+			if (curBeat % gfSpeed == 0) {
 				if (curBeat % (gfSpeed * 2) == 0) {
 					iconPlayer1.scale.set(0.8, 0.8);
 					iconPlayer2.scale.set(1.2, 1.3);
