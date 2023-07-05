@@ -3115,20 +3115,20 @@ class PlayState extends MusicBeatState {
 		if (iconBouncy) {
 			if (iconPlayer1.angle >= 0) {
 				if (iconPlayer1.angle != 0) {
-					iconPlayer1.angle -= 1;
+					//iconPlayer1.angle -= 1;
 				}
 			} else {
 				if (iconPlayer1.angle != 0) {
-					iconPlayer1.angle += 1;
+					//iconPlayer1.angle += 1;
 				}
 			}
 			if (iconPlayer2.angle >= 0) {
 				if (iconPlayer2.angle != 0) {
-					iconPlayer2.angle -= 1;
+					//iconPlayer2.angle -= 1;
 				}
 			} else {
 				if (iconPlayer2.angle != 0) {
-					iconPlayer2.angle += 1;
+					//iconPlayer2.angle += 1;
 				}
 			}
 		}
