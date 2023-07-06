@@ -45,6 +45,8 @@ class MainMenuState extends MusicBeatState {
 	var versionSb:FlxText;
 	var versionPsych:FlxText;
 	var versionFnf:FlxText;
+	var secretText:FlxText;
+	var secretTextSine:Float = 0;
 	var debugKeys:Array<FlxKey>;
 
 	var cameraFollow:FlxObject;
@@ -159,6 +161,15 @@ class MainMenuState extends MusicBeatState {
 		FlxTween.tween(background, {angle: 0}, 1, {ease: FlxEase.quartInOut});
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
+			#if android
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			#end
+			secretText.scrollFactor.set();
+		    secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    add(secretText);
+
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 			versionSb.scrollFactor.set();
 			versionSb.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -173,6 +184,15 @@ class MainMenuState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			#if android
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			#end
+			secretText.scrollFactor.set();
+		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    add(secretText);
+
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 			versionSb.scrollFactor.set();
 			versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -187,6 +207,15 @@ class MainMenuState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			#if android
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			#end
+			secretText.scrollFactor.set();
+		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    add(secretText);
+
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 			versionSb.scrollFactor.set();
 			versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -241,6 +270,11 @@ class MainMenuState extends MusicBeatState {
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		cameraFollowPosition.setPosition(FlxMath.lerp(cameraFollowPosition.x, cameraFollow.x, lerpVal),
 			FlxMath.lerp(cameraFollowPosition.y, cameraFollow.y, lerpVal));
+		
+		if (secretText.visible) {
+			secretTextSine += 150 * elapsed;
+			secretText.alpha = 1 - Math.sin((Math.PI * secretTextSine) / 150);
+		}
 
 		if (!selectedSomething) {
 			if (controls.UI_UP_P) {
@@ -290,7 +324,7 @@ class MainMenuState extends MusicBeatState {
 
 							switch (daChoice) {
 								case 'story_mode':
-									MusicBeatState.switchState(new StoryMenuState());
+									MusicBeatState.switchState(new StoryModeState());
 									Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 								case 'freeplay':
 									MusicBeatState.switchState(new FreeplayState());
@@ -314,10 +348,18 @@ class MainMenuState extends MusicBeatState {
 			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
 				selectedSomething = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
+				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+
+			if (FlxG.keys.justPressed.S #if android || FlxG.android.justReleased.BACK #end) {
+				selectedSomething = true;
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				FlxG.sound.music.volume = 0;
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
+				MusicBeatState.switchState(new DVDScreenState());
+			}
 		}
 
 		super.update(elapsed);

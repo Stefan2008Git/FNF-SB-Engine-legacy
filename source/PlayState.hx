@@ -4083,17 +4083,17 @@ class PlayState extends MusicBeatState {
 						openSubState(new ResultsScreenSubState([sicks, goods, bads, freaks], campaignScore, songMisses,
 							Highscore.floorDecimal(ratingPercent * 100, 2), ratingName + (' [' + ratingFC + '] ')));
 					else
-						MusicBeatState.switchState(new StoryMenuState());
+						MusicBeatState.switchState(new StoryModeState());
 					    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 
 					if (!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('autoplay', false)) {
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+						StoryModeState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore) {
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyModeDifficulty);
 						}
 
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+						FlxG.save.data.weekCompleted = StoryModeState.weekCompleted;
 						FlxG.save.flush();
 					}
 					changedDifficulty = false;

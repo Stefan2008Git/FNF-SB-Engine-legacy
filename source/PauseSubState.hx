@@ -380,7 +380,7 @@ class PauseSubState extends MusicBeatSubstate {
 					PlayState.seenCutscene = false;
 					WeekData.loadTheFirstEnabledMod();
 					if (PlayState.isStoryMode) {
-						MusicBeatState.switchState(new StoryMenuState());
+						MusicBeatState.switchState(new StoryModeState());
 						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 					} else {
 						MusicBeatState.switchState(new FreeplayState());

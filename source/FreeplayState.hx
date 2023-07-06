@@ -226,7 +226,7 @@ class FreeplayState extends MusicBeatState {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
 		return (!leWeek.startUnlocked
 			&& leWeek.weekBefore.length > 0
-			&& (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
+			&& (!StoryModeState.weekCompleted.exists(leWeek.weekBefore) || !StoryModeState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
 	var instPlaying:Int = -1;

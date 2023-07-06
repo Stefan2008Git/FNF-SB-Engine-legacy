@@ -45,7 +45,7 @@ class ClassicMainMenuState extends MusicBeatState {
 	function openSelectedState(label:String) {
 		switch (label) {
 			case 'Story Mode':
-				MusicBeatState.switchState(new StoryMenuState());
+				MusicBeatState.switchState(new StoryModeState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 			case 'Freeplay':
 				MusicBeatState.switchState(new FreeplayState());
@@ -205,10 +205,17 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		#if (desktop || android)
 		else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
-			MusicBeatState.switchState(new MasterEditorMenu());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
+			MusicBeatState.switchState(new MasterEditorMenu());
 		}
 		#end
+
+		if (FlxG.keys.justPressed.S #if android || FlxG.android.justReleased.BACK #end) {
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+			FlxG.sound.music.volume = 0;
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
+			MusicBeatState.switchState(new DVDScreenState());
+		}
 	}
 
 	function changeSelection(change:Int = 0) {
