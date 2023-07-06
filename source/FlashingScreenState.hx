@@ -1,5 +1,8 @@
 package;
 
+#if desktop
+import Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -17,6 +20,7 @@ class FlashingScreenState extends MusicBeatState {
 	public static var leftState:Bool = false;
 
 	var warningText:FlxText;
+	var warningTextFloating:Float = 0;
 	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
@@ -25,6 +29,11 @@ class FlashingScreenState extends MusicBeatState {
 		Paths.clearUnusedMemory();
 
 		super.create();
+
+		#if desktop
+	    // Updating Discord Rich Presence
+	    DiscordClient.changePresence("Warning screen", null);
+	    #end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
@@ -79,6 +88,8 @@ class FlashingScreenState extends MusicBeatState {
 	}
 
 	override function update(elapsed:Float) {
+		warningTextFloating += 0.007;
+		warningText.y = Math.sin(warningTextFloating) * 60 + 100;
 		if (!leftState) {
 			var back:Bool = controls.BACK;
 			if (controls.ACCEPT || back) {
