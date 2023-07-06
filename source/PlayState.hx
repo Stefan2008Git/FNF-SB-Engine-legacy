@@ -3202,15 +3202,33 @@ class PlayState extends MusicBeatState {
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
-			iconPlayer1.animation.curAnim.curFrame = 1;
-		else
-			iconPlayer1.animation.curAnim.curFrame = 0;
-
-		if (healthBar.percent > 80)
-			iconPlayer2.animation.curAnim.curFrame = 1;
-		else
-			iconPlayer2.animation.curAnim.curFrame = 0;
+		if (iconPlayer1.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconPlayer1.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent >80)
+				iconPlayer1.animation.curAnim.curFrame = 2;
+			else
+				iconPlayer1.animation.curAnim.curFrame = 0;
+		} 
+		else {
+			if (healthBar.percent < 20)
+				iconPlayer1.animation.curAnim.curFrame = 1;
+			else
+				iconPlayer1.animation.curAnim.curFrame = 0;
+		}
+		if (iconPlayer2.animation.frames == 3) {
+			if (healthBar.percent > 80)
+				iconPlayer2.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent < 20)
+				iconPlayer2.animation.curAnim.curFrame = 2;
+			else 
+				iconPlayer2.animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent > 80)
+				iconPlayer2.animation.curAnim.curFrame = 1;
+			else 
+				iconPlayer2.animation.curAnim.curFrame = 0;
+		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
