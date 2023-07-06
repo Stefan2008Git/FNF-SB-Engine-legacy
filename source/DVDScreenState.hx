@@ -49,7 +49,6 @@ class DVDScreenState extends MusicBeatState {
 			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 			} else {
 				MusicBeatState.switchState(new MainMenuState());
-                FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 			}
         }
@@ -57,12 +56,12 @@ class DVDScreenState extends MusicBeatState {
         if (dvdLogo.x > FlxG.width - dvdLogo.width || dvdLogo.x < 0) {
             dvdLogo.velocity.x = -dvdLogo.velocity.x;
             switchColor();
-            FlxG.sound.play(Paths.sound('Metronome_Tick'));
+            FlxG.sound.play(Paths.sound('hittingCorner'));
         } 
         if (dvdLogo.y > FlxG.height - dvdLogo.height || dvdLogo.y < 0) {
             dvdLogo.velocity.y = -dvdLogo.velocity.y;
             switchColor();
-            FlxG.sound.play(Paths.sound('Metronome_Tick'));
+            FlxG.sound.play(Paths.sound('hittingCorner'));
         }
             
         super.update(elapsed);

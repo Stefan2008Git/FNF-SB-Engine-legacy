@@ -162,9 +162,9 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
 			#end
 			secretText.scrollFactor.set();
 		    secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -185,9 +185,9 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
 			#end
 			secretText.scrollFactor.set();
 		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -208,9 +208,9 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press BACK for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 350, 0, "Press S for the secret screen!", 12);
+			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
 			#end
 			secretText.scrollFactor.set();
 		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
