@@ -70,11 +70,7 @@ class GameExitState extends MusicBeatState {
 		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
 		purpleBackground.updateHitbox();
 		purpleBackground.screenCenter();
-		if (ClientPrefs.velocityBackground) {
-			purpleBackground.visible = false;
-		} else {
-			purpleBackground.visible = true;
-		}
+		purpleBackground.visible = !ClientPrefs.velocityBackground;
 		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		purpleBackground.color = 0xFF800080;
 		add(purpleBackground);
@@ -84,11 +80,7 @@ class GameExitState extends MusicBeatState {
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);
-		if (ClientPrefs.velocityBackground) {
-			checker.visible = true;
-		} else {
-			checker.visible = false;
-		}
+		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
@@ -136,10 +128,7 @@ class GameExitState extends MusicBeatState {
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.mainMenuStyle == 'Classic')
-				MusicBeatState.switchState(new ClassicMainMenuState());
-			else
-				MusicBeatState.switchState(new MainMenuState());
+			ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT) {
