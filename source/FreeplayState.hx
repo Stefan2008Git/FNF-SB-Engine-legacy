@@ -129,7 +129,7 @@ class FreeplayState extends MusicBeatState {
 		}
 		WeekData.setDirectoryFromWeek();
 		scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
-		switch () {
+		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 			default: scoreText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 		}
@@ -172,7 +172,7 @@ class FreeplayState extends MusicBeatState {
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
-		switch () {
+		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
 			default: text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
 		}

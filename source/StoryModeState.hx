@@ -78,7 +78,7 @@ class StoryModeState extends MusicBeatState {
 		rankText.text = 'RANK: GREAT';
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'SB Engine': rankText.setFormat("Bahnschrift", 32);
-			case 'Better UI' rankText.setFormat("VCR OSD Mono", 32);
+			case 'Better UI': rankText.setFormat("VCR OSD Mono", 32);
 		}
 
 		rankText.size = scoreText.size;

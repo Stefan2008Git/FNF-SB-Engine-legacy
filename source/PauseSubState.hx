@@ -104,7 +104,7 @@ class PauseSubState extends MusicBeatSubstate {
 		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
 		purpleBackground.updateHitbox();
 		purpleBackground.screenCenter();
-		purpleBackground.alhpa = 0;
+		purpleBackground.alpha = 0;
 		purpleBackground.visible = !ClientPrefs.velocityBackground;
 		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		purpleBackground.color = 0xFF800080;
@@ -421,7 +421,7 @@ class PauseSubState extends MusicBeatSubstate {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 
 				switch (ClientPrefs.gameStyle) {
-					case 'Psych Engine' | 'Better UI': cskipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					case 'Psych Engine' | 'Better UI': skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					default: /* SB Engine */ skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 
