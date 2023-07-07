@@ -40,46 +40,24 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 
 		resultsText = new FlxText(5, 0, 0, 'RESULTS', 72);
 		resultsText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			resultsText.setFormat("Bahnschrift", 48, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			resultsText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			resultsText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': resultsText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ resultsText.setFormat("Bahnschrift", 48, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		resultsText.updateHitbox();
 		add(resultsText);
 
 		results = new FlxText(5, resultsText.height, FlxG.width, '', 48);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			results.text = 'Sicks: ' + daResults[0] + '\nGoods: ' + daResults[1] + '\nBads: ' + daResults[2] + '\nFreaks: ' + daResults[3];
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			results.text = 'Sicks: ' + daResults[0] + '\nGoods: ' + daResults[1] + '\nBads: ' + daResults[2] + '\n####s: ' + daResults[3];
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			results.text = 'Sicks: ' + daResults[0] + '\nGoods: ' + daResults[1] + '\nBads: ' + daResults[2] + '\n####s: ' + daResults[3];
-		}
-
 		results.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			results.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': results.text = 'Sicks: ' + daResults[0] + '\nGoods: ' + daResults[1] + '\nBads: ' + daResults[2] + '\n####s: ' + daResults[3];
+				results.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				
+			default: /*"SB Engine"*/ results.text = 'Sicks: ' + daResults[0] + '\nGoods: ' + daResults[1] + '\nBads: ' + daResults[2] + '\nFreaks: ' + daResults[3];
+				results.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			results.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			results.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
 
 		results.updateHitbox();
 		add(results);
@@ -87,18 +65,10 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		songNameText = new FlxText(0, 155, 0, '', 124);
 		songNameText.text = "Song: " + PlayState.SONG.song;
 		songNameText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			songNameText.setFormat("Bahnschrift", 72, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': songNameText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ songNameText.setFormat("Bahnschrift", 72, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			songNameText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			songNameText.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
 		songNameText.updateHitbox();
 		songNameText.screenCenter(X);
 		add(songNameText);
@@ -106,16 +76,9 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		difficultyNameTxt = new FlxText(0, 155 + songNameText.height, 0, '', 100);
 		difficultyNameTxt.text = "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameTxt.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			difficultyNameTxt.setFormat("Bahnschrift", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			difficultyNameTxt.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			difficultyNameTxt.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': difficultyNameTxt.setFormat("VCR OSD Mono", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ difficultyNameTxt.setFormat("Bahnschrift", 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		difficultyNameTxt.updateHitbox();
@@ -125,16 +88,9 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		judgementCounterTxt = new FlxText(0, difficultyNameTxt.y + difficultyNameTxt.height + 45, FlxG.width, '', 86);
 		judgementCounterTxt.text = 'Score: ' + campaignScore + '\nMisses: ' + songMisses + '\nAccuracy: ' + ratingPercent + '%\nRating: ' + ratingName;
 		judgementCounterTxt.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.setFormat("Bahnschrift", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.setFormat("VCR OSD Mono", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			judgementCounterTxt.setFormat("VCR OSD Mono", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': judgementCounterTxt.setFormat("VCR OSD Mono", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ judgementCounterTxt.setFormat("Bahnschrift", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		judgementCounterTxt.updateHitbox();
@@ -146,17 +102,11 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		#else
 		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Press ENTER to continue]", 32);
 		#end
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			pressEnterTxt.setFormat("Bahnschrift", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': pressEnterTxt.setFormat("VCR OSD Mono", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ pressEnterTxt.setFormat("Bahnschrift", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			pressEnterTxt.setFormat("VCR OSD Mono", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			pressEnterTxt.setFormat("VCR OSD Mono", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
 
 		pressEnterTxt.scrollFactor.set();
 		pressEnterTxt.visible = true;
@@ -210,10 +160,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		}
 
 		if (controls.ACCEPT) {
-			if (PlayState.isStoryMode)
-				MusicBeatState.switchState(new StoryModeState());
-			else
-				MusicBeatState.switchState(new FreeplayState());
+			PlayState.isStoryMode ? MusicBeatState.switchState(new StoryModeState()) : MusicBeatState.switchState(new FreeplayState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
 	}
