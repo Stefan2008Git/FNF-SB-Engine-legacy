@@ -49,6 +49,13 @@ class MainMenuState extends MusicBeatState {
 	var secretTextSine:Float = 0;
 	var debugKeys:Array<FlxKey>;
 
+	var tipTextMargin:Float = 10;
+	var tipTextScrolling:Bool = false;
+	var tipBackground:FlxSprite;
+	var tipText:FlxText;
+	var isTweening:Bool = false;
+	var lastString:String = '';
+
 	var cameraFollow:FlxObject;
 	var cameraFollowPosition:FlxObject;
 
@@ -162,12 +169,12 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
 			#end
 			secretText.scrollFactor.set();
-		    secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    add(secretText);
 
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
@@ -185,12 +192,12 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
 			#end
 			secretText.scrollFactor.set();
-		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    add(secretText);
 
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
@@ -208,12 +215,12 @@ class MainMenuState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			#if android
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 735, 0, "Press BACK for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 			#else
-			secretText = new FlxText(FlxG.width * 0.7, FlxG.height - 700, 0, "Press S for the secret screen!", 120);
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
 			#end
 			secretText.scrollFactor.set();
-		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    add(secretText);
 
 			versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
@@ -246,7 +253,29 @@ class MainMenuState extends MusicBeatState {
 				FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, -10, 2, {ease: FlxEase.quartInOut});
 		}, 0);
 
+		tipBackground = new FlxSprite();
+		tipBackground.scrollFactor.set();
+		tipBackground.alpha = 0.7;
+		add(tipBackground);
+
+		tipText = new FlxText(0, 0, 0, "");
+		tipText.scrollFactor.set();
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		}
+		tipText.updateHitbox();
+		add(tipText);
+
+		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
+
 		changeItem();
+		tipTextStartScrolling();
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_C);
@@ -259,6 +288,17 @@ class MainMenuState extends MusicBeatState {
 	var selectedSomething:Bool = false;
 
 	override function update(elapsed:Float) {
+		if (tipTextScrolling)
+		{
+			tipText.x -= elapsed * 130;
+			if (tipText.x < -tipText.width)
+			{
+				tipTextScrolling = false;
+				tipTextStartScrolling();
+				changeTipText();
+			}
+		}
+
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1)); // funny camera
 
 		if (FlxG.sound.music.volume < 0.8) {
@@ -367,6 +407,21 @@ class MainMenuState extends MusicBeatState {
 		menuItems.forEach(function(spr:FlxSprite) {});
 	}
 
+	function tipTextStartScrolling()
+	{
+		tipText.x = tipTextMargin;
+		tipText.y = -tipText.height;
+
+		new FlxTimer().start(1.0, function(timer:FlxTimer)
+		{
+			FlxTween.tween(tipText, {y: tipTextMargin}, 0.3);
+			new FlxTimer().start(2.25, function(timer:FlxTimer)
+			{
+				tipTextScrolling = true;
+			});
+		});
+	}
+
 	function changeItem(huh:Int = 0) {
 		currentlySelected += huh;
 
@@ -388,6 +443,37 @@ class MainMenuState extends MusicBeatState {
 			}
 		});
 	}
+
+	function changeTipText() {
+		var selectedText:String = '';
+		var textArray:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('funnyTips'));
+
+		tipText.alpha = 1;
+		isTweening = true;
+		selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+		FlxTween.tween(tipText, {alpha: 0}, 1, {
+			ease: FlxEase.linear,
+			onComplete: function(freak:FlxTween) {
+				if (selectedText != lastString) {
+					tipText.text = selectedText;
+					lastString = selectedText;
+				} else {
+					selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+					tipText.text = selectedText;
+				}
+
+				tipText.alpha = 0;
+
+				FlxTween.tween(tipText, {alpha: 1}, 1, {
+					ease: FlxEase.linear,
+					onComplete: function(freak:FlxTween) {
+						isTweening = false;
+					}
+				});
+			}
+		});
+	}
+
 
 	override function beatHit() {
 		super.beatHit();
