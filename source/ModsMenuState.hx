@@ -87,26 +87,16 @@ class ModsMenuState extends MusicBeatState {
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
 		if (FlxG.random.bool(0.1))
 			noModsTxt.text += '\nFREAK.'; // meanie
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			noModsTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			noModsTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			noModsTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': noModsTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /* SB Engine */ noModsTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		noModsTxt.scrollFactor.set();
@@ -164,17 +154,9 @@ class ModsMenuState extends MusicBeatState {
 		add(buttonToggle);
 		buttonsArray.push(buttonToggle);
 		visibleWhenHasMods.push(buttonToggle);
-
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonToggle.label.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonToggle.label.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonToggle.label.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonToggle.label.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			default: /* SB Engine */ buttonToggle.label.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 
 		setAllLabelsOffset(buttonToggle, -15, 10);
@@ -189,16 +171,9 @@ class ModsMenuState extends MusicBeatState {
 		add(buttonUp);
 		buttonsArray.push(buttonUp);
 		visibleWhenHasMods.push(buttonUp);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonUp.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonUp.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonUp.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonUp.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			default: /* SB Engine */ buttonUp.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
 		setAllLabelsOffset(buttonUp, -15, 10);
@@ -213,16 +188,9 @@ class ModsMenuState extends MusicBeatState {
 		add(buttonDown);
 		buttonsArray.push(buttonDown);
 		visibleWhenHasMods.push(buttonDown);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonDown.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonDown.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonDown.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonDown.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			default: /* SB Engine */ buttonDown.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
 		setAllLabelsOffset(buttonDown, -15, 10);
@@ -230,28 +198,17 @@ class ModsMenuState extends MusicBeatState {
 		startX -= 100;
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
 			var doRestart:Bool = (mods[0].restart || mods[currentlySelected].restart);
-			for (i in 0...currentlySelected) // so it shifts to the top instead of replacing the top one
-			{
-				moveMod(-1, true);
-			}
+			for (i in 0...currentlySelected) moveMod(-1, true);
 
-			if (doRestart) {
-				needToRestart = true;
-			}
+			if (doRestart) needToRestart = true;
+			
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		});
 		buttonTop.setGraphicSize(80, 50);
 		buttonTop.updateHitbox();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonTop.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonTop.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonTop.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonTop.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			default: /* SB Engine */ buttonTop.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
 		setAllLabelsOffset(buttonTop, 0, 10);
@@ -275,16 +232,9 @@ class ModsMenuState extends MusicBeatState {
 		});
 		buttonDisableAll.setGraphicSize(170, 50);
 		buttonDisableAll.updateHitbox();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonDisableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonDisableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonDisableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonDisableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			default: /* SB Engine */ buttonDisableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
 		buttonDisableAll.label.fieldWidth = 170;
@@ -309,16 +259,9 @@ class ModsMenuState extends MusicBeatState {
 		});
 		buttonEnableAll.setGraphicSize(170, 50);
 		buttonEnableAll.updateHitbox();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			buttonEnableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			buttonEnableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			buttonEnableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': buttonEnableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			default: /* SB Engine */ buttonEnableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
 		buttonEnableAll.label.fieldWidth = 170;
@@ -329,16 +272,9 @@ class ModsMenuState extends MusicBeatState {
 
 		var startX:Int = 1100;
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			descriptionTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, LEFT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			descriptionTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			descriptionTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': descriptionTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT);
+			default: /* SB Engine */ descriptionTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, LEFT);
 		}
 
 		descriptionTxt.scrollFactor.set();
@@ -387,13 +323,9 @@ class ModsMenuState extends MusicBeatState {
 			i++;
 		}
 
-		if (currentlySelected >= mods.length)
-			currentlySelected = 0;
+		if (currentlySelected >= mods.length) currentlySelected = 0;
 
-		if (mods.length < 1)
-			background.color = defaultColor;
-		else
-			background.color = mods[currentlySelected].color;
+		mods.length < 1 ? background.color = defaultColor : background.color = mods[currentlySelected].color;
 
 		intendedColor = background.color;
 		changeSelection();
@@ -501,13 +433,8 @@ class ModsMenuState extends MusicBeatState {
 				}
 				FlxG.camera.fade(FlxColor.BLACK, 0.5, false, FlxG.resetGame, false);
 			} else {
-				if (ClientPrefs.mainMenuStyle == 'Classic') {
-					MusicBeatState.switchState(new ClassicMainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				} else {
-					MusicBeatState.switchState(new MainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				}
+				ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 			}
 		}
 
