@@ -61,45 +61,24 @@ class StoryModeState extends MusicBeatState {
 		persistentUpdate = persistentDraw = true;
 
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			scoreText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': scoreText.setFormat("VCR OSD Mono", 32);
+			default: /*a.k.a "SB Engine"*/ scoreText.setFormat("Bahnschrift", 32);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			scoreText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreText.setFormat("VCR OSD Mono", 32);
-		}
-
+		
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			default: /*"SB Engine"*/ txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 		}
 
 		txtWeekTitle.alpha = 0.7;
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			rankText.setFormat("Bahnschrift", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			rankText.setFormat("Bahnschrift", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			rankText.setFormat("VCR OSD Mono", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'SB Engine': rankText.setFormat("Bahnschrift", 32);
+			case 'Better UI' rankText.setFormat("VCR OSD Mono", 32);
 		}
 
 		rankText.size = scoreText.size;
@@ -293,13 +272,9 @@ class StoryModeState extends MusicBeatState {
 		if (controls.BACK && !movedBack && !selectedWeek) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			if (ClientPrefs.mainMenuStyle == 'Classic') {
-				MusicBeatState.switchState(new ClassicMainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			} else {
-				MusicBeatState.switchState(new MainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			}
+
+			ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 
 		super.update(elapsed);
