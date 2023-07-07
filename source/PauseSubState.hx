@@ -104,11 +104,8 @@ class PauseSubState extends MusicBeatSubstate {
 		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
 		purpleBackground.updateHitbox();
 		purpleBackground.screenCenter();
-		if (ClientPrefs.velocityBackground) {
-			purpleBackground.visible = false;
-		} else {
-			purpleBackground.visible = true;
-		}
+		purpleBackground.alhpa = 0;
+		purpleBackground.visible = !ClientPrefs.velocityBackground;
 		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		purpleBackground.color = 0xFF800080;
 		add(purpleBackground);
@@ -118,65 +115,37 @@ class PauseSubState extends MusicBeatSubstate {
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);
-		if (ClientPrefs.velocityBackground) {
-			checker.visible = true;
-		} else {
-			checker.visible = false;
-		}
+		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
 		songNameText = new FlxText(20, 15, 0, "", 32);
 		songNameText.text += "Song: " + PlayState.SONG.song;
 		songNameText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			songNameText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': songNameText.setFormat("VCR OSD Mono", 32);
+			default: /* SB Engine */ songNameText.setFormat("Bahnschrift", 32);	
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			songNameText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			songNameText.setFormat("VCR OSD Mono", 32);
-		}
-
 		songNameText.updateHitbox();
 		add(songNameText);
 
 		difficultyNameText = new FlxText(20, 15 + 32, 0, "", 32);
 		difficultyNameText.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			difficultyNameText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': difficultyNameText.setFormat("VCR OSD Mono", 32);
+			default: /* SB Engine */ difficultyNameText.setFormat("Bahnschrift", 32);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			difficultyNameText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			difficultyNameText.setFormat("VCR OSD Mono", 32);
-		}
-
 		difficultyNameText.updateHitbox();
 		add(difficultyNameText);
 
 		deathCounterText = new FlxText(20, 15 + 64, 0, "", 32);
 		deathCounterText.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			deathCounterText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': deathCounterText.setFormat("VCR OSD Mono", 32);
+			default: /* SB Engine */ deathCounterText.setFormat("Bahnschrift", 32);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			deathCounterText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			deathCounterText.setFormat("VCR OSD Mono", 32);
-		}
-
 		deathCounterText.updateHitbox();
 		add(deathCounterText);
 
@@ -187,18 +156,10 @@ class PauseSubState extends MusicBeatSubstate {
 
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			practiceText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': practiceText.setFormat("VCR OSD Mono", 32);
+			default: /* SB Engine */ practiceText.setFormat("Bahnschrift", 32);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			practiceText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			practiceText.setFormat("VCR OSD Mono", 32);
-		}
-
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
@@ -206,18 +167,10 @@ class PauseSubState extends MusicBeatSubstate {
 
 		chartingText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			chartingText.setFormat("Bahnschrift", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': chartingText.setFormat("VCR OSD Mono", 32);
+			default: /* SB Engine */ chartingText.setFormat("Bahnschrift", 32);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			chartingText.setFormat("VCR OSD Mono", 32);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			chartingText.setFormat("VCR OSD Mono", 32);
-		}
-
 		chartingText.x = FlxG.width - (chartingText.width + 20);
 		chartingText.y = FlxG.height - (chartingText.height + 20);
 		chartingText.updateHitbox();
@@ -247,11 +200,7 @@ class PauseSubState extends MusicBeatSubstate {
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
 		#if android
-		if (PlayState.chartingMode) {
-			addVirtualPad(LEFT_FULL, A);
-		} else {
-			addVirtualPad(UP_DOWN, A);
-		}
+		PlayState.chartingMode ? addVirtualPad(LEFT_FULL, A) : addVirtualPad(UP_DOWN, A);
 		addPadCamera();
 		#end
 	}
@@ -470,16 +419,10 @@ class PauseSubState extends MusicBeatSubstate {
 
 			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
-				if (ClientPrefs.gameStyle == 'SB Engine') {
-					skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				}
 
-				if (ClientPrefs.gameStyle == 'Psych Engine') {
-					skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				}
-
-				if (ClientPrefs.gameStyle == 'Better UI') {
-					skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				switch (ClientPrefs.gameStyle) {
+					case 'Psych Engine' | 'Better UI': cskipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					default: /* SB Engine */ skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 
 				skipTimeText.scrollFactor.set();
