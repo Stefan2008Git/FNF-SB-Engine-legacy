@@ -101,11 +101,7 @@ class FreeplayState extends MusicBeatState {
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		groupSongs = new FlxTypedGroup<Alphabet>();
@@ -132,22 +128,11 @@ class FreeplayState extends MusicBeatState {
 			add(icon);
 		}
 		WeekData.setDirectoryFromWeek();
-
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
-			scoreText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
+		scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
+		switch () {
+			case 'Psych Engine' | 'Better UI': scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			default: scoreText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
-			scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
-			scoreText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		}
-
 		add(scoreText);
 
 		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
@@ -158,14 +143,11 @@ class FreeplayState extends MusicBeatState {
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
-		if (currentlySelected >= songs.length)
-			currentlySelected = 0;
+		if (currentlySelected >= songs.length) currentlySelected = 0;
 		background.color = songs[currentlySelected].color;
 		intendedColor = background.color;
 
-		if (lastDifficultyName == '') {
-			lastDifficultyName = CoolUtil.defaultDifficulty;
-		}
+		if (lastDifficultyName == '') lastDifficultyName = CoolUtil.defaultDifficulty;
 		currentlyDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 
 		changeSelection();
@@ -190,16 +172,9 @@ class FreeplayState extends MusicBeatState {
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
+		switch () {
+			case 'Psych Engine' | 'Better UI': text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
+			default: text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
 		}
 
 		text.scrollFactor.set();
