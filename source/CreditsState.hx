@@ -324,30 +324,13 @@ class CreditsState extends MusicBeatState {
 		makeDescBoxGraphic();
 		add(descBox);
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-			descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			descText.scrollFactor.set();
-			// descText.borderSize = 2.4;
-			descBox.sprTracker = descText;
+		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			default: descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			descText.scrollFactor.set();
-			// descText.borderSize = 2.4;
-			descBox.sprTracker = descText;
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			descText.scrollFactor.set();
-			// descText.borderSize = 2.4;
-			descBox.sprTracker = descText;
-		}
-
+		descText.scrollFactor.set();
+		descBox.sprTracker = descText;
 		add(descText);
 
 		background.color = getCurrentBGColor();
