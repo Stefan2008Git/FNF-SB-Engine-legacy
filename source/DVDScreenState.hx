@@ -10,6 +10,8 @@ using StringTools;
 
 class DVDScreenState extends MusicBeatState {
 
+	// I have no clue why it exist - PurSnake
+
     var dvdLogo:FlxSprite;
 
     var colors = [
