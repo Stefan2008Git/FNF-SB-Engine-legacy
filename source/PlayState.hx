@@ -1325,26 +1325,23 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 			scoreTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			scoreTxt.scrollFactor.set();
 			scoreTxt.borderSize = 1.25;
-			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 			scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			scoreTxt.scrollFactor.set();
 			scoreTxt.borderSize = 1.25;
-			scoreTxt.visible = !ClientPrefs.hideHud;
 			add(scoreTxt);
 		}
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-			scoreTxt.setFormat(Paths.font("vcr.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			scoreTxt.scrollFactor.set();
-			scoreTxt.visible = !ClientPrefs.hideHud;
-			add(scoreTxt);
+			scoreTxt = new FlxText(0, healthBarBG.y + 28, FlxG.width, "", 16);
+		    scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    scoreTxt.borderSize = 1.2;
 		}
+		scoreTxt.visible = !ClientPrefs.hideHud;
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
@@ -1384,7 +1381,15 @@ class PlayState extends MusicBeatState {
 		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    sbEngineVersionTxt.scrollFactor.set();
-		    sbEngineVersionTxt.borderSize = 1.25;
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        sbEngineVersionTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        sbEngineVersionTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.borderSize = 1.2;
+			}
 		    sbEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		    sbEngineVersionTxt.text = " SB Engine v" + MainMenuState.sbEngineVersion;
 
@@ -1399,7 +1404,15 @@ class PlayState extends MusicBeatState {
 		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    psychEngineVersionTxt.scrollFactor.set();
-		    psychEngineVersionTxt.borderSize = 1.25;
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        psychEngineVersionTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        psychEngineVersionTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        psychEngineVersionTxt.borderSize = 1.2;
+			}
 		    psychEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		    psychEngineVersionTxt.text = " Psych Engine v" + MainMenuState.psychEngineVersion;
 
@@ -1414,7 +1427,15 @@ class PlayState extends MusicBeatState {
 		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    watermarkTxt.scrollFactor.set();
-		    watermarkTxt.borderSize = 1.25;
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.borderSize = 1.2;
+			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 		}
@@ -1458,7 +1479,15 @@ class PlayState extends MusicBeatState {
 		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    watermarkTxt.scrollFactor.set();
-		    watermarkTxt.borderSize = 1.25;
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.borderSize = 1.2;
+			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
 			+ MainMenuState.psychEngineVersion + ") ";
@@ -1503,7 +1532,15 @@ class PlayState extends MusicBeatState {
 		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    watermarkTxt.scrollFactor.set();
-		    watermarkTxt.borderSize = 1.25;
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.borderSize = 1.2;
+			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong;
 		}
@@ -2484,8 +2521,18 @@ class PlayState extends MusicBeatState {
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
-		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			FlxTween.tween(timeBar, {alpha: 1}, 1);
+		    FlxTween.tween(timeTxt, {alpha: 1}, 1);
+		}
 
 		switch (currentlyStage) {
 			case 'tank':

@@ -1,5 +1,8 @@
 package;
 
+#if desktop
+import Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.keyboard.FlxKey;
@@ -12,7 +15,7 @@ class DVDScreenState extends MusicBeatState {
 
 	// I have no clue why it exist - PurSnake
 
-    var dvdLogo:FlxSprite;
+    var dvdIcon:FlxSprite;
 
     var colors = [
         [255, 255, 255],
@@ -22,22 +25,27 @@ class DVDScreenState extends MusicBeatState {
         [243, 95, 206],
         [33, 169, 141]
     ];
-    var curColor:Int = 0;
+    var currentlyColor:Int = 0;
 
     override function create() 
     {
         Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-        dvdLogo = new FlxSprite(0, 0);
-        dvdLogo.loadGraphic(Paths.image('dvdIcon'));
-        dvdLogo.setGraphicSize(200, 5);
-        dvdLogo.scale.y = dvdLogo.scale.x;
-        dvdLogo.updateHitbox();
-        dvdLogo.velocity.set(135, 95);
-        dvdLogo.setColorTransform(0, 0, 0, 1, 255, 255, 255);
-        dvdLogo.antialiasing = ClientPrefs.globalAntialiasing;
-        add(dvdLogo);
+        #if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("Founded a secret.", null);
+		#end
+
+        dvdIcon = new FlxSprite(0, 0);
+        dvdIcon.loadGraphic(Paths.image('dvdIcon'));
+        dvdIcon.setGraphicSize(200, 5);
+        dvdIcon.scale.y = dvdIcon.scale.x;
+        dvdIcon.updateHitbox();
+        dvdIcon.velocity.set(135, 95);
+        dvdIcon.setColorTransform(0, 0, 0, 1, 255, 255, 255);
+        dvdIcon.antialiasing = ClientPrefs.globalAntialiasing;
+        add(dvdIcon);
     
         super.create();
     }
@@ -55,13 +63,13 @@ class DVDScreenState extends MusicBeatState {
 			}
         }
 
-        if (dvdLogo.x > FlxG.width - dvdLogo.width || dvdLogo.x < 0) {
-            dvdLogo.velocity.x = -dvdLogo.velocity.x;
+        if (dvdIcon.x > FlxG.width - dvdIcon.width || dvdIcon.x < 0) {
+            dvdIcon.velocity.x = -dvdIcon.velocity.x;
             switchColor();
             FlxG.sound.play(Paths.sound('hittingCorner'));
         } 
-        if (dvdLogo.y > FlxG.height - dvdLogo.height || dvdLogo.y < 0) {
-            dvdLogo.velocity.y = -dvdLogo.velocity.y;
+        if (dvdIcon.y > FlxG.height - dvdIcon.height || dvdIcon.y < 0) {
+            dvdIcon.velocity.y = -dvdIcon.velocity.y;
             switchColor();
             FlxG.sound.play(Paths.sound('hittingCorner'));
         }
@@ -72,7 +80,7 @@ class DVDScreenState extends MusicBeatState {
 
     function switchColor() 
     {
-        curColor = (curColor + 1) % colors.length;
-        dvdLogo.setColorTransform(0, 0, 0, 1, colors[curColor][0], colors[curColor][1], colors[curColor][2]);
+        currentlyColor = (currentlyColor + 1) % colors.length;
+        dvdIcon.setColorTransform(0, 0, 0, 1, colors[currentlyColor][0], colors[currentlyColor][1], colors[currentlyColor][2]);
     }
 }

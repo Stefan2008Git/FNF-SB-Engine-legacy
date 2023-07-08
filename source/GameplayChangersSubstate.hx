@@ -111,11 +111,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 
 		blackBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackBackground.alpha = 0.6;
-		if (ClientPrefs.velocityBackground) {
-			blackBackground.visible = true;
-		} else {
-			blackBackground.visible = false;
-		}
+		blackBackground.visible = ClientPrefs.velocityBackground;
 		add(blackBackground);
 
 		purpleBackground = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
@@ -123,11 +119,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
 		purpleBackground.updateHitbox();
 		purpleBackground.screenCenter();
-		if (ClientPrefs.velocityBackground) {
-			purpleBackground.visible = false;
-		} else {
-			purpleBackground.visible = true;
-		}
+		purpleBackground.alpha = 0;
+		purpleBackground.visible = !ClientPrefs.velocityBackground;
 		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		purpleBackground.color = 0xFF800080;
 		add(purpleBackground);
@@ -137,11 +130,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);
-		if (ClientPrefs.velocityBackground) {
-			checker.visible = true;
-		} else {
-			checker.visible = false;
-		}
+		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
 		add(checker);
 
@@ -189,6 +178,10 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 
 		changeSelection();
 		reloadCheckboxes();
+
+		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(checker, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C);

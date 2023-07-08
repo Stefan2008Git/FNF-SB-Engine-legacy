@@ -370,9 +370,6 @@ class EditorPlayState extends MusicBeatState {
 		// NEW freak
 		noteData = songData.notes;
 
-		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-
 		var playerCounter:Int = 0;
 
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
@@ -652,6 +649,19 @@ class EditorPlayState extends MusicBeatState {
 		}
 
 		songLength = FlxG.sound.music.length;
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			FlxTween.tween(timeBar, {alpha: 1}, 1);
+		    FlxTween.tween(timeTxt, {alpha: 1}, 1);
+		}
+
 	   	Conductor.songPosition = FlxG.sound.music.time;
 		if (updateTime) {
 			var currentlyTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;

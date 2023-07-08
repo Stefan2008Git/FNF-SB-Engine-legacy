@@ -33,6 +33,14 @@ class ClassicMainMenuState extends MusicBeatState {
 	var background:FlxSprite;
 	var sbEngineVersionTxt:FlxText;
 	var fnfVersionTxt:FlxText;
+	var secretText:FlxText;
+	var secretTextSine:Float = 0;
+	var tipTextMargin:Float = 10;
+	var tipTextScrolling:Bool = false;
+	var tipBackground:FlxSprite;
+	var tipText:FlxText;
+	var isTweening:Bool = false;
+	var lastString:String = '';
 	var debugKeys:Array<FlxKey>;
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
@@ -111,34 +119,60 @@ class ClassicMainMenuState extends MusicBeatState {
 		initOptions();
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
+			#if android
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
+			#end
+			secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			sbEngineVersionTxt.scrollFactor.set();
 			sbEngineVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 			fnfVersionTxt.scrollFactor.set();
 			fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
+			#if android
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
+			#end
+			secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			sbEngineVersionTxt.scrollFactor.set();
 			sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 			fnfVersionTxt.scrollFactor.set();
 			fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			#if android
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
+			#else
+			secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
+			#end
+			secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			sbEngineVersionTxt.scrollFactor.set();
 			sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 			fnfVersionTxt.scrollFactor.set();
 			fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
+		secretText.scrollFactor.set();
 		sbEngineVersionTxt.scrollFactor.set();
 		fnfVersionTxt.scrollFactor.set();
+		add(secretText);
 		add(sbEngineVersionTxt);
 		add(fnfVersionTxt);
 
@@ -147,7 +181,25 @@ class ClassicMainMenuState extends MusicBeatState {
 		selectorRight = new Alphabet(0, 0, ' <', true);
 		add(selectorRight);
 
+		tipBackground = new FlxSprite();
+		tipBackground.scrollFactor.set();
+		tipBackground.alpha = 0.7;
+		add(tipBackground);
+
+		tipText = new FlxText(0, 0, 0, "");
+		tipText.scrollFactor.set();
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
+		}
+
+		tipText.updateHitbox();
+		add(tipText);
+
+		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
+
 		changeSelection();
+		tipTextStartScrolling();
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_C);
@@ -175,6 +227,21 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (tipTextScrolling) {
+			tipText.x -= elapsed * 130;
+			if (tipText.x < -tipText.width)
+			{
+				tipTextScrolling = false;
+				tipTextStartScrolling();
+				changeTipText();
+			}
+		}
+
+		if (secretText.visible) {
+			secretTextSine += 150 * elapsed;
+			secretText.alpha = 1 - Math.sin((Math.PI * secretTextSine) / 150);
+		}
 
 		if (controls.UI_UP_P) {
 			changeSelection(-1);
@@ -216,6 +283,51 @@ class ClassicMainMenuState extends MusicBeatState {
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
 			MusicBeatState.switchState(new DVDScreenState());
 		}
+	}
+
+	function tipTextStartScrolling()
+		{
+			tipText.x = tipTextMargin;
+			tipText.y = -tipText.height;
+	
+			new FlxTimer().start(1.0, function(timer:FlxTimer)
+			{
+				FlxTween.tween(tipText, {y: tipTextMargin}, 0.3);
+				new FlxTimer().start(2.25, function(timer:FlxTimer)
+				{
+					tipTextScrolling = true;
+				});
+			});
+		}
+
+	function changeTipText() {
+		var selectedText:String = '';
+		var textArray:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('funnyTips'));
+
+		tipText.alpha = 1;
+		isTweening = true;
+		selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+		FlxTween.tween(tipText, {alpha: 0}, 1, {
+			ease: FlxEase.linear,
+			onComplete: function(freak:FlxTween) {
+				if (selectedText != lastString) {
+					tipText.text = selectedText;
+					lastString = selectedText;
+				} else {
+					selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+					tipText.text = selectedText;
+				}
+
+				tipText.alpha = 0;
+
+				FlxTween.tween(tipText, {alpha: 1}, 1, {
+					ease: FlxEase.linear,
+					onComplete: function(freak:FlxTween) {
+						isTweening = false;
+					}
+				});
+			}
+		});
 	}
 
 	function changeSelection(change:Int = 0) {
