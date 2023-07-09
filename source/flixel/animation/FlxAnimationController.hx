@@ -41,6 +41,13 @@ class FlxAnimationController implements IFlxDestroyable {
 	 * The total number of frames in this image.
 	 * WARNING: assumes each row in the sprite sheet is full!
 	 */
+	public var numFrames(get, never):Int;
+
+	/**
+	 * The total number of frames in this image.
+	 * WARNING: assumes each row in the sprite sheet is full!
+	 */
+	@:deprecated("frames is deprecated, use numFrames")
 	public var frames(get, never):Int;
 
 	/**
@@ -140,6 +147,14 @@ class FlxAnimationController implements IFlxDestroyable {
 		callback = null;
 		_sprite = null;
 	}
+
+	#if (flixel >= "5.3.0")
+	@:allow(flixel.animation.FlxAnimation)
+	function getFrameDuration(index:Int)
+	{
+		return _sprite.frames.frames[index].duration;
+	}
+	#end
 
 	function clearPrerotated():Void {
 		if (_prerotated != null) {
@@ -644,9 +659,8 @@ class FlxAnimationController implements IFlxDestroyable {
 		return frameIndex;
 	}
 
-	inline function get_frameName():String {
+	inline final function get_frameName():String
 		return _sprite.frame.name;
-	}
 
 	function set_frameName(Value:String):String {
 		if (_sprite.frames != null && _sprite.frames.framesHash.exists(Value)) {
@@ -677,11 +691,10 @@ class FlxAnimationController implements IFlxDestroyable {
 		return AnimName;
 	}
 
-	inline function get_curAnim():FlxAnimation {
+	inline final function get_curAnim():FlxAnimation
 		return _curAnim;
-	}
 
-	inline function set_curAnim(Anim:FlxAnimation):FlxAnimation {
+	inline final function set_curAnim(Anim:FlxAnimation):FlxAnimation {
 		if (Anim != _curAnim) {
 			if (_curAnim != null) {
 				_curAnim.stop();
@@ -694,7 +707,7 @@ class FlxAnimationController implements IFlxDestroyable {
 		return _curAnim = Anim;
 	}
 
-	inline function get_paused():Bool {
+	inline final function get_paused():Bool {
 		var paused:Bool = false;
 		if (_curAnim != null) {
 			paused = _curAnim.paused;
@@ -702,7 +715,7 @@ class FlxAnimationController implements IFlxDestroyable {
 		return paused;
 	}
 
-	inline function set_paused(Value:Bool):Bool {
+	inline final function set_paused(Value:Bool):Bool {
 		if (_curAnim != null) {
 			if (Value) {
 				_curAnim.pause();
@@ -721,16 +734,18 @@ class FlxAnimationController implements IFlxDestroyable {
 		return finished;
 	}
 
-	inline function set_finished(Value:Bool):Bool {
+	inline final function set_finished(Value:Bool):Bool {
 		if (Value && _curAnim != null) {
 			_curAnim.finish();
 		}
 		return Value;
 	}
 
-	inline function get_frames():Int {
+	inline final function get_frames():Int
 		return _sprite.numFrames;
-	}
+
+	inline final function get_numFrames():Int
+		return _sprite.numFrames;
 
 	/**
 	 * Helper function used for finding index of `FlxFrame` in `_framesData`'s frames array

@@ -61,7 +61,11 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+#if (flixel < "5.3.0")
 @:access(flixel.system.FlxSound._sound)
+#else
+@:access(flixel.sound.FlxSound._sound)
+#end
 @:access(openfl.media.Sound.__buffer)
 class ChartingState extends MusicBeatState {
 	public static var noteTypeList:Array<String> = // Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
