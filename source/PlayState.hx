@@ -453,11 +453,7 @@ class PlayState extends MusicBeatState {
 		];
 		}
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			iconBouncy = true; //enable
-		} else if (ClientPrefs.gameStyle != 'Better UI') {
-			iconBouncy = false; //disable
-		}
+		iconBouncy = (ClientPrefs.gameStyle == 'Better UI');
 
 		// For the "Just the Two of Us" achievement
 		for (i in 0...keysArray.length) {
