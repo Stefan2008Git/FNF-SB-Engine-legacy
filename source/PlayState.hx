@@ -1364,7 +1364,7 @@ class PlayState extends MusicBeatState {
 		        sbEngineVersionTxt.borderSize = 1.25;
 			}
 			if (ClientPrefs.gameStyle == 'Better UI') {
-		        sbEngineVersionTxt.borderSize = 1.2;
+		        sbEngineVersionTxt.borderSize = 1;
 			}
 		    sbEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		    sbEngineVersionTxt.text = " SB Engine v" + MainMenuState.sbEngineVersion;
@@ -1381,7 +1381,7 @@ class PlayState extends MusicBeatState {
 		        psychEngineVersionTxt.borderSize = 1.25;
 			}
 			if (ClientPrefs.gameStyle == 'Better UI') {
-		        psychEngineVersionTxt.borderSize = 1.2;
+		        psychEngineVersionTxt.borderSize = 1;
 			}
 		    psychEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 		    psychEngineVersionTxt.text = " Psych Engine v" + MainMenuState.psychEngineVersion;
@@ -1398,7 +1398,7 @@ class PlayState extends MusicBeatState {
 		        watermarkTxt.borderSize = 1.25;
 			}
 			if (ClientPrefs.gameStyle == 'Better UI') {
-		        watermarkTxt.borderSize = 1.2;
+		        watermarkTxt.borderSize = 1;
 			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
@@ -1407,12 +1407,17 @@ class PlayState extends MusicBeatState {
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
 		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				sbEngineVersionTxt.borderSize = 1.25;
 			}
-			if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
 		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				sbEngineVersionTxt.borderSize = 1.25;
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				sbEngineVersionTxt.borderSize = 1;
 			}
 		    sbEngineVersionTxt.scrollFactor.set();
-		    sbEngineVersionTxt.borderSize = 1.25;
 		    sbEngineVersionTxt.visible = false;
 
 		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
@@ -1438,7 +1443,7 @@ class PlayState extends MusicBeatState {
 		        watermarkTxt.borderSize = 1.25;
 			}
 			if (ClientPrefs.gameStyle == 'Better UI') {
-		        watermarkTxt.borderSize = 1.2;
+		        watermarkTxt.borderSize = 1;
 			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
@@ -1474,15 +1479,18 @@ class PlayState extends MusicBeatState {
 		    if (ClientPrefs.gameStyle == 'SB Engine') {
 		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
-			if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
 		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    watermarkTxt.scrollFactor.set();
 		    if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
 		        watermarkTxt.borderSize = 1.25;
 			}
 			if (ClientPrefs.gameStyle == 'Better UI') {
-		        watermarkTxt.borderSize = 1.2;
+		        watermarkTxt.borderSize = 1;
 			}
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong;
