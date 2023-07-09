@@ -659,9 +659,8 @@ class FlxAnimationController implements IFlxDestroyable {
 		return frameIndex;
 	}
 
-	inline function get_frameName():String {
+	inline final function get_frameName():String
 		return _sprite.frame.name;
-	}
 
 	function set_frameName(Value:String):String {
 		if (_sprite.frames != null && _sprite.frames.framesHash.exists(Value)) {
@@ -692,11 +691,10 @@ class FlxAnimationController implements IFlxDestroyable {
 		return AnimName;
 	}
 
-	inline function get_curAnim():FlxAnimation {
+	inline final function get_curAnim():FlxAnimation
 		return _curAnim;
-	}
 
-	inline function set_curAnim(Anim:FlxAnimation):FlxAnimation {
+	inline final function set_curAnim(Anim:FlxAnimation):FlxAnimation {
 		if (Anim != _curAnim) {
 			if (_curAnim != null) {
 				_curAnim.stop();
@@ -709,7 +707,7 @@ class FlxAnimationController implements IFlxDestroyable {
 		return _curAnim = Anim;
 	}
 
-	inline function get_paused():Bool {
+	inline final function get_paused():Bool {
 		var paused:Bool = false;
 		if (_curAnim != null) {
 			paused = _curAnim.paused;
@@ -717,7 +715,7 @@ class FlxAnimationController implements IFlxDestroyable {
 		return paused;
 	}
 
-	inline function set_paused(Value:Bool):Bool {
+	inline final function set_paused(Value:Bool):Bool {
 		if (_curAnim != null) {
 			if (Value) {
 				_curAnim.pause();
@@ -736,7 +734,7 @@ class FlxAnimationController implements IFlxDestroyable {
 		return finished;
 	}
 
-	inline function set_finished(Value:Bool):Bool {
+	inline final function set_finished(Value:Bool):Bool {
 		if (Value && _curAnim != null) {
 			_curAnim.finish();
 		}
@@ -746,7 +744,7 @@ class FlxAnimationController implements IFlxDestroyable {
 	inline final function get_frames():Int
 		return _sprite.numFrames;
 
-	inline function get_numFrames():Int
+	inline final function get_numFrames():Int
 		return _sprite.numFrames;
 
 	/**
