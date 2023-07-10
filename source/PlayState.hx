@@ -1525,8 +1525,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			final daString = (ClientPrefs.gameStyle == 'Better UI') ? "[AUTOPLAY]" : "[CpuControlled]";
-			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, daString, 32);
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
 			autoplayTxt.visible = cpuControlled;
@@ -1545,6 +1544,17 @@ class PlayState extends MusicBeatState {
 			add(autoplayTxt);
 			if (ClientPrefs.downScroll) {
 				autoplayTxt.y = timeBarBG.y - 78;
+			}
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
+			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.scrollFactor.set();
+			autoplayTxt.visible = cpuControlled;
+			add(autoplayTxt);
+			if (ClientPrefs.downScroll) {
+				autoplayTxt.y = timeBarBG.y - 500;
 			}
 		}
 
