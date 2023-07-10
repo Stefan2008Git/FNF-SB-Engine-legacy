@@ -37,7 +37,7 @@ jobs:
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-addons
@@ -81,7 +81,7 @@ jobs:
           haxelib install hxcpp 4.2.1 > nul
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
@@ -127,7 +127,7 @@ jobs:
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
           haxelib install openfl
-          haxelib --never install flixel
+          haxelib install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
