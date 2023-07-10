@@ -231,6 +231,8 @@ class ChartingState extends MusicBeatState {
 				song: 'Test',
 				notes: [],
 				events: [],
+				characterTrails: false,
+				bfTrails: false,
 				bpm: 150.0,
 				needsVoices: true,
 				arrowSkin: '',
@@ -514,6 +516,20 @@ class ChartingState extends MusicBeatState {
 			saveEvents();
 		});
 
+		var check_Trails = new FlxUICheckBox(170, 310, null, null, "Opponent Trail", 100);
+		check_Trails.checked = _song.characterTrails;
+		check_Trails.callback = function()
+		{
+			_song.characterTrails = check_Trails.checked;
+		};
+
+		var check_bfTrails = new FlxUICheckBox(170, check_Trails.y + 30, null, null, "Boyfriend Trail", 100);
+		check_bfTrails.checked = _song.bfTrails;
+		check_bfTrails.callback = function()
+		{
+			_song.bfTrails = check_bfTrails.checked;
+		};
+
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function() {
 			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null, ignoreWarnings));
 		});
@@ -696,6 +712,8 @@ class ChartingState extends MusicBeatState {
 		tab_group_song.add(saveEvents);
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
+		tab_group_song.add(check_Trails);
+		tab_group_song.add(check_bfTrails);
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(loadEventJson);
 		tab_group_song.add(stepperBPM);

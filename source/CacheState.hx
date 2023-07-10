@@ -117,7 +117,7 @@ class CacheState extends FlxState {
 		FlxG.mouse.visible = false;
 		#end
 
-		new FlxTimer().start(5, function(tmr:FlxTimer) {
+		new FlxTimer().start(15, function(tmr:FlxTimer) {
 			goToTitleScreenState();
 		});
 

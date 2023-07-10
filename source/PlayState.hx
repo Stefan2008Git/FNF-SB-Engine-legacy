@@ -272,6 +272,9 @@ class PlayState extends MusicBeatState {
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
 
+	var trailunderdad:FlxTrail;
+	var trailunderbf:FlxTrail;
+
 	var upperBoppers:BGSprite;
 	var bottomBoppers:BGSprite;
 	var santa:BGSprite;
@@ -1069,6 +1072,17 @@ class PlayState extends MusicBeatState {
 			dad.setPosition(GF_X, GF_Y);
 			if (gf != null)
 				gf.visible = false;
+		}
+
+		if (SONG.characterTrails) {
+			trailunderdad = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
+			insert(members.indexOf(dadGroup) - 1, trailunderdad);
+			//var trailundergf = new FlxTrail(gf, null, 4, 24, 0.3, 0.069); //nice
+			//insert(members.indexOf(gfGroup) - 1, trailundergf);			will fix it somedays :D
+		}
+		if (SONG.bfTrails) {
+			trailunderbf = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
+			insert(members.indexOf(boyfriendGroup) - 1, trailunderbf);
 		}
 
 		switch (currentlyStage) {
@@ -3264,7 +3278,7 @@ class PlayState extends MusicBeatState {
 		if (health > 2)
 			health = 2;
 
-		if (iconPlayer1.animation.frames == 3) {
+		if (iconPlayer1.animation.numFrames == 3) {
 			if (healthBar.percent < 20)
 				iconPlayer1.animation.curAnim.curFrame = 1;
 			else if (healthBar.percent >80)
@@ -3278,7 +3292,7 @@ class PlayState extends MusicBeatState {
 			else
 				iconPlayer1.animation.curAnim.curFrame = 0;
 		}
-		if (iconPlayer2.animation.frames == 3) {
+		if (iconPlayer2.animation.numFrames == 3) {
 			if (healthBar.percent > 80)
 				iconPlayer2.animation.curAnim.curFrame = 1;
 			else if (healthBar.percent < 20)

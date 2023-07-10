@@ -185,6 +185,7 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterText.x = FlxG.width - (deathCounterText.width + 20);
 		iconPlayer2.alpha = 0;
 		
+		iconPlayer2.setPosition(FlxG.width - iconPlayer2.width - 10, FlxG.height - iconPlayer2.height - 15);
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
