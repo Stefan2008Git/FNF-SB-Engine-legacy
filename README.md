@@ -4,13 +4,17 @@
 [![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
+
+<details>
+  <summary><h2>Credits</h2></summary>
+
 ## SB Engine Credits:
 * [Stefan2008](https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ) - Main Programmer
 * [Nuryy](https://youtube.com/@Nuury06) - Artist
 * [MaysLastPlay](https://www.youtube.com/@MaysLastPlay) - Second Programmer
 * [Fearester](https://www.youtube.com/@fearester1282) - Third Programmer
 
-### Psych Engine Credits:
+## Psych Engine Credits:
 * [Shadow Mario](https://twitter.com/Shadow_Mario_) - Programmer
 * [RiverOaken](https://twitter.com/RiverOaken) - Artist
 * [bbpanzu](https://twitter.com/bbsub3) - Ex-Programmer
@@ -21,10 +25,14 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 * [Keoiki](https://twitter.com/Keoiki_) - Note Splash Animations
 * [Smokey](https://twitter.com/Smokey_5_) - Sprite Atlas Support
 * [Nebula the Zorua](https://twitter.com/Nebula_Zorua) - LUA JIT Fork and some Lua reworks
-
+</details>
 
 # Welcome to SB Engine - (Modified Psych Engine) with some change's and addition: 
 ### What SB Engine has added and changed?
+
+<details>
+  <summary><h2>Additions and changes</h2></summary>
+
 # Changed main menu: 
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_1.png)
 
@@ -47,7 +55,11 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_6.png)
 
 ## For more changelogs go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/CHANGELOG.md)
+</details>
 
+<details>
+  <summary><h2>FNF': SB Engine Compiling</h2></summary>
+  
 ## For Building and compiling go [here](https://github.com/Stefan2008Git/FNF-SB-Engine/blob/main/COMPILEINSTRUCTION.md)
-
 ### Did you finded bugs or issue on engine? Join on [Discord](https://discord.gg/dEf8aK8ygG) server for help!
+</details>
