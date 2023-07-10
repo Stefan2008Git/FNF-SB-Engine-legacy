@@ -15,13 +15,13 @@ Other installations you'd need are the additional libraries, a fully updated lis
 
 ``haxelib install hxcpp 4.2.1``
 
-``haxelib install lime 7.9.0``
+``haxelib install lime``
 
-``haxelib install openfl 9.1.0``
+``haxelib install openfl``
 
-``haxelib install flixel 4.11.0``
+``haxelib install flixel``
 
-``haxelib install flixel-addons 2.11.0``
+``haxelib install flixel-addons``
 
 ``haxelib install hxCodec 2.5.1``
 
