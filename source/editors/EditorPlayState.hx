@@ -84,7 +84,12 @@ class EditorPlayState extends MusicBeatState {
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		background.color = FlxColor.PURPLE;
+		if (ClientPrefs.themes == 'SB Engine') {
+			background.color = 0xFF800080;
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+			background.color = FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1));
+		}
 		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);

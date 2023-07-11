@@ -39,7 +39,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
 	var blackBackground:FlxSprite;
-	var purpleBackground:FlxSprite;
+	var background:FlxSprite;
 	var checker:FlxBackdrop;
 
 	function getOptions() {
@@ -114,16 +114,21 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		blackBackground.visible = ClientPrefs.velocityBackground;
 		add(blackBackground);
 
-		purpleBackground = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		purpleBackground.scrollFactor.set();
-		purpleBackground.setGraphicSize(Std.int(purpleBackground.width * 1.175));
-		purpleBackground.updateHitbox();
-		purpleBackground.screenCenter();
-		purpleBackground.alpha = 0;
-		purpleBackground.visible = !ClientPrefs.velocityBackground;
-		purpleBackground.antialiasing = ClientPrefs.globalAntialiasing;
-		purpleBackground.color = 0xFF800080;
-		add(purpleBackground);
+		background = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		background.scrollFactor.set();
+		background.setGraphicSize(Std.int(background.width * 1.175));
+		background.updateHitbox();
+		background.screenCenter();
+		background.alpha = 0;
+		background.visible = !ClientPrefs.velocityBackground;
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		if (ClientPrefs.themes == 'SB Engine') {
+			background.color = 0xFF800080;
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+			background.color = 0xFF353535;
+		}
+		add(background);
 
 		checker = new FlxBackdrop(Paths.image('checker'), XY);
 		checker.scrollFactor.set(0.2, 0.2);
@@ -180,7 +185,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		reloadCheckboxes();
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(background, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(checker, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 
 		#if android

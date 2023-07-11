@@ -39,6 +39,8 @@ class MasterEditorMenu extends MusicBeatState {
 	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
 
+	var textBackground:FlxSprite;
+
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -51,7 +53,12 @@ class MasterEditorMenu extends MusicBeatState {
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		background.color = 0xFF800080;
+		if (ClientPrefs.themes == 'SB Engine') {
+			background.color = 0xFF800080;
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+			background.color = 0xFF353535;
+		}
 		add(background);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
@@ -78,11 +85,16 @@ class MasterEditorMenu extends MusicBeatState {
 		}
 
 		#if MODS_ALLOWED
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF800080);
-		textBG.alpha = 0.6;
-		add(textBG);
+		if (ClientPrefs.themes == 'SB Engine') {
+		    textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF800080);
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+		    textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF353535);
+		}
+		textBackground.alpha = 0.6;
+		add(textBackground);
 
-		directoryTxt = new FlxText(textBG.x, textBG.y + 4, FlxG.width, '', 32);
+		directoryTxt = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, '', 32);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 		}

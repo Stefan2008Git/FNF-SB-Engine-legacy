@@ -52,6 +52,7 @@ class ClientPrefs {
 	public static var gameStyle:String = 'SB Engine';
 	public static var watermarkStyle:String = 'SB Engine';
 	public static var objectEffects:Bool = true;
+	public static var themes:String = 'SB Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -149,6 +150,7 @@ class ClientPrefs {
 		FlxG.save.data.gameStyle = gameStyle;
 		FlxG.save.data.watermarkStyle = watermarkStyle;
 		FlxG.save.data.objectEffects = objectEffects;
+		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
 
 		FlxG.save.flush();
@@ -315,6 +317,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.objectEffects != null) {
 			objectEffects = FlxG.save.data.objectEffects;
+		}
+		if (FlxG.save.data.themes != null) {
+			themes = FlxG.save.data.themes;
 		}
 		if (FlxG.save.data.gameplaySettings != null) {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

@@ -37,8 +37,8 @@ class MainMenuState extends MusicBeatState {
 
 	var optionSelect:Array<String> = ['story_mode', 'freeplay', #if MODS_ALLOWED 'mods', #end 'credits', 'options'];
 
+	var menuBackground:FlxSprite;
 	var background:FlxSprite;
-	var purple:FlxSprite;
 	var velocityBG:FlxBackdrop;
 	var buttonBackground:FlxSprite;
 	var sbEngineLogo:FlxSprite;
@@ -87,23 +87,28 @@ class MainMenuState extends MusicBeatState {
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionSelect.length - 4)), 0.1);
-		background = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		menuBackground = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		menuBackground.scrollFactor.set();
+		menuBackground.setGraphicSize(Std.int(menuBackground.width * 1.175));
+		menuBackground.updateHitbox();
+		menuBackground.screenCenter();
+		menuBackground.antialiasing = ClientPrefs.globalAntialiasing;
+		add(menuBackground);
+
+		background = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
 		background.setGraphicSize(Std.int(background.width * 1.175));
 		background.updateHitbox();
 		background.screenCenter();
+		background.visible = false;
 		background.antialiasing = ClientPrefs.globalAntialiasing;
+		if (ClientPrefs.themes == 'SB Engine') {
+			background.color = 0xFF800080;
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+			background.color = 0xFFea71fd;
+		}
 		add(background);
-
-		purple = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		purple.scrollFactor.set();
-		purple.setGraphicSize(Std.int(purple.width * 1.175));
-		purple.updateHitbox();
-		purple.screenCenter();
-		purple.visible = false;
-		purple.antialiasing = ClientPrefs.globalAntialiasing;
-		purple.color = 0xFF800080;
-		add(purple);
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
@@ -165,7 +170,7 @@ class MainMenuState extends MusicBeatState {
 
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine': 
-							#if android
+				#if android
 				secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 				#else
 				secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
@@ -329,7 +334,7 @@ class MainMenuState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				if (ClientPrefs.flashing)
-					FlxFlicker.flicker(purple, 1.1, 0.15, false);
+					FlxFlicker.flicker(background, 1.1, 0.15, false);
 
 				menuItems.forEach(function(spr:FlxSprite) {
 					FlxTween.tween(cameraGame, {zoom: 10}, 1.6, {ease: FlxEase.expoIn});

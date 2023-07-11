@@ -87,7 +87,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 		var option:Option = new Option('Colorblind Filter',
 			'You can set colorblind filter (makes the game more playable for colorblind people)\nCredits: notweuz (Creator of OS Engine.)', 'colorblindMode',
 			'string', 'None', ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
-		option.onChange = ColorblindFilter.applyFiltersOnGame;
+
+		var option:Option = new Option('Themes:', 
+		    'Change theme from different themes. More themes are coming very soon\nThis option is on alpha state, so maybe can be buggy.', 'themes',
+		    'string', 'SB Engine', ['SB Engine', 'Psych Engine']);
 		addOption(option);
 
 		super();

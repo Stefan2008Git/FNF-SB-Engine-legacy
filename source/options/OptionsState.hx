@@ -90,7 +90,12 @@ class OptionsState extends MusicBeatState {
 		#end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		background.color = 0xFF800080;
+		if (ClientPrefs.themes == 'SB Engine') {
+			background.color = 0xFF800080;
+		}
+		if (ClientPrefs.themes == 'Psych Engine') {
+			background.color = 0xFFea71fd;
+		}
 		background.screenCenter();
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		background.updateHitbox();
