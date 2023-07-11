@@ -155,6 +155,8 @@ class PlayState extends MusicBeatState {
 
 	public var vocals:FlxSound;
 
+	var vocalsFinished:Bool = false;
+
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
@@ -427,7 +429,7 @@ class PlayState extends MusicBeatState {
                 ['Very good', 0.9], // From 80% to 89%
                 ['Sick!', 1], // From 90% to 99%
                 ['Perfect!!', 1] // The value on this one isn't used actually, since Perfect is always "1"
-		];
+		    ];
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
@@ -442,7 +444,7 @@ class PlayState extends MusicBeatState {
 				['Great', 0.9], //From 80% to 89%
 				['Sick!', 1], //From 90% to 99%
 				['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
-		];
+		    ];
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
@@ -457,7 +459,7 @@ class PlayState extends MusicBeatState {
 				['AAA', 0.9], //From 80% to 89%
 				['AAAA', 1], //From 90% to 99%
 				['AAAAA', 1] //The value on this one isn't used actually, since Perfect is always "1"
-		];
+		    ];
 		}
 
 		iconBouncy = (ClientPrefs.gameStyle == 'Better UI');
@@ -1782,7 +1784,7 @@ class PlayState extends MusicBeatState {
 		return value;
 	}
 
-	function set_playbackRate(value:Float):Float {
+	inline function set_playbackRate(value:Float):Float {
 		if (generatedMusic) {
 			if (vocals != null)
 				vocals.pitch = value;
@@ -2437,24 +2439,30 @@ class PlayState extends MusicBeatState {
 		callOnLuas('onUpdateScore', [miss]);
 	}
 
-	public function setSongTime(time:Float) {
-		if (time < 0)
-			time = 0;
-
+	public function setSongTime(time:Float)
+	{
+		if(time < 0) time = 0;
+	
 		FlxG.sound.music.pause();
 		vocals.pause();
-
+	
 		FlxG.sound.music.time = time;
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.play();
-
-		if (Conductor.songPosition <= vocals.length) {
-			vocals.time = time;
-			vocals.pitch = playbackRate;
+	
+		if (!vocalsFinished) {
+			if (Conductor.songPosition <= vocals.length)
+			{
+				vocals.time = time;
+				vocals.pitch = playbackRate;
+			}
+			vocals.play();
 		}
-		vocals.play();
-		Conductor.songPosition = time;
-		songTime = time;
+		else
+			vocals.time = vocals.length;
+	
+			Conductor.songPosition = time;
+			songTime = time;
 	}
 
 	function startNextDialogue() {
@@ -2480,6 +2488,7 @@ class PlayState extends MusicBeatState {
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
+		vocals.onComplete = () -> vocalsFinished = true;
 
 		if (startOnTime > 0) {
 			setSongTime(startOnTime - 500);
@@ -2931,16 +2940,18 @@ class PlayState extends MusicBeatState {
 		super.onFocusLost();
 	}
 
-	function resyncVocals():Void {
-		if (finishTimer != null)
-			return;
-
+	function resyncVocals():Void
+	{
+		if(finishTimer != null || vocalsFinished || isDead || !SONG.needsVoices) return;
+	
 		vocals.pause();
-
+	
 		FlxG.sound.music.play();
 		FlxG.sound.music.pitch = playbackRate;
 		Conductor.songPosition = FlxG.sound.music.time;
-		if (Conductor.songPosition <= vocals.length) {
+	
+		if (Conductor.songPosition <= vocals.length)
+		{
 			vocals.time = Conductor.songPosition;
 			vocals.pitch = playbackRate;
 		}
@@ -4234,6 +4245,7 @@ class PlayState extends MusicBeatState {
 
 	private function popUpScore(note:Note = null):Void {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+		vocals.volume = vocalsFinished ? 0 : 1;
 		allNotesMs += noteDiff;
 		averageMs = allNotesMs/songHits;
 		if (ClientPrefs.gameStyle == 'Better UI') {
@@ -4739,7 +4751,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (SONG.needsVoices)
-			vocals.volume = 1;
+			vocals.volume = vocalsFinished ? 0 : 1;
 
 		var time:Float = 0.15;
 		if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
@@ -4852,8 +4864,8 @@ class PlayState extends MusicBeatState {
 				}
 			}
 			note.wasGoodHit = true;
-			vocals.volume = 1;
-
+			vocals.volume = vocalsFinished ? 0 : 1;
+	
 			var isSus:Bool = note.isSustainNote; // GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
 			var leData:Int = Math.round(Math.abs(note.noteData));
 			var leType:String = note.noteType;
