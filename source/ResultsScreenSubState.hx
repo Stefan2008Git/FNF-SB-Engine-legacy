@@ -23,8 +23,8 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 	var pressEnterTxt:FlxText;
 	var pressEnterTxtSine:Float = 0;
 
-	public var iconPlayer1:HealthIcon;
-	public var iconPlayer2:HealthIcon;
+	public var iconP1:HealthIcon;
+	public var iconP2:HealthIcon;
 
 	public function new(daResults:Array<Int>, campaignScore:Int, songMisses:Int, ratingPercent:Float, ratingName:String) {
 		super();
@@ -107,32 +107,31 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 			default: /*"SB Engine"*/ pressEnterTxt.setFormat("Bahnschrift", 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-
 		pressEnterTxt.scrollFactor.set();
 		pressEnterTxt.visible = true;
 		add(pressEnterTxt);
 
-		iconPlayer1 = new HealthIcon(PlayState.instance.boyfriend.healthIcon, true);
-		iconPlayer1.setGraphicSize(Std.int(iconPlayer1.width * 1.2));
-		iconPlayer1.updateHitbox();
-		add(iconPlayer1);
+		iconP1 = new HealthIcon(PlayState.instance.boyfriend.healthIcon, true);
+		iconP1.setGraphicSize(Std.int(iconP1.width * 1.2));
+		iconP1.updateHitbox();
+		add(iconP1);
 
-		iconPlayer2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
-		iconPlayer2.setGraphicSize(Std.int(iconPlayer2.width * 1.2));
-		iconPlayer2.updateHitbox();
-		add(iconPlayer2);
+		iconP2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
+		iconP2.setGraphicSize(Std.int(iconP2.width * 1.2));
+		iconP2.updateHitbox();
+		add(iconP2);
 
 		resultsText.alpha = 0;
 		results.alpha = 0;
 		songNameText.alpha = 0;
 		difficultyNameTxt.alpha = 0;
 		judgementCounterTxt.alpha = 0;
-		iconPlayer1.alpha = 0;
-		iconPlayer2.alpha = 0;
+		iconP1.alpha = 0;
+		iconP2.alpha = 0;
 		pressEnterTxt.alpha = 0;
 
-		iconPlayer1.setPosition(FlxG.width - iconPlayer1.width - 10, FlxG.height - iconPlayer1.height - 15);
-		iconPlayer2.setPosition(10, iconPlayer1.y);
+		iconP1.setPosition(FlxG.width - iconP1.width - 10, FlxG.height - iconP1.height - 15);
+		iconP2.setPosition(10, iconP1.y);
 
 		FlxTween.tween(background, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(resultsText, {alpha: 1, y: 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.2});
@@ -140,8 +139,8 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.4});
 		FlxTween.tween(results, {alpha: 1, y: results.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
 		FlxTween.tween(judgementCounterTxt, {alpha: 1, y: judgementCounterTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
-		FlxTween.tween(iconPlayer1, {alpha: 1, y: FlxG.height - iconPlayer1.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
-		FlxTween.tween(iconPlayer2, {alpha: 1, y: FlxG.height - iconPlayer2.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
+		FlxTween.tween(iconP1, {alpha: 1, y: FlxG.height - iconP1.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
+		FlxTween.tween(iconP2, {alpha: 1, y: FlxG.height - iconP2.height - 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.8});
 		FlxTween.tween(pressEnterTxt, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.10});
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];

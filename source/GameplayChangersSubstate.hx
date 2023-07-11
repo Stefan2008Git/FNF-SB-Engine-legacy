@@ -125,8 +125,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		purpleBackground.color = 0xFF800080;
 		add(purpleBackground);
 
-		checker = new FlxBackdrop(Paths.image('checker'));
-		checker.scrollFactor.set();
+		checker = new FlxBackdrop(Paths.image('checker'), XY);
+		checker.scrollFactor.set(0.2, 0.2);
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);

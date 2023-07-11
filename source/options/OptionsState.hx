@@ -96,7 +96,7 @@ class OptionsState extends MusicBeatState {
 		background.updateHitbox();
 		add(background);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		if (ClientPrefs.velocityBackground) {
 			velocityBG.visible = true;

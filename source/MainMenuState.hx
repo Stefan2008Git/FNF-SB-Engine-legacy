@@ -105,7 +105,7 @@ class MainMenuState extends MusicBeatState {
 		purple.color = 0xFF800080;
 		add(purple);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBG.visible = ClientPrefs.velocityBackground;			  
 		add(velocityBG);

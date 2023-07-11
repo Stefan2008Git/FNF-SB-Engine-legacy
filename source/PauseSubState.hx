@@ -8,7 +8,11 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.keyboard.FlxKey;
+#if (flixel < "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -49,7 +53,7 @@ class PauseSubState extends MusicBeatSubstate {
 	var deathCounterText:FlxText;
 	var chartingText:FlxText;
 
-	public var iconPlayer2:HealthIcon;
+	public var iconP2:HealthIcon;
 
 	// var autoplayText:FlxText;
 	public static var songName:String = '';
@@ -110,8 +114,8 @@ class PauseSubState extends MusicBeatSubstate {
 		purpleBackground.color = 0xFF800080;
 		add(purpleBackground);
 
-		checker = new FlxBackdrop(Paths.image('checker'));
-		checker.scrollFactor.set();
+		checker = new FlxBackdrop(Paths.image('checker'), XY);
+		checker.scrollFactor.set(0.2, 0.2);
 		checker.scale.set(0.7, 0.7);
 		checker.screenCenter(X);
 		checker.velocity.set(150, 80);
@@ -149,10 +153,10 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterText.updateHitbox();
 		add(deathCounterText);
 
-		iconPlayer2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
-		iconPlayer2.setGraphicSize(Std.int(iconPlayer2.width * 1.2));
-		iconPlayer2.updateHitbox();
-		add(iconPlayer2);
+		iconP2 = new HealthIcon(PlayState.instance.dad.healthIcon, false);
+		iconP2.setGraphicSize(Std.int(iconP2.width * 1.2));
+		iconP2.updateHitbox();
+		add(iconP2);
 
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
@@ -183,9 +187,9 @@ class PauseSubState extends MusicBeatSubstate {
 		songNameText.x = FlxG.width - (songNameText.width + 20);
 		difficultyNameText.x = FlxG.width - (difficultyNameText.width + 20);
 		deathCounterText.x = FlxG.width - (deathCounterText.width + 20);
-		iconPlayer2.alpha = 0;
+		iconP2.alpha = 0;
 		
-		iconPlayer2.setPosition(FlxG.width - iconPlayer2.width - 10, FlxG.height - iconPlayer2.height - 15);
+		iconP2.setPosition(FlxG.width - iconP2.width - 10, FlxG.height - iconP2.height - 15);
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(purpleBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
@@ -193,7 +197,7 @@ class PauseSubState extends MusicBeatSubstate {
 		FlxTween.tween(songNameText, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 		FlxTween.tween(difficultyNameText, {alpha: 1, y: difficultyNameText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
 		FlxTween.tween(deathCounterText, {alpha: 1, y: deathCounterText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.11});
-		FlxTween.tween(iconPlayer2, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.13});
+		FlxTween.tween(iconP2, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.13});
 
 		grpMenufreak = new FlxTypedGroup<Alphabet>();
 		add(grpMenufreak);

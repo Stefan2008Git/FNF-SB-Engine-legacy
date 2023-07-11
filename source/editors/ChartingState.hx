@@ -31,7 +31,11 @@ import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+#if (flixel < "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -262,7 +266,7 @@ class ChartingState extends MusicBeatState {
 		background.color = 0xFF800080;
 		add(background);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		if (ClientPrefs.velocityBackground) {
 			velocityBG.visible = true;
@@ -2497,17 +2501,17 @@ class ChartingState extends MusicBeatState {
 	}
 
 	function updateHeads():Void {
-		var healthiconPlayer1:String = loadHealthIconFromCharacter(_song.player1);
-		var healthiconPlayer2:String = loadHealthIconFromCharacter(_song.player2);
+		var healthiconP1:String = loadHealthIconFromCharacter(_song.player1);
+		var healthiconP2:String = loadHealthIconFromCharacter(_song.player2);
 
 		if (_song.notes[curSec].mustHitSection) {
-			leftIcon.changeIcon(healthiconPlayer1);
-			rightIcon.changeIcon(healthiconPlayer2);
+			leftIcon.changeIcon(healthiconP1);
+			rightIcon.changeIcon(healthiconP2);
 			if (_song.notes[curSec].gfSection)
 				leftIcon.changeIcon('gf');
 		} else {
-			leftIcon.changeIcon(healthiconPlayer2);
-			rightIcon.changeIcon(healthiconPlayer1);
+			leftIcon.changeIcon(healthiconP2);
+			rightIcon.changeIcon(healthiconP1);
 			if (_song.notes[curSec].gfSection)
 				leftIcon.changeIcon('gf');
 		}

@@ -31,7 +31,11 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
+#if (flixel < "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -231,8 +235,8 @@ class PlayState extends MusicBeatState {
 	public static var theWiggleVerticalWaveHeatEffect:WiggleEffect;
 	public static var theWiggleDreamyEffect:WiggleEffect;
 
-	public var iconPlayer1:HealthIcon;
-	public var iconPlayer2:HealthIcon;
+	public var iconP1:HealthIcon;
+	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -1311,17 +1315,17 @@ class PlayState extends MusicBeatState {
 		healthBarOverlay.antialiasing = ClientPrefs.globalAntialiasing;
 		add(healthBarOverlay); healthBarOverlay.alpha = ClientPrefs.healthBarAlpha; if(ClientPrefs.downScroll) healthBarOverlay.y = 0.11 * FlxG.height;
 
-		iconPlayer1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconPlayer1.y = healthBar.y - 75;
-		iconPlayer1.visible = !ClientPrefs.hideHud;
-		iconPlayer1.alpha = ClientPrefs.healthBarAlpha;
-		add(iconPlayer1);
+		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1.y = healthBar.y - 75;
+		iconP1.visible = !ClientPrefs.hideHud;
+		iconP1.alpha = ClientPrefs.healthBarAlpha;
+		add(iconP1);
 
-		iconPlayer2 = new HealthIcon(dad.healthIcon, false);
-		iconPlayer2.y = healthBar.y - 75;
-		iconPlayer2.visible = !ClientPrefs.hideHud;
-		iconPlayer2.alpha = ClientPrefs.healthBarAlpha;
-		add(iconPlayer2);
+		iconP2 = new HealthIcon(dad.healthIcon, false);
+		iconP2.y = healthBar.y - 75;
+		iconP2.visible = !ClientPrefs.hideHud;
+		iconP2.alpha = ClientPrefs.healthBarAlpha;
+		add(iconP2);
 		reloadHealthBarColors();
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1578,8 +1582,8 @@ class PlayState extends MusicBeatState {
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		healthBarOverlay.cameras = [camHUD];
-		iconPlayer1.cameras = [camHUD];
-		iconPlayer2.cameras = [camHUD];
+		iconP1.cameras = [camHUD];
+		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		autoplayTxt.cameras = [camHUD];
 		msScoreLabel.cameras = [camHUD];
@@ -1734,7 +1738,7 @@ class PlayState extends MusicBeatState {
 
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 		#end
 
 		if (!ClientPrefs.controllerMode) {
@@ -2513,7 +2517,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		#if desktop
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2884,12 +2888,12 @@ class PlayState extends MusicBeatState {
 				DiscordClient.changePresence(detailsText, SONG.song
 					+ " ("
 					+ storyModeDifficultyText
-					+ ")", iconPlayer2.getCharacter(), true,
+					+ ")", iconP2.getCharacter(), true,
 					songLength
 					- Conductor.songPosition
 					- ClientPrefs.noteOffset);
 			} else {
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -2904,12 +2908,12 @@ class PlayState extends MusicBeatState {
 				DiscordClient.changePresence(detailsText, SONG.song
 					+ " ("
 					+ storyModeDifficultyText
-					+ ")", iconPlayer2.getCharacter(), true,
+					+ ")", iconP2.getCharacter(), true,
 					songLength
 					- Conductor.songPosition
 					- ClientPrefs.noteOffset);
 			} else {
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 			}
 		}
 		#end
@@ -2920,7 +2924,7 @@ class PlayState extends MusicBeatState {
 	override public function onFocusLost():Void {
 		#if desktop
 		if (health > 0 && !paused) {
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
 
@@ -3131,22 +3135,22 @@ class PlayState extends MusicBeatState {
 		var speed = 1;
 
 		if (iconBouncy) {
-			if (iconPlayer1.angle >= 0) {
-				if (iconPlayer1.angle != 0) {
-					iconPlayer1.angle -= speed;
+			if (iconP1.angle >= 0) {
+				if (iconP1.angle != 0) {
+					iconP1.angle -= speed;
 				}
 			} else {
-				if (iconPlayer1.angle != 0) {
-					iconPlayer1.angle += speed;
+				if (iconP1.angle != 0) {
+					iconP1.angle += speed;
 				}
 			}
-			if (iconPlayer2.angle >= 0) {
-				if (iconPlayer2.angle != 0) {
-					iconPlayer2.angle -= speed;
+			if (iconP2.angle >= 0) {
+				if (iconP2.angle != 0) {
+					iconP2.angle -= speed;
 				}
 			} else {
-				if (iconPlayer2.angle != 0) {
-					iconPlayer2.angle += speed;
+				if (iconP2.angle != 0) {
+					iconP2.angle += speed;
 				}
 			}
 		}
@@ -3177,73 +3181,73 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
-			iconPlayer1.scale.set(mult, mult);
-			iconPlayer1.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
-			iconPlayer2.scale.set(mult, mult);
-			iconPlayer2.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
 		}
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			iconPlayer1.scale.set(mult, mult);
-			iconPlayer1.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			iconPlayer2.scale.set(mult, mult);
-			iconPlayer2.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
 		}
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			var mult:Float = FlxMath.lerp(1, iconPlayer1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			iconPlayer1.scale.set(mult, mult);
-			iconPlayer1.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconPlayer2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			iconPlayer2.scale.set(mult, mult);
-			iconPlayer2.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
 		}
 
 		var iconOffset:Int = 26;
 
-		iconPlayer1.x = healthBar.x
+		iconP1.x = healthBar.x
 			+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01))
-			+ (150 * iconPlayer1.scale.x - 150) / 2
+			+ (150 * iconP1.scale.x - 150) / 2
 			- iconOffset;
-		iconPlayer2.x = healthBar.x
+		iconP2.x = healthBar.x
 			+ (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01))
-			- (150 * iconPlayer2.scale.x) / 2
+			- (150 * iconP2.scale.x) / 2
 			- iconOffset * 2;
 
 		if (health > 2)
 			health = 2;
 
-		if (iconPlayer1.animation.numFrames == 3) {
+		if (iconP1.animation.numFrames == 3) {
 			if (healthBar.percent < 20)
-				iconPlayer1.animation.curAnim.curFrame = 1;
+				iconP1.animation.curAnim.curFrame = 1;
 			else if (healthBar.percent >80)
-				iconPlayer1.animation.curAnim.curFrame = 2;
+				iconP1.animation.curAnim.curFrame = 2;
 			else
-				iconPlayer1.animation.curAnim.curFrame = 0;
+				iconP1.animation.curAnim.curFrame = 0;
 		} 
 		else {
 			if (healthBar.percent < 20)
-				iconPlayer1.animation.curAnim.curFrame = 1;
+				iconP1.animation.curAnim.curFrame = 1;
 			else
-				iconPlayer1.animation.curAnim.curFrame = 0;
+				iconP1.animation.curAnim.curFrame = 0;
 		}
-		if (iconPlayer2.animation.numFrames == 3) {
+		if (iconP2.animation.numFrames == 3) {
 			if (healthBar.percent > 80)
-				iconPlayer2.animation.curAnim.curFrame = 1;
+				iconP2.animation.curAnim.curFrame = 1;
 			else if (healthBar.percent < 20)
-				iconPlayer2.animation.curAnim.curFrame = 2;
+				iconP2.animation.curAnim.curFrame = 2;
 			else 
-				iconPlayer2.animation.curAnim.curFrame = 0;
+				iconP2.animation.curAnim.curFrame = 0;
 		} else {
 			if (healthBar.percent > 80)
-				iconPlayer2.animation.curAnim.curFrame = 1;
+				iconP2.animation.curAnim.curFrame = 1;
 			else 
-				iconPlayer2.animation.curAnim.curFrame = 0;
+				iconP2.animation.curAnim.curFrame = 0;
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
@@ -3502,7 +3506,7 @@ class PlayState extends MusicBeatState {
 		// }
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 		#end
 	}
 
@@ -3547,7 +3551,7 @@ class PlayState extends MusicBeatState {
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconPlayer2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -3886,7 +3890,7 @@ class PlayState extends MusicBeatState {
 							boyfriend.alpha = 0.00001;
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
-							iconPlayer1.changeIcon(boyfriend.healthIcon);
+							iconP1.changeIcon(boyfriend.healthIcon);
 						}
 						setOnLuas('boyfriendName', boyfriend.curCharacter);
 
@@ -3908,7 +3912,7 @@ class PlayState extends MusicBeatState {
 								gf.visible = false;
 							}
 							dad.alpha = lastAlpha;
-							iconPlayer2.changeIcon(dad.healthIcon);
+							iconP2.changeIcon(dad.healthIcon);
 						}
 						setOnLuas('dadName', dad.curCharacter);
 
@@ -5108,11 +5112,11 @@ class PlayState extends MusicBeatState {
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 		if (!iconBouncy) {
-			iconPlayer1.scale.set(1.2, 1.2);
-			iconPlayer2.scale.set(1.2, 1.2);
+			iconP1.scale.set(1.2, 1.2);
+			iconP2.scale.set(1.2, 1.2);
 			
-			iconPlayer1.updateHitbox();
-			iconPlayer2.updateHitbox();
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
 		}
 
 		iconBounceAngle = !iconBounceAngle;
@@ -5120,28 +5124,28 @@ class PlayState extends MusicBeatState {
 		if (iconBouncy) {
 			if (curBeat % gfSpeed == 0) {
 				if (curBeat % (gfSpeed * 2) == 0) {
-					iconPlayer1.scale.set(0.8, 0.8);
-					iconPlayer2.scale.set(1.2, 1.3);
+					iconP1.scale.set(0.8, 0.8);
+					iconP2.scale.set(1.2, 1.3);
 					
-					iconPlayer1.angle = -15;
-					iconPlayer2.angle = 15;
+					iconP1.angle = -15;
+					iconP2.angle = 15;
 				} else {
-					iconPlayer2.scale.set(0.8, 0.8);
-					iconPlayer1.scale.set(1.2, 1.3);
+					iconP2.scale.set(0.8, 0.8);
+					iconP1.scale.set(1.2, 1.3);
 					
-					iconPlayer2.angle = -15;
-					iconPlayer1.angle = 15;
+					iconP2.angle = -15;
+					iconP1.angle = 15;
 				}
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			if (iconBounceAngle) {
-				iconPlayer1.angle = 15;
-				iconPlayer2.angle = 15; // Credits: notweuz (Creator from OS Engine.)
+				iconP1.angle = 15;
+				iconP2.angle = 15; // Credits: notweuz (Creator from OS Engine.)
 			} else {
-				iconPlayer1.angle = -15;
-				iconPlayer2.angle = -15;
+				iconP1.angle = -15;
+				iconP2.angle = -15;
 			}
 		}
 
@@ -5150,24 +5154,24 @@ class PlayState extends MusicBeatState {
 				{
 				curBeat % (gfSpeed * 2) == 0 ? 
 				{
-					iconPlayer1.scale.set(1.2, 1.2);
-		            iconPlayer2.scale.set(1.2, 1.2);
+					iconP1.scale.set(1.2, 1.2);
+		            iconP2.scale.set(1.2, 1.2);
 				} 
 				: 
 				{
-					iconPlayer1.scale.set(1.2, 1.2);
-		            iconPlayer2.scale.set(1.2, 1.2);
-					FlxTween.angle(iconPlayer1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-					FlxTween.angle(iconPlayer2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});	
+					iconP1.scale.set(1.2, 1.2);
+		            iconP2.scale.set(1.2, 1.2);
+					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});	
 				}
 	
-				FlxTween.tween(iconPlayer1, {'scale.x': 0.8, 'scale.y': 0.8}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.tween(iconPlayer2, {'scale.x': 1.2, 'scale.y': 1.2}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.angle(iconPlayer1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.angle(iconPlayer2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.tween(iconP1, {'scale.x': 0.8, 'scale.y': 0.8}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.tween(iconP2, {'scale.x': 1.2, 'scale.y': 1.2}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+				FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 	
-				iconPlayer1.updateHitbox();
-				iconPlayer2.updateHitbox();
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
 			}
 		}*/ //[OVERRIDES THE BEATHIT BOPPING]
 

@@ -17,7 +17,11 @@ import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
+#if (flixel < "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 import flixel.util.FlxTimer;
 import flixel.FlxSprite;
 import flixel.FlxCamera;

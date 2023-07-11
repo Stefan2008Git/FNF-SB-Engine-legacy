@@ -206,8 +206,8 @@ class TitleScreenState extends MusicBeatState {
 			background.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			add(background);
 
-			checker = new FlxBackdrop(Paths.image('checker'));
-			checker.scrollFactor.set();
+			checker = new FlxBackdrop(Paths.image('checker'), XY);
+			checker.scrollFactor.set(0.2, 0.2);
 			checker.scale.set(0.7, 0.7);
 			checker.screenCenter(X);
 			checker.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
