@@ -462,6 +462,21 @@ class PlayState extends MusicBeatState {
 		    ];
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			ratingStuff = [
+				['F', 0.2], //From 0% to 19%
+				['f', 0.4], //From 20% to 39%
+				['e', 0.5], //From 40% to 49%
+				['d', 0.6], //From 50% to 59%
+				['c', 0.69], //From 60% to 68%
+				['b', 0.7], //69%
+				['a', 0.8], //From 70% to 79%
+				['A', 0.9], //From 80% to 89%
+				['S', 1], //From 90% to 99%
+				['S+', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		    ];
+		}
+
 		iconBouncy = (ClientPrefs.gameStyle == 'Better UI');
 
 		// For the "Just the Two of Us" achievement
@@ -1131,7 +1146,7 @@ class PlayState extends MusicBeatState {
 			timeTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI' || ClientPrefs.gameStyle == 'Forever Engine') {
 			timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -1154,12 +1169,14 @@ class PlayState extends MusicBeatState {
 			timeBarBG.scrollFactor.set();
 			timeBarBG.screenCenter(X);
 		}
+
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			timeBarBG = new AttachedSprite('timeBar');
 			timeBarBG.x = timeTxt.x;
 			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			timeBarBG.scrollFactor.set();
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			timeBarBG = new AttachedSprite('longBar');
 			timeBarBG.x = timeTxt.x;
@@ -1168,6 +1185,14 @@ class PlayState extends MusicBeatState {
 			timeBarBG.screenCenter(X);
 			timeBarBG.sprTracker = timeBar;
 		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			timeBarBG = new AttachedSprite('timeBar');
+			timeBarBG.x = timeTxt.x;
+			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			timeBarBG.scrollFactor.set();
+		}
+
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime && ClientPrefs.showTimeBar;
 		timeBarBG.color = FlxColor.BLACK;
@@ -1181,12 +1206,19 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFF800080);
 		}
+
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			insert(members.indexOf(timeBarBG), timeBar);
 		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
+
 		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
 		timeBar.visible = showTime && ClientPrefs.showTimeBar;
@@ -1266,7 +1298,7 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
 			healthBarBG = new AttachedSprite('healthBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
@@ -1284,7 +1316,7 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.downScroll)
 			healthBarBG.y = 0.11 * FlxG.height;
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 		}
@@ -1299,7 +1331,7 @@ class PlayState extends MusicBeatState {
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
 		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
 		}
 		if (ClientPrefs.gameStyle == 'Better UI') {
@@ -1336,17 +1368,26 @@ class PlayState extends MusicBeatState {
 			scoreTxt.borderSize = 1.25;
 			add(scoreTxt);
 		}
+
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 			scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			scoreTxt.borderSize = 1.25;
 			add(scoreTxt);
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			scoreTxt = new FlxText(0, healthBarBG.y + 28, FlxG.width, "", 16);
 		    scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    scoreTxt.borderSize = 1.2;
 		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+			scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			add(scoreTxt);
+		}
+
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
@@ -1357,7 +1398,7 @@ class PlayState extends MusicBeatState {
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI' || ClientPrefs.gameStyle == 'Forever Engine') {
 			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 			judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
@@ -1387,7 +1428,7 @@ class PlayState extends MusicBeatState {
 		        sbEngineVersionTxt.borderSize = 1;
 			}
 		    sbEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		    sbEngineVersionTxt.text = " SB Engine v" + MainMenuState.sbEngineVersion;
+		    sbEngineVersionTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion;
 
 		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1404,7 +1445,7 @@ class PlayState extends MusicBeatState {
 		        psychEngineVersionTxt.borderSize = 1;
 			}
 		    psychEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		    psychEngineVersionTxt.text = " Psych Engine v" + MainMenuState.psychEngineVersion;
+		    psychEngineVersionTxt.text = "Psych Engine v" + MainMenuState.psychEngineVersion;
 
 		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1423,6 +1464,7 @@ class PlayState extends MusicBeatState {
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 		}
+
 		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1469,6 +1511,7 @@ class PlayState extends MusicBeatState {
 			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
 			+ MainMenuState.psychEngineVersion + ") ";
 		}
+
 		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
 			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
 		    if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1516,14 +1559,69 @@ class PlayState extends MusicBeatState {
 			watermarkTxt.text =  currentlySong;
 		}
 
+		if (ClientPrefs.watermarkStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
+			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    sbEngineVersionTxt.scrollFactor.set();
+		    sbEngineVersionTxt.borderSize = 1.25;
+		    sbEngineVersionTxt.visible = false;
+
+		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+
+		    psychEngineVersionTxt.scrollFactor.set();
+		    psychEngineVersionTxt.borderSize = 1.25;
+		    psychEngineVersionTxt.visible = false;
+
+		    watermarkTxt = new FlxText(0, 0, 0, "");
+			if (ClientPrefs.gameStyle == 'SB Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    }
+
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    }
+
+			if (ClientPrefs.gameStyle == 'Better UI') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    }
+
+			if (ClientPrefs.gameStyle == 'Forever Engine') {
+		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    }
+
+		    watermarkTxt.scrollFactor.set();
+			watermarkTxt.setBorderStyle(OUTLINE, FlxColor.BLACK, 2);
+		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			watermarkTxt.setPosition(FlxG.width - (watermarkTxt.width + 350), 5);
+			watermarkTxt.text =  "SB Engine v" + MainMenuState.sbEngineVersion + " (PSYCH ENGINE v" + MainMenuState.psychEngineVersion + ") ";
+		}
+
 		add(sbEngineVersionTxt);
 		add(psychEngineVersionTxt);
 		add(watermarkTxt);
+
 		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'SB Engine') {
 			sbEngineVersionTxt.y = 140;
 			psychEngineVersionTxt.y = 160;
 			watermarkTxt.y = 180;
 		}
+
 		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'Kade Engine' || ClientPrefs.watermarkStyle == 'Dave and Bambi') {
 			sbEngineVersionTxt.y = 0;
 			psychEngineVersionTxt.y = 0;
@@ -1555,6 +1653,17 @@ class PlayState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
+			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			autoplayTxt.scrollFactor.set();
+			autoplayTxt.visible = cpuControlled;
+			add(autoplayTxt);
+			if (ClientPrefs.downScroll) {
+				autoplayTxt.y = timeBarBG.y - 500;
+			}
+		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[BOTPLAY]", 32);
 			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			autoplayTxt.scrollFactor.set();
 			autoplayTxt.visible = cpuControlled;
@@ -2424,6 +2533,12 @@ class PlayState extends MusicBeatState {
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			scoreTxt.text = 'Score: ' + songScore + ' • Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2)
+				+ '%' + '  [ ' + ratingFC + ' ]' + ' • Combo breaks: ' + songMisses + ' • Rank: ' + ratingName;
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+		}
+
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
 			if (scoreTxtTween != null) {
 				scoreTxtTween.cancel();
@@ -2504,13 +2619,15 @@ class PlayState extends MusicBeatState {
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
+		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
 		}
+
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			FlxTween.tween(timeBar, {alpha: 1}, 1);
 		    FlxTween.tween(timeTxt, {alpha: 1}, 1);
@@ -3180,6 +3297,13 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			if (autoplayTxt.visible) {
+				autoplaySine += 30 * elapsed;
+				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 80);
+			}
+		}
+
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause) {
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if (ret != FunkinLua.Function_Stop) {
@@ -3215,6 +3339,15 @@ class PlayState extends MusicBeatState {
 			iconP1.updateHitbox();
 
 			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
+		}
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
+
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
@@ -5425,6 +5558,10 @@ class PlayState extends MusicBeatState {
 	    }
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+	    }
+
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 	    }
 	}
