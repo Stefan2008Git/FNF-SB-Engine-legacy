@@ -87,6 +87,11 @@ class AndroidControlsSubState extends FlxSubState {
 			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
+			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+		}
+
 		resetButton.color = FlxColor.RED;
 		resetButton.visible = false;
 		add(resetButton);
@@ -118,6 +123,13 @@ class AndroidControlsSubState extends FlxSubState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			inputText = new FlxText(0, 100, 0, '', 32);
+			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
 			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			inputText = new FlxText(0, 100, 0, '', 32);
@@ -185,6 +197,24 @@ class AndroidControlsSubState extends FlxSubState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.scrollFactor.set();
+
+			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
+			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
+			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
+			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
 			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.scrollFactor.set();

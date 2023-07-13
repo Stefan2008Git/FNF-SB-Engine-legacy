@@ -132,7 +132,7 @@ class PauseSubState extends MusicBeatSubstate {
 		songNameText.text += "Song: " + PlayState.SONG.song;
 		songNameText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': songNameText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine': songNameText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ songNameText.setFormat("Bahnschrift", 32);	
 		}
 		songNameText.updateHitbox();
@@ -142,7 +142,7 @@ class PauseSubState extends MusicBeatSubstate {
 		difficultyNameText.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': difficultyNameText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine': difficultyNameText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ difficultyNameText.setFormat("Bahnschrift", 32);
 		}
 		difficultyNameText.updateHitbox();
@@ -152,7 +152,7 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterText.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': deathCounterText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine': deathCounterText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ deathCounterText.setFormat("Bahnschrift", 32);
 		}
 		deathCounterText.updateHitbox();
@@ -166,7 +166,7 @@ class PauseSubState extends MusicBeatSubstate {
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': practiceText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine': practiceText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ practiceText.setFormat("Bahnschrift", 32);
 		}
 		practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -177,7 +177,7 @@ class PauseSubState extends MusicBeatSubstate {
 		chartingText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': chartingText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine': chartingText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ chartingText.setFormat("Bahnschrift", 32);
 		}
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -432,7 +432,7 @@ class PauseSubState extends MusicBeatSubstate {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 
 				switch (ClientPrefs.gameStyle) {
-					case 'Psych Engine' | 'Better UI': skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					case 'Psych Engine' | 'Better UI' | 'Forever Engine': skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					default: /* SB Engine */ skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 

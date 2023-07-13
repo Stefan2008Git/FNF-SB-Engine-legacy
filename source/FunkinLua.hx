@@ -3001,6 +3001,9 @@ class ModchartText extends FlxText {
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
 		cameras = [PlayState.instance.camHUD];
 		scrollFactor.set();
 		borderSize = 2;
@@ -3015,7 +3018,18 @@ class DebugLuaText extends FlxText {
 	public function new(text:String, parentGroup:FlxTypedGroup<DebugLuaText>, color:FlxColor) {
 		this.parentGroup = parentGroup;
 		super(10, 10, 0, text, 16);
-		setFormat(Paths.font("bahnschrift.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+		    setFormat(Paths.font("bahnschrift.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		    setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+		    setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
 		scrollFactor.set();
 		borderSize = 1;
 	}

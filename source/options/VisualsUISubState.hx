@@ -75,7 +75,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 		option.onChange = onChangePauseMusic;
 
 		var option:Option = new Option('Game engine type:', "What should the style on game do you you want to look like?", 'gameStyle', 'string', 'SB Engine',
-			['SB Engine', 'Psych Engine', 'Better UI']);
+			['SB Engine', 'Psych Engine', 'Better UI', 'Forever Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Simple Main Menu',
@@ -89,7 +89,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'string', 'None', ['None', 'Deuteranopia', 'Protanopia', 'Tritanopia']);
 
 		var option:Option = new Option('Themes:', 
-		    'Change theme from different themes. More themes are coming very soon\nThis option is on alpha state, so maybe can be buggy.', 'themes',
+		    'Change theme from different engines. More themes are coming very soon\nThis option is on alpha state, so maybe can be buggy.', 'themes',
 		    'string', 'SB Engine', ['SB Engine', 'Psych Engine']);
 		addOption(option);
 

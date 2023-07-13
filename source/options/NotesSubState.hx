@@ -96,6 +96,10 @@ class NotesSubState extends MusicBeatSubstate {
 			resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+		}
+
 		add(resetText);
 
 		for (i in 0...ClientPrefs.arrowHSV.length) {

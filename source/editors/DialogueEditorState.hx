@@ -113,6 +113,10 @@ class DialogueEditorState extends MusicBeatState {
 			addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		addLineText.scrollFactor.set();
 		add(addLineText);
 
@@ -129,6 +133,10 @@ class DialogueEditorState extends MusicBeatState {
 			selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		selectedText.scrollFactor.set();
 		add(selectedText);
 
@@ -142,6 +150,10 @@ class DialogueEditorState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 

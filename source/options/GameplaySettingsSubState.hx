@@ -107,7 +107,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',
-			['SB Engine', 'Kade Engine', 'Dave and Bambi']);
+			['SB Engine', 'Kade Engine', 'Dave and Bambi', 'Forever Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);

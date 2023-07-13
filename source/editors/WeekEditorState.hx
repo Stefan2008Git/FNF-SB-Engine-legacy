@@ -74,6 +74,10 @@ class WeekEditorState extends MusicBeatState {
 			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+		}
+
 		txtWeekTitle.alpha = 0.7;
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
@@ -111,6 +115,10 @@ class WeekEditorState extends MusicBeatState {
 			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
+			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+
 		missingFileText.borderSize = 2;
 		missingFileText.visible = false;
 		add(missingFileText);
@@ -141,6 +149,10 @@ class WeekEditorState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
+			txtTracklist.setFormat("VCR OSD Mono");
+		}
+
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			txtTracklist.setFormat("VCR OSD Mono");
 		}
 
