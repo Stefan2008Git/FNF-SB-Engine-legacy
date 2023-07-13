@@ -55,7 +55,7 @@ class PauseSubState extends MusicBeatSubstate {
 
 	public var iconP2:HealthIcon;
 
-	// var autoplayText:FlxText;
+	
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float) {
@@ -73,7 +73,7 @@ class PauseSubState extends MusicBeatSubstate {
 			}
 			menuItemsOG.insert(3 + num, 'End Song');
 			menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
-			menuItemsOG.insert(5 + num, 'Toggle autoplay');
+			menuItemsOG.insert(5 + num, 'Toggle Botplay');
 		}
 		menuItems = menuItemsOG;
 
@@ -318,12 +318,12 @@ class PauseSubState extends MusicBeatSubstate {
 					close();
 					PlayState.instance.finishSong(true);
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
-				case 'Toggle autoplay':
+				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
-					PlayState.instance.autoplayTxt.visible = PlayState.instance.cpuControlled;
-					PlayState.instance.autoplayTxt.alpha = 1;
-					PlayState.instance.autoplaySine = 0;
+					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
+					PlayState.instance.botplayTxt.alpha = 1;
+					PlayState.instance.botplaySine = 0;
 				case 'Options':
 					optionMenu = true;
 					PlayState.deathCounter = 0;

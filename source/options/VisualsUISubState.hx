@@ -32,36 +32,36 @@ class VisualsUISubState extends BaseOptionsMenu {
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Flashing Lights', "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
+		var option:Option = new Option('Flashing Lights', 
+	        "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('FPS Counter', 'If unchecked, hides FPS Counter.', 'showFPS', 'bool', true);
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 
-		var option:Option = new Option('Memory counter', "If unchecked, hides memory's.\nRequest: You need to turn on FPS counter first!", 'memory', 'bool',
-			false);
+		var option:Option = new Option('Memory counter', 
+		"If unchecked, hides memory's.\nRequest: You need to turn on FPS counter first!", 'memory', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Total Memory counter',
 			"If unchecked, hides total memory's.\nRequest: You need to turn on FPS counter and Memory counter first!", 'totalMemory', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('SB Engine version text',
-			"If unchecked, hides current SB Engine version.\nRequest: You need to turn on FPS counter first!", 'sbEngineVersion', 'bool', false);
+		var option:Option = new Option('Engine version counter',
+			"If unchecked, hides current SB and Psych Engine version.\nRequest: You need to turn on FPS counter first!", 'engineVersion', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Debug info', "If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!", 'debugInfo', 'bool',
-			false);
+		var option:Option = new Option('Debug info counter', 
+		    "If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!", 'debugInfo', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Rainbow FPS',
-			"If checked, enables radnom color's for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!",
-			'rainbowFPS', 'bool', false);
+			"If checked, enables radnom color's for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!", 'rainbowFPS', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Velocity background', 'If unchecked, this option is disabling velocity background for optimization.',
-			'velocityBackground', 'bool', true);
+		var option:Option = new Option('Velocity background', 
+		    'If unchecked, this option is disabling velocity background for optimization.', 'velocityBackground', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Effects on objects',

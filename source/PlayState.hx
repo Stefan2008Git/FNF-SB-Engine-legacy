@@ -228,8 +228,8 @@ class PlayState extends MusicBeatState {
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
 
-	public var autoplaySine:Float = 0;
-	public var autoplayTxt:FlxText;
+	public var botplaySine:Float = 0;
+	public var botplayTxt:FlxText;
 
 	public static var theWiggleFlagEffect:WiggleEffect;
 	public static var theWiggleHorizontalWaveHeatEffect:WiggleEffect;
@@ -522,7 +522,7 @@ class PlayState extends MusicBeatState {
 		healthLoss = ClientPrefs.getGameplaySetting('healthloss', 1);
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
-		cpuControlled = ClientPrefs.getGameplaySetting('autoplay', false);
+		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -1629,47 +1629,47 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
-			autoplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			autoplayTxt.scrollFactor.set();
-			autoplayTxt.visible = cpuControlled;
-			add(autoplayTxt);
+			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[botplay]", 32);
+			botplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			botplayTxt.scrollFactor.set();
+			botplayTxt.visible = cpuControlled;
+			add(botplayTxt);
 			if (ClientPrefs.downScroll) {
-				autoplayTxt.y = timeBarBG.y - 500;
+				botplayTxt.y = timeBarBG.y - 500;
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			autoplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			autoplayTxt.scrollFactor.set();
-			autoplayTxt.borderSize = 1.25;
-			autoplayTxt.visible = cpuControlled;
-			add(autoplayTxt);
+			botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+			botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			botplayTxt.scrollFactor.set();
+			botplayTxt.borderSize = 1.25;
+			botplayTxt.visible = cpuControlled;
+			add(botplayTxt);
 			if (ClientPrefs.downScroll) {
-				autoplayTxt.y = timeBarBG.y - 78;
+				botplayTxt.y = timeBarBG.y - 78;
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
-			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
-			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			autoplayTxt.scrollFactor.set();
-			autoplayTxt.visible = cpuControlled;
-			add(autoplayTxt);
+			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[CpuControlled]", 32);
+			botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			botplayTxt.scrollFactor.set();
+			botplayTxt.visible = cpuControlled;
+			add(botplayTxt);
 			if (ClientPrefs.downScroll) {
-				autoplayTxt.y = timeBarBG.y - 500;
+				botplayTxt.y = timeBarBG.y - 500;
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			autoplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[BOTPLAY]", 32);
-			autoplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			autoplayTxt.scrollFactor.set();
-			autoplayTxt.visible = cpuControlled;
-			add(autoplayTxt);
+			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[BOTPLAY]", 32);
+			botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			botplayTxt.scrollFactor.set();
+			botplayTxt.visible = cpuControlled;
+			add(botplayTxt);
 			if (ClientPrefs.downScroll) {
-				autoplayTxt.y = timeBarBG.y - 500;
+				botplayTxt.y = timeBarBG.y - 500;
 			}
 		}
 
@@ -1696,7 +1696,7 @@ class PlayState extends MusicBeatState {
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		autoplayTxt.cameras = [camHUD];
+		botplayTxt.cameras = [camHUD];
 		msScoreLabel.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -3284,23 +3284,23 @@ class PlayState extends MusicBeatState {
 		}
 		
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			if (autoplayTxt.visible) {
-				autoplaySine += 50 * elapsed;
-				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 120);
+			if (botplayTxt.visible) {
+				botplaySine += 50 * elapsed;
+				botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 120);
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			if (autoplayTxt.visible) {
-				autoplaySine += 180 * elapsed;
-				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 180);
+			if (botplayTxt.visible) {
+				botplaySine += 180 * elapsed;
+				botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 			}
 		}
 
 		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			if (autoplayTxt.visible) {
-				autoplaySine += 30 * elapsed;
-				autoplayTxt.alpha = 1 - Math.sin((Math.PI * autoplaySine) / 80);
+			if (botplayTxt.visible) {
+				botplaySine += 30 * elapsed;
+				botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 80);
 			}
 		}
 
@@ -3629,7 +3629,7 @@ class PlayState extends MusicBeatState {
 
 		setOnLuas('cameraX', cameraFollowPosition.x);
 		setOnLuas('cameraY', cameraFollowPosition.y);
-		setOnLuas('autoplay', cpuControlled);
+		setOnLuas('botplay', cpuControlled);
 		for (i in shaderUpdates) {
 			i(elapsed);
 		}
@@ -4268,7 +4268,7 @@ class PlayState extends MusicBeatState {
 						MusicBeatState.switchState(new StoryModeState());
 					    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
 
-					if (!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('autoplay', false)) {
+					if (!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
 						StoryModeState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore) {

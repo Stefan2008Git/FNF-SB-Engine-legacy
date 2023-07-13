@@ -137,8 +137,8 @@ class FPS extends TextField {
 			if (ClientPrefs.totalMemory) {
 				text += "\nMemory peak: " + CoolUtil.formatMemory(Std.int(maximumMemory));
 			}
-			if (ClientPrefs.sbEngineVersion) {
-				text += "\nEngine version: " + MainMenuState.sbEngineVersion;
+			if (ClientPrefs.engineVersion) {
+				text += "\nSB Engine v" + MainMenuState.sbEngineVersion + " (Psych Engine v" + MainMenuState.psychEngineVersion + ")";
 			}
 			if (ClientPrefs.debugInfo) {
 				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';

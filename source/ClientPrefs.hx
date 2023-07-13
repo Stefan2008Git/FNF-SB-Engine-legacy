@@ -14,7 +14,7 @@ class ClientPrefs {
 	public static var rainbowFPS:Bool = false;
 	public static var memory:Bool = false;
 	public static var totalMemory:Bool = false;
-	public static var sbEngineVersion:Bool = false;
+	public static var engineVersion:Bool = false;
 	public static var debugInfo:Bool = false;
 	public static var flashing:Bool = true;
 	public static var resultsScreen:Bool = false;
@@ -61,7 +61,7 @@ class ClientPrefs {
 		'healthloss' => 1.0,
 		'instakill' => false,
 		'practice' => false,
-		'autoplay' => false,
+		'botplay' => false,
 		'opponentplay' => false
 	];
 
@@ -108,7 +108,7 @@ class ClientPrefs {
 		FlxG.save.data.rainbowFPS = rainbowFPS;
 		FlxG.save.data.memory = memory;
 		FlxG.save.data.totalMemory = totalMemory;
-		FlxG.save.data.sbEngineVersion = sbEngineVersion;
+		FlxG.save.data.engineVersion = engineVersion;
 		FlxG.save.data.debugInfo = debugInfo;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.resultsScreen = resultsScreen;
@@ -187,8 +187,8 @@ class ClientPrefs {
 		if (FlxG.save.data.totalMemory != null) {
 			totalMemory = FlxG.save.data.totalMemory;
 		}
-		if (FlxG.save.data.sbEngineVersion != null) {
-			sbEngineVersion = FlxG.save.data.sbEngineVersion;
+		if (FlxG.save.data.engineVersion != null) {
+			engineVersion = FlxG.save.data.engineVersion;
 		}
 		if (FlxG.save.data.debugInfo != null) {
 			debugInfo = FlxG.save.data.debugInfo;
