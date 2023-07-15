@@ -99,7 +99,7 @@ class FreeplayState extends MusicBeatState {
 		background.screenCenter();
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.create(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
