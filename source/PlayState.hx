@@ -1609,7 +1609,7 @@ class PlayState extends MusicBeatState {
 			watermarkTxt.setBorderStyle(OUTLINE, FlxColor.BLACK, 2);
 		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
 			watermarkTxt.setPosition(FlxG.width - (watermarkTxt.width + 350), 5);
-			watermarkTxt.text =  "SB Engine v" + MainMenuState.sbEngineVersion + " (PSYCH ENGINE v" + MainMenuState.psychEngineVersion + ") ";
+			watermarkTxt.text =  "SB ENGINE v" + MainMenuState.sbEngineVersion + " (PSYCH ENGINE v" + MainMenuState.psychEngineVersion + ") ";
 		}
 
 		add(sbEngineVersionTxt);
@@ -2536,7 +2536,7 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			scoreTxt.text = 'Score: ' + songScore + ' • Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2)
 				+ '%' + '  [ ' + ratingFC + ' ]' + ' • Combo breaks: ' + songMisses + ' • Rank: ' + ratingName;
-			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
@@ -3324,6 +3324,7 @@ class PlayState extends MusicBeatState {
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
+
 		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconP1.scale.set(mult, mult);
@@ -3333,6 +3334,7 @@ class PlayState extends MusicBeatState {
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconP1.scale.set(mult, mult);
@@ -3342,6 +3344,7 @@ class PlayState extends MusicBeatState {
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
+
 		if (ClientPrefs.gameStyle == 'Forever Engine') {
 			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1));
 			iconP1.scale.set(mult, mult);
@@ -5561,7 +5564,7 @@ class PlayState extends MusicBeatState {
 		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 	    }
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
+		if (ClientPrefs.gameStyle == 'Forever Engine') {
 		    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 	    }
 	}
