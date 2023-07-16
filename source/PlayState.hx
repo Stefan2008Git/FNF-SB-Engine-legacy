@@ -1629,7 +1629,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[botplay]", 32);
+			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
 			botplayTxt.setFormat(Paths.font("bahnschrift.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			botplayTxt.scrollFactor.set();
 			botplayTxt.visible = cpuControlled;
@@ -3316,11 +3316,11 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconP1.scale.set(mult, mult);
 			iconP1.updateHitbox();
 
-			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
