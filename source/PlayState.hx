@@ -477,7 +477,7 @@ class PlayState extends MusicBeatState {
 		    ];
 		}
 
-		iconBouncy = (ClientPrefs.gameStyle == 'Better UI');
+		iconBouncy = (ClientPrefs.gameStyle == 'SB Engine');
 
 		// For the "Just the Two of Us" achievement
 		for (i in 0...keysArray.length) {
@@ -5284,7 +5284,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
+		if (ClientPrefs.gameStyle == 'Better UI') {
 			if (iconBounceAngle) {
 				iconP1.angle = 15;
 				iconP2.angle = 15; // Credits: notweuz (Creator from OS Engine.)
