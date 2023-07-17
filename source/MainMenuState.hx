@@ -221,7 +221,7 @@ class MainMenuState extends MusicBeatState {
 				versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
 				versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-				case 'Forever Engine':
+			case 'Forever Engine':
 				#if android
 				secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 				#else

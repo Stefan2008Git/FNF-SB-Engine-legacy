@@ -59,6 +59,21 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 		option.decimals = 2;
 		addOption(option);
 
+		var option:Option = new Option('Space Extend',
+			"Allow Extend Space Control. --Made by NF | Beihu", // Credits: NF | Beihu (Created hitbox space)
+			'hitboxSpace',
+			'bool',
+			true);
+		  addOption(option);
+		  
+		var option:Option = new Option('Space Location:',
+			"Choose Space Control Location. --Made by NF | Beihu", // Credits: NF | Beihu (Created hitbox space)
+			'hitboxSpaceLocation',
+			'string',
+			'Bottom',
+			['Bottom', 'Middle', 'Top']);
+		  addOption(option);  
+
 		super();
 	}
 }

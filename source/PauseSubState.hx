@@ -54,7 +54,6 @@ class PauseSubState extends MusicBeatSubstate {
 	var chartingText:FlxText;
 
 	public var iconP2:HealthIcon;
-
 	
 	public static var songName:String = '';
 
@@ -96,11 +95,7 @@ class PauseSubState extends MusicBeatSubstate {
 
 		blackBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackBackground.alpha = 0;
-		if (ClientPrefs.velocityBackground) {
-			blackBackground.visible = true;
-		} else {
-			blackBackground.visible = false;
-		}
+		blackBackground.visible = ClientPrefs.velocityBackground;
 		add(blackBackground);
 
 		background = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));

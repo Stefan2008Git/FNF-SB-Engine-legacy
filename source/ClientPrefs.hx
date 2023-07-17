@@ -48,6 +48,8 @@ class ClientPrefs {
 	public static var hitboxSelection:String = 'Original';
 	public static var hitboxAlpha:Float = 0.2;
 	public static var virtualPadAlpha:Float = 0.5;
+	public static var hitboxSpace:Bool = true;
+	public static var hitboxSpaceLocation:String = 'Bottom';
 	public static var mainMenuStyle:String = 'Original';
 	public static var gameStyle:String = 'SB Engine';
 	public static var watermarkStyle:String = 'SB Engine';
@@ -146,6 +148,8 @@ class ClientPrefs {
 		FlxG.save.data.hitboxSelection = hitboxSelection;
 		FlxG.save.data.hitboxAlpha = hitboxAlpha;
 		FlxG.save.data.virtualPadAlpha = virtualPadAlpha;
+		FlxG.save.data.hitboxSpace = hitboxSpace;
+		FlxG.save.data.hitboxSpaceLocation = hitboxSpaceLocation;
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
 		FlxG.save.data.gameStyle = gameStyle;
 		FlxG.save.data.watermarkStyle = watermarkStyle;

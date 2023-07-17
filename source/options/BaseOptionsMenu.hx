@@ -39,7 +39,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
-	var descBox:AttachedSprite;
+	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
 	var background:FlxSprite;
@@ -73,11 +73,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		// avoids lagspikes while scrolling through menus!
@@ -90,9 +86,8 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 
-		descBox = new AttachedSprite();
-		descBox.alphaMult = 0.5;
-		makeDescBoxGraphic();
+		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
 		add(descBox);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
@@ -101,39 +96,23 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			descText = new FlxText(50, 600, 1180, "", 32);
-			descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			descText.scrollFactor.set();
-			descText.borderSize = 2.4;
-			add(descText);
-			descBox.sprTracker = descText;
-		}
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			descText = new FlxText(50, 600, 1180, "", 32);
-			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			descText.scrollFactor.set();
-			descText.borderSize = 2.4;
-			add(descText);
-			descBox.sprTracker = descText;
-		}
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			descText = new FlxText(50, 600, 1180, "", 32);
-			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			descText.scrollFactor.set();
-			descText.borderSize = 2.4;
-			add(descText);
-			descBox.sprTracker = descText;
-		}
+		descText = new FlxText(50, 600, 1180, "", 32);
+		switch (ClientPrefs.gameStyle) {
+		    case 'SB Engine':
+			    descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			descText = new FlxText(50, 600, 1180, "", 32);
-			descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			descText.scrollFactor.set();
-			descText.borderSize = 2.4;
-			add(descText);
-			descBox.sprTracker = descText;
+		   case 'Psych Engine':
+			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+		   case 'Better UI':
+			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+		   case 'Forever Engine':
+			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
+		descText.scrollFactor.set();
+		descText.borderSize = 2.4;
+		add(descText);
 
 		for (i in 0...optionsArray.length) {
 			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
@@ -359,40 +338,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		curOption = optionsArray[currentlySelected]; // shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
-	}
-
-	var cornerSize:Int = 11;
-
-	function makeDescBoxGraphic() {
-		descBox.makeGraphic(1100, 450, FlxColor.BLACK);
-		descBox.pixels.fillRect(new Rectangle(0, 190, descBox.width, 5), 0x0);
-
-		descBox.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0); // top left
-		drawCircleCornerOnSelector(false, false);
-		descBox.pixels.fillRect(new Rectangle(descBox.width - cornerSize, 0, cornerSize, cornerSize), 0x0); // top right
-		drawCircleCornerOnSelector(true, false);
-		descBox.pixels.fillRect(new Rectangle(0, descBox.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom left
-		drawCircleCornerOnSelector(false, true);
-		descBox.pixels.fillRect(new Rectangle(descBox.width - cornerSize, descBox.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom right
-		drawCircleCornerOnSelector(true, true);
-	}
-
-	function drawCircleCornerOnSelector(flipX:Bool, flipY:Bool) {
-		var antiX:Float = (descBox.width - cornerSize);
-		var antiY:Float = flipY ? (descBox.height - 1) : 0;
-		if (flipY)
-			antiY -= 2;
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 1), Std.int(Math.abs(antiY - 8)), 10, 3), FlxColor.BLACK);
-		if (flipY)
-			antiY += 1;
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 2), Std.int(Math.abs(antiY - 6)), 9, 2), FlxColor.BLACK);
-		if (flipY)
-			antiY += 1;
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 3), Std.int(Math.abs(antiY - 5)), 8, 1), FlxColor.BLACK);
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 4), Std.int(Math.abs(antiY - 4)), 7, 1), FlxColor.BLACK);
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 5), Std.int(Math.abs(antiY - 3)), 6, 1), FlxColor.BLACK);
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 6), Std.int(Math.abs(antiY - 2)), 5, 1), FlxColor.BLACK);
-		descBox.pixels.fillRect(new Rectangle((flipX ? antiX : 8), Std.int(Math.abs(antiY - 1)), 3, 1), FlxColor.BLACK);
 	}
 
 	function reloadCheckboxes() {
