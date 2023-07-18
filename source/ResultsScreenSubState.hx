@@ -133,7 +133,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		iconP1.setPosition(FlxG.width - iconP1.width - 10, FlxG.height - iconP1.height - 15);
 		iconP2.setPosition(10, iconP1.y);
 
-		FlxTween.tween(background, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(background, {alpha: 0.7}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(resultsText, {alpha: 1, y: 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.2});
 		FlxTween.tween(songNameText, {alpha: 1, y: songNameText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.2});
 		FlxTween.tween(difficultyNameTxt, {alpha: 1, y: difficultyNameTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.4});
@@ -158,7 +158,13 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 			pressEnterTxt.alpha = 1 - Math.sin((Math.PI * pressEnterTxtSine) / 150);
 		}
 
-		if (controls.ACCEPT) {
+		if(PlayState.instance.boyfriend.healthIcon == null)
+			iconP1.changeIcon('bf');
+	
+			if(PlayState.instance.dad.healthIcon == null)
+				iconP2.changeIcon('bf');
+
+		if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
 			PlayState.isStoryMode ? MusicBeatState.switchState(new StoryModeState()) : MusicBeatState.switchState(new FreeplayState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
