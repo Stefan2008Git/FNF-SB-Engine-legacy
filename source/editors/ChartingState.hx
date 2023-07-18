@@ -409,20 +409,21 @@ class ChartingState extends MusicBeatState {
 		for (i in 0...tipTextArray.length) {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			if (ClientPrefs.gameStyle == 'SB Engine') {
-				tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			}
+			switch (ClientPrefs.gameStyle) {
+				case 'SB Engine':
+				   tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-				tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			}
-
-			if (ClientPrefs.gameStyle == 'Better UI') {
-				tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			}
-
-			if (ClientPrefs.gameStyle == 'Forever Engine') {
-				tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+				case 'Psych Engine':
+				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+				
+				case 'Better UI':
+				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+				
+				case 'Forever Engine':
+				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+				
+				case 'Grafex Engine':
+				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			}
 
 			// tipText.borderSize = 2;
@@ -2615,20 +2616,21 @@ class ChartingState extends MusicBeatState {
 					theType = '?';
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 100, theType, 24);
-				if (ClientPrefs.gameStyle == 'SB Engine') {
-					daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				}
+				switch (ClientPrefs.gameStyle) {
+					case 'SB Engine':
+					    daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					
+					case 'Psych Engine':
+					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					
+					case 'Better UI':
+					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-				if (ClientPrefs.gameStyle == 'Psych Engine') {
-					daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				}
+					case 'Forever Engine':
+					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-				if (ClientPrefs.gameStyle == 'Better UI') {
-					daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				}
-
-				if (ClientPrefs.gameStyle == 'Forever Engine') {
-					daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					case 'Grafex Engine':
+					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 
 				daText.xAdd = -32;
@@ -2656,21 +2658,23 @@ class ChartingState extends MusicBeatState {
 					text = note.eventLength + ' Events:\n' + note.eventName;
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 400, text, 12);
-				if (ClientPrefs.gameStyle == 'SB Engine') {
-					daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+				switch (ClientPrefs.gameStyle) {
+					case 'SB Engine':
+						daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+					
+					case 'Psych Engine':
+						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+					
+					case 'Better UI':
+						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+					
+					case 'Forever Engine':
+						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+					
+					case 'Grafex Engine':
+						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 				}
 
-				if (ClientPrefs.gameStyle == 'Psych Engine') {
-					daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-				}
-
-				if (ClientPrefs.gameStyle == 'Better UI') {
-					daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-				}
-
-				if (ClientPrefs.gameStyle == 'Forever Engine') {
-					daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-				}
 				daText.xAdd = -410;
 				daText.borderSize = 1;
 				if (note.eventLength > 1)

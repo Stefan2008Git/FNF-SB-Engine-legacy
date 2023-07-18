@@ -51,13 +51,9 @@ class AndroidControlsSubState extends FlxSubState {
 		background.scrollFactor.set();
 		add(background);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'));
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function() {
@@ -72,26 +68,24 @@ class AndroidControlsSubState extends FlxSubState {
 				virtualPad.buttonLeft.y = FlxG.height - 309;
 			}
 		});
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
-			resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
+		switch (ClientPrefs.gameStyle) {
+		    case 'SB Engine':
+			   resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
+
+			case 'Psych Engine':
+			   resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+
+			case 'Better UI':
+				resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+			
+			case 'Forever Engine':
+				resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+			
+			case 'Grafex Engine':
+				resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
-			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
-			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
-			resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
-		}
-
+		resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 		resetButton.color = FlxColor.RED;
 		resetButton.visible = false;
 		add(resetButton);
@@ -108,43 +102,37 @@ class AndroidControlsSubState extends FlxSubState {
 		hitbox.visible = false;
 		add(hitbox);
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
-			noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			inputText = new FlxText(0, 100, 0, '', 32);
-			inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+		noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+		inputText = new FlxText(0, 100, 0, '', 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+			    noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
-			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			inputText = new FlxText(0, 100, 0, '', 32);
-			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Psych Engine':
+			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Better UI':
+			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
-			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			inputText = new FlxText(0, 100, 0, '', 32);
-			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
-			noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			inputText = new FlxText(0, 100, 0, '', 32);
-			inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
+		
 		noAndroidControlsText.borderSize = 2.4;
 		noAndroidControlsText.screenCenter();
 		noAndroidControlsText.visible = false;
-
 		inputText.borderSize = 2.4;
 		inputText.screenCenter(X);
-
-		add(inputText);
 		add(noAndroidControlsText);
+		add(inputText);
 
 		leftArrow = new FlxSprite(inputText.x - 60, inputText.y - 25);
 		leftArrow.frames = FlxAtlasFrames.fromSparrow(Assets.getBitmapData('assets/android/menu/arrows.png'),
@@ -160,76 +148,66 @@ class AndroidControlsSubState extends FlxSubState {
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
-			tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.scrollFactor.set();
+		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+		leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
+		rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
+		downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
+		upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
-			rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
-			leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-			downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
-			upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+			    upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
-			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.scrollFactor.set();
+		    case 'Psych Engine':
+			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
-			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
-			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
-			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Better UI':
+			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
-			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.scrollFactor.set();
+			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
-			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
-			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
-			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
-			tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.scrollFactor.set();
+			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
-			rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
-			leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-			downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
-			upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		tipText.scrollFactor.set();

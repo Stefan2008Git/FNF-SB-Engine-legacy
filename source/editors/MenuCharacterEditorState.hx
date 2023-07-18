@@ -72,20 +72,21 @@ class MenuCharacterEditorState extends MusicBeatState {
 		add(grpWeekCharacters);
 
 		txtOffsets = new FlxText(20, 10, 0, "[0, 0]", 32);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			txtOffsets.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				txtOffsets.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		}
+            case 'Psych Engine':
+			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			case 'Better UI':
+			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			case 'Forever Engine':
+			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			case 'Grafex Engine':
+			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		}
 
 		txtOffsets.alpha = 0.7;
@@ -98,16 +99,21 @@ class MenuCharacterEditorState extends MusicBeatState {
 		var tipText:FlxText = new FlxText(0, 540, FlxG.width, "Arrow Buttons - Change Offset (Hold A for 10x speed)
 			\nB - Play \"Start Press\" animation (Boyfriend Character Type)", 16);
 		#end
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, CENTER);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
-		}
+            case 'Psych Engine':
+			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
+			case 'Better UI':
+			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
+			
+			case 'Forever Engine':
+			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
+			
+			case 'Grafex Engine':
+			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
 		}
 
 		tipText.scrollFactor.set();

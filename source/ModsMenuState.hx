@@ -95,7 +95,7 @@ class ModsMenuState extends MusicBeatState {
 			noModsTxt.text += '\nFREAK.'; // meanie
 		
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': noModsTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': noModsTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			default: /* SB Engine */ noModsTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -155,7 +155,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonsArray.push(buttonToggle);
 		visibleWhenHasMods.push(buttonToggle);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonToggle.label.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonToggle.label.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 			default: /* SB Engine */ buttonToggle.label.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 
@@ -172,7 +172,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonsArray.push(buttonUp);
 		visibleWhenHasMods.push(buttonUp);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonUp.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonUp.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
 			default: /* SB Engine */ buttonUp.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
@@ -189,7 +189,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonsArray.push(buttonDown);
 		visibleWhenHasMods.push(buttonDown);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonDown.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonDown.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
 			default: /* SB Engine */ buttonDown.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
@@ -207,7 +207,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonTop.setGraphicSize(80, 50);
 		buttonTop.updateHitbox();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonTop.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonTop.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
 			default: /* SB Engine */ buttonTop.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
@@ -233,7 +233,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonDisableAll.setGraphicSize(170, 50);
 		buttonDisableAll.updateHitbox();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonDisableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonDisableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
 			default: /* SB Engine */ buttonDisableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
@@ -260,7 +260,7 @@ class ModsMenuState extends MusicBeatState {
 		buttonEnableAll.setGraphicSize(170, 50);
 		buttonEnableAll.updateHitbox();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': buttonEnableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': buttonEnableAll.label.setFormat("VCR OSD Mono", 24, FlxColor.BLACK, CENTER);
 			default: /* SB Engine */ buttonEnableAll.label.setFormat("Bahnschrift", 24, FlxColor.BLACK, CENTER);
 		}
 
@@ -273,7 +273,7 @@ class ModsMenuState extends MusicBeatState {
 		var startX:Int = 1100;
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': descriptionTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': descriptionTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT);
 			default: /* SB Engine */ descriptionTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, LEFT);
 		}
 

@@ -62,20 +62,21 @@ class WeekEditorState extends MusicBeatState {
 		Paths.clearUnusedMemory();
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		}
+            case 'Psych Engine':
+			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			case 'Better UI':
+			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			
+			case 'Forever Engine':
+			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			
+			case 'Grafex Engine':
+			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 		}
 
 		txtWeekTitle.alpha = 0.7;
@@ -103,20 +104,21 @@ class WeekEditorState extends MusicBeatState {
 		add(lock);
 
 		missingFileText = new FlxText(0, 0, FlxG.width, "");
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+            case 'Psych Engine':
+			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Better UI':
+			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		missingFileText.borderSize = 2;
@@ -140,20 +142,21 @@ class WeekEditorState extends MusicBeatState {
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			txtTracklist.setFormat("Bahnschrift");
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				txtTracklist.setFormat("Bahnschrift", 10, FlxColor.WHITE);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			txtTracklist.setFormat("VCR OSD Mono");
-		}
+            case 'Psych Engine':
+			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			txtTracklist.setFormat("VCR OSD Mono");
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			txtTracklist.setFormat("VCR OSD Mono");
+			case 'Better UI':
+			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
+			
+			case 'Forever Engine':
+			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
+			
+			case 'Grafex Engine':
+			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
 		}
 
 		txtTracklist.color = 0xFFe55777;

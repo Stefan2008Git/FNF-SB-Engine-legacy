@@ -95,20 +95,21 @@ class MasterEditorMenu extends MusicBeatState {
 		add(textBackground);
 
 		directoryTxt = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, '', 32);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		}
+            case 'Psych Engine':
+			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			case 'Better UI':
+			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			case 'Forever Engine':
+			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			case 'Grafex Engine':
+			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		}
 
 		directoryTxt.scrollFactor.set();

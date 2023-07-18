@@ -129,20 +129,21 @@ class CharacterEditorState extends MusicBeatState {
 		dumbTexts.cameras = [camHUD];
 
 		textAnim = new FlxText(300, 16);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			textAnim.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				textAnim.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Psych Engine':
+			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Better UI':
+			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		textAnim.borderSize = 1;

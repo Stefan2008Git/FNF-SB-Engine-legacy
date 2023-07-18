@@ -101,60 +101,63 @@ class DialogueEditorState extends MusicBeatState {
 		var addLineText:FlxText = new FlxText(10, 10, FlxG.width - 20,
 			'Press A Button to remove the current dialogue line, Press B Button to add another line after the current one.', 8);
 		#end
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			addLineText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+			    addLineText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+            case 'Psych Engine':
+			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Better UI':
+			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		addLineText.scrollFactor.set();
 		add(addLineText);
 
 		selectedText = new FlxText(10, 32, FlxG.width - 20, '', 8);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			selectedText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+			    selectedText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+            case 'Psych Engine':
+			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Better UI':
+			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		selectedText.scrollFactor.set();
 		add(selectedText);
 
 		animationText = new FlxText(10, 62, FlxG.width - 20, '', 8);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+			    animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
+            case 'Psych Engine':
+			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Better UI':
+			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Forever Engine':
+			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
+			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		animationText.scrollFactor.set();

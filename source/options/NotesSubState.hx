@@ -44,6 +44,7 @@ class NotesSubState extends MusicBeatSubstate {
 	var velocityBG:FlxBackdrop;
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
+	var resetText:FlxText;
 
 	var posX = 230;
 
@@ -67,11 +68,7 @@ class NotesSubState extends MusicBeatSubstate {
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		grpNotes = new FlxTypedGroup<FlxSprite>();
@@ -80,24 +77,25 @@ class NotesSubState extends MusicBeatSubstate {
 		add(grpNumbers);
 
 		#if android
-		var resetText:FlxText = new FlxText(12, FlxG.height - 40, "Press C to reset selected note.", 80);
+		resetText = new FlxText(12, FlxG.height - 40, "Press C to reset selected note.", 80);
 		#else
-		var resetText:FlxText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
+		resetText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
 		#end
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			resetText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
-		}
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				resetText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-		}
+            case 'Psych Engine':
+			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-		}
-
-		if (ClientPrefs.gameStyle == 'Forever Engine') {
-			resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			case 'Better UI':
+			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			
+			case 'Forever Engine':
+			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			
+			case 'Grafex Engine':
+			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		}
 
 		add(resetText);

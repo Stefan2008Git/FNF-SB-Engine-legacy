@@ -334,7 +334,7 @@ class CreditsState extends MusicBeatState {
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			default: descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		}
 		descText.scrollFactor.set();

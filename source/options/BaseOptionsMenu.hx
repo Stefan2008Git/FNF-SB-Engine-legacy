@@ -101,13 +101,16 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		    case 'SB Engine':
 			    descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		   case 'Psych Engine':
+		    case 'Psych Engine':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		   case 'Better UI':
+		    case 'Better UI':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-		   case 'Forever Engine':
+		    case 'Forever Engine':
+			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Grafex Engine':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		descText.scrollFactor.set();

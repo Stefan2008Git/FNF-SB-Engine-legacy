@@ -75,7 +75,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 		option.onChange = onChangePauseMusic;
 
 		var option:Option = new Option('Game engine type:', "What should the style on game do you you want to look like?", 'gameStyle', 'string', 'SB Engine',
-			['SB Engine', 'Psych Engine', 'Better UI', 'Forever Engine']);
+			['SB Engine', 'Psych Engine', 'Better UI', 'Forever Engine', 'Grafex Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Simple Main Menu',

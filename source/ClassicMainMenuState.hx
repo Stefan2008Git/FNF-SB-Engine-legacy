@@ -118,62 +118,47 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		initOptions();
 
+		#if android
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
+		#else
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
+		#end
+		sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
+		fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
-			    #if android
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
-			    #else
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
-			    #end
 			    secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
-			    sbEngineVersionTxt.scrollFactor.set();
 			    sbEngineVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 			    fnfVersionTxt.setFormat("Bahnschrift", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		    case 'Psych Engine':
-			    #if android
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
-			    #else
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
-			    #end
 			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 		    	fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		    case 'Better UI':
-			    #if android
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
-			    #else
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
-			    #end
 			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		
-			    sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
 			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		    case 'Forever Engine':
-			    #if android
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
-			    #else
-			    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
-			    #end
 			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		
-			    sbEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "SB Engine v" + MainMenuState.sbEngineVersion, 16);
 			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			    fnfVersionTxt = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin v" + Application.current.meta.get('version'), 16);
+			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			 case 'Grafex Engine':
+			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		
+			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -197,7 +182,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		tipText = new FlxText(0, 0, 0, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 

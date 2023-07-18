@@ -19,10 +19,9 @@ import flixel.util.FlxTimer;
 class FlashingScreenState extends MusicBeatState {
 	public static var leftState:Bool = false;
 
-	var warningText:FlxText;
-	var warningTextFloating:Float = 0;
 	var background:FlxSprite;
 	var velocityBG:FlxBackdrop;
+	var warningText:FlxText;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -88,8 +87,6 @@ class FlashingScreenState extends MusicBeatState {
 	}
 
 	override function update(elapsed:Float) {
-		warningTextFloating += 0.007;
-		warningText.y = Math.sin(warningTextFloating) * 60 + 100;
 		if (!leftState) {
 			var back:Bool = controls.BACK;
 			if (controls.ACCEPT || back) {
