@@ -53,11 +53,7 @@ class CreditsState extends MusicBeatState {
 
 		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		if (ClientPrefs.velocityBackground) {
-			velocityBG.visible = true;
-		} else {
-			velocityBG.visible = false;
-		}
+		velocityBG.visible = ClientPrefs.velocityBackground;
 		add(velocityBG);
 
 		optionSelect = new FlxTypedGroup<Alphabet>();
@@ -98,7 +94,7 @@ class CreditsState extends MusicBeatState {
 				'800080'
 			],
 			[
-				'Nurry',
+				'Nury',
 				'nury',
 				'Artist for SB Engine',
 				'https://youtube.com/@Nuury06',

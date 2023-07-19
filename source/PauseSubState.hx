@@ -17,9 +17,9 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxStringUtil;
 import lime.app.Application;
 import flixel.FlxCamera;
-import flixel.util.FlxStringUtil;
 
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenufreak:FlxTypedGroup<Alphabet>;
@@ -189,7 +189,7 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterText.x = FlxG.width - (deathCounterText.width + 20);
 		iconP2.alpha = 0;
 		
-		iconP2.setPosition(FlxG.width - iconP2.width - 10, FlxG.height - iconP2.height - 15);
+		iconP2.setPosition(FlxG.width - iconP2.width, FlxG.height - iconP2.height - 5);
 
 		FlxTween.tween(blackBackground, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(background, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
