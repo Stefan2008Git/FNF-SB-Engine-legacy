@@ -2510,7 +2510,7 @@ class PlayState extends MusicBeatState {
 				    + '%' + ' | ' + ratingName + ' [' + ratingFC + ']';
 			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 
-		    case 'Psyych Engine':
+		    case 'Psych Engine':
 			    scoreTxt.text = 'Score: '
 				    + songScore
 				    + ' | Misses: '
