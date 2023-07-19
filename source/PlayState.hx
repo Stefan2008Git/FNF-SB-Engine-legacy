@@ -2617,8 +2617,8 @@ class PlayState extends MusicBeatState {
 		songLength = FlxG.sound.music.length;
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
-		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
-		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
+		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 
 			case 'Psych Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});

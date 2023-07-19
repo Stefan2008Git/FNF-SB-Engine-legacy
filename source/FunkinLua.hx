@@ -147,7 +147,7 @@ class FunkinLua {
 		set('rating', 0);
 		set('ratingName', '');
 		set('ratingFC', '');
-		set('versionSb', MainMenuState.sbEngineVersion.trim());
+		set('version', MainMenuState.sbEngineVersion.trim());
 		set('versionPsych', MainMenuState.psychEngineVersion.trim());
 
 		set('inGameOver', false);
