@@ -1311,16 +1311,18 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
 			healthBarBG = new AttachedSprite('healthBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			healthBarBG = new AttachedSprite('longBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
 		}
+
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
 		healthBarBG.xAdd = -4;
@@ -1333,11 +1335,13 @@ class PlayState extends MusicBeatState {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'health', 0, 2);
 			insert(members.indexOf(healthBarBG), healthBar);
 		}
+
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
@@ -1347,10 +1351,12 @@ class PlayState extends MusicBeatState {
 		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
 		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
 		}
+
 		if (ClientPrefs.gameStyle == 'Better UI') {
 		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlayDaveAndBambi'));
 			healthBarBG.visible = false;
 		}
+
 		healthBarOverlay.y = FlxG.height * 0.89;
 		healthBarOverlay.screenCenter(X);
 		healthBarOverlay.scrollFactor.set();
@@ -1402,14 +1408,13 @@ class PlayState extends MusicBeatState {
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
+		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 			judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 		}
 
 		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
-			judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 			judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 		}
@@ -5559,6 +5564,68 @@ class PlayState extends MusicBeatState {
 				ratingFC = "SDCB";
 			else if (songMisses >= 10)
 				ratingFC = "Clear";
+
+			switch (ClientPrefs.gameStyle) {
+				case 'SB Engine':
+				    if (sicks > 0)
+					    ratingFC = "Sick full combo";
+				    if (goods > 0)
+					    ratingFC = "Good Full Combo";
+				    if (bads > 0 || freaks > 0)
+					    ratingFC = "Full Combo";
+				    if (songMisses > 0 && songMisses < 10)
+					    ratingFC = "Single Digit Combo Breaks";
+				    else if (songMisses >= 10)
+					    ratingFC = "Cleared the song";
+
+			    case 'Psych Engine':
+				    if (sicks > 0)
+					    ratingFC = "SFC";
+				    if (goods > 0)
+					    ratingFC = "GFC";
+				    if (bads > 0 || freaks > 0)
+					    ratingFC = "FC";
+				    if (songMisses > 0 && songMisses < 10)
+					    ratingFC = "SDCB";
+				    else if (songMisses >= 10)
+					    ratingFC = "Clear";
+
+			    case 'Better UI':
+				    if (sicks > 0)
+					    ratingFC = "SFC";
+				    if (goods > 0)
+					    ratingFC = "GFC";
+				    if (bads > 0 || freaks > 0)
+					    ratingFC = "FC";
+				    if (songMisses > 0 && songMisses < 10)
+					    ratingFC = "SDCB";
+				    else if (songMisses >= 10)
+					    ratingFC = "Clear";
+
+			    case 'Forever Engine':
+				    if (sicks > 0)
+					    ratingFC = "SFC";
+				    if (goods > 0)
+					    ratingFC = "GFC";
+				    if (bads > 0 || freaks > 0)
+					    ratingFC = "FC";
+				    if (songMisses > 0 && songMisses < 10)
+					    ratingFC = "SDCB";
+				    else if (songMisses >= 10)
+					    ratingFC = "Clear";
+
+			    case 'Grafex Engine':
+				    if (sicks > 0)
+					    ratingFC = "SFC";
+				    if (goods > 0)
+					    ratingFC = "GFC";
+				    if (bads > 0 || freaks > 0)
+					    ratingFC = "FC";
+				    if (songMisses > 0 && songMisses < 10)
+					    ratingFC = "SDCB";
+				    else if (songMisses >= 10)
+					    ratingFC = "Clear";
+			}
 		}
 		updateScore(badHit);
 		setOnLuas('rating', ratingPercent);
