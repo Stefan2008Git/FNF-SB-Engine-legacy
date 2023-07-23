@@ -96,6 +96,7 @@ class NotesSubState extends MusicBeatSubstate
 			case 'Grafex Engine':
 			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		}
+		add(resetText);
 
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 			var yPos:Float = (165 * i) + 35;
@@ -137,7 +138,7 @@ class NotesSubState extends MusicBeatSubstate
 	override function update(elapsed:Float) {
 		if(changingNote) {
 			if(holdTime < 0.5) {
-				if(controls.UI_LEFT_P) {
+				if (controls.UI_LEFT_P) {
 					updateValue(-1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				} else if(controls.UI_RIGHT_P) {
@@ -147,7 +148,7 @@ class NotesSubState extends MusicBeatSubstate
 					resetValue(currentlySelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				if (controls.UI_LEFT_R || controls.UI_RIGHT_R) {
 					holdTime = 0;
 				} else if(controls.UI_LEFT || controls.UI_RIGHT) {
 					holdTime += elapsed;
@@ -225,7 +226,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 			for (j in 0...3) {
 				var item2 = grpNumbers.members[(i * 3) + j];
-				item2.x = item.x + 265 + (225 * (j % 3)) - (30 * item2.length) / 2;
+				item2.x = item.x + 265 + (225 * (j % 3)) - (30 * item2.letters.length) / 2;
 				if(ClientPrefs.arrowHSV[i][j] < 0) {
 					item2.x -= 20;
 				}
