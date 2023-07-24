@@ -839,9 +839,8 @@ class EditorPlayState extends MusicBeatState {
 				spr.resetAnim = 0;
 			}
 		}
-		
-		// Hold notes
-		private function keysCheck():Void
+
+	private function keysCheck():Void
 		{
 			// HOLDING
 			var holdArray:Array<Bool> = [];

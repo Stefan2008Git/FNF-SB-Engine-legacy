@@ -90,6 +90,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the classic main menu.", null);
 		#end
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
 
@@ -263,7 +264,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		}
 
 		#if (desktop || android)
-		else if (controls.justPressed('debug_1') #if android || virtualPad.buttonC.justPressed #end) {
+		else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 			MusicBeatState.switchState(new MasterEditorMenu());
 		}
