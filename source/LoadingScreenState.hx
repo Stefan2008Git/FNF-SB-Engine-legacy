@@ -86,7 +86,7 @@ class LoadingScreenState extends FlxState {
 
 		randomTxt = new FlxText(20, FlxG.height - 80, 1000, "", 26);
 		randomTxt.scrollFactor.set();
-		randomTxt.setFormat("Bahnschrift", 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		randomTxt.setFormat("VCR OSD Mono", 26, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(randomTxt);
 
 		loadingSpeen = new FlxSprite().loadGraphic(Paths.image("loading_speen"));
@@ -100,7 +100,7 @@ class LoadingScreenState extends FlxState {
 
 		loadingTxt = new FlxText(12, FlxG.height - 30, 0, "", 8);
 		loadingTxt.scrollFactor.set();
-		loadingTxt.setFormat("Bahnschrift", 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		loadingTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		loadingTxt.borderSize = 1.25;
 		loadingTxt.text = "Loading SB Engine v" + MainMenuState.sbEngineVersion + " (Psych Engine v" + MainMenuState.psychEngineVersion + " ). Please be patient...";
 		add(loadingTxt);

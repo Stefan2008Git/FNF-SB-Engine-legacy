@@ -323,9 +323,15 @@ class PauseSubState extends MusicBeatSubstate {
 					optionMenu = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
+					PlayState.instance.vocals.volume = 0;
 					MusicBeatState.switchState(new options.OptionsState());
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					if(ClientPrefs.pauseMusic != 'None')
+					{
+						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)), pauseMusic.volume);
+						FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
+						FlxG.sound.music.time = pauseMusic.time;
+					}
 				case 'Chart Editor':
 					MusicBeatState.switchState(new editors.ChartingState());
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";

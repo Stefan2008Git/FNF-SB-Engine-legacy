@@ -211,11 +211,7 @@ class TitleScreenState extends MusicBeatState {
 			checker.scale.set(0.7, 0.7);
 			checker.screenCenter(X);
 			checker.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-			if (ClientPrefs.velocityBackground) {
-				checker.visible = true;
-			} else {
-				checker.visible = false;
-			}
+			checker.visible = ClientPrefs.velocityBackground;
 			checker.antialiasing = ClientPrefs.globalAntialiasing;
 			add(checker);
 		}
