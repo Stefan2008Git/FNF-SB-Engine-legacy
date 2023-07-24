@@ -1,6 +1,5 @@
 package;
 
-import flixel.addons.effects.FlxTrail;
 #if desktop
 import sys.thread.Thread;
 #end
@@ -10,6 +9,7 @@ import flixel.FlxState;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.effects.FlxTrail;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
@@ -120,8 +120,6 @@ class TitleScreenState extends MusicBeatState {
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
 		FlxG.keys.preventDefaultKeys = [TAB];
-
-		PlayerSettings.init();
 
 		curWacky = FlxG.random.getObject(getIntroTextfreak());
 
