@@ -380,16 +380,14 @@ class PlayState extends MusicBeatState {
 		// for lua
 		instance = this;
 
-		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
-		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null; // Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
 		keysArray = [
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
+			'note_left',
+			'note_down',
+			'note_up',
+			'note_right'
 		];
 
 		controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
@@ -3321,7 +3319,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene) {
+		if (controls.justPressed('debug_1') && !endingSong && !inCutscene) {
 			openChartEditor();
 		}
 
@@ -3414,7 +3412,7 @@ class PlayState extends MusicBeatState {
 				iconP2.animation.curAnim.curFrame = 0;
 		}
 
-		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+		if (controls.justPressed('debug_2') && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
 			cancelMusicFadeTween();
@@ -4599,7 +4597,7 @@ class PlayState extends MusicBeatState {
 
 	private function onKeyPress(event:KeyboardEvent):Void {
 		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
+		var key:Int = getKeyFromEvent(keysArray, eventKey);
 		// trace('Pressed: ' + eventKey);
 
 		if (!cpuControlled
@@ -4691,94 +4689,94 @@ class PlayState extends MusicBeatState {
 		return FlxSort.byValues(FlxSort.ASCENDING, a.strumTime, b.strumTime);
 	}
 
-	private function onKeyRelease(event:KeyboardEvent):Void {
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		if (!cpuControlled && startedCountdown && !paused && key > -1) {
-			var spr:StrumNote = playerStrums.members[key];
-			if (spr != null) {
-				spr.playAnim('static');
-				spr.resetAnim = 0;
-			}
-			callOnLuas('onKeyRelease', [key]);
+	private function onKeyRelease(event:KeyboardEvent):Void
+		{
+			var eventKey:FlxKey = event.keyCode;
+			var key:Int = getKeyFromEvent(keysArray, eventKey);
+			//trace('Pressed: ' + eventKey);
+	
+			if(!controls.controllerMode && key > -1) keyReleased(key);
 		}
-		// trace('released: ' + controlArray);
-	}
+	
+		private function keyReleased(key:Int)
+		{
+			if(!cpuControlled && startedCountdown && !paused)
+			{
+				var spr:StrumNote = playerStrums.members[key];
+				if(spr != null)
+				{
+					spr.playAnim('static');
+					spr.resetAnim = 0;
+				}
+				callOnLuas('onKeyRelease', [key]);
+			}
+		}
 
-	private function getKeyFromEvent(key:FlxKey):Int {
-		if (key != NONE) {
-			for (i in 0...keysArray.length) {
-				for (j in 0...keysArray[i].length) {
-					if (key == keysArray[i][j]) {
-						return i;
+		public static function getKeyFromEvent(arr:Array<String>, key:FlxKey):Int
+			{
+				if(key != NONE)
+				{
+					for (i in 0...arr.length)
+					{
+						var note:Array<FlxKey> = Controls.instance.keyboardBinds[arr[i]];
+						for (noteKey in note)
+							if(key == noteKey)
+								return i;
 					}
 				}
+				return -1;
 			}
-		}
-		return -1;
-	}
 
 	// Hold notes
-	private function keyfreak():Void {
-		// HOLDING
-		var parsedHoldArray:Array<Bool> = parseKeys();
-
-		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if (ClientPrefs.controllerMode) {
-			var parsedArray:Array<Bool> = parseKeys('_P');
-			if (parsedArray.contains(true)) {
-				for (i in 0...parsedArray.length) {
-					if (parsedArray[i] && strumsBlocked[i] != true)
-						onKeyPress(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, true, -1, keysArray[i][0]));
+	private function keysCheck():Void
+		{
+			// HOLDING
+			var holdArray:Array<Bool> = [];
+			var pressArray:Array<Bool> = [];
+			var releaseArray:Array<Bool> = [];
+			for (key in keysArray)
+			{
+				holdArray.push(controls.pressed(key));
+				pressArray.push(controls.justPressed(key));
+				releaseArray.push(controls.justReleased(key));
+			}
+	
+			// TO DO: Find a better way to handle controller inputs, this should work for now
+			if(controls.controllerMode && pressArray.contains(true))
+				for (i in 0...pressArray.length)
+					if(pressArray[i] && strumsBlocked[i] != true)
+						keyPressed(i);
+	
+			if (startedCountdown && !boyfriend.stunned && generatedMusic)
+			{
+				// rewritten inputs???
+				if(notes.length > 0)
+				{
+					notes.forEachAlive(function(daNote:Note)
+					{
+						// hold note functions
+						if (strumsBlocked[daNote.noteData] != true && daNote.isSustainNote && holdArray[daNote.noteData] && daNote.canBeHit
+						&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit) {
+							goodNoteHit(daNote);
+						}
+					});
+				}
+	
+				if (boyfriend.animation.curAnim != null
+					&& boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration
+						&& boyfriend.animation.curAnim.name.startsWith('sing')
+						&& !boyfriend.animation.curAnim.name.endsWith('miss')) {
+					boyfriend.dance();
+					// boyfriend.animation.curAnim.finish();
 				}
 			}
+	
+			// TO DO: Find a better way to handle controller inputs, this should work for now
+			if((controls.controllerMode || strumsBlocked.contains(true)) && releaseArray.contains(true))
+				for (i in 0...releaseArray.length)
+					if(releaseArray[i] || strumsBlocked[i] == true)
+						keyReleased(i);
 		}
-
-		// FlxG.watch.addQuick('asdfa', upP);
-		if (startedCountdown && !boyfriend.stunned && generatedMusic) {
-			// rewritten inputs???
-			notes.forEachAlive(function(daNote:Note) {
-				// hold note functions
-				if (strumsBlocked[daNote.noteData] != true
-					&& daNote.isSustainNote
-					&& parsedHoldArray[daNote.noteData]
-					&& daNote.canBeHit
-					&& daNote.mustPress
-					&& !daNote.tooLate
-					&& !daNote.wasGoodHit
-					&& !daNote.blockHit) {
-					goodNoteHit(daNote);
-				}
-			});
-
-			if (boyfriend.animation.curAnim != null
-				&& boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration
-					&& boyfriend.animation.curAnim.name.startsWith('sing')
-					&& !boyfriend.animation.curAnim.name.endsWith('miss')) {
-				boyfriend.dance();
-				// boyfriend.animation.curAnim.finish();
-			}
-		}
-
-		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if (ClientPrefs.controllerMode || strumsBlocked.contains(true)) {
-			var parsedArray:Array<Bool> = parseKeys('_R');
-			if (parsedArray.contains(true)) {
-				for (i in 0...parsedArray.length) {
-					if (parsedArray[i] || strumsBlocked[i] == true)
-						onKeyRelease(new KeyboardEvent(KeyboardEvent.KEY_UP, true, true, -1, keysArray[i][0]));
-				}
-			}
-		}
-	}
-
-	private function parseKeys(?suffix:String = ''):Array<Bool> {
-		var ret:Array<Bool> = [];
-		for (i in 0...controlArray.length) {
-			ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
-		}
-		return ret;
-	}
 
 	function noteMiss(daNote:Note):Void { // You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		// Dupe note remove

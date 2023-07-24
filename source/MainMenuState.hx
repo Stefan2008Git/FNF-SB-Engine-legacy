@@ -8,6 +8,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -74,7 +75,6 @@ class MainMenuState extends MusicBeatState {
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		cameraGame = new FlxCamera();
 
@@ -110,7 +110,7 @@ class MainMenuState extends MusicBeatState {
 		}
 		add(background);
 
-		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
+		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBG.visible = ClientPrefs.velocityBackground;			  
 		add(velocityBG);
@@ -374,7 +374,7 @@ class MainMenuState extends MusicBeatState {
 				});
 			}
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
+			else if (controls.justPressed('debug_1') #if android || virtualPad.buttonC.justPressed #end) {
 				selectedSomething = true;
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				MusicBeatState.switchState(new MasterEditorMenu());
