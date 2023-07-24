@@ -1680,9 +1680,7 @@ class ChartingState extends MusicBeatState {
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if (inputText.hasFocus) {
-				FlxG.sound.muteKeys = [];
-				FlxG.sound.volumeDownKeys = [];
-				FlxG.sound.volumeUpKeys = [];
+ClientPrefs.toggleVolumeKeys(true);
 				blockInput = true;
 				break;
 			}
@@ -1704,9 +1702,7 @@ class ChartingState extends MusicBeatState {
 		}
 
 		if (!blockInput) {
-			FlxG.sound.muteKeys = TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
+ClientPrefs.toggleVolumeKeys(true);
 			for (dropDownMenu in blockPressWhileScrolling) {
 				if (dropDownMenu.dropPanel.visible) {
 					blockInput = true;

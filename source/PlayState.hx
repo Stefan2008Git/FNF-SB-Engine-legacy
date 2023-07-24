@@ -341,7 +341,7 @@ class PlayState extends MusicBeatState {
 	#end
 
 	// Achievement freak
-	var keysPressed:Array<Bool> = [];
+	var keysPressed:Array<Int> = [];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
@@ -359,8 +359,7 @@ class PlayState extends MusicBeatState {
 	private var debugKeysCharacter:Array<FlxKey>;
 
 	// Less laggy controls
-	private var keysArray:Array<Dynamic>;
-	private var controlArray:Array<String>;
+	private var keysArray:Array<String>;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 
@@ -389,8 +388,6 @@ class PlayState extends MusicBeatState {
 			'note_up',
 			'note_right'
 		];
-
-		controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
 
 		// Ratings
 		ratingsData.push(new Rating('sick')); // default rating
@@ -483,11 +480,6 @@ class PlayState extends MusicBeatState {
 		}
 
 		sbEngineIconBounce = (ClientPrefs.gameStyle == 'SB Engine');
-
-		// For the "Just the Two of Us" achievement
-		for (i in 0...keysArray.length) {
-			keysPressed.push(false);
-		}
 
 		theWiggleFlagEffect = new WiggleEffect();
 		theWiggleFlagEffect.effectType = WiggleEffectType.FLAG;

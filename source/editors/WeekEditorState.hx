@@ -485,9 +485,7 @@ class WeekEditorState extends MusicBeatState {
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
 			if (inputText.hasFocus) {
-				FlxG.sound.muteKeys = [];
-				FlxG.sound.volumeDownKeys = [];
-				FlxG.sound.volumeUpKeys = [];
+ClientPrefs.toggleVolumeKeys(true);
 				blockInput = true;
 
 				if (FlxG.keys.justPressed.ENTER)
@@ -497,9 +495,7 @@ class WeekEditorState extends MusicBeatState {
 		}
 
 		if (!blockInput) {
-			FlxG.sound.muteKeys = TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
+ClientPrefs.toggleVolumeKeys(true);
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
@@ -877,9 +873,7 @@ class WeekEditorFreeplayState extends MusicBeatState {
 				iconInputText.hasFocus = false;
 			}
 		} else {
-			FlxG.sound.muteKeys = TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
+ClientPrefs.toggleVolumeKeys(true);
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
