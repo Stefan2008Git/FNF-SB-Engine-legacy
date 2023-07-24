@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxG;
-import flixel.util.FlxSave;
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
@@ -52,9 +51,6 @@ class CoolUtil {
 	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
 		return Math.max(min, Math.min(max, value));
 	}
-
-	inline public static function capitalize(text:String)
-		return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
 
 	public static function coolTextFile(path:String):Array<String> {
 		var daList:Array<String> = [];
@@ -183,12 +179,5 @@ class CoolUtil {
 		#else
 		FlxG.openURL(site);
 		#end
-	}
-
-	inline public static function getSavePath(folder:String = 'Stefan2008'):String {
-		@:privateAccess
-		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
-			+ '/'
-			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 }

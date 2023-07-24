@@ -11,7 +11,6 @@ import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -43,8 +42,13 @@ class FlashingScreenState extends MusicBeatState {
 		background.color = 0xFF353535;
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBG = new FlxBackdrop(Paths.image('velocity_background'), XY);
 		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		if (ClientPrefs.velocityBackground) {
+			velocityBG.visible = true;
+		} else {
+			velocityBG.visible = false;
+		}
 		add(velocityBG);
 
 		#if android
