@@ -115,8 +115,10 @@ class TitleScreenState extends MusicBeatState {
 			}
 			#end */
 
-		FlxG.fixedTimestep = false;
 		FlxG.game.focusLostFramerate = 60;
+		FlxG.sound.muteKeys = muteKeys;
+		FlxG.sound.volumeDownKeys = volumeDownKeys;
+		FlxG.sound.volumeUpKeys = volumeUpKeys;
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		curWacky = FlxG.random.getObject(getIntroTextfreak());
@@ -126,7 +128,7 @@ class TitleScreenState extends MusicBeatState {
 		swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		ClientPrefs.loadPrefs();
 
@@ -368,10 +370,8 @@ class TitleScreenState extends MusicBeatState {
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
 		#if mobile
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed)
-			{
+		for (touch in FlxG.touches.list) {
+			if (touch.justPressed) {
 				pressedEnter = true;
 			}
 		}
@@ -379,8 +379,7 @@ class TitleScreenState extends MusicBeatState {
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
-		{
+		if (gamepad != null) {
 			if (gamepad.justPressed.START)
 				pressedEnter = true;
 
