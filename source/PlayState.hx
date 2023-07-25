@@ -1105,9 +1105,8 @@ class PlayState extends MusicBeatState {
 		if (SONG.characterTrails) {
 			trailunderdad = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
 			insert(members.indexOf(dadGroup) - 1, trailunderdad);
-			//var trailundergf = new FlxTrail(gf, null, 4, 24, 0.3, 0.069); //nice
-			//insert(members.indexOf(gfGroup) - 1, trailundergf);			will fix it somedays :D
 		}
+
 		if (SONG.bfTrails) {
 			trailunderbf = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
 			insert(members.indexOf(boyfriendGroup) - 1, trailunderbf);
@@ -1311,7 +1310,7 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine') {
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
 			healthBarBG = new AttachedSprite('healthBar');
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
