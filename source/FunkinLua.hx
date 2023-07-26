@@ -75,7 +75,7 @@ import states.PlayState;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
 
-using StringTools;
+import StringTools;
 
 class FunkinLua {
 	public static var Function_Stop:Dynamic = "##PSYCHLUA_FUNCTIONSTOP";
