@@ -1,8 +1,11 @@
 package states;
 
+import backend.ClientPrefs;
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
+import backend.MusicBeatState;
+import backend.Paths;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.keyboard.FlxKey;

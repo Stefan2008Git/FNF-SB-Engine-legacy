@@ -19,6 +19,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import backend.ClientPrefs;
 import backend.Controls;
 import objects.Alphabet;
 

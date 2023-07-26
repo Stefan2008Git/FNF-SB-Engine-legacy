@@ -1,8 +1,11 @@
 package states;
 
+import backend.ClientPrefs;
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
+import backend.MusicBeatState;
+import backend.Paths;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -23,7 +26,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import Controls;
+import backend.Controls;
 import flixel.addons.display.FlxBackdrop;
 import flash.system.System;
 import lime.app.Application;

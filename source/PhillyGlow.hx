@@ -1,6 +1,10 @@
+package;
+
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.FlxG;
+import backend.ClientPrefs;
+import backend.Paths;
 
 class PhillyGlowParticle extends FlxSprite
 {

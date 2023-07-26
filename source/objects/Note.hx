@@ -8,6 +8,9 @@ import flixel.util.FlxColor;
 import flash.display.BitmapData;
 import states.editors.ChartingState;
 import shaders.ColorSwap;
+import states.PlayState;
+import backend.ClientPrefs;
+import backend.Conductor;
 
 using StringTools;
 

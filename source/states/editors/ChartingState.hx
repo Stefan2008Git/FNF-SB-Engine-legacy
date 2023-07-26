@@ -4,10 +4,12 @@ package states.editors;
 import backend.Discord.DiscordClient;
 #end
 import flash.geom.Rectangle;
+import tjson.TJSON as Json;
 import haxe.Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
 import backend.Conductor.BPMChangeEvent;
+import backend.Section;
 import backend.Section.SwagSection;
 import backend.Song.SwagSong;
 import flixel.FlxG;
@@ -2561,7 +2563,7 @@ class ChartingState extends MusicBeatState {
 		var rawJson = OpenFlAssets.getText(path);
 		#end
 
-		var json:Character.CharacterFile = cast Json.parse(rawJson);
+		var json:CharacterFile = cast Json.parse(rawJson);
 		return json.healthicon;
 	}
 
@@ -3000,7 +3002,7 @@ class ChartingState extends MusicBeatState {
 	}
 
 	function autosaveSong():Void {
-		FlxG.save.data.autosave = Json.stringify({
+		FlxG.save.data.autosave = haxe.Json.stringify({
 			"song": _song
 		});
 		FlxG.save.flush();
@@ -3018,7 +3020,7 @@ class ChartingState extends MusicBeatState {
 			"song": _song
 		};
 
-		var data:String = Json.stringify(json, "\t");
+		var data:String = haxe.Json.stringify(json, "\t");
 
 		if ((data != null) && (data.length > 0)) {
 			#if android
@@ -3047,7 +3049,7 @@ class ChartingState extends MusicBeatState {
 			"song": eventsSong
 		}
 
-		var data:String = Json.stringify(json, "\t");
+		var data:String = haxe.Json.stringify(json, "\t");
 
 		if ((data != null) && (data.length > 0)) {
 			#if android

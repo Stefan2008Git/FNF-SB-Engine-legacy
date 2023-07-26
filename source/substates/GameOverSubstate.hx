@@ -1,6 +1,8 @@
 package substates;
 
 import backend.MusicBeatSubstate;
+import objects.Boyfriend;
+import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -13,10 +15,12 @@ import flixel.tweens.FlxTween;
 #if android
 import android.Hardware;
 #end
+import states.StoryModeState;
+import states.FreeplayState;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-	public var boyfriend:objects.Boyfriend;
+	public var boyfriend:Boyfriend;
 	var cameraFollow:FlxPoint;
 	var cameraFollowPosition:FlxObject;
 	var updateCamera:Bool = false;

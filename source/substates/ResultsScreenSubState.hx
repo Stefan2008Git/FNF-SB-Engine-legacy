@@ -1,4 +1,4 @@
-package;
+package substates;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -12,6 +12,13 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import backend.ClientPrefs;
+import backend.MusicBeatSubstate;
+import backend.Paths;
+import objects.HealthIcon;
+import states.FreeplayState;
+import states.StoryModeState;
+import states.PlayState;
 
 class ResultsScreenSubState extends MusicBeatSubstate {
 	var background:FlxSprite;

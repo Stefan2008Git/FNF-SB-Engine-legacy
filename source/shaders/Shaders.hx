@@ -8,6 +8,7 @@ import openfl.display.ShaderInput;
 import openfl.utils.Assets;
 import flixel.FlxG;
 import openfl.Lib;
+import states.PlayState;
 
 using StringTools;
 

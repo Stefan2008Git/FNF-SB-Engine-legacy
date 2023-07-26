@@ -3,6 +3,9 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
+import backend.ClientPrefs;
+import backend.Conductor;
+import backend.Paths;
 
 class TankmenBG extends FlxSprite
 {

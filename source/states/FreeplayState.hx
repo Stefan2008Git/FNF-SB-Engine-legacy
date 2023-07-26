@@ -1,9 +1,9 @@
 package states;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
-import editors.ChartingState;
+import states.editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -22,7 +22,15 @@ import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.app.Application;
-import WeekData;
+import backend.ClientPrefs;
+import backend.MusicBeatState;
+import backend.WeekData;
+import objects.Alphabet;
+import objects.HealthIcon;
+import states.PlayState;
+import substates.GameplayChangersSubstate;
+import substates.ResetScoreSubState;
+
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end

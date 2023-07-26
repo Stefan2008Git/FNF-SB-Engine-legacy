@@ -1,8 +1,10 @@
 package states;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
+import backend.MusicBeatState;
+import states.MainMenuState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -73,7 +75,7 @@ class FlashingScreenState extends MusicBeatState {
 			+ "",
 			32);
 		#end
-		warningText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		warningText.borderSize = 2.4;
 		warningText.screenCenter(Y);
 		add(warningText);

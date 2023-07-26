@@ -45,14 +45,27 @@ import sys.io.File;
 import android.Hardware;
 #end
 import Type.ValueType;
+import backend.ClientPrefs;
 import backend.Controls;
-import cutscenes.DialogueBoxPsych;
+import backend.Conductor;
+import backend.CoolUtil;
 import backend.MusicBeatSubstate;
+import backend.Paths;
+import backend.WeekData;
+import cutscenes.DialogueBoxPsych;
+import objects.Character;
 #if hscript
 import hscript.Parser;
 import hscript.Interp;
 import hscript.Expr;
 #end
+import states.MainMenuState;
+import states.StoryModeState;
+import states.FreeplayState;
+import states.PlayState;
+
+import substates.PauseSubState;
+import substates.GameOverSubstate;
 
 using StringTools;
 

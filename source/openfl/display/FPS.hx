@@ -19,6 +19,7 @@ import openfl.system.System;
 #end
 import backend.ClientPrefs;
 import backend.CoolUtil;
+import states.MainMenuState;
 
 /**
 	The FPS class provides an easy-to-use monitor to display

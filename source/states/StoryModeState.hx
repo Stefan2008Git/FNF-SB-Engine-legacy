@@ -18,7 +18,15 @@ import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import lime.app.Application;
-import WeekData;
+import backend.Highscore;
+import backend.MusicBeatState;
+import backend.Song;
+import backend.WeekData;
+import objects.MenuItem;
+import objects.MenuCharacter;
+import states.PlayState;
+import substates.GameplayChangersSubstate;
+import substates.ResetScoreSubState;
 
 using StringTools;
 

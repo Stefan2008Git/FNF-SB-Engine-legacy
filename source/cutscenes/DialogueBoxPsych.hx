@@ -19,6 +19,10 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import openfl.utils.Assets;
+import states.PlayState;
+import backend.Paths;
+import backend.ClientPrefs;
+import backend.PlayerSettings;
 
 using StringTools;
 

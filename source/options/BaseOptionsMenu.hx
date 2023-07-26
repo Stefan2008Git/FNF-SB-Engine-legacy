@@ -26,8 +26,11 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flash.geom.Rectangle;
+import backend.ClientPrefs;
 import backend.Controls;
 import backend.MusicBeatSubstate;
+import backend.Paths;
+import objects.Alphabet;
 import objects.CheckboxThingie;
 import objects.AttachedText;
 

@@ -20,8 +20,14 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 import lime.app.Application;
+import states.FreeplayState;
 import states.editors.MasterEditorMenu;
+import options.OptionsState;
+import backend.ClientPrefs;
+import backend.CoolUtil;
 import backend.MusicBeatState;
+import backend.Paths;
+import backend.WeekData;
 import flixel.input.keyboard.FlxKey;
 
 using StringTools;

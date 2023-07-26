@@ -42,6 +42,14 @@ import lime.app.Application;
 import backend.MusicBeatState;
 import objects.Alphabet;
 import shaders.ColorSwap;
+import backend.ClientPrefs;
+import backend.Conductor;
+import backend.CoolUtil;
+import backend.Paths;
+import backend.WeekData;
+import states.MainMenuState;
+import states.FreeplayState;
+import states.StoryModeState;
 
 using StringTools;
 

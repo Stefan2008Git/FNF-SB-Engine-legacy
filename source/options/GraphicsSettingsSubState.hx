@@ -26,6 +26,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import backend.Controls;
 import openfl.Lib;
+import backend.ClientPrefs;
 
 using StringTools;
 

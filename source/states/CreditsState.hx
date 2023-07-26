@@ -1,7 +1,7 @@
 package states;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 import flash.geom.Rectangle;
 import flash.text.TextField;
@@ -21,6 +21,10 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import lime.utils.Assets;
+import backend.ClientPrefs;
+import backend.MusicBeatState;
+import backend.Paths;
+import objects.AttachedSprite;
 
 using StringTools;
 

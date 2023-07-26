@@ -1,7 +1,7 @@
 package states;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -18,8 +18,14 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import editors.MasterEditorMenu;
+import states.editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import backend.ClientPrefs;
+import backend.MusicBeatState;
+import backend.Paths;
+import backend.WeekData;
+import objects.Alphabet;
+import states.MainMenuState;
 
 using StringTools;
 
