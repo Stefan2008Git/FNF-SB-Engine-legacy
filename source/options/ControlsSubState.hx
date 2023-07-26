@@ -27,6 +27,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import backend.ClientPrefs;
 import backend.Controls;
+import backend.InputFormatter;
 import backend.MusicBeatSubstate;
 import backend.Paths;
 import objects.Alphabet;

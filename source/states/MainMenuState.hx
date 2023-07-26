@@ -28,6 +28,7 @@ import backend.CoolUtil;
 import backend.MusicBeatState;
 import backend.Paths;
 import backend.WeekData;
+import shaders.ColorblindFilter;
 import flixel.input.keyboard.FlxKey;
 
 using StringTools;

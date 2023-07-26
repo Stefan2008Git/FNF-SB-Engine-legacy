@@ -13,6 +13,8 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import backend.ClientPrefs;
+import backend.CoolUtil;
+import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.Paths;
 import objects.HealthIcon;

@@ -5,6 +5,7 @@ import backend.CoolUtil;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.Paths;
+import backend.WeekData;
 import objects.Boyfriend;
 import states.PlayState;
 import flixel.FlxG;

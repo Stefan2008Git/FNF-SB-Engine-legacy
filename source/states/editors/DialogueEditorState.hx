@@ -37,7 +37,11 @@ import lime.app.Application;
 #if sys
 import sys.io.File;
 #end
+import backend.ClientPrefs;
 import backend.MusicBeatState;
+import backend.Paths;
+import states.MainMenuState;
+import states.editors.MasterEditorMenu;
 
 using StringTools;
 
@@ -472,7 +476,7 @@ class DialogueEditorState extends MusicBeatState {
 				reloadText(false);
 			}
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + states.MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;

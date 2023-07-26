@@ -3,6 +3,7 @@ package shaders;
 import flixel.FlxG;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
+import backend.ClientPrefs;
 
 class ColorblindFilter {
     // i honesly have no ideas how to make it, so i hope that works

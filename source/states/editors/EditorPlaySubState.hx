@@ -11,7 +11,6 @@ import objects.Note;
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.editors.EditorLua;
-import states.editors.ChartingState;
 import states.MainMenuState;
 import states.PlayState;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -41,6 +40,7 @@ using StringTools;
 
 class EditorPlaySubState extends MusicBeatSubstate {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
+	var finishTimer:FlxTimer = null;
 	private var strumLine:FlxSprite;
 	private var comboGroup:FlxTypedGroup<FlxSprite>;
 
@@ -513,23 +513,16 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
-	private function endSong() {
-		LoadingState.loadAndSwitchState(new states.editors.ChartingState());
-		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
-	}
-
 	public var noteKillOffset:Float = 350;
 	public var spawnTime:Float = 2000;
 
 	override function update(elapsed:Float) {
-		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-			FlxG.sound.music.pause();
-			vocals.pause();
-			#if android
-			androidControls.visible = false;
-			#end
-			LoadingState.loadAndSwitchState(new states.editors.ChartingState());
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+
+		if(controls.BACK || FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
+		{
+			endSong();
+			super.update(elapsed);
+			return;
 		}
 
 		if (startingSong) {
@@ -762,6 +755,9 @@ class EditorPlaySubState extends MusicBeatSubstate {
 	}
 
 	function resyncVocals():Void {
+
+		if(finishTimer != null) return;
+
 		vocals.pause();
 
 		FlxG.sound.music.play();
@@ -983,6 +979,29 @@ class EditorPlaySubState extends MusicBeatSubstate {
 
 	var COMBO_X:Float = 400;
 	var COMBO_Y:Float = 340;
+
+	public function finishSong():Void
+		{
+			if(ClientPrefs.noteOffset <= 0) {
+				endSong();
+			} else {
+				finishTimer = new FlxTimer().start(ClientPrefs.noteOffset / 1000, function(tmr:FlxTimer) {
+					endSong();
+				});
+			}
+		}
+	
+		public function endSong()
+		{
+			vocals.pause();
+			vocals.destroy();
+			if(finishTimer != null)
+			{
+				finishTimer.cancel();
+				finishTimer.destroy();
+			}
+			close();
+		}
 
 	private function popUpScore(note:Note = null):Void {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);

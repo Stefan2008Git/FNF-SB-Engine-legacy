@@ -13,6 +13,14 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
 import flixel.math.FlxPoint;
+import backend.ClientPrefs;
+import backend.Conductor;
+import backend.CustomFadeTransition;
+import backend.MusicBeatState;
+import backend.Paths;
+import objects.Alphabet;
+import objects.BGSprite;
+import objects.Character;
 
 using StringTools;
 
