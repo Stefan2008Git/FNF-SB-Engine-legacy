@@ -14,6 +14,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxColor;
+import backend.Paths;
 
 using StringTools;
 class AtlasFrameMaker extends FlxFramesCollection

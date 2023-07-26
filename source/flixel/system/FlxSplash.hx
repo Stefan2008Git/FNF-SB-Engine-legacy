@@ -13,6 +13,8 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import backend.Paths;
+import backend.ClientPrefs;
 
 class FlxSplash extends FlxState {
 	public static var nextState:Class<FlxState>;

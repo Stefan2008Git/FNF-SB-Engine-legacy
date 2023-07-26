@@ -9,7 +9,7 @@ import llua.Convert;
 #end
 import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
-import Shaders;
+import shaders.Shaders;
 import flixel.addons.effects.FlxTrail;
 import flixel.input.keyboard.FlxKey;
 import flixel.tweens.FlxTween;
@@ -45,8 +45,9 @@ import sys.io.File;
 import android.Hardware;
 #end
 import Type.ValueType;
-import Controls;
-import DialogueBoxPsych;
+import backend.Controls;
+import cutscenes.DialogueBoxPsych;
+import backend.MusicBeatSubstate;
 #if hscript
 import hscript.Parser;
 import hscript.Interp;

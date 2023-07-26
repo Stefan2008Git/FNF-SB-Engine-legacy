@@ -13,7 +13,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 // crash handler stuff
 #if CRASH_HANDLER
@@ -24,6 +24,7 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
+import states.LoadingScreenState;
 
 using StringTools;
 
@@ -80,7 +81,7 @@ class Main extends Sprite {
 
 		SUtil.doTheCheck();
 
-		ClientPrefs.loadDefaultKeys();
+		backend.ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
 			game.skipSplash, game.startFullscreen));
 
@@ -89,7 +90,7 @@ class Main extends Sprite {
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if (fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
+			fpsVar.visible = backend.ClientPrefs.showFPS;
 		}
 
 		FlxG.autoPause = false;
@@ -151,7 +152,7 @@ class Main extends Sprite {
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
+		Application.current.window.alert(errorMessage, "Error! SB Engine v" + states.MainMenuState.sbEngineVersion);
 		#if desktop
 		DiscordClient.shutdown();
 		#end

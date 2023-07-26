@@ -1,7 +1,7 @@
 package options;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 import flash.text.TextField;
 import flixel.FlxG;
@@ -26,7 +26,10 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flash.geom.Rectangle;
-import Controls;
+import backend.Controls;
+import backend.MusicBeatSubstate;
+import objects.CheckboxThingie;
+import objects.AttachedText;
 
 using StringTools;
 
@@ -35,7 +38,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var currentlySelected:Int = 0;
 	private var optionsArray:Array<Option>;
 
-	private var optionsSelect:FlxTypedGroup<Alphabet>;
+	private var optionsSelect:FlxTypedGroup<objects.Alphabet>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
