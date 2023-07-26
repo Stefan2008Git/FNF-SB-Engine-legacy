@@ -60,7 +60,6 @@ import cutscenes.DialogueBoxPsych;
 import objects.Alphabet;
 import objects.Character;
 import objects.Note;
-import
 #if hscript
 import hscript.Parser;
 import hscript.Interp;
