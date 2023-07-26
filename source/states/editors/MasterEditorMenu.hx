@@ -20,7 +20,11 @@ import sys.FileSystem;
 import backend.MusicBeatState;
 import backend.Paths;
 import backend.ClientPrefs;
+import backend.WeekData;
 import objects.Alphabet;
+import objects.Character;
+import states.MainMenuState;
+import states.FreeplayState;
 import states.LoadingState;
 
 using StringTools;

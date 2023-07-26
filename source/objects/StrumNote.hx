@@ -6,6 +6,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import shaders.ColorSwap;
 import states.PlayState;
 import backend.ClientPrefs;
+import backend.Paths;
 
 using StringTools;
 

@@ -49,17 +49,25 @@ import backend.ClientPrefs;
 import backend.Controls;
 import backend.Conductor;
 import backend.CoolUtil;
+import backend.CustomFadeTransition;
+import backend.Highscore;
+import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.Paths;
+import backend.Song;
 import backend.WeekData;
 import cutscenes.DialogueBoxPsych;
+import objects.Alphabet;
 import objects.Character;
+import objects.Note;
+import
 #if hscript
 import hscript.Parser;
 import hscript.Interp;
 import hscript.Expr;
 #end
 import states.MainMenuState;
+import states.LoadingState;
 import states.StoryModeState;
 import states.FreeplayState;
 import states.PlayState;

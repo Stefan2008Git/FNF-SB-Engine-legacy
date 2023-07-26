@@ -22,8 +22,10 @@ import sys.io.File;
 #end
 import lime.utils.Assets;
 import backend.ClientPrefs;
+import backend.CoolUtil;
 import backend.MusicBeatState;
 import backend.Paths;
+import objects.Alphabet;
 import objects.AttachedSprite;
 
 using StringTools;

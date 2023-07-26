@@ -27,6 +27,11 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import backend.Controls;
+import backend.ClientPrefs;
+import backend.Paths;
+import objects.Alphabet;
+import objects.AttachedText;
+import objects.CheckboxThingie;
 
 using StringTools;
 

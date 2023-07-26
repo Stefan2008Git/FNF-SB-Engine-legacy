@@ -47,6 +47,7 @@ import backend.Paths;
 import objects.BGSprite;
 import objects.Character;
 import objects.HealthIcon;
+import states.editors.MasterEditorMenu;
 
 using StringTools;
 
@@ -1066,7 +1067,7 @@ class CharacterEditorState extends MusicBeatState {
 					MusicBeatState.switchState(new states.PlayState());
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + states.MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				} else {
-					MusicBeatState.switchState(new editors.MasterEditorMenu());
+					MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + states.MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}

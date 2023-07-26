@@ -21,11 +21,13 @@ import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import backend.ClientPrefs;
+import backend.CoolUtil;
 import backend.MusicBeatState;
 import backend.Paths;
 import backend.WeekData;
 import objects.Alphabet;
 import states.MainMenuState;
+import shaders.ColorblindFilter;
 
 using StringTools;
 

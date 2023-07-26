@@ -1,8 +1,18 @@
+package substates;
+
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
 import flixel.addons.transition.FlxTransitionableState;
+import backend.ClientPrefs;
+import backend.CoolUtil;
+import backend.MusicBeatSubstate;
+import backend.Highscore;
+import backend.Paths;
+import backend.WeekData;
+import objects.Alphabet;
+import objects.HealthIcon;
 
 using StringTools;
 

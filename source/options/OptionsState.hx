@@ -1,8 +1,9 @@
 package options;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
+import backend.MusicBeatState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -25,7 +26,14 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import lime.app.Application;
-import Controls;
+import backend.ClientPrefs;
+import backend.Controls;
+import backend.Paths;
+import objects.Alphabet;
+import states.ClassicMainMenuState;
+import states.MainMenuState;
+import states.PlayState;
+import substates.PauseSubState;
 
 using StringTools;
 

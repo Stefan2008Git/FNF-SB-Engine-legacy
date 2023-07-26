@@ -8,9 +8,11 @@ import backend.ClientPrefs;
 import backend.CustomFadeTransition;
 import backend.Conductor;
 import backend.CoolUtil;
+import backend.Highscore;
 import backend.Paths;
 import backend.Section.SwagSection;
 import backend.Conductor.Rating;
+import backend.Song;
 import backend.Song.SwagSong;
 import backend.StageData;
 import backend.WeekData;
@@ -36,6 +38,7 @@ import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
+import substates.ResultsScreenSubState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -2766,7 +2769,7 @@ class PlayState extends MusicBeatState {
 				swagNote.gfNote = (section.gfSection && (songNotes[1] < 4));
 				swagNote.noteType = songNotes[3];
 				if (!Std.isOfType(songNotes[3], String))
-					swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
+					swagNote.noteType = states.editors.ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
 				swagNote.scrollFactor.set();
 				var susLength:Float = swagNote.sustainLength;
 
@@ -4454,7 +4457,7 @@ class PlayState extends MusicBeatState {
 		var score:Int = 350;
 
 		// tryna do MS based judgment due to popular demand
-		var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
+		var daRating:Rating = Conductor.judgeNote(ratingsData, noteDiff / playbackRate);
 
 		totalNotefreak += daRating.ratingMod;
 		note.ratingMod = daRating.ratingMod;

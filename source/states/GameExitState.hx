@@ -6,6 +6,8 @@ import backend.Discord.DiscordClient;
 #end
 import backend.MusicBeatState;
 import backend.Paths;
+import objects.Alphabet;
+import states.MainMenuState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;

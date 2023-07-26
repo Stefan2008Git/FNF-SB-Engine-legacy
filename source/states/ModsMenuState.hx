@@ -1,8 +1,15 @@
 package states;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
+import backend.ClientPrefs;
+import backend.CoolUtil;
+import backend.MusicBeatState;
+import backend.Paths;
+import backend.WeekData;
+import objects.Alphabet;
+import objects.AttachedSprite;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;

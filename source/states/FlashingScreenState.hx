@@ -3,7 +3,9 @@ package states;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
+import backend.ClientPrefs;
 import backend.MusicBeatState;
+import backend.Paths;
 import states.MainMenuState;
 import flixel.FlxG;
 import flixel.FlxSprite;

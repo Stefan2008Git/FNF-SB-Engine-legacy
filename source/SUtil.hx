@@ -15,6 +15,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import flash.system.System;
+import states.MainMenuState;
 
 /**
  * ...
@@ -117,7 +118,7 @@ class SUtil
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		SUtil.applicationAlert("Error! SB Engine v" + states.MainMenuState.sbEngineVersion, errorMessage);
+		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
 		System.exit(0);
 	}
 

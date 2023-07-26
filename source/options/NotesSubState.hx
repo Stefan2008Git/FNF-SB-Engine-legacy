@@ -25,8 +25,11 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import backend.ClientPrefs;
 import backend.Controls;
+import backend.CoolUtil;
 import backend.MusicBeatSubstate;
+import backend.Paths;
 import objects.Alphabet;
 import shaders.ColorSwap;
 

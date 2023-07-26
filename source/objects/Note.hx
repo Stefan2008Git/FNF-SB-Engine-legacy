@@ -11,6 +11,7 @@ import shaders.ColorSwap;
 import states.PlayState;
 import backend.ClientPrefs;
 import backend.Conductor;
+import backend.Paths;
 
 using StringTools;
 

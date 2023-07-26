@@ -33,7 +33,15 @@ import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
 #end
-import WeekData;
+import backend.ClientPrefs;
+import backend.Paths;
+import backend.WeekData;
+import objects.Alphabet;
+import objects.HealthIcon;
+import objects.MenuCharacter;
+import objects.MenuItem;
+
+import states.editors.MasterEditorMenu;
 import backend.MusicBeatState;
 
 using StringTools;
@@ -502,7 +510,7 @@ class WeekEditorState extends MusicBeatState {
 			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
@@ -878,7 +886,7 @@ class WeekEditorFreeplayState extends MusicBeatState {
 			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 

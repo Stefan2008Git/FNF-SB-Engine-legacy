@@ -1,4 +1,4 @@
-package editors;
+package states.editors;
 
 #if LUA_ALLOWED
 import llua.Lua;
@@ -24,12 +24,17 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import Type.ValueType;
-import Controls;
-import DialogueBoxPsych;
+import backend.ClientPrefs;
+import backend.Conductor;
+import backend.Controls;
+import cutscenes.DialogueBoxPsych;
 
 #if desktop
-import Discord;
+import backend.Discord;
 #end
+
+import states.PlayState;
+import states.editors.EditorPlaySubState;
 
 using StringTools;
 
@@ -40,6 +45,7 @@ class EditorLua {
 	#if LUA_ALLOWED
 	public var lua:State = null;
 	#end
+
 
 	public function new(script:String) {
 		#if LUA_ALLOWED
@@ -66,12 +72,12 @@ class EditorLua {
 		set('inChartEditor', true);
 
 		set('curBpm', Conductor.bpm);
-		set('bpm', states.PlayState.SONG.bpm);
-		set('scrollSpeed', states.PlayState.SONG.speed);
+		set('bpm', PlayState.SONG.bpm);
+		set('scrollSpeed', PlayState.SONG.speed);
 		set('crochet', Conductor.crochet);
 		set('stepCrochet', Conductor.stepCrochet);
 		set('songLength', FlxG.sound.music.length);
-		set('songName', states.PlayState.SONG.song);
+		set('songName', PlayState.SONG.song);
 
 		set('screenWidth', FlxG.width);
 		set('screenHeight', FlxG.height);
@@ -181,7 +187,7 @@ class EditorLua {
 		});
 
     #if desktop
-		Discord.DiscordClient.addLuaCallbacks(lua);
+		backend.Discord.DiscordClient.addLuaCallbacks(lua);
     #end
 
 		call('onCreate', []);

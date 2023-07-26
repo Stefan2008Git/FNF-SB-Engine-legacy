@@ -1,7 +1,5 @@
 package substates;
 
-import backend.MusicBeatSubstate;
-import backend.Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -21,6 +19,24 @@ import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import lime.app.Application;
 import flixel.FlxCamera;
+import objects.Alphabet;
+import objects.HealthIcon;
+import backend.ClientPrefs;
+import backend.CoolUtil;
+import backend.Controls;
+import backend.Controls.Control;
+import backend.Conductor;
+import backend.Highscore;
+import backend.MusicBeatState;
+import backend.MusicBeatSubstate;
+import backend.Paths;
+import backend.Song;
+import backend.WeekData;
+import states.MainMenuState;
+import states.FreeplayState;
+import states.PlayState;
+import states.StoryModeState;
+import states.editors.ChartingState;
 
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenufreak:FlxTypedGroup<objects.Alphabet>;
@@ -334,7 +350,7 @@ class PauseSubState extends MusicBeatSubstate {
 						FlxG.sound.music.time = pauseMusic.time;
 					}
 				case 'Chart Editor':
-					MusicBeatState.switchState(new editors.ChartingState());
+					MusicBeatState.switchState(new states.editors.ChartingState());
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 					PlayState.chartingMode = true;
 				case "Exit to menu":

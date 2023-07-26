@@ -1,7 +1,19 @@
 package states.editors;
 
-import Section.SwagSection;
+import backend.ClientPrefs;
+import backend.Conductor;
+import backend.MusicBeatSubstate;
+import backend.Paths;
+import backend.Section.SwagSection;
 import backend.Song.SwagSong;
+import objects.AttachedSprite;
+import objects.Note;
+import objects.NoteSplash;
+import objects.StrumNote;
+import states.editors.EditorLua;
+import states.editors.ChartingState;
+import states.MainMenuState;
+import states.PlayState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
@@ -24,7 +36,6 @@ import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
 import lime.app.Application;
 import FunkinLua;
-import backend.MusicBeatSubstate;
 
 using StringTools;
 
@@ -107,7 +118,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 		];
 
-		strumLine = new FlxSprite(ClientPrefs.middleScroll ? states.PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
+		strumLine = new FlxSprite(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if (ClientPrefs.downScroll)
 			strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -219,7 +230,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
 			if (sys.FileSystem.exists(luaToLoad)) {
-				var lua:editors.EditorLua = new editors.EditorLua(luaToLoad);
+				var lua:states.editors.EditorLua = new states.editors.EditorLua(luaToLoad);
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 					lua.stop();
 					lua = null;
@@ -432,7 +443,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 						swagNote.sustainLength = songNotes[2];
 						swagNote.noteType = songNotes[3];
 						if (!Std.isOfType(songNotes[3], String))
-							swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
+							swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
 						swagNote.scrollFactor.set();
 
 						var susLength:Float = swagNote.sustainLength;
@@ -503,8 +514,8 @@ class EditorPlaySubState extends MusicBeatSubstate {
 	}
 
 	private function endSong() {
-		LoadingState.loadAndSwitchState(new editors.ChartingState());
-		Application.current.window.title = "Friday Night Funkin': SB Engine v" + states.MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+		LoadingState.loadAndSwitchState(new states.editors.ChartingState());
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 	}
 
 	public var noteKillOffset:Float = 350;
@@ -517,7 +528,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 			#if android
 			androidControls.visible = false;
 			#end
-			LoadingState.loadAndSwitchState(new editors.ChartingState());
+			LoadingState.loadAndSwitchState(new states.editors.ChartingState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 		}
 
