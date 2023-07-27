@@ -69,6 +69,7 @@ import backend.Conductor;
 import backend.Paths;
 import backend.Song;
 import backend.StageData;
+import states.MainMenuState;
 import substates.Prompt;
 
 using StringTools;
@@ -1729,8 +1730,8 @@ class ChartingState extends MusicBeatState {
 		if (!blockInput) {
 			if (FlxG.keys.justPressed.ESCAPE #if android || virtualPad.buttonB.justPressed #end) {
 				autosaveSong();
-				openSubState(new states.editors.EditorPlaySubState(playbackSpeed));
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + states.MainMenuState.sbEngineVersion + " - Testing chart song: " + states.PlayState.SONG.song;
+				LoadingState.loadAndSwitchState(new states.editors.EditorPlayState(sectionStartTime()));
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + states.PlayState.SONG.song;
 			}
 			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
 				autosaveSong();

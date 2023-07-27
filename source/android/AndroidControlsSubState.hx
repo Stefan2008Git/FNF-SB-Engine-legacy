@@ -19,6 +19,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import openfl.utils.Assets;
+import backend.ClientPrefs;
 
 class AndroidControlsSubState extends FlxSubState {
 	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];

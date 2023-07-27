@@ -2,7 +2,8 @@ package states.editors;
 
 import backend.ClientPrefs;
 import backend.Conductor;
-import backend.MusicBeatSubstate;
+import backend.CoolUtil;
+import backend.MusicBeatState;
 import backend.Paths;
 import backend.Section.SwagSection;
 import backend.Song.SwagSong;
@@ -38,9 +39,8 @@ import FunkinLua;
 
 using StringTools;
 
-class EditorPlaySubState extends MusicBeatSubstate {
+class EditorPlayState extends MusicBeatState {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
-	var finishTimer:FlxTimer = null;
 	private var strumLine:FlxSprite;
 	private var comboGroup:FlxTypedGroup<FlxSprite>;
 
@@ -87,7 +87,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
-	public static var instance:EditorPlaySubState;
+	public static var instance:EditorPlayState;
 
 	private var timeBarBG:AttachedSprite;
 	public var timeBar:FlxBar;
@@ -103,7 +103,6 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		if (ClientPrefs.themes == 'Psych Engine') {
 			background.color = FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1));
 		}
-		background.alpha = 0.9;
 		add(background);
 
 		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
@@ -128,21 +127,12 @@ class EditorPlaySubState extends MusicBeatSubstate {
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(PlayState.STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'SB Engine') {
+			timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
 
-            case 'Psych Engine':
-			    timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
+			timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		timeTxt.scrollFactor.set();
@@ -155,29 +145,44 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		if (ClientPrefs.timeBarType == 'Song Name') {
 			timeTxt.text = PlayState.SONG.song;
 		}
+
 		updateTime = showTime;
 
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			timeBarBG = new AttachedSprite('sbEngineTimeBar');
-			timeBarBG.x = timeTxt.x;
-			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			timeBarBG.scrollFactor.set();
-			timeBarBG.screenCenter(X);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+			    timeBarBG = new AttachedSprite('sbEngineTimeBar');
+			    timeBarBG.x = timeTxt.x;
+			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			    timeBarBG.scrollFactor.set();
+			    timeBarBG.screenCenter(X);
+			
+			case 'Psych Engine':
+			    timeBarBG = new AttachedSprite('timeBar');
+			    timeBarBG.x = timeTxt.x;
+			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			    timeBarBG.scrollFactor.set();
+			
+			case 'Better UI':
+			    timeBarBG = new AttachedSprite('longBar');
+			    timeBarBG.x = timeTxt.x;
+			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			    timeBarBG.scrollFactor.set();
+			    timeBarBG.screenCenter(X);
+			    timeBarBG.sprTracker = timeBar;
+			
+			case 'Forever Engine':
+			    timeBarBG = new AttachedSprite('timeBar');
+			    timeBarBG.x = timeTxt.x;
+			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			    timeBarBG.scrollFactor.set();
+		
+			case 'Grafex Engine':
+			    timeBarBG = new AttachedSprite('timeBar');
+			    timeBarBG.x = timeTxt.x;
+			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
+			    timeBarBG.scrollFactor.set();
 		}
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			timeBarBG = new AttachedSprite('timeBar');
-			timeBarBG.x = timeTxt.x;
-			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			timeBarBG.scrollFactor.set();
-		}
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			timeBarBG = new AttachedSprite('longBar');
-			timeBarBG.x = timeTxt.x;
-			timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			timeBarBG.scrollFactor.set();
-			timeBarBG.screenCenter(X);
-			timeBarBG.sprTracker = timeBar;
-		}
+
 		timeBarBG.alpha = 0;
 		timeBarBG.visible = showTime && ClientPrefs.showTimeBar;
 		timeBarBG.color = FlxColor.BLACK;
@@ -188,16 +193,25 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			timeBar.createFilledBar(0xFF000000, 0xFF800080);
+
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				timeBar.createFilledBar(0xFF000000, 0xFF800080);
+			
+			case 'Psych Engine':
+				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+			
+			case 'Better UI':
+				timeBar.createFilledBar(0xFF3E3E3E, 0xFF22FF00);
+				insert(members.indexOf(timeBarBG), timeBar);
+			
+			case 'Forever Engine':
+				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+			
+			case 'Grafex Engine':
+				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-		}
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			timeBar.createFilledBar(0xFF404040, 0xFF11FF00);
-			insert(members.indexOf(timeBarBG), timeBar);
-		}
+
 		timeBar.numDivisions = 800;
 		timeBar.alpha = 0;
 		timeBar.visible = showTime && ClientPrefs.showTimeBar;
@@ -513,17 +527,23 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
+	private function endSong() {
+		LoadingState.loadAndSwitchState(new states.editors.ChartingState());
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+	}
+
 	public var noteKillOffset:Float = 350;
 	public var spawnTime:Float = 2000;
 
 	override function update(elapsed:Float) {
-
-		if(controls.BACK || FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
-		{
-			endSong();
-			super.update(elapsed);
-			return;
-		}
+		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
+			FlxG.sound.music.pause();
+			vocals.pause();
+			#if android
+			androidControls.visible = false;
+			#end
+			LoadingState.loadAndSwitchState(new states.editors.ChartingState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 
 		if (startingSong) {
 			timerToStart -= elapsed * 1000;
@@ -687,17 +707,26 @@ class EditorPlaySubState extends MusicBeatSubstate {
 		}
 
 		songLength = FlxG.sound.music.length;
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		}
-		if (ClientPrefs.gameStyle == 'Psych Engine') {
-		    FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		    FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		}
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			FlxTween.tween(timeBar, {alpha: 1}, 1);
-		    FlxTween.tween(timeTxt, {alpha: 1}, 1);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+
+			case 'Psych Engine':
+		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+
+			case 'Better UI':
+				FlxTween.tween(timeBar, {alpha: 1}, 1);
+		        FlxTween.tween(timeTxt, {alpha: 1}, 1);
+			
+			case 'Forever Engine':
+				FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+			
+			case 'Grafex Engine':
+				FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
 	   	Conductor.songPosition = FlxG.sound.music.time;
@@ -718,6 +747,7 @@ class EditorPlaySubState extends MusicBeatSubstate {
 			if (ClientPrefs.timeBarType != 'Song Name')
 				timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 		    }
+		}
 
 		keyfreak();
 		scoreTxt.text = 'Hits: ' + songHits + ' | Misses: ' + songMisses;
@@ -755,9 +785,6 @@ class EditorPlaySubState extends MusicBeatSubstate {
 	}
 
 	function resyncVocals():Void {
-
-		if(finishTimer != null) return;
-
 		vocals.pause();
 
 		FlxG.sound.music.play();
@@ -979,29 +1006,6 @@ class EditorPlaySubState extends MusicBeatSubstate {
 
 	var COMBO_X:Float = 400;
 	var COMBO_Y:Float = 340;
-
-	public function finishSong():Void
-		{
-			if(ClientPrefs.noteOffset <= 0) {
-				endSong();
-			} else {
-				finishTimer = new FlxTimer().start(ClientPrefs.noteOffset / 1000, function(tmr:FlxTimer) {
-					endSong();
-				});
-			}
-		}
-	
-		public function endSong()
-		{
-			vocals.pause();
-			vocals.destroy();
-			if(finishTimer != null)
-			{
-				finishTimer.cancel();
-				finishTimer.destroy();
-			}
-			close();
-		}
 
 	private function popUpScore(note:Note = null):Void {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
