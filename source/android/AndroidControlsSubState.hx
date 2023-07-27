@@ -40,7 +40,7 @@ class AndroidControlsSubState extends FlxSubState {
 	var bindButton:FlxButton;
 	var resetButton:FlxButton;
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 
 	override function create() {
 		if (ClientPrefs.themes == 'SB Engine') {
@@ -53,10 +53,11 @@ class AndroidControlsSubState extends FlxSubState {
 		background.scrollFactor.set();
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		add(velocityBackground);
 
 		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function() {
 			if (resetButton.visible) {
@@ -229,6 +230,7 @@ class AndroidControlsSubState extends FlxSubState {
 		super.create();
 
 		FlxTween.tween(background, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 	}
 
 	override function update(elapsed:Float) {

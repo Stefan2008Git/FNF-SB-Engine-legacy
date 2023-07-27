@@ -74,7 +74,7 @@ class EditorPlayState extends MusicBeatState {
 	var sectionTxt:FlxText;
 	var tipText:FlxText;
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
@@ -105,10 +105,12 @@ class EditorPlayState extends MusicBeatState {
 		}
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		keysArray = [
 			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),

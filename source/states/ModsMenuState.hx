@@ -22,6 +22,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.app.Application;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
@@ -48,7 +49,7 @@ class ModsMenuState extends MusicBeatState {
 	static var changedAThing = false;
 
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
@@ -92,10 +93,12 @@ class ModsMenuState extends MusicBeatState {
 		background.screenCenter();
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
 		if (FlxG.random.bool(0.1))

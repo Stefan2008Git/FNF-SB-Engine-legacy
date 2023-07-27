@@ -143,6 +143,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate {
 		checker.velocity.set(150, 80);
 		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
+		checker.alpha = 0;
+		FlxTween.tween(checker, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(checker);
 
 		// avoids lagspikes while scrolling through menus!

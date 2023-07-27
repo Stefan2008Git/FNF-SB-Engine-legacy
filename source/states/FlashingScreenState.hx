@@ -25,7 +25,7 @@ class FlashingScreenState extends MusicBeatState {
 	public static var leftState:Bool = false;
 
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 	var warningText:FlxText;
 
 	override function create() {
@@ -47,10 +47,10 @@ class FlashingScreenState extends MusicBeatState {
 		background.color = 0xFF353535;
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		add(velocityBackground);
 
 		#if android
 		warningText = new FlxText(0, 0, FlxG.width,
@@ -105,7 +105,7 @@ class FlashingScreenState extends MusicBeatState {
 					FlxTween.tween(warningText, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText.scale, {x: 1.5, y: 1.5}, .5,
 						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleScreenState()))});
-					FlxTween.tween(velocityBG, {alpha: 0}, 0.25, {startDelay: 0.25});
+					FlxTween.tween(velocityBackground, {alpha: 0}, 0.25, {startDelay: 0.25});
 				} else {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					#if android
@@ -115,7 +115,7 @@ class FlashingScreenState extends MusicBeatState {
 					FlxTween.tween(warningText, {alpha: 0}, 0.25, {startDelay: 0.25});
 					FlxTween.tween(warningText.scale, {x: 0, y: 0}, .5,
 						{ease: FlxEase.quadIn, onComplete: (_) -> new FlxTimer().start(0.5, (t) -> MusicBeatState.switchState(new TitleScreenState()))});
-					FlxTween.tween(velocityBG, {alpha: 0}, 0.25, {startDelay: 0.25});
+					FlxTween.tween(velocityBackground, {alpha: 0}, 0.25, {startDelay: 0.25});
 				}
 			}
 		}

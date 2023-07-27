@@ -47,7 +47,7 @@ class NotesSubState extends MusicBeatSubstate
 	var nextAccept:Int = 5;
 
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 	var blackBG:FlxSprite;
 	var hsbText:Alphabet;
 	var resetText:FlxText;
@@ -71,10 +71,12 @@ class NotesSubState extends MusicBeatSubstate
 		blackBG.alpha = 0.4;
 		add(blackBG);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		grpNotes = new FlxTypedGroup<FlxSprite>();
 		add(grpNotes);

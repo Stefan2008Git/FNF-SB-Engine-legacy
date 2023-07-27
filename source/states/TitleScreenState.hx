@@ -226,6 +226,8 @@ class TitleScreenState extends MusicBeatState {
 			checker.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 			checker.visible = ClientPrefs.velocityBackground;
 			checker.antialiasing = ClientPrefs.globalAntialiasing;
+			checker.alpha = 0;
+			FlxTween.tween(checker, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 			add(checker);
 		}
 		add(background);

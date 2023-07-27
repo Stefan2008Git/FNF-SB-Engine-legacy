@@ -87,6 +87,8 @@ class GameExitState extends MusicBeatState {
 		checker.velocity.set(150, 80);
 		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
+		checker.alpha = 0;
+		FlxTween.tween(checker, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(checker);
 
 		menuText = new Alphabet(0, 0, "Quit the game?", true);

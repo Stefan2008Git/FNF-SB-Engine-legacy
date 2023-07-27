@@ -48,7 +48,7 @@ class MainMenuState extends MusicBeatState {
 
 	var menuBackground:FlxSprite;
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 	var buttonBackground:FlxSprite;
 	var sbEngineLogo:FlxSprite;
 	var versionSb:FlxText;
@@ -119,10 +119,12 @@ class MainMenuState extends MusicBeatState {
 		}
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;			  
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		buttonBackground = new FlxSprite(-120).loadGraphic(Paths.image('buttonBackground'));
 		buttonBackground.setGraphicSize(Std.int(background.width * 1.175));

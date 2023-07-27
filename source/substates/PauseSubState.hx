@@ -138,6 +138,8 @@ class PauseSubState extends MusicBeatSubstate {
 		checker.velocity.set(150, 80);
 		checker.visible = ClientPrefs.velocityBackground;
 		checker.antialiasing = ClientPrefs.globalAntialiasing;
+		checker.alpha = 0;
+		FlxTween.tween(checker, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(checker);
 
 		songNameText = new FlxText(20, 15, 0, "", 32);

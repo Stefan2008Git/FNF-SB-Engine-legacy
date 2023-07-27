@@ -49,7 +49,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var descText:FlxText;
 
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 
 	public var title:String;
 	public var rpcTitle:String;
@@ -77,10 +77,12 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		// avoids lagspikes while scrolling through menus!
 		optionsSelect = new FlxTypedGroup<Alphabet>();

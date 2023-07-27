@@ -54,7 +54,7 @@ class ControlsSubState extends MusicBeatSubstate {
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
 	var background:FlxSprite;
-	var velocityBG:FlxBackdrop;
+	var velocityBackground:FlxBackdrop;
 
 	public function new() {
 		super();
@@ -70,10 +70,12 @@ class ControlsSubState extends MusicBeatSubstate {
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		add(background);
 
-		velocityBG = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
-		velocityBG.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBG.visible = ClientPrefs.velocityBackground;
-		add(velocityBG);
+		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
+		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.alpha = 0;
+		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(velocityBackground);
 
 		optionsSelect = new FlxTypedGroup<Alphabet>();
 		add(optionsSelect);
@@ -111,7 +113,7 @@ class ControlsSubState extends MusicBeatSubstate {
 		changeSelection();
 
 		#if android
-		addVirtualPad(LEFT_FULL, B);
+		addVirtualPad(LEFT_FULL, A_B);
 		addPadCamera();
 		#end
 	}
