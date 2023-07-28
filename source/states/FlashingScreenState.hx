@@ -27,6 +27,7 @@ class FlashingScreenState extends MusicBeatState {
 	var background:FlxSprite;
 	var velocityBackground:FlxBackdrop;
 	var warningText:FlxText;
+	var warningTextTween:FlxTween;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -80,11 +81,17 @@ class FlashingScreenState extends MusicBeatState {
 		warningText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		warningText.borderSize = 2.4;
 		warningText.screenCenter(Y);
+		warningText.alpha = 0;
+		warningText.scale.x = 0;
+		warningText.scale.y = 0;
 		add(warningText);
 
 		#if android
 		addVirtualPad(NONE, A_B);
 		#end
+
+		FlxTween.tween(warningText, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
+		warningTextTween = FlxTween.tween(warningText.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
 	}
 
 	override function update(elapsed:Float) {

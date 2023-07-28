@@ -18,6 +18,7 @@ class DVDScreenState extends MusicBeatState {
 
 	// I have no clue why it exist - PurSnake
 
+    var background:FlxSprite;
     var dvdIcon:FlxSprite;
 
     var colors = [
@@ -39,6 +40,13 @@ class DVDScreenState extends MusicBeatState {
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Founded a secret.", null);
 		#end
+
+        background = new FlxSprite().loadGraphic(Paths.image('menuArrows'));
+		background.scrollFactor.set();
+		background.updateHitbox();
+		background.screenCenter();
+		background.antialiasing = ClientPrefs.globalAntialiasing;
+		add(background);
 
         dvdIcon = new FlxSprite(0, 0);
         dvdIcon.loadGraphic(Paths.image('dvdIcon'));
