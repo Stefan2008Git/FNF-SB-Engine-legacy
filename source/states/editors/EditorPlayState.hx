@@ -459,7 +459,7 @@ class EditorPlayState extends MusicBeatState {
 						swagNote.sustainLength = songNotes[2];
 						swagNote.noteType = songNotes[3];
 						if (!Std.isOfType(songNotes[3], String))
-							swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
+							swagNote.noteType = states.editors.ChartingState.noteTypeList[songNotes[3]]; // Backward compatibility + compatibility with Week 7 charts
 						swagNote.scrollFactor.set();
 
 						var susLength:Float = swagNote.sustainLength;
@@ -546,6 +546,7 @@ class EditorPlayState extends MusicBeatState {
 			#end
 			LoadingState.loadAndSwitchState(new states.editors.ChartingState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+		}
 
 		if (startingSong) {
 			timerToStart -= elapsed * 1000;
@@ -749,7 +750,6 @@ class EditorPlayState extends MusicBeatState {
 			if (ClientPrefs.timeBarType != 'Song Name')
 				timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 		    }
-		}
 
 		keyfreak();
 		scoreTxt.text = 'Hits: ' + songHits + ' | Misses: ' + songMisses;
