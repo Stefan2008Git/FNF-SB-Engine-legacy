@@ -29,8 +29,8 @@ typedef SwagSong =
 	var arrowSkin:String;
 	var splashSkin:String;
 	var validScore:Bool;
-	var characterTrails:Bool;
-	var bfTrails:Bool;
+	var opponentTrail:Bool;
+	var boyfriendTrail:Bool;
 }
 
 class Song
@@ -44,8 +44,8 @@ class Song
 	public var splashSkin:String;
 	public var speed:Float = 1;
 	public var stage:String;
-	public var characterTrails:Bool = false;
-	public var bfTrails:Bool = false;
+	public var opponentTrail:Bool = false;
+	public var boyfriendTrail:Bool = false;
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';

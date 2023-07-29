@@ -303,8 +303,8 @@ class PlayState extends MusicBeatState {
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
 
-	var trailunderdad:FlxTrail;
-	var trailunderbf:FlxTrail;
+	var opponentFlxTrail:FlxTrail;
+	var boyfriendFlxTrail:FlxTrail;
 
 	var upperBoppers:BGSprite;
 	var bottomBoppers:BGSprite;
@@ -1130,14 +1130,16 @@ class PlayState extends MusicBeatState {
 				gf.visible = false;
 		}
 
-		if (SONG.characterTrails) {
-			trailunderdad = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
-			insert(members.indexOf(dadGroup) - 1, trailunderdad);
+		if (SONG.opponentTrail) {
+			opponentFlxTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
+			insert(members.indexOf(dadGroup) - 1, opponentFlxTrail);
+			addBehindDad(opponentFlxTrail);
 		}
 
-		if (SONG.bfTrails) {
-			trailunderbf = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
-			insert(members.indexOf(boyfriendGroup) - 1, trailunderbf);
+		if (SONG.boyfriendTrail) {
+			boyfriendFlxTrail = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
+			insert(members.indexOf(boyfriendGroup) - 1, boyfriendFlxTrail);
+			addBehindBF(boyfriendFlxTrail);
 		}
 
 		switch (currentlyStage) {

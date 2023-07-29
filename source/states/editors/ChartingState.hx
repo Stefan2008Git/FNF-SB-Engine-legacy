@@ -251,8 +251,8 @@ class ChartingState extends MusicBeatState {
 				song: 'Test',
 				notes: [],
 				events: [],
-				characterTrails: false,
-				bfTrails: false,
+				opponentTrail: false,
+				boyfriendTrail: false,
 				bpm: 150.0,
 				needsVoices: true,
 				arrowSkin: '',
@@ -545,17 +545,17 @@ class ChartingState extends MusicBeatState {
 		});
 
 		var check_Trails = new FlxUICheckBox(170, 310, null, null, "Opponent Trail", 100);
-		check_Trails.checked = _song.characterTrails;
+		check_Trails.checked = _song.opponentTrail;
 		check_Trails.callback = function()
 		{
-			_song.characterTrails = check_Trails.checked;
+			_song.opponentTrail = check_Trails.checked;
 		};
 
-		var check_bfTrails = new FlxUICheckBox(170, check_Trails.y + 30, null, null, "Boyfriend Trail", 100);
-		check_bfTrails.checked = _song.bfTrails;
-		check_bfTrails.callback = function()
+		var check_boyfriendTrail = new FlxUICheckBox(170, check_Trails.y + 30, null, null, "Boyfriend Trail", 100);
+		check_boyfriendTrail.checked = _song.boyfriendTrail;
+		check_boyfriendTrail.callback = function()
 		{
-			_song.bfTrails = check_bfTrails.checked;
+			_song.boyfriendTrail = check_boyfriendTrail.checked;
 		};
 
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function() {
@@ -741,7 +741,7 @@ class ChartingState extends MusicBeatState {
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
 		tab_group_song.add(check_Trails);
-		tab_group_song.add(check_bfTrails);
+		tab_group_song.add(check_boyfriendTrail);
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(loadEventJson);
 		tab_group_song.add(stepperBPM);
