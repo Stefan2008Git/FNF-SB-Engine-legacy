@@ -33,6 +33,8 @@ class FlashingScreenState extends MusicBeatState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		FlxG.sound.playMusic(Paths.music('warningScreenMusic'), 0.5);
+
 		super.create();
 
 		#if desktop
