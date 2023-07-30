@@ -132,6 +132,7 @@ class OptionsState extends MusicBeatState {
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
+		#if android
 		androidControlsStyleTipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your opacity for hitbox, virtual pads and hitbox style!', 16);
 		customizeAndroidControlsTipText = new FlxText(10, FlxG.height - 24, 0, 'Press X to customize your android controls!', 16);
 		switch (ClientPrefs.gameStyle) {
