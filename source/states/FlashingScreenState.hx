@@ -58,23 +58,24 @@ class FlashingScreenState extends MusicBeatState {
 		#if android
 		warningText = new FlxText(0, 0, FlxG.width,
 			"WARNING:\nBe careful when you touch the phone fast! \nYou can break your phone screen if you do that, also\nFNF': SB Engine contains lua shaders and flashing lights.\n\n"
-			+ "FNF': SB Engine is a modified Psych Engine with some changes and addition and wasn't meant to be an attack on ShadowMario"
-			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will."
+			+ "FNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario"
+			+ " and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be."
 			+
-			" It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
+			" It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
 			+
-			"Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version it's: "
+			"Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: "
 			+ MainMenuState.sbEngineVersion
 			+ "",
 			32);
 		#else
 		warningText = new FlxText(0, 0, FlxG.width,
-			"WARNING:\nFNF': SB Engine contains lua shaders and flashing lights.\n\n"
-			+ "FNF': SB Engine is a modified Psych Engine with some changes and addition and wasn't meant to be an attack on ShadowMario"
-			+ " and/or any other modmakers out there. I was not aiming for replacing what Friday Night Funkin'; Psych Engine was, is and will."
+		"WARNING:\nFNF': SB Engine contains lua shaders and flashing lights.\n\n"
+			+ "FNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario"
+			+ " and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be."
 			+
-			" It was made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
+			" It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\n"
 			+
+
 			"Now with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version it's: "
 			+ MainMenuState.sbEngineVersion
 			+ "",
