@@ -86,6 +86,7 @@ class CharacterEditorState extends MusicBeatState {
 
 	var cameraFollowPointer:FlxSprite;
 	var healthBarBG:FlxSprite;
+	var healthBarOverlay:FlxSprite;
 
 	override function create() {
 		// FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
