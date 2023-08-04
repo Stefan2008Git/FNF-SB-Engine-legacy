@@ -25,6 +25,7 @@ import sys.io.File;
 import sys.io.Process;
 #end
 import states.LoadingScreenState;
+import states.LoadingScreenAndroidState;
 import states.MainMenuState;
 
 using StringTools;
