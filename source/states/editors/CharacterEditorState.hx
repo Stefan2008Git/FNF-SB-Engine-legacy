@@ -126,6 +126,27 @@ class CharacterEditorState extends MusicBeatState {
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
 
+		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
+		    healthBarOverlay = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('healthBarOverlay'));
+		}
+
+		if (ClientPrefs.gameStyle == 'Better UI') {
+		    healthBarOverlay = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('healthBarOverlayDaveAndBambi'));
+			healthBarBG.visible = false;
+		}
+
+		healthBarOverlay.y = FlxG.height * 0.89;
+		healthBarOverlay.scrollFactor.set();
+		healthBarOverlay.visible = !ClientPrefs.hideHud;
+        healthBarOverlay.color = FlxColor.BLACK;
+		healthBarOverlay.blend = MULTIPLY;
+		healthBarOverlay.x = healthBarBG.x-1.9;
+	    healthBarOverlay.alpha = ClientPrefs.healthBarAlpha;
+		healthBarOverlay.antialiasing = ClientPrefs.globalAntialiasing;
+		add(healthBarOverlay);
+		healthBarOverlay.cameras = [camHUD];
+
+
 		leHealthIcon = new HealthIcon(char.healthIcon, false);
 		leHealthIcon.y = FlxG.height - 150;
 		add(leHealthIcon);
@@ -144,12 +165,6 @@ class CharacterEditorState extends MusicBeatState {
 			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
 			case 'Better UI':
-			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
 			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 

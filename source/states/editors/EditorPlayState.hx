@@ -133,7 +133,7 @@ class EditorPlayState extends MusicBeatState {
 			timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI' || ClientPrefs.gameStyle == 'Forever Engine' || ClientPrefs.gameStyle == 'Grafex Engine') {
+		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
 			timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -171,18 +171,6 @@ class EditorPlayState extends MusicBeatState {
 			    timeBarBG.scrollFactor.set();
 			    timeBarBG.screenCenter(X);
 			    timeBarBG.sprTracker = timeBar;
-			
-			case 'Forever Engine':
-			    timeBarBG = new AttachedSprite('timeBar');
-			    timeBarBG.x = timeTxt.x;
-			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			    timeBarBG.scrollFactor.set();
-		
-			case 'Grafex Engine':
-			    timeBarBG = new AttachedSprite('timeBar');
-			    timeBarBG.x = timeTxt.x;
-			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			    timeBarBG.scrollFactor.set();
 		}
 
 		timeBarBG.alpha = 0;
@@ -206,12 +194,6 @@ class EditorPlayState extends MusicBeatState {
 			case 'Better UI':
 				timeBar.createFilledBar(0xFF3E3E3E, 0xFF22FF00);
 				insert(members.indexOf(timeBarBG), timeBar);
-			
-			case 'Forever Engine':
-				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-			
-			case 'Grafex Engine':
-				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
 
 		timeBar.numDivisions = 800;
@@ -267,12 +249,6 @@ class EditorPlayState extends MusicBeatState {
 
 			case 'Better UI':
 			    scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		scoreTxt.scrollFactor.set();
@@ -290,12 +266,6 @@ class EditorPlayState extends MusicBeatState {
 
 			case 'Better UI':
 			    sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		sectionTxt.scrollFactor.set();
@@ -312,12 +282,6 @@ class EditorPlayState extends MusicBeatState {
 
 			case 'Better UI':
 			    beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		beatTxt.scrollFactor.set();
@@ -333,12 +297,6 @@ class EditorPlayState extends MusicBeatState {
 			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 			case 'Better UI':
-			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
 			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -359,12 +317,6 @@ class EditorPlayState extends MusicBeatState {
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 			case 'Better UI':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -722,14 +674,6 @@ class EditorPlayState extends MusicBeatState {
 			case 'Better UI':
 				FlxTween.tween(timeBar, {alpha: 1}, 1);
 		        FlxTween.tween(timeTxt, {alpha: 1}, 1);
-			
-			case 'Forever Engine':
-				FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-			
-			case 'Grafex Engine':
-				FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
 	   	Conductor.songPosition = FlxG.sound.music.time;

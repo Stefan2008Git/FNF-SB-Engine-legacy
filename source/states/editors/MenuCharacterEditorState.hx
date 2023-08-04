@@ -86,12 +86,6 @@ class MenuCharacterEditorState extends MusicBeatState {
 
 			case 'Better UI':
 			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-			
-			case 'Forever Engine':
-			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-			
-			case 'Grafex Engine':
-			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		}
 
 		txtOffsets.alpha = 0.7;
@@ -112,12 +106,6 @@ class MenuCharacterEditorState extends MusicBeatState {
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
 
 			case 'Better UI':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
-			
-			case 'Forever Engine':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
-			
-			case 'Grafex Engine':
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
 		}
 

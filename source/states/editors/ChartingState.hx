@@ -2681,12 +2681,6 @@ class ChartingState extends MusicBeatState {
 					
 					case 'Better UI':
 						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-					
-					case 'Forever Engine':
-						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-					
-					case 'Grafex Engine':
-						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 				}
 
 				daText.xAdd = -410;

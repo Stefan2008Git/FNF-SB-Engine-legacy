@@ -82,12 +82,6 @@ class WeekEditorState extends MusicBeatState {
 
 			case 'Better UI':
 			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-			
-			case 'Forever Engine':
-			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-			
-			case 'Grafex Engine':
-			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 		}
 
 		txtWeekTitle.alpha = 0.7;
@@ -124,12 +118,6 @@ class WeekEditorState extends MusicBeatState {
 
 			case 'Better UI':
 			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Forever Engine':
-			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		missingFileText.borderSize = 2;
@@ -161,12 +149,6 @@ class WeekEditorState extends MusicBeatState {
 			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
 
 			case 'Better UI':
-			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
-			
-			case 'Forever Engine':
-			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
-			
-			case 'Grafex Engine':
 			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
 		}
 

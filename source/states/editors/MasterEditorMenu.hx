@@ -113,12 +113,6 @@ class MasterEditorMenu extends MusicBeatState {
 
 			case 'Better UI':
 			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-			
-			case 'Forever Engine':
-			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-			
-			case 'Grafex Engine':
-			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		}
 
 		directoryTxt.scrollFactor.set();

@@ -154,20 +154,6 @@ class ClassicMainMenuState extends MusicBeatState {
 			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-		    case 'Forever Engine':
-			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		
-			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			 case 'Grafex Engine':
-			    secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		
-			    sbEngineVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		secretText.scrollFactor.set();
@@ -190,7 +176,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		tipText = new FlxText(0, 0, 0, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 

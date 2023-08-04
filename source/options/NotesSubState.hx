@@ -97,12 +97,6 @@ class NotesSubState extends MusicBeatSubstate
 
 			case 'Better UI':
 			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-			
-			case 'Forever Engine':
-			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-			
-			case 'Grafex Engine':
-			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 		}
 		add(resetText);
 

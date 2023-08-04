@@ -73,13 +73,13 @@ class StoryModeState extends MusicBeatState {
 
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': scoreText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI': scoreText.setFormat("VCR OSD Mono", 32);
 			default: /*a.k.a "SB Engine"*/ scoreText.setFormat("Bahnschrift", 32);
 		}
 		
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			case 'Psych Engine' | 'Better UI': txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 			default: /*"SB Engine"*/ txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 		}
 
@@ -88,7 +88,7 @@ class StoryModeState extends MusicBeatState {
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI' | 'Forever Engine' | 'Grafex Engine': rankText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine' | 'Better UI': rankText.setFormat("VCR OSD Mono", 32);
 			default: rankText.setFormat("Bahnschrift", 32);
 		}
 

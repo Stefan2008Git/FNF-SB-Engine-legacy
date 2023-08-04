@@ -114,12 +114,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		    case 'Better UI':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-		    case 'Forever Engine':
-			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Grafex Engine':
-			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
