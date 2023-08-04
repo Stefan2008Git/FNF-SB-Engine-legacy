@@ -24,8 +24,12 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
-import states.LoadingScreenState;
+
+#if android
 import states.LoadingScreenAndroidState;
+#else
+import states.LoadingScreenState;
+#end
 import states.MainMenuState;
 
 using StringTools;

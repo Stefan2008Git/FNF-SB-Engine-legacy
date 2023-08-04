@@ -53,10 +53,10 @@ class LoadingScreenAndroidState extends FlxState {
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
-  public static var bitmapData:Map<String,FlxGraphic>;
+    public static var bitmapData:Map<String,FlxGraphic>;
 	public static var bitmapData2:Map<String,FlxGraphic>;
   
-  var images = [];
+    var images = [];
 	var music = [];
 	var sounds = [];
   
@@ -72,8 +72,6 @@ class LoadingScreenAndroidState extends FlxState {
 		#end
 
 		super.create();
-
-		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 
 		checker = new FlxBackdrop(Paths.image('checker'), XY);
 		checker.scrollFactor.set(0.2, 0.2);
