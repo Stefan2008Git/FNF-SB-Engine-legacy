@@ -33,6 +33,10 @@ import sys.io.File;
 import backend.ClientPrefs;
 import backend.CoolUtil;
 import backend.Paths;
+#if (MODS_ALLOWED)
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 using StringTools;
 
@@ -48,12 +52,24 @@ class LoadingScreenState extends FlxState {
 	var isTweening:Bool = false;
 	var lastString:String = '';
 
+	public static var bitmapData:Map<String,FlxGraphic>;
+	public static var bitmapData2:Map<String,FlxGraphic>;
+
+	var images = [];
+	var music = [];
+	var sounds = [];
+
 	override function create() {
 		FlxG.worldBounds.set(0, 0);
 
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Starting game...", null);
+		#end
+
+		#if !android
+		bitmapData = new Map<String,FlxGraphic>();
+		bitmapData2 = new Map<String,FlxGraphic>();
 		#end
 
 		super.create();
@@ -115,8 +131,64 @@ class LoadingScreenState extends FlxState {
 		FlxG.mouse.visible = false;
 		#end
 
-		new FlxTimer().start(10, function(tmr:FlxTimer) {
-			goToTitleScreenState();
+		#if cpp
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters/")))
+		{
+			if (!i.endsWith(".png"))
+				continue;
+			images.push(i);
+		}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/images/")))
+			{
+				if (!i.endsWith(".png"))
+					continue;
+				images.push(i);
+			}
+		#if MODS_ALLOWED
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("mods/images/characters")))
+			{
+				if (!i.endsWith(".png"))
+					continue;
+				images.push(i);
+			}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("mods/images/")))
+			{
+				if (!i.endsWith(".png"))
+					continue;
+				images.push(i);
+			}
+		#end
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/songs/")))
+		{
+			music.push(i);
+		}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/music/")))
+			{
+				music.push(i);
+			}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/sounds/")))
+			{
+				music.push(i);
+			}
+		#if MODS_ALLOWED
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("mods/songs/")))
+		{
+			music.push(i);
+		}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("mods/music/")))
+			{
+				music.push(i);
+			}
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("mods/sounds/")))
+			{
+				music.push(i);
+			}
+
+		#end
+		#end
+
+		sys.thread.Thread.create(() -> {
+			cache();
 		});
 
 		super.create();
@@ -142,7 +214,42 @@ class LoadingScreenState extends FlxState {
 		super.update(elapsed);
 	}
 
-	function goToTitleScreenState() {
+	function cache() {
+
+	#if (!linux)
+
+		for (i in images)
+		{
+			var replaced = i.replace(".png","");
+			var data:BitmapData = BitmapData.fromFile("assets/shared/images/characters" + i);
+			#if MODS_ALLOWED
+			var data:BitmapData = BitmapData.fromFile("mods/images/characters" + i);
+			#end
+			var graph = FlxGraphic.fromBitmapData(data);
+			graph.persist = true;
+			graph.destroyOnNoUse = false;
+			bitmapData.set(replaced,graph);
+			trace(i);
+		}
+        for (i in images)
+			{
+				var replaced = i.replace(".png","");
+				var data:BitmapData = BitmapData.fromFile("assets/shared/images/" + i);
+				#if MODS_ALLOWED
+				var data:BitmapData = BitmapData.fromFile("mods/images/" + i);
+				#end
+				var graph = FlxGraphic.fromBitmapData(data);
+				graph.persist = true;
+				graph.destroyOnNoUse = false;
+				bitmapData.set(replaced,graph);
+				
+				trace(i);
+			}
+		for (i in music)
+		{
+			trace(i);
+		}
+		#end
     FlxG.camera.fade(FlxColor.BLACK, 0.33, false, function() {
 		FlxG.switchState(new TitleScreenState());
 	    });
