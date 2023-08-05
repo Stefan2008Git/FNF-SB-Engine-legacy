@@ -31,18 +31,17 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		var height:Int = Std.int(FlxG.height / zoom);
 		transGradient = FlxGradient.createGradientFlxSprite(width, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
 		transGradient.scrollFactor.set();
+		transGradient.x -= (width - FlxG.width) / 2;
 		add(transGradient);
 
 		transBlack = new FlxSprite().makeGraphic(width, height + 400, FlxColor.BLACK);
 		transBlack.scrollFactor.set();
-		add(transBlack);
-
-		transGradient.x -= (width - FlxG.width) / 2;
 		transBlack.x = transGradient.x;
+		add(transBlack);
 
 		if(isTransIn) {
 			transGradient.y = transBlack.y - transBlack.height;
-			FlxTween.tween(transGradient, {y: transGradient.height + 50}, 0.8, {
+			FlxTween.tween(transGradient, {y: transGradient.height + 50}, duration, {
 				onComplete: function(twn:FlxTween) {
 					close();
 				},
@@ -50,13 +49,13 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		} else {
 			transGradient.y = -transGradient.height;
 			transBlack.y = transGradient.y - transBlack.height + 50;
-			leTween = FlxTween.tween(transGradient, {y: transGradient.height + 50}, 0.5, {
+			leTween = FlxTween.tween(transGradient, {y: transGradient.height + 50}, duration, {
 				onComplete: function(twn:FlxTween) {
 					if(finishCallback != null) {
 						finishCallback();
 					}
 				},
-			ease: FlxEase.quartInOut});
+			ease: FlxEase.linear});
 		}
 
 		if(nextCamera != null) {
