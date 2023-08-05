@@ -38,7 +38,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Left';
 	public static var showTimeBar:Bool = true;
-    public static var cpuController:Bool = true;
+    public static var cpuController:Bool = false;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
