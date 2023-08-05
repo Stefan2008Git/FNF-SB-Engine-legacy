@@ -9,6 +9,7 @@ import backend.CustomFadeTransition;
 import backend.Conductor;
 import backend.CoolUtil;
 import backend.Highscore;
+import backend.MusicBeatState;
 import backend.Paths;
 import backend.Section.SwagSection;
 import backend.Conductor.Rating;
@@ -112,7 +113,6 @@ import VideoHandler as MP4Handler;
 import vlc.MP4Handler;
 #end
 #end
-import backend.MusicBeatState;
 
 
 using StringTools;
@@ -4325,7 +4325,7 @@ class PlayState extends MusicBeatState {
 			spawnNoteSplashOnNote(note);
 		}
 
-		if (!practiceMode && !cpuControlled) {
+		if (!practiceMode && !cpuControlled && !ClientPrefs.cpuController) {
 			songScore += score;
 			if (!note.ratingDisabled) {
 				songHits++;
@@ -4342,17 +4342,19 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
-		rating.cameras = [camHUD];
-		rating.screenCenter();
-		rating.x = coolText.x - 40;
-		rating.y -= 60;
-		rating.acceleration.y = 550 * playbackRate * playbackRate;
-		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
-		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
-		rating.visible = (!ClientPrefs.hideHud && showRating);
-		rating.x += ClientPrefs.comboOffset[0];
-		rating.y -= ClientPrefs.comboOffset[1];
+		if (!cpuControlled) {
+		    rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
+		    rating.cameras = [camHUD];
+		    rating.screenCenter();
+		    rating.x = coolText.x - 40;
+		    rating.y -= 60;
+		    rating.acceleration.y = 550 * playbackRate * playbackRate;
+		    rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
+		    rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
+		    rating.visible = (!ClientPrefs.hideHud && showRating);
+		    rating.x += ClientPrefs.comboOffset[0];
+		    rating.y -= ClientPrefs.comboOffset[1];
+		}
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'combo' + pixelfreakPart2));
 		comboSpr.cameras = [camHUD];
@@ -4850,7 +4852,7 @@ class PlayState extends MusicBeatState {
 				return;
 			}
 
-			if (!note.isSustainNote) {
+			if (!note.isSustainNote && cpuControlled && !ClientPrefs.cpuController) {
 				combo += 1;
 				if (combo > 9999)
 					combo = 9999;
@@ -4887,11 +4889,13 @@ class PlayState extends MusicBeatState {
 			}
 
 			if (cpuControlled) {
-				var time:Float = 0.15;
-				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-					time += 0.15;
-				}
+				if (ClientPrefs.cpuController) {
+				    var time:Float = 0.15;
+				    if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+					    time += 0.15;
+				    }
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
+				}
 			} else {
 				var spr = playerStrums.members[note.noteData];
 				if (spr != null) {
