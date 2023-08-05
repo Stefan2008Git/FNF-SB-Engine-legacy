@@ -4889,13 +4889,11 @@ class PlayState extends MusicBeatState {
 			}
 
 			if (cpuControlled) {
-				if (ClientPrefs.cpuController) {
-				    var time:Float = 0.15;
-				    if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-					    time += 0.15;
-				    }
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
+				var time:Float = 0.15;
+				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+					time += 0.15;
 				}
+				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 			} else {
 				var spr = playerStrums.members[note.noteData];
 				if (spr != null) {
@@ -5395,12 +5393,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
-		var spr:StrumNote = null;
-		if (isDad) {
-			spr = strumLineNotes.members[id];
-		} else {
-			spr = playerStrums.members[id];
-		}
+		var spr:StrumNote = isDad ? strumLineNotes.members[id] : playerStrums.members[id];
 
 		if (spr != null) {
 			spr.playAnim('confirm', true);
