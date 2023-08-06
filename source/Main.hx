@@ -25,12 +25,8 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-#if android
-import states.LoadingScreenAndroidState;
-#else
-import states.LoadingScreenState;
-#end
 import states.MainMenuState;
+import states.TitleScreenState;
 
 using StringTools;
 
@@ -38,7 +34,7 @@ class Main extends Sprite {
 	var game = {
 		width: 1280,
 		height: 720,
-		initialState: #if android LoadingScreenAndroidState, #else LoadingScreenState, #end
+		initialState: TitleScreenState,
 		zoom: -1.0,
 		framerate: 60,
 		skipSplash: false,
