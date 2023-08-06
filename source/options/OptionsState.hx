@@ -3,7 +3,6 @@ package options;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
-import backend.MusicBeatState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -28,6 +27,7 @@ import flixel.graphics.FlxGraphic;
 import lime.app.Application;
 import backend.ClientPrefs;
 import backend.Controls;
+import backend.MusicBeatState;
 import backend.Paths;
 import objects.Alphabet;
 import states.ClassicMainMenuState;
@@ -86,6 +86,9 @@ class OptionsState extends MusicBeatState {
 	var selectorRight:Alphabet;
 	var background:FlxSprite;
 	var velocityBackground:FlxBackdrop;
+	var tipBackground:FlxSprite;
+	var tipText:FlxText;
+	var tipTextMargin:Float = 10;
 	var androidControlsStyleTipText:FlxText;
 	var customizeAndroidControlsTipText:FlxText;
 
@@ -131,6 +134,22 @@ class OptionsState extends MusicBeatState {
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
+
+		tipBackground = new FlxSprite();
+		tipBackground.scrollFactor.set();
+		tipBackground.alpha = 0.7;
+		add(tipBackground);
+
+		tipText = new FlxText(500, 0, 0, "");
+		tipText.scrollFactor.set();
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
+		}
+		tipText.updateHitbox();
+		add(tipText);
+
+		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
 
 		#if android
 		androidControlsStyleTipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your opacity for hitbox, virtual pads and hitbox style!', 16);
@@ -226,6 +245,15 @@ class OptionsState extends MusicBeatState {
 			currentlySelected = options.length - 1;
 		if (currentlySelected >= options.length)
 			currentlySelected = 0;
+
+		switch (options[currentlySelected]) {
+			case 'Note Colors': tipText.text = "Change your note colors.";
+			case 'Controls': tipText.text = "Change your keybinds on your keyboard.";
+			case 'Graphics': tipText.text = "Change graphics settings";
+			case 'Visuals and UI': tipText.text = "Change some ui stuff outside frome engine.";
+			case 'Gameplay': tipText.text = "Change hud and objects for better experience.";
+			case 'Adjust Delay and Combo': tipText.text = "Ajust rating position for offset";
+		}
 
 		var optionFreak:Int = 0;
 

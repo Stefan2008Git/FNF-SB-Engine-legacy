@@ -174,13 +174,6 @@ class CreditsState extends MusicBeatState {
 				'964B00'
 			],
 			[
-				'Jordan Santiago',
-				'jordan',
-				'Created anti-lag for botplay and JS Engine.',
-				'https://www.youtube.com/@JordanSantiago',
-				'FF9300'
-			],
-			[
 				'M.A. Jigsaw',
 				'jigsaw',
 				'Main Programmer of Psych Engine\nWith Android Support',
