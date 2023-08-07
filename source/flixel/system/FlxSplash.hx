@@ -14,7 +14,6 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import backend.Paths;
-import backend.ClientPrefs;
 
 class FlxSplash extends FlxState {
 	public static var nextState:Class<FlxState>;
@@ -36,16 +35,7 @@ class FlxSplash extends FlxState {
 	var _cachedTimestep:Bool;
 	var _cachedAutoPause:Bool;
 
-	var background:FlxSprite;
-
 	override public function create():Void {
-		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		background.scrollFactor.set();
-		background.updateHitbox();
-		background.screenCenter();
-		background.antialiasing = ClientPrefs.globalAntialiasing;
-		background.color = 0xFF353535;
-		add(background);
 
 		_cachedBgColor = FlxG.cameras.bgColor;
 		FlxG.cameras.bgColor = FlxColor.BLACK;
@@ -60,7 +50,7 @@ class FlxSplash extends FlxState {
 		FlxG.keys.enabled = false;
 		#end
 
-		_times = [0.041, 0.184, 0.334, 0.495, 0.636];
+		_times = [0.141, 0.381, 0.534, 0.785, 0.936];
 		_colors = [0xFFFFA500, 0xffdc8f01, 0xFFFFA500, 0xffdc8f01, 0xFFFFA500];
 		_functions = [drawOrange1, drawOrange2, drawOrange3, drawOrange4, drawOrange5];
 
@@ -78,7 +68,7 @@ class FlxSplash extends FlxState {
 		_text = new TextField();
 		_text.selectable = false;
 		_text.embedFonts = true;
-		var dtf = new TextFormat('Bahnschrift', 25, 0xffffff);
+		var dtf = new TextFormat('VCR OSD Mono', 25, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		_text.defaultTextFormat = dtf;
 		_text.text = "Wait";
@@ -116,7 +106,7 @@ class FlxSplash extends FlxState {
 	function timerCallback(Timer:FlxTimer):Void {
 		_functions[_currentlyPart]();
 		_text.textColor = _colors[_currentlyPart];
-		_text.text = "Haxe it's best. Try it :)!";
+		_text.text = "Created with Haxe and HaxeFlixel!";
 		_currentlyPart++;
 
 		if (_currentlyPart == 5) {

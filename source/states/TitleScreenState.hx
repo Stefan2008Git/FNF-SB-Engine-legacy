@@ -127,6 +127,8 @@ class TitleScreenState extends MusicBeatState {
 				}
 			}
 			#end */
+		
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
@@ -175,6 +177,7 @@ class TitleScreenState extends MusicBeatState {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingScreenState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Warning Menu";
 		} else {
 			if (initialized)
 				startIntro();

@@ -39,7 +39,7 @@ class FlashingScreenState extends MusicBeatState {
 
 		#if desktop
 	    // Updating Discord Rich Presence
-	    DiscordClient.changePresence("Warning screen", null);
+	    DiscordClient.changePresence("Warning Menu", null);
 	    #end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
