@@ -72,6 +72,13 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'objectEffects', 'bool', true);
 		addOption(option);
 
+		#if CHECKING_FOR_UPDATED_VERSION
+		var option:Option = new Option('Version updater',
+			'If unchecked, this option is disabling to show update screen for outdated SB Engine version.',
+			'checkingForUpdatedVersion', 'bool', true);
+		addOption(option);
+		#end
+
 		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);

@@ -58,6 +58,9 @@
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+
+	<!-- DONT ENABLE THIS -->
+	<define name="CHECKING_FOR_UPDATED_VERSION" if="desktop officialBuild"/>
 	
 	<library name="videos"        preload="true" />
 	<section if="PRELOAD_ALL">

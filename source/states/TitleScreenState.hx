@@ -51,6 +51,7 @@ import backend.PlayerSettings;
 import backend.WeekData;
 import states.MainMenuState;
 import states.FreeplayState;
+import states.OutdatedScreenState;
 import states.StoryModeState;
 
 using StringTools;
@@ -84,15 +85,14 @@ class TitleScreenState extends MusicBeatState {
 	var titleTextAlphas:Array<Float> = [1, .64];
 
 	var Timer:Float = 0;
-	var curWacky:Array<String> = [];
+	var currentlyWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
 
-	var mustUpdate:Bool = false;
+	var mustRequriedUpdate:Bool = false;
+	public static var updateVersion:String = '';
 
 	var titleJSON:TitleData;
-
-	public static var updateVersion:String = '';
 
 	override public function create():Void {
 		Paths.clearStoredMemory();
@@ -138,7 +138,7 @@ class TitleScreenState extends MusicBeatState {
 
 		PlayerSettings.init();
 
-		curWacky = FlxG.random.getObject(getIntroTextfreak());
+		currentlyWacky = FlxG.random.getObject(getIntroTextfreak());
 
 		// DEBUG optionFreak
 
@@ -148,6 +148,30 @@ class TitleScreenState extends MusicBeatState {
 		FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		ClientPrefs.loadPrefs();
+
+		#if CHECKING_FOR_UPDATED_VERSION
+		if(ClientPrefs.checkingForUpdatedVersion && !closedState) {
+			trace('checking for update');
+			var http = new haxe.Http("https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/sbEngineVersion.txt");
+
+			http.onData = function (data:String)
+			{
+				updateVersion = data.split('\n')[0].trim();
+				var currentlyVersion:String = MainMenuState.sbEngineVersion.trim();
+				trace('Version online: ' + updateVersion + ', Your version is: ' + currentlyVersion);
+				if(updateVersion != currentlyVersion) {
+					trace('versions arent matching!');
+					mustRequriedUpdate = true;
+				}
+			}
+
+			http.onError = function (error) {
+				trace('error: $error');
+			}
+
+			http.request();
+		}
+		#end
 
 		Highscore.load();
 
@@ -483,7 +507,10 @@ class TitleScreenState extends MusicBeatState {
 				}
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					if (ClientPrefs.mainMenuStyle == 'Classic')
+					if (mustRequriedUpdate) {
+						MusicBeatState.switchState(new OutdatedScreenState());
+					}
+					else if (ClientPrefs.mainMenuStyle == 'Classic')
 						MusicBeatState.switchState(new ClassicMainMenuState());
 					else {
 						MusicBeatState.switchState(new MainMenuState());
@@ -581,9 +608,9 @@ class TitleScreenState extends MusicBeatState {
 				case 9:
 					deleteCoolText();
 				case 10:
-					createCoolText([curWacky[0]]);
+					createCoolText([currentlyWacky[0]]);
 				case 12:
-					addMoreText(curWacky[1]);
+					addMoreText(currentlyWacky[1]);
 				case 13:
 					deleteCoolText();
 				case 14:
