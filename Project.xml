@@ -47,7 +47,6 @@
 	<define name="MODS_ALLOWED" if="desktop || android" />
 	<define name="LUA_ALLOWED" if="desktop || android"/>
 	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
-	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release || release" />
 	
 	<assets path="assets/android" if="android"/> <!-- to not have the android assets in another builds -saw -->
@@ -58,9 +57,6 @@
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-
-	<!-- DONT ENABLE THIS -->
-	<define name="CHECKING_FOR_UPDATED_VERSION" if="desktop officialBuild"/>
 	
 	<library name="videos"        preload="true" />
 	<section if="PRELOAD_ALL">
@@ -73,6 +69,9 @@
 		<library name="week6"         preload="true" />
 		<library name="week7"         preload="true" />
 	</section>
+
+	<!-- DONT ENABLE THIS -->
+	<define name="CHECK_FOR_UPDATES"/>
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"         preload="false" />

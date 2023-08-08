@@ -72,7 +72,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'objectEffects', 'bool', true);
 		addOption(option);
 
-		#if CHECKING_FOR_UPDATED_VERSION
+		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Version updater',
 			'If unchecked, this option is disabling to show update screen for outdated SB Engine version.',
 			'checkingForUpdatedVersion', 'bool', true);

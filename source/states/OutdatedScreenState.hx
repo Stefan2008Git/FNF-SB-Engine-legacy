@@ -35,13 +35,11 @@ class OutdatedScreenState extends MusicBeatState {
         Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-        FlxG.sound.playMusic(Paths.music('warningScreenMusic'), 0.5);
-
 		super.create();
 
         #if desktop
 	    // Updating Discord Rich Presence
-	    DiscordClient.changePresence("Warning Menu", null);
+	    DiscordClient.changePresence("Updater Menu", null);
 	    #end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -59,12 +57,11 @@ class OutdatedScreenState extends MusicBeatState {
 
 		#if android
 		warningText = new FlxText(0, 0, FlxG.width,
-			"Hello player, unfortunalety it's seem's like looks you're are running an   \n
+			"Hello player, unfortunalety it's seem's like looks you're are running an\n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleScreenState.updateVersion + "!\n
             Press A to go on Gamebanana site.\n
 			Press B to proceed anyway.\n
-			\n
 			Thank you for using modified fork of Psych Engine v " + MainMenuState.psychEngineVersion + "! ",
 			32);
 		#else
@@ -74,7 +71,6 @@ class OutdatedScreenState extends MusicBeatState {
 			please update to " + TitleScreenState.updateVersion + "!\n
             Press ENTER to go on Gamebanana site.\n
 			Press ESCAPE to proceed anyway.\n
-			\n
 			Thank you for using modified fork of Psych Engine v" + MainMenuState.psychEngineVersion + "! ",
 			32);
 		#end
