@@ -57,19 +57,19 @@ class OutdatedScreenState extends MusicBeatState {
 
 		#if android
 		warningText = new FlxText(0, 0, FlxG.width,
-			"Hello player, unfortunalety it's seem's like looks you're are running an\n
+			"Hello player, unfortunalety it's seem's like you're running an\n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleScreenState.updateVersion + "!\n
-            Press A to go on Gamebanana site.\n
+      Press A to go to Gamebanana site.\n
 			Press B to proceed anyway.\n
 			Thank you for using modified fork of Psych Engine v " + MainMenuState.psychEngineVersion + "! ",
 			32);
 		#else
 		warningText = new FlxText(0, 0, FlxG.width,
-			"Hello player, unfortunalety it's seem's like looks you're are running an   \n
+			"Hello player, unfortunalety it's seem's like you're running an   \n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleScreenState.updateVersion + "!\n
-            Press ENTER to go on Gamebanana site.\n
+      Press ENTER to go to Gamebanana site.\n
 			Press ESCAPE to proceed anyway.\n
 			Thank you for using modified fork of Psych Engine v" + MainMenuState.psychEngineVersion + "! ",
 			32);
