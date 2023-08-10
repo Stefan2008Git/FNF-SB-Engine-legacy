@@ -57,7 +57,7 @@ class OutdatedScreenState extends MusicBeatState {
 
 		#if android
 		warningText = new FlxText(0, 0, FlxG.width,
-			"Hello player, unfortunalety it's seem's like you're running an\n
+			"Hello player, unfortunalety it's seems like you're running an\n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleScreenState.updateVersion + "!\n
       Press A to go to Gamebanana site.\n
@@ -66,7 +66,7 @@ class OutdatedScreenState extends MusicBeatState {
 			32);
 		#else
 		warningText = new FlxText(0, 0, FlxG.width,
-			"Hello player, unfortunalety it's seem's like you're running an   \n
+			"Hello player, unfortunalety it's seems like you're running an   \n
 			outdated version of SB Engine (" + MainMenuState.sbEngineVersion + "),\n
 			please update to " + TitleScreenState.updateVersion + "!\n
       Press ENTER to go to Gamebanana site.\n
