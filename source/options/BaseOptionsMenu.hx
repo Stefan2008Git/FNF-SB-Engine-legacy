@@ -23,6 +23,7 @@ import haxe.Json;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import flixel.util.FlxSpriteUtil;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flash.geom.Rectangle;
@@ -96,6 +97,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.alpha = 0.6;
+		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 0x99000000);
 		add(descBox);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
