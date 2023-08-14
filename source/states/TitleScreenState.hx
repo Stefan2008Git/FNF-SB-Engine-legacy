@@ -149,7 +149,7 @@ class TitleScreenState extends MusicBeatState {
 
 		ClientPrefs.loadPrefs();
 
-		#if CHECK_FOR_UPDATES
+		/*#if CHECK_FOR_UPDATES
 		if(ClientPrefs.checkingForUpdatedVersion && !closedState) {
 			trace('Checking for update');
 			var http = new haxe.Http("https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/sbEngineVersion.txt");
@@ -171,7 +171,7 @@ class TitleScreenState extends MusicBeatState {
 
 			http.request();
 		}
-		#end
+		#end*/
 
 		Highscore.load();
 
