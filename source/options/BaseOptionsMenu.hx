@@ -97,7 +97,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.alpha = 0.6;
-		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 0x99000000);
+		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 20, 20, 0x99000000);
 		add(descBox);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
