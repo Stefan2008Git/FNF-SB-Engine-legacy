@@ -79,7 +79,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup C:/haxelib
-          haxelib install hxcpp 4.2.1 > nul
+          haxelib git hxcpp https://github.com/Fearester2008/hxcpp
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -126,7 +126,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib install hxcpp 4.2.1 > /dev/null
+          haxelib git hxcpp https://github.com/Fearester2008/hxcpp
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
