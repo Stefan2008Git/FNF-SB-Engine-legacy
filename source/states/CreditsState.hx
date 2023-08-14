@@ -335,7 +335,7 @@ class CreditsState extends MusicBeatState {
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
-		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 0x99000000);
+		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 20, 20, 0x99000000);
 		add(descBox);
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
