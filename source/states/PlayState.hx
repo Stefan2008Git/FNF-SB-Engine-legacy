@@ -4369,17 +4369,19 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
-		rating.cameras = [camHUD];
-		rating.screenCenter();
-		rating.x = coolText.x - 40;
-		rating.y -= 60;
-		rating.acceleration.y = 550 * playbackRate * playbackRate;
-		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
-		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
-		rating.visible = (!ClientPrefs.hideHud && showRating);
-		rating.x += ClientPrefs.comboOffset[0];
-		rating.y -= ClientPrefs.comboOffset[1];
+		if (!cpuControlled && !ClientPrefs.lessLag) {
+		    rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
+		    rating.cameras = [camHUD];
+		    rating.screenCenter();
+		    rating.x = coolText.x - 40;
+		    rating.y -= 60;
+		    rating.acceleration.y = 550 * playbackRate * playbackRate;
+		    rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
+		    rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
+		    rating.visible = (!ClientPrefs.hideHud && showRating);
+		    rating.x += ClientPrefs.comboOffset[0];
+		    rating.y -= ClientPrefs.comboOffset[1];
+		}
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'combo' + pixelfreakPart2));
 		comboSpr.cameras = [camHUD];

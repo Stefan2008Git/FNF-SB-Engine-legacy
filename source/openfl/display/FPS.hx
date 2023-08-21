@@ -1,7 +1,9 @@
 package openfl.display;
 
 import haxe.Timer;
+import openfl.Lib;
 import openfl.events.Event;
+import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
@@ -10,12 +12,6 @@ import flixel.FlxG;
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
-#end
-#if flash
-import openfl.Lib;
-#end
-#if openfl
-import openfl.system.System;
 #end
 import backend.ClientPrefs;
 import backend.CoolUtil;
@@ -58,7 +54,11 @@ class FPS extends TextField {
 		currentlyFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("_sans", 14, color);
+		#if android
+		defaultTextFormat = new TextFormat('_sans', Std.int(14 * Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height)), color);
+		#else
+		defaultTextFormat = new TextFormat('_sans', 14, color);
+		#end
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
@@ -71,6 +71,15 @@ class FPS extends TextField {
 		addEventListener(Event.ENTER_FRAME, function(e) {
 			var time = Lib.getTimer();
 			__enterFrame(time - currentTime);
+		});
+		#end
+
+		#if android
+		addEventListener(Event.RESIZE, function(e:Event)
+		{
+			final daSize:Int = Std.int(14 * Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height));
+			if (defaultTextFormat.size != daSize)
+				defaultTextFormat.size = daSize;
 		});
 		#end
 	}

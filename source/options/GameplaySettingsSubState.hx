@@ -98,6 +98,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If unchecked, this is gonna unshow time bar on gameplay.", 'showTimeBar', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Cpu controller',
+		    "If unchecked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be crash.", 'lessLag', 'bool', false);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
