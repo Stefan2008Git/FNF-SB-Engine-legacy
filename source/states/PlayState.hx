@@ -224,7 +224,6 @@ class PlayState extends MusicBeatState {
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
-	var playbackRateDecimal:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
 	public var timeBar:FlxBar;
@@ -1630,7 +1629,7 @@ class PlayState extends MusicBeatState {
 				playbackRateDecimalTxt.setFormat(Paths.font('bahnschrift.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		    }
 		playbackRateDecimalTxt.visible = ClientPrefs.playbackRateDecimal;
-		playbackRateDecimalTxt.text = 'Playback: ' + playbackRateDecimal;
+		playbackRateDecimalTxt.text = 'Playback: ' + Std.string(playbackRate) + 'x';
 		if (ClientPrefs.downScroll) {
 			playbackRateDecimalTxt.y = 140;
 		}
@@ -3043,8 +3042,6 @@ class PlayState extends MusicBeatState {
 
 	override public function update(elapsed:Float) {
 		callOnLuas('onUpdate', [elapsed]);
-
-		playbackRateDecimal = FlxMath.roundDecimal(playbackRate, 2);
 
 		theWiggleFlagEffect.update(elapsed);
 		theWiggleHorizontalWaveHeatEffect.update(elapsed);
