@@ -8,7 +8,6 @@ import backend.Controls;
 import states.TitleScreenState;
 
 class ClientPrefs {
-	public static var checkingForUpdatedVersion:Bool = true;
 	public static var lessLag:Bool = false;
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
@@ -56,6 +55,7 @@ class ClientPrefs {
 	public static var mainMenuStyle:String = 'Original';
 	public static var gameStyle:String = 'SB Engine';
 	public static var watermarkStyle:String = 'SB Engine';
+	public static var playbackRateDecimal:Bool = false;
 	public static var objectEffects:Bool = true;
 	public static var themes:String = 'SB Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -106,7 +106,6 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-		FlxG.save.data.checkingForUpdatedVersion = checkingForUpdatedVersion;
 		FlxG.save.data.lessLag = lessLag;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
@@ -158,6 +157,7 @@ class ClientPrefs {
 		FlxG.save.data.mainMenuStyle = mainMenuStyle;
 		FlxG.save.data.gameStyle = gameStyle;
 		FlxG.save.data.watermarkStyle = watermarkStyle;
+		FlxG.save.data.playbackRateDecimal = playbackRateDecimal;
 		FlxG.save.data.objectEffects = objectEffects;
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
@@ -172,9 +172,6 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
-		if (FlxG.save.data.checkingForUpdatedVersion != null) {
-			checkingForUpdatedVersion = FlxG.save.data.checkingForUpdatedVersion;
-		}
 		if (FlxG.save.data.lessLag != null) {
 			lessLag = FlxG.save.data.lessLag;
 		}
@@ -329,6 +326,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.watermarkStyle != null) {
 			watermarkStyle = FlxG.save.data.watermarkStyle;
+		}
+		if (FlxG.save.data.playbackRateDecimal != null) {
+			playbackRateDecimal = FlxG.save.data.playbackRateDecimal;
 		}
 		if (FlxG.save.data.objectEffects != null) {
 			objectEffects = FlxG.save.data.objectEffects;

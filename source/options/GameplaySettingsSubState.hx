@@ -98,8 +98,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If unchecked, this is gonna unshow time bar on gameplay.", 'showTimeBar', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Cpu controller',
-		    "If unchecked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be crash.", 'lessLag', 'bool', false);
+		var option:Option = new Option('Less lag',
+		    "If checked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be crash.", 'lessLag', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Show playback speed decimal',
+		    "If checked, this is gonna show how much do you have deciman on speed for song", 'playbackRateDecimal', 'bool', 'false');
 		addOption(option);
 
 		#if android
@@ -109,7 +113,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		#end
 
 		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
-			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
+			['Time Left', 'Time Elapsed', 'Song Name', 'Song Name + Time', 'Modern Time', 'Disabled']);
 		addOption(option);
 
 		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',

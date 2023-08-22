@@ -224,6 +224,7 @@ class PlayState extends MusicBeatState {
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
+	var playbackRateDecimal:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
 	public var timeBar:FlxBar;
@@ -335,6 +336,7 @@ class PlayState extends MusicBeatState {
 	public var sbEngineVersionTxt:FlxText;
 	public var psychEngineVersionTxt:FlxText;
 	public var watermarkTxt:FlxText;
+	public var playbackRateDecimalTxt:FlxText;
 
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
@@ -1354,7 +1356,6 @@ class PlayState extends MusicBeatState {
 
 		if (ClientPrefs.gameStyle == 'Better UI') {
 		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlayDaveAndBambi'));
-			healthBarBG.visible = false;
 		}
 
 		healthBarOverlay.y = FlxG.height * 0.89;
@@ -1619,7 +1620,21 @@ class PlayState extends MusicBeatState {
 		msScoreLabel.alpha = 0;
 		msScoreLabel.scrollFactor.set();
 		msScoreLabel.borderSize = 2;
-		add( msScoreLabel);
+		add(msScoreLabel);
+
+		playbackRateDecimalTxt = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "", 12);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI':
+				playbackRateDecimalTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				playbackRateDecimalTxt.setFormat(Paths.font('bahnschrift.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    }
+		playbackRateDecimalTxt.visible = ClientPrefs.playbackRateDecimal;
+		playbackRateDecimalTxt.text = 'Playback: ' + playbackRateDecimal;
+		if (ClientPrefs.downScroll) {
+			playbackRateDecimalTxt.y = 140;
+		}
+		add(playbackRateDecimalTxt);
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1636,6 +1651,7 @@ class PlayState extends MusicBeatState {
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		msScoreLabel.cameras = [camHUD];
+		playbackRateDecimalTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -3028,6 +3044,8 @@ class PlayState extends MusicBeatState {
 	override public function update(elapsed:Float) {
 		callOnLuas('onUpdate', [elapsed]);
 
+		playbackRateDecimal = FlxMath.roundDecimal(playbackRate, 2);
+
 		theWiggleFlagEffect.update(elapsed);
 		theWiggleHorizontalWaveHeatEffect.update(elapsed);
 		theWiggleVerticalWaveHeatEffect.update(elapsed);
@@ -3356,6 +3374,8 @@ class PlayState extends MusicBeatState {
 						currentlyTime = 0;
 					songPercent = (currentlyTime / songLength);
 
+					var songDurationSeconds:Float = FlxMath.roundDecimal(songLength / 1000, 0);
+
 					var songCalculating:Float = (songLength - currentlyTime);
 					if (ClientPrefs.timeBarType == 'Time Elapsed')
 						songCalculating = currentlyTime;
@@ -3364,8 +3384,42 @@ class PlayState extends MusicBeatState {
 					if (secondsTotal < 0)
 						secondsTotal = 0;
 
-					if (ClientPrefs.timeBarType != 'Song Name')
+					var hoursRemaining:Int = Math.floor(secondsTotal / 3600);
+					var minutesRemaining:Int = Math.floor(secondsTotal / 60) % 60;
+					var minutesRemainingValue:String = '' + minutesRemaining;
+					var secondsRemaining:String = '' + secondsTotal % 60;
+
+					if(secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining; //let's see if the old time format works actually
+					//if (minutesRemaining == 60) minutesRemaining = 0; //reset the minutes to 0 every time it counts another hour
+					if (minutesRemainingValue.length < 2) minutesRemainingValue = '0' + minutesRemaining; 
+					//also, i wont add a day thing because there's no way someone can mod a song that's over 24 hours long into this engine
+
+					var hoursShown:Int = Math.floor(songDurationSeconds / 3600);
+					var minutesShown:Int = Math.floor(songDurationSeconds / 60) % 60;
+					var minutesShownValue:String = '' + minutesShown;
+					var secondsShown:String = '' + songDurationSeconds % 60;
+					if(secondsShown.length < 2) secondsShown = '0' + secondsShown; //let's see if the old time format works actually
+					if (minutesShownValue.length < 2) minutesShownValue = '0' + minutesShown;
+
+					if(ClientPrefs.timeBarType != 'Song Name' && songLength <= 3600000)
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
+
+					if(ClientPrefs.timeBarType != 'Song Name' && songLength >= 3600000)
+					timeTxt.text = hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining;
+
+					if(ClientPrefs.timeBarType == 'Song Name + Time' && songLength <= 3600000)
+						timeTxt.text = SONG.song + ' (' + FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false) + ')';
+
+					if(ClientPrefs.timeBarType == 'Song Name + Time' && songLength >= 3600000)
+						timeTxt.text = SONG.song + ' (' + hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining + ' / ' + hoursShown + ':' + minutesShownValue + ':' + secondsShown + ')';
+
+					if(ClientPrefs.timeBarType == 'Modern Time' && songLength <= 3600000)
+						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false);
+
+					if(ClientPrefs.timeBarType == 'Modern Time' && songLength >= 3600000)
+						timeTxt.text = hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining + ' / ' + hoursShown + ':' + minutesShownValue + ':' + secondsShown;
+
+		            if (cpuControlled && ClientPrefs.timeBarType != 'Song Name') timeTxt.text += ' (Bot)';
 				}
 			}
 
@@ -4146,8 +4200,8 @@ class PlayState extends MusicBeatState {
 		#if android
 		androidControls.visible = false;
 		#end
-		timeBarBG.visible = false;
 		timeBar.visible = false;
+		timeBarBG.visible = false;
 		timeTxt.visible = false;
 		canPause = false;
 		endingSong = true;

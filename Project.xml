@@ -69,9 +69,6 @@
 		<library name="week6"         preload="true" />
 		<library name="week7"         preload="true" />
 	</section>
-
-	<!-- DONT ENABLE THIS -->
-	<define name="CHECK_FOR_UPDATES"/>
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"         preload="false" />

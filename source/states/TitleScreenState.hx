@@ -39,19 +39,18 @@ import flixel.util.FlxGradient;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 import lime.app.Application;
-import backend.MusicBeatState;
 import objects.Alphabet;
 import shaders.ColorSwap;
 import backend.ClientPrefs;
 import backend.Conductor;
 import backend.CoolUtil;
 import backend.Highscore;
+import backend.MusicBeatState;
 import backend.Paths;
 import backend.PlayerSettings;
 import backend.WeekData;
 import states.MainMenuState;
 import states.FreeplayState;
-import states.OutdatedScreenState;
 import states.StoryModeState;
 
 using StringTools;
@@ -88,9 +87,6 @@ class TitleScreenState extends MusicBeatState {
 	var currentlyWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
-
-	var mustRequriedUpdate:Bool = false;
-	public static var updateVersion:String = '';
 
 	var titleJSON:TitleData;
 
@@ -148,30 +144,6 @@ class TitleScreenState extends MusicBeatState {
 		FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		ClientPrefs.loadPrefs();
-
-		/*#if CHECK_FOR_UPDATES
-		if(ClientPrefs.checkingForUpdatedVersion && !closedState) {
-			trace('Checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/sbEngineVersion.txt");
-
-			http.onData = function (data:String)
-			{
-				updateVersion = data.split('\n')[0].trim();
-				var currentlyVersion:String = MainMenuState.sbEngineVersion.trim();
-				trace('Version online: ' + updateVersion + ', Your version is: ' + currentlyVersion);
-				if(updateVersion != currentlyVersion) {
-					trace('versions arent matching!');
-					mustRequriedUpdate = true;
-				}
-			}
-
-			http.onError = function (error) {
-				trace('Error: $error');
-			}
-
-			http.request();
-		}
-		#end*/
 
 		Highscore.load();
 
@@ -507,10 +479,7 @@ class TitleScreenState extends MusicBeatState {
 				}
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					if (mustRequriedUpdate) {
-						MusicBeatState.switchState(new OutdatedScreenState());
-					}
-					else if (ClientPrefs.mainMenuStyle == 'Classic')
+					if (ClientPrefs.mainMenuStyle == 'Classic')
 						MusicBeatState.switchState(new ClassicMainMenuState());
 					else {
 						MusicBeatState.switchState(new MainMenuState());
