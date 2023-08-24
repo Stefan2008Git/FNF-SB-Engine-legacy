@@ -3,7 +3,8 @@ package objects;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
-import shaders.ColorSwap;
+import shaders.RGBPallete;
+import shaders.RGBPallete.RGBShaderReference;
 import states.PlayState;
 import backend.ClientPrefs;
 import backend.Paths;
@@ -12,7 +13,7 @@ using StringTools;
 
 class StrumNote extends FlxSprite
 {
-	private var colorSwap:ColorSwap;
+	public var rgbShader:RGBShaderReference;
 	public var resetAnim:Float = 0;
 	private var noteData:Int = 0;
 	public var direction:Float = 90;//plan on doing scroll directions soon -bb
@@ -31,16 +32,21 @@ class StrumNote extends FlxSprite
 	}
 
 	public function new(x:Float, y:Float, leData:Int, player:Int) {
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+		rgbShader = new RGBShaderReference(this, Note.initializeGlobalRGBShader(noteData));
+		rgbShader.enabled = false;
 		noteData = leData;
 		this.player = player;
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String = 'NOTE_assets';
+		var skin:String = null;
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
-		texture = skin; //Load texture and anims
+		else skin = Note.defaultNoteSkin;
+
+		var customSkin:String = skin + Note.getNoteSkinPostfix();
+		if(Paths.fileExists('images/$customSkin.png', IMAGE)) skin = customSkin;
+
+		texture = skin; // Loads texture and skin too!
 
 		scrollFactor.set();
 	}
@@ -150,23 +156,11 @@ class StrumNote extends FlxSprite
 
 	public function playAnim(anim:String, ?force:Bool = false) {
 		animation.play(anim, force);
-		centerOffsets();
-		centerOrigin();
-		if(animation.curAnim == null || animation.curAnim.name == 'static') {
-			colorSwap.hue = 0;
-			colorSwap.saturation = 0;
-			colorSwap.brightness = 0;
-		} else {
-			if (noteData > -1 && noteData < ClientPrefs.arrowHSV.length)
-			{
-				colorSwap.hue = ClientPrefs.arrowHSV[noteData][0] / 360;
-				colorSwap.saturation = ClientPrefs.arrowHSV[noteData][1] / 100;
-				colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
-			}
-
-			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
-				centerOrigin();
-			}
+		if(animation.curAnim != null)
+		{
+			centerOffsets();
+			centerOrigin();
 		}
+		rgbShader.enabled = (animation.curAnim != null && animation.curAnim.name != 'static');
 	}
 }

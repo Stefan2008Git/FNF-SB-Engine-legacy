@@ -26,6 +26,8 @@ import flixel.graphics.FlxGraphic;
 import backend.ClientPrefs;
 import backend.Controls;
 import backend.Paths;
+import objects.Note;
+import objects.StrumNote;
 #if android
 import android.Hardware;
 #end
@@ -33,9 +35,59 @@ import android.Hardware;
 using StringTools;
 
 class GameplaySettingsSubState extends BaseOptionsMenu {
+	var noteOptionID:Int = -1;
+	var notes:FlxTypedGroup<StrumNote>;
+	var notesTween:Array<FlxTween> = [];
+	var noteY:Float = 90;
+
 	public function new() {
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; // for Discord Rich Presence
+
+		// for note skins
+		notes = new FlxTypedGroup<StrumNote>();
+		for (i in 0...Note.colArray.length)
+		{
+			var note:StrumNote = new StrumNote(370 + (560 / Note.colArray.length) * i, -200, i, 0);
+			note.centerOffsets();
+			note.centerOrigin();
+			note.playAnim('static');
+			notes.add(note);
+		}
+
+		// options
+
+		var noteSkins:Array<String> = Paths.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
+		if(noteSkins.length > 0)
+		{
+			if(!noteSkins.contains(ClientPrefs.noteSkin))
+				ClientPrefs.noteSkin = ClientPrefs.noteSkin; //Reset to default if saved noteskin couldnt be found
+
+			noteSkins.insert(0, ClientPrefs.noteSkin); //Default skin always comes first
+			var option:Option = new Option('Note Skins:',
+				"Select your prefered Note skin.",
+				'noteSkin',
+				'string',
+				noteSkins);
+			addOption(option);
+			option.onChange = onChangeNoteSkin;
+			noteOptionID = optionsArray.length - 1;
+		}
+		
+		var noteSplashes:Array<String> = Paths.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
+		if(noteSplashes.length > 0)
+		{
+			if(!noteSplashes.contains(ClientPrefs.splashSkin))
+				ClientPrefs.splashSkin = ClientPrefs.splashSkin; //Reset to default if saved splashskin couldnt be found
+
+			noteSplashes.insert(0, ClientPrefs.splashSkin); //Default skin always comes first
+			var option:Option = new Option('Note Splashes:',
+				"Select your prefered Note Splash variation or turn it off.",
+				'splashSkin',
+				'string',
+				noteSplashes);
+			addOption(option);
+		}
 
 		var option:Option = new Option('Controller Mode', 'Check this if you want to play with\na controller instead of using your Keyboard.',
 			'controllerMode', 'bool', #if android true #else false #end);
@@ -99,10 +151,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Less lag',
-		    "If checked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be crash.", 'lessLag', 'bool', false);
+		    "If checked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be really weirdo.", 'lessLag', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Show playback speed decimal',
+		var option:Option = new Option('Show playback rate decimal',
 		    "If checked, this is gonna show how much do you have deciman on speed for song", 'playbackRateDecimal', 'bool', 'false');
 		addOption(option);
 
@@ -113,7 +165,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		#end
 
 		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
-			['Time Left', 'Time Elapsed', 'Song Name', 'Song Name + Time', 'Modern Time', 'Disabled']);
+			['Time Left', 'Time Elapsed', 'Song Name', 'Song Name + Time', 'Modern Time', 'Modern Time Elapsed', 'Disabled']);
 		addOption(option);
 
 		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',
@@ -176,6 +228,43 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		super();
+	}
+
+	override function changeSelection(change:Int = 0)
+	{
+		super.changeSelection(change);
+		
+		if(noteOptionID < 0) return;
+
+		for (i in 0...Note.colArray.length)
+		{
+			var note:StrumNote = notes.members[i];
+			if(notesTween[i] != null) notesTween[i].cancel();
+			if(curSelected == noteOptionID)
+				notesTween[i] = FlxTween.tween(note, {y: noteY}, Math.abs(note.y / (200 + noteY)) / 3, {ease: FlxEase.quadInOut});
+			else
+				notesTween[i] = FlxTween.tween(note, {y: -200}, Math.abs(note.y / (200 + noteY)) / 3, {ease: FlxEase.quadInOut});
+		}
+	}
+
+	function onChangeNoteSkin()
+	{
+		notes.forEachAlive(function(note:StrumNote) {
+			changeNoteSkin(note);
+			note.centerOffsets();
+			note.centerOrigin();
+		});
+	}
+
+	function changeNoteSkin(note:StrumNote)
+	{
+		var skin:String = Note.defaultNoteSkin;
+		var customSkin:String = skin + Note.getNoteSkinPostfix();
+		if(Paths.fileExists('images/$customSkin.png', IMAGE)) skin = customSkin;
+
+		note.texture = skin; //Load texture and anims
+		note.reloadNote();
+		note.playAnim('static');
 	}
 
 	function onChangeHitsoundVolume() {
