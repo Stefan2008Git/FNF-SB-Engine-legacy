@@ -7,8 +7,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flash.display.BitmapData;
 import states.editors.ChartingState;
-import shaders.RGBPallete;
-import shaders.RGBPalette.RGBShaderReference;
+import shaders.ColorSwap;
 import states.PlayState;
 import backend.ClientPrefs;
 import backend.Conductor;
@@ -23,23 +22,8 @@ typedef EventNote = {
 	value2:String
 }
 
-typedef NoteSplashData = {
-	disabled:Bool,
-	texture:String,
-	useGlobalShader:Bool, //breaks r/g/b/a but makes it copy default colors for your custom note
-	r:FlxColor,
-	g:FlxColor,
-	b:FlxColor,
-	a:Float
-}
-
-typedef NoteTypeProperty = {
-	property:Array<String>,
-	value:Dynamic
-}
-
 class Note extends FlxSprite {
-	public var extraData:Map<String, Dynamic> = new Map<String, Dynamic>();
+	public var extraData:Map<String, Dynamic> = [];
 
 	public var strumTime:Float = 0;
 	public var mustPress:Bool = false;
@@ -68,8 +52,7 @@ class Note extends FlxSprite {
 	public var eventVal1:String = '';
 	public var eventVal2:String = '';
 
-	public var rgbShader:RGBShaderReference;
-	public static var globalRgbShaders:Array<RGBPalette> = [];
+	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
 
 	public var animSuffix:String = '';
@@ -78,15 +61,17 @@ class Note extends FlxSprite {
 	public var lateHitMult:Float = 1;
 	public var lowPriority:Bool = false;
 
-	public static var SUSTAIN_SIZE:Int = 44;
-	public static var defaultNoteSkin:String = 'noteSkins/NOTE_assets';
-
 	public static var swagWidth:Float = 160 * 0.7;
 
-	private static var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
+	private var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
+	private var pixelInt:Array<Int> = [0, 1, 2, 3];
 
 	// Lua freak
-	public var noteSplashData:NoteSplashData = {disabled: false, texture: null, useGlobalShader: false, r: -1, g: -1, b: -1, a: 0.6};
+	public var noteSplashDisabled:Bool = false;
+	public var noteSplashTexture:String = null;
+	public var noteSplashHue:Float = 0;
+	public var noteSplashSat:Float = 0;
+	public var noteSplashBrt:Float = 0;
 
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
@@ -130,42 +115,37 @@ class Note extends FlxSprite {
 	}
 
 	private function set_texture(value:String):String {
-		if(texture != value) reloadNote(value);
-
+		if (texture != value) {
+			reloadNote('', value);
+		}
 		texture = value;
 		return value;
 	}
 
-	public function defaultRGB()
-	{
-		var arr:Array<FlxColor> = ClientPrefs.arrowRGB[noteData];
-		if(PlayState.isPixelStage) arr = ClientPrefs.arrowRGBPixel[noteData];
-		if (noteData > -1 && noteData <= arr.length)
-			rgbShader.r = arr[0];
-			rgbShader.g = arr[1];
-			rgbShader.b = arr[2];
-		}
-	}
-
 	private function set_noteType(value:String):String {
-		noteSplashData.texture = PlayState.SONG != null ? PlayState.SONG.splashSkin : 'noteSplashes';
-		defaultRGB();
+		noteSplashTexture = PlayState.SONG.splashSkin;
+		if (noteData > -1 && noteData < ClientPrefs.arrowHSV.length) {
+			colorSwap.hue = ClientPrefs.arrowHSV[noteData][0] / 360;
+			colorSwap.saturation = ClientPrefs.arrowHSV[noteData][1] / 100;
+			colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
+		}
 
 		if (noteData > -1 && noteType != value) {
 			switch (value) {
 				case 'Hurt Note':
 					ignoreNote = mustPress;
-					rgbShader.r = 0xFF101010;
-					rgbShader.g = 0xFFFF0000;
-					rgbShader.b = 0xFF990022;
-
-					noteSplashData.r = 0xFFFF0000;
-					noteSplashData.g = 0xFF101010;
-					noteSplashData.texture = 'noteSplashes/noteSplashes-electric';
-
-					// Gameplay data
+					reloadNote('HURT');
+					noteSplashTexture = 'HURTnoteSplashes';
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
 					lowPriority = true;
-					missHealth = isSustainNote ? 0.25 : 0.1;
+
+					if (isSustainNote) {
+						missHealth = 0.1;
+					} else {
+						missHealth = 0.3;
+					}
 					hitCausesMiss = true;
 				case 'Alt Animation':
 					animSuffix = '-alt';
@@ -175,9 +155,11 @@ class Note extends FlxSprite {
 				case 'GF Sing':
 					gfNote = true;
 			}
-			if (value != null && value.length > 1) applyNoteTypeData(value);
 			noteType = value;
 		}
+		noteSplashHue = colorSwap.hue;
+		noteSplashSat = colorSwap.saturation;
+		noteSplashBrt = colorSwap.brightness;
 		return value;
 	}
 
@@ -202,12 +184,13 @@ class Note extends FlxSprite {
 
 		if (noteData > -1) {
 			texture = '';
+			colorSwap = new ColorSwap();
+			shader = colorSwap.shader;
 
-			rgbShader = new RGBShaderReference(this, initializeGlobalRGBShader(noteData));
 			x += swagWidth * (noteData);
-			if (!isSustainNote && noteData < colArray.length) { // Doing this 'if' check to fix the warnings on Senpai songs
+			if (!isSustainNote && noteData > -1 && noteData < 4) { // Doing this 'if' check to fix the warnings on Senpai songs
 				var animToPlay:String = '';
-				animToPlay = colArray[noteData % colArray.length];
+				animToPlay = colArray[noteData % 4];
 				animation.play(animToPlay + 'Scroll');
 			}
 		}
@@ -227,7 +210,7 @@ class Note extends FlxSprite {
 			offsetX += width / 2;
 			copyAngle = false;
 
-			animation.play(colArray[noteData % colArray.length] + 'holdend');
+			animation.play(colArray[noteData % 4] + 'holdend');
 
 			updateHitbox();
 
@@ -258,43 +241,29 @@ class Note extends FlxSprite {
 			}
 		} else if (!isSustainNote) {
 			earlyHitMult = 1;
-			centerOffsets();
-			centerOrigin();
 		}
 		x += offsetX;
 	}
 
-	public static function initializeGlobalRGBShader(noteData:Int)
-	{
-		if(globalRgbShaders[noteData] == null)
-		{
-			var newRGB:RGBPalette = new RGBPalette();
-			globalRgbShaders[noteData] = newRGB;
+	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
+	var lastNoteScaleToo:Float = 1;
 
-			var arr:Array<FlxColor> = (!PlayState.isPixelStage) ? ClientPrefs.arrowRGB[noteData] : ClientPrefs.arrowRGBPixel[noteData];
-			if (noteData > -1 && noteData <= arr.length)
-			{
-				newRGB.r = arr[0];
-				newRGB.g = arr[1];
-				newRGB.b = arr[2];
-			}
-		}
-		return globalRgbShaders[noteData];
-	}
+	public var originalHeightForCalcs:Float = 6;
 
-	var _lastNoteOffX:Float = 0;
-	static var _lastValidChecked:String; //optimization
-	public var originalHeight:Float = 6;
-	public function reloadNote(texture:String = '', postfix:String = '') {
-		if(texture == null) texture = '';
-		if(suffix == null) suffix = '';
-		if(postfix == null) postfix = '';
+	function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
+		if (prefix == null)
+			prefix = '';
+		if (texture == null)
+			texture = '';
+		if (suffix == null)
+			suffix = '';
 
-		var skin:String = texture + postfix;
+		var skin:String = texture;
 		if (texture.length < 1) {
-			skin = PlayState.SONG != null ? PlayState.SONG.arrowSkin : null;
-			if (skin == null || skin.length < 1)
-				skin = defaultNoteSkin + postfix;
+			skin = PlayState.SONG.arrowSkin;
+			if (skin == null || skin.length < 1) {
+				skin = 'NOTE_assets';
+			}
 		}
 
 		var animName:String = null;
@@ -302,50 +271,45 @@ class Note extends FlxSprite {
 			animName = animation.curAnim.name;
 		}
 
-		var skinPixel:String = skin;
-		var lastScaleY:Float = scale.y;
-		var skinPostfix:String = getNoteSkinPostfix();
-		var customSkin:String = skin + skinPostfix;
-		var path:String = PlayState.isPixelStage ? 'pixelUI/' : '';
-		if(customSkin == _lastValidChecked || Paths.fileExists('images/' + path + customSkin + '.png', IMAGE))
-		{
-			skin = customSkin;
-			_lastValidChecked = customSkin;
-		}
-		else skinPostfix = '';
+		var arraySkin:Array<String> = skin.split('/');
+		arraySkin[arraySkin.length - 1] = prefix + arraySkin[arraySkin.length - 1] + suffix;
 
+		var lastScaleY:Float = scale.y;
+		var blahblah:String = arraySkin.join('/');
 		if (PlayState.isPixelStage) {
 			if (isSustainNote) {
-				loadGraphic(Paths.image('pixelUI/' + skinPixel + 'ENDS'  + skinPostfix));
-				width /= 2;
-				originalHeight /= height;
-				loadGraphic(Paths.image('pixelUI/' + skinPixel + 'ENDS'  + skinPostfix), true, Math.floor(width), Math.floor(height));
+				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
+				width = width / 4;
+				height = height / 2;
+				originalHeightForCalcs = height;
+				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
 			} else {
-				loadGraphic(Paths.image('pixelUI/' + skinPixel + skinPostfix));
-				width /= 4;
-				height /= 5;
-				loadGraphic(Paths.image('pixelUI/' + skinPixel + skinPostfix), true, Math.floor(width), Math.floor(height));
+				loadGraphic(Paths.image('pixelUI/' + blahblah));
+				width = width / 4;
+				height = height / 5;
+				loadGraphic(Paths.image('pixelUI/' + blahblah), true, Math.floor(width), Math.floor(height));
 			}
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 			loadPixelNoteAnims();
 			antialiasing = false;
 
 			if (isSustainNote) {
-				offsetX += _lastNoteOffX;
-				_lastNoteOffX = (width - 7) * (PlayState.daPixelZoom / 2);
-				offsetX -= _lastNoteOffX;
+				offsetX += lastNoteOffsetXForPixelAutoAdjusting;
+				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
+				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
+
+				/*if(animName != null && !animName.endsWith('end'))
+					{
+						lastScaleY /= lastNoteScaleToo;
+						lastNoteScaleToo = (6 / height);
+						lastScaleY *= lastNoteScaleToo;
+				}*/
 			}
 		} else {
-			frames = Paths.getSparrowAtlas(skins);
+			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
-			if(!isSustainNote)
-			{
-				centerOffsets();
-				centerOrigin();
-			}
 		}
-
 		if (isSustainNote) {
 			scale.y = lastScaleY;
 		}
@@ -353,35 +317,33 @@ class Note extends FlxSprite {
 
 		if (animName != null)
 			animation.play(animName, true);
-	    }
 
-		public static function getNoteSkinPostfix() 
-		{
-		       var skin:String = '';
-		       if(ClientPrefs.noteSkin != ClientPrefs.defaultData.noteSkin)
-			      skin = '-' + ClientPrefs.noteSkin.trim().toLowerCase().replace(' ', '_');
-		       return skin;
-	    }
+		if (inEditor) {
+			setGraphicSize(ChartingState.GRID_SIZE, ChartingState.GRID_SIZE);
+			updateHitbox();
+		}
+	}
 
 	function loadNoteAnims() {
+		animation.addByPrefix(colArray[noteData] + 'Scroll', colArray[noteData] + '0');
 
-		if (isSustainNote) 
-		{
-			animation.addByPrefix('purpleholdend', 'pruple end hold', 24, true); // ?????
-			animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end', 24, true);
-			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece', 24, true);
-		} else animation.addByPrefix(colArray[noteData] + 'Scroll', colArray[noteData] + '0');
+		if (isSustainNote) {
+			animation.addByPrefix('purpleholdend', 'pruple end hold'); // ?????
+			animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end');
+			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
+		}
 
 		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
 	}
 
 	function loadPixelNoteAnims() {
-		if (isSustainNote) 
-		{
-			animation.add(colArray[noteData] + 'holdend', [noteData + 4], 24, true);
-			animation.add(colArray[noteData] + 'hold', [noteData], 24, true);
-		} else animation.add(colArray[noteData] + 'Scroll', [noteData + 4], 24, true);
+		if (isSustainNote) {
+			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4]);
+			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]]);
+		} else {
+			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4]);
+		}
 	}
 
 	override function update(elapsed:Float) {
@@ -410,125 +372,5 @@ class Note extends FlxSprite {
 			if (alpha > 0.3)
 				alpha = 0.3;
 		}
-	}
-
-	// Custom Note Types txt
-	private static var noteTypesData:Map<String, Array<NoteTypeProperty>> = new Map<String, Array<NoteTypeProperty>>();
-	public static function clearNoteTypesData()
-		noteTypesData.clear();
-
-	public static function loadNoteTypeData(name:String)
-	{
-		if(noteTypesData.exists(name)) return noteTypesData.get(name);
-
-		var str:String = Paths.getTextFromFile('custom_notetypes/$name.txt');
-		if(str == null || !str.contains(':') || !str.contains('=')) noteTypesData.set(name, null);
-
-		var parsed:Array<NoteTypeProperty> = [];
-		var lines:Array<String> = CoolUtil.listFromString(str);
-		for (line in lines)
-		{
-			var sep:Int = line.indexOf(':');
-			if(sep < 0)
-			{
-				sep = line.indexOf('=');
-				if(sep < 0) continue;
-			}
-
-			var arr:Array<String> = line.substr(0, sep).trim().split('.');
-			for (i in 0...arr.length) arr[i] = arr[i].trim();
-
-			var newProp:NoteTypeProperty = {
-				property: arr,
-				value: _interpretValue(line.substr(sep + 1).trim())
-			}
-			//trace('pushing $newProp');
-			parsed.push(newProp);
-		}
-		noteTypesData.set(name, parsed);
-		return parsed;
-	}
-
-	public function applyNoteTypeData(name:String)
-	{
-		var data:Array<NoteTypeProperty> = loadNoteTypeData(name);
-		if(data == null || data.length < 1) return;
-
-		for (line in data) 
-		{
-			var obj:Dynamic = this;
-			var split:Array<String> = line.property;
-			try
-			{
-				if(split.length <= 1)
-				{
-					_propCheckArray(obj, split[0], true, line.value);
-					continue;
-				}
-
-				switch(split[0]) // special cases
-				{
-					case 'extraData': 
-						extraData.set(split[1], line.value);
-						continue;
-
-					case 'noteType':
-						continue;
-				}
-
-				for (i in 0...split.length-1)
-				{
-					if(i < split.length-1)
-						obj = _propCheckArray(obj, split[i]);
-				}
-				_propCheckArray(obj, split[split.length-1], true, line.value);
-			} catch(e) trace(e);
-		}
-	}
-
-	private static function _propCheckArray(obj:Dynamic, slice:String, setProp:Bool = false, valueToSet:Dynamic = null)
-	{
-		var propArray:Array<String> = slice.split('[');
-		if(propArray.length > 1)
-		{
-			for (i in 0...propArray.length)
-			{
-				var str:Dynamic = propArray[i];
-				var id:Int = Std.parseInt(str.substr(0, str.length-1).trim());
-				if(i < propArray.length-1) obj = obj[id]; //middles
-				else if (setProp) return obj[id] = valueToSet; //last
-			}
-			return obj;
-		}
-		else if(setProp)
-		{
-			//trace('setProp: $slice');
-			Reflect.setProperty(obj, slice, valueToSet);
-			return valueToSet;
-		}
-		//trace('getting prop: $slice');
-		return Reflect.getProperty(obj, slice);
-	}
-
-	private static function _interpretValue(value:String):Any
-	{
-		if(value.charAt(0) == "'" || value.charAt(0) == '"')
-		{
-			//is a string
-			return value.substring(1, value.length-1);
-		}
-
-		switch(value)
-		{
-			case "true":
-				return true;
-			case "false":
-				return false;
-			case "null":
-				return null;
-		}
-
-		if(value.contains('.')) return Std.parseFloat(value);
-		return Std.parseInt(value);
 	}
 }
