@@ -57,7 +57,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		// options
 
-		var noteSkins:Array<String> = Paths.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
+		var noteSkins:Array<String> = Paths.getTextFromFile('images/noteSkins/list.txt', 'shared');
 		if(noteSkins.length > 0)
 		{
 			if(!noteSkins.contains(ClientPrefs.noteSkin))
@@ -74,7 +74,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			noteOptionID = optionsArray.length - 1;
 		}
 		
-		var noteSplashes:Array<String> = Paths.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
+		var noteSplashes:Array<String> = Paths.getTextFromFile('images/noteSplashes/list.txt', 'shared');
 		if(noteSplashes.length > 0)
 		{
 			if(!noteSplashes.contains(ClientPrefs.splashSkin))
@@ -88,6 +88,17 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 				noteSplashes);
 			addOption(option);
 		}
+
+		var option:Option = new Option('Note Splash Opacity',
+			'How much transparent should the Note Splashes be.',
+			'splashAlpha',
+			'percent');
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
+		addOption(option);
 
 		var option:Option = new Option('Controller Mode', 'Check this if you want to play with\na controller instead of using your Keyboard.',
 			'controllerMode', 'bool', #if android true #else false #end);
@@ -240,7 +251,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		{
 			var note:StrumNote = notes.members[i];
 			if(notesTween[i] != null) notesTween[i].cancel();
-			if(curSelected == noteOptionID)
+			if(currentlySelected == noteOptionID)
 				notesTween[i] = FlxTween.tween(note, {y: noteY}, Math.abs(note.y / (200 + noteY)) / 3, {ease: FlxEase.quadInOut});
 			else
 				notesTween[i] = FlxTween.tween(note, {y: -200}, Math.abs(note.y / (200 + noteY)) / 3, {ease: FlxEase.quadInOut});

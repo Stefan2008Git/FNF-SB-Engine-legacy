@@ -1,6 +1,7 @@
 package backend;
 
 import flixel.FlxG;
+import flixel.util.FlxColor;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
@@ -34,6 +35,9 @@ class ClientPrefs {
 	public static var hideWatermark:Bool = false;
 	public static var hideJudgementCounter:Bool = false;
 	public static var noteOffset:Int = 0;
+	public var noteSkin:String = 'Default';
+	public var splashSkin:String = 'Psych';
+	public var splashAlpha:Float = 0.6;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public var arrowRGB:Array<Array<FlxColor>> = [
 		[0xFFC24B99, 0xFFFFFFFF, 0xFF3C1F56],
@@ -138,6 +142,9 @@ class ClientPrefs {
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
+		FlxG.save.data.noteSkin = noteSkin;
+		FlxG.save.data.splashSkin = splashSkin;
+		FlxG.save.data.splashAlpha = splashAlpha;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
@@ -266,6 +273,15 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;
+		}
+		if (FlxG.save.data.noteSkin != null) {
+			noteSkin = FlxG.save.data.noteSkin;
+		}
+		if (FlxG.save.data.splashSkin != null) {
+			splashSkin = FlxG.save.data.splashSkin;
+		}
+		if (FlxG.save.data.splashAlpha != null) {
+			splashAlpha = FlxG.save.data.splashAlpha;
 		}
 		if (FlxG.save.data.arrowHSV != null) {
 			arrowHSV = FlxG.save.data.arrowHSV;
