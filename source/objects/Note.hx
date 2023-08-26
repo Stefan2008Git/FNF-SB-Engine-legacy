@@ -8,10 +8,9 @@ import flixel.util.FlxColor;
 import flash.display.BitmapData;
 import states.editors.ChartingState;
 import shaders.RGBPallete;
-import shaders.RGBPallete.RGBShaderReference;
+import shaders.RGBPalette.RGBShaderReference;
 import states.PlayState;
 import backend.ClientPrefs;
-import backend.CoolUtil;
 import backend.Conductor;
 import backend.Paths;
 
@@ -81,18 +80,6 @@ class Note extends FlxSprite {
 
 	public static var SUSTAIN_SIZE:Int = 44;
 	public static var defaultNoteSkin:String = 'noteSkins/NOTE_assets';
-
-	public var noteSplashData:NoteSplashData = {
-		disabled: false,
-		texture: null,
-		antialiasing: !PlayState.isPixelStage,
-		useGlobalShader: false,
-		useRGBShader: (PlayState.SONG != null) ? !(PlayState.SONG.disableNoteRGB == true) : true,
-		r: -1,
-		g: -1,
-		b: -1,
-		a: ClientPrefs.splashAlpha
-	};
 
 	public static var swagWidth:Float = 160 * 0.7;
 
@@ -296,7 +283,6 @@ class Note extends FlxSprite {
 	}
 
 	var _lastNoteOffX:Float = 0;
-	var suffix:String = '';
 	static var _lastValidChecked:String; //optimization
 	public var originalHeight:Float = 6;
 	public function reloadNote(texture:String = '', postfix:String = '') {
@@ -350,7 +336,7 @@ class Note extends FlxSprite {
 				offsetX -= _lastNoteOffX;
 			}
 		} else {
-			frames = Paths.getSparrowAtlas(skin);
+			frames = Paths.getSparrowAtlas(skins);
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if(!isSustainNote)
@@ -372,7 +358,7 @@ class Note extends FlxSprite {
 		public static function getNoteSkinPostfix() 
 		{
 		       var skin:String = '';
-		       if(ClientPrefs.noteSkin != ClientPrefs.noteSkin)
+		       if(ClientPrefs.noteSkin != ClientPrefs.defaultData.noteSkin)
 			      skin = '-' + ClientPrefs.noteSkin.trim().toLowerCase().replace(' ', '_');
 		       return skin;
 	    }

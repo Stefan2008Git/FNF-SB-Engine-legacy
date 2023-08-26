@@ -5,11 +5,9 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.system.FlxAssets.FlxShader;
 import flixel.graphics.frames.FlxFrame;
-import flixel.math.FlxMath;
 import shaders.RGBPallete;
 import states.PlayState;
 import backend.ClientPrefs;
-import backend.CoolUtil;
 import backend.Paths;
 
 typedef NoteSplashConfig = {

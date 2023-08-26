@@ -3,7 +3,6 @@ package shaders;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxShader;
-import objects.Note;
 
 class RGBPalette {
 	public var shader(default, null):RGBPaletteShader = new RGBPaletteShader();

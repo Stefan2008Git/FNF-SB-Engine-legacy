@@ -8,14 +8,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.util.FlxGradient;
 import lime.utils.Assets;
 import flixel.FlxSubState;
 import flash.text.TextField;
@@ -28,18 +25,14 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import lime.system.Clipboard;
 import backend.ClientPrefs;
 import backend.Controls;
 import backend.CoolUtil;
 import backend.MusicBeatSubstate;
 import backend.Paths;
 import objects.Alphabet;
-import objects.Note;
-import objects.StrumNote;
-import shaders.RGBPallete;
-import shaders.RGBPallete.RGBShaderReference;
-import states.PlayState;
+import shaders.RGBPalette;
+import shaders.RGBPalette.RGBShaderReference;
 
 using StringTools;
 
@@ -396,7 +389,7 @@ class NotesSubState extends MusicBeatSubstate
 	var bigNote:Note;
 	public function spawnNotes()
 	{
-		dataArray = !onPixel ? ClientPrefs.arrowRGB : ClientPrefs.arrowRGBPixel;
+		dataArray = !onPixel ? ClientPrefs.data.arrowRGB : ClientPrefs.data.arrowRGBPixel;
 		PlayState.isPixelStage = onPixel;
 
 		// clear groups
