@@ -49,6 +49,7 @@ class MenuCharacterEditorState extends MusicBeatState {
 	var defaultCharacters:Array<String> = ['dad', 'bf', 'gf'];
 
 	override function create() {
+		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 

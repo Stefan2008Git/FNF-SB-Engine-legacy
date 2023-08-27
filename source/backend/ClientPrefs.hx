@@ -27,12 +27,14 @@ class ClientPrefs {
 	public static var shaders:Bool = true;
 	public static var velocityBackground:Bool = true;
 	public static var framerate:Int = 60;
+	public static var gpuCaching:Bool = false;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var hideWatermark:Bool = false;
 	public static var hideJudgementCounter:Bool = false;
+	public static var hideHealthBarOverlay:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var vibration:Bool = false;
@@ -125,12 +127,14 @@ class ClientPrefs {
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.velocityBackground = velocityBackground;
 		FlxG.save.data.framerate = framerate;
+		FlxG.save.data.gpuCaching = gpuCaching;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
+		FlxG.save.data.hideHealthBarOverlay = hideHealthBarOverlay;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -242,6 +246,9 @@ class ClientPrefs {
 				FlxG.updateFramerate = framerate;
 			}
 		}
+		if (FlxG.save.data.gpuCaching != null) {
+			gpuCaching = FlxG.save.data.gpuCaching;
+		}
 		if (FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
 		}
@@ -253,6 +260,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.hideJudgementCounter != null) {
 			hideJudgementCounter = FlxG.save.data.hideJudgementCounter;
+		}
+		if (FlxG.save.data.hideHealthBarOverlay != null) {
+			hideHealthBarOverlay = FlxG.save.data.hideHealthBarOverlay;
 		}
 		if (FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;

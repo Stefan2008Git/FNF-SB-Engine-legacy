@@ -89,7 +89,11 @@ class CharacterEditorState extends MusicBeatState {
 	var healthBarOverlay:FlxSprite;
 
 	override function create() {
-		// FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
+		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
+		if (ClientPrefs.gpuCaching) {
+			Paths.clearStoredMemory();
+			Paths.clearUnusedMemory();
+		}
 
 		camEditor = new FlxCamera();
 		camHUD = new FlxCamera();

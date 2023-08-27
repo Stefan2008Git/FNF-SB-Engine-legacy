@@ -93,6 +93,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	var curAnim:Int = 0;
 
 	override function create() {
+		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 

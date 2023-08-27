@@ -33,12 +33,12 @@ using StringTools;
 
 class MasterEditorMenu extends MusicBeatState {
 	var options:Array<String> = [
-		'Week Editor',
-		'Menu Character Editor',
+		'Chart Editor',
+		'Character Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
-		'Character Editor',
-		'Chart Editor'
+		'Menu Character Editor',
+		'Week Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -167,24 +167,24 @@ class MasterEditorMenu extends MusicBeatState {
 
 		if (controls.ACCEPT) {
 			switch (options[currentlySelected]) {
-				case 'Character Editor':
-					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Character Editor Menu";
-				case 'Week Editor':
-					MusicBeatState.switchState(new WeekEditorState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Week Editor Menu";
-				case 'Menu Character Editor':
-					MusicBeatState.switchState(new MenuCharacterEditorState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Menu Character Editor Menu";
-				case 'Dialogue Portrait Editor':
-					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Portrait Editor Menu";
-				case 'Dialogue Editor':
-					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Editor Menu";
 				case 'Chart Editor': // felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+				case 'Character Editor':
+					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Character Editor Menu";
+				case 'Dialogue Editor':
+					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Editor Menu";
+				case 'Dialogue Portrait Editor':
+					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Portrait Editor Menu";
+				case 'Menu Character Editor':
+					MusicBeatState.switchState(new MenuCharacterEditorState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Menu Character Editor Menu";
+				case 'Week Editor':
+					MusicBeatState.switchState(new WeekEditorState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Week Editor Menu";
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL

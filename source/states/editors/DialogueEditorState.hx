@@ -57,6 +57,7 @@ class DialogueEditorState extends MusicBeatState {
 	var dialogueFile:DialogueFile = null;
 
 	override function create() {
+		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 

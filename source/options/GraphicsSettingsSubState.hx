@@ -55,6 +55,9 @@ class GraphicsSettingsSubState extends BaseOptionsMenu {
 			true); // Default value
 		addOption(option);
 
+		var option:Option = new Option('GPU Caching', 'If checked, this is gonna cache your graphic card.\nDont enable if you have bad graphic driver on your device!', 'gpuCaching', 'bool', false);
+		addOption(option);
+
 		#if !html5 // Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync freak enabled by default, idk
 		var option:Option = new Option('Framerate', "Changed framerate for your experience.", 'framerate', 'int', 60);
 		addOption(option);

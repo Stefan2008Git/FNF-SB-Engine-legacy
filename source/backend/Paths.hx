@@ -11,6 +11,8 @@ import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+import openfl.display.BitmapData;
+import openfl.display3D.textures.RectangleTexture;
 import lime.utils.Assets;
 import flixel.FlxSprite;
 #if sys
@@ -39,14 +41,12 @@ class Paths
 		'songs',
 		'music',
 		'sounds',
-		'shaders',
 		'videos',
 		'images',
 		'stages',
 		'weeks',
 		'fonts',
 		'scripts',
-		'achievements'
 	];
 	#end
 
@@ -232,11 +232,32 @@ class Paths
 		return inst;
 	}
 
-	inline static public function image(key:String, ?library:String):FlxGraphic
+	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
 	{
+		var bitmap:BitmapData = null;
+		var file:String = null;
 		// streamlined the assets process more
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
 		return returnAsset;
+
+		if (bitmap != null)
+		{
+			localTrackedAssets.push(file);
+			if (allowGPU && ClientPrefs.gpuCaching)
+			{
+				var texture:RectangleTexture = FlxG.stage.context3D.createRectangleTexture(bitmap.width, bitmap.height, BGRA, true);
+				texture.uploadFromBitmapData(bitmap);
+				bitmap.image.data = null;
+				bitmap.dispose();
+				bitmap.disposeImage();
+				bitmap = BitmapData.fromTexture(texture);
+			}
+			var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(bitmap, false, file);
+			newGraphic.persist = true;
+			newGraphic.destroyOnNoUse = false;
+			currentTrackedAssets.set(file, newGraphic);
+			return newGraphic;
+		}
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
@@ -290,34 +311,37 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
+	inline static public function getSparrowAtlas(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = returnGraphic(key);
+		var imageLoaded:FlxGraphic = image(key, allowGPU);
 		var xmlExists:Bool = false;
-		if(FileSystem.exists(modsXml(key))) {
+
+		var xml:String = modsXml(key);
+		if(FileSystem.exists(xml)) {
 			xmlExists = true;
 		}
 
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
+		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library, allowGPU)), (xmlExists ? File.getContent(xml) : file('images/$key.xml', library)));
 		#else
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library, allowGPU), file('images/$key.xml', library));
 		#end
 	}
 
-
-	inline static public function getPackerAtlas(key:String, ?library:String)
+	inline static public function getPackerAtlas(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = returnGraphic(key);
+		var imageLoaded:FlxGraphic = image(key, allowGPU);
 		var txtExists:Bool = false;
-		if(FileSystem.exists(modsTxt(key))) {
+		
+		var txt:String = modsTxt(key);
+		if(FileSystem.exists(txt)) {
 			txtExists = true;
 		}
 
-		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)), (txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
+		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library, allowGPU)), (txtExists ? File.getContent(txt) : file('images/$key.txt', library)));
 		#else
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, allowGPU), file('images/$key.txt', library));
 		#end
 	}
 

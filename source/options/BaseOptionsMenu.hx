@@ -98,9 +98,9 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		add(checkboxGroup);
 
 		descBox = new FlxSprite().makeGraphic(wight, height, 0x00);
-		descBox.alpha = 0.6;
+		descBox.alpha = 0.8;
 		add(descBox);
-		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, wight, height, 20, 20, 20, 20, 0x99000000);
+		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, wight, height, 85, 85, 150, 150, 0x99000000);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
 		titleText.scaleX = 0.6;
@@ -115,8 +115,8 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		    case 'Psych Engine':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-		    case 'Better UI':
+			
+			case 'Better UI':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		descText.scrollFactor.set();
