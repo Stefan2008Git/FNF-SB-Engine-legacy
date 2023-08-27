@@ -4174,7 +4174,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	public var transitioning = false;
-
+	public var endedTheSong = false;
 	public function endSong():Void {
 		// Should kill you if you tried to cheat
 		if (!startingSong) {
@@ -4194,20 +4194,53 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		#if android
-		androidControls.visible = false;
-		#end
-		timeBar.visible = false;
-		timeBarBG.visible = false;
-		timeTxt.visible = false;
-		canPause = false;
-		endingSong = true;
-		camZooming = false;
-		inCutscene = false;
-		updateTime = false;
+		if (!endedTheSong)	
+			{
+			Conductor.songPosition = 0; //so that it doesnt skip the results screen
+			if (!ClientPrefs.resultsScreen) {
+				#if android
+		        androidControls.visible = false;
+		        #end
+			    endedTheSong = true;
+			    timeBarBG.visible = false;
+			    timeBar.visible = false;
+			    timeTxt.visible = false;
+			    canPause = false;
+			    endingSong = true;
+			    camZooming = false;
+			    inCutscene = false;
+			    updateTime = false;
 
-		deathCounter = 0;
-		seenCutscene = false;
+				deathCounter = 0;
+		        seenCutscene = false;
+			}
+			if (ClientPrefs.resultsScreen && !isStoryMode) {
+			new FlxTimer().start(0.02, function(tmr:FlxTimer) {
+				endedTheSong = true;
+			});
+			persistentUpdate = false;
+			persistentDraw = true;
+			paused = true;
+			}
+			openSubState(new ResultsScreenSubState([sicks, goods, bads, freaks], songScore, songMisses, Highscore.floorDecimal(ratingPercent * 100, 2),
+						ratingName + (' [' + ratingFC + '] ')));
+		}
+
+		if (endedTheSong || !ClientPrefs.resultsScreen) {
+		    #if android
+		    androidControls.visible = false;
+		    #end
+		    timeBar.visible = false;
+		    timeBarBG.visible = false;
+		    timeTxt.visible = false;
+		    canPause = false;
+		    endingSong = true;
+		    camZooming = false;
+		    inCutscene = false;
+		    updateTime = false;
+
+		    deathCounter = 0;
+		    seenCutscene = false;
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if (ret != FunkinLua.Function_Stop && !transitioning) {
@@ -4304,15 +4337,12 @@ class PlayState extends MusicBeatState {
 				if (FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				if (ClientPrefs.resultsScreen)
-					openSubState(new ResultsScreenSubState([sicks, goods, bads, freaks], songScore, songMisses, Highscore.floorDecimal(ratingPercent * 100, 2),
-						ratingName + (' [' + ratingFC + '] ')));
-				else
-					MusicBeatState.switchState(new FreeplayState());
-				    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
+				MusicBeatState.switchState(new FreeplayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
-			}
+			    }
+		    }
 			transitioning = true;
 		}
 	}
