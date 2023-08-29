@@ -107,7 +107,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		add(judgementCounterTxt);
 
 		#if android
-		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Tap on A button to continue]", 32);
+		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Touch screen to continue]", 32);
 		#else
 		pressEnterTxt = new FlxText(400, 650, FlxG.width - 800, "[Press ENTER to continue]", 32);
 		#end
@@ -153,10 +153,6 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		FlxTween.tween(pressEnterTxt, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.10});
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
-
-		#if android
-		addVirtualPad(NONE, A);
-		#end
 	}
 
 	override function update(elapsed:Float) {
@@ -167,13 +163,23 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 			pressEnterTxt.alpha = 1 - Math.sin((Math.PI * pressEnterTxtSine) / 150);
 		}
 
+		#if android
+		var touchedScreen:Bool = false;
+
+		for (touch in FlxG.touches.list) {
+			if (touch.justPressed) {
+				touchedScreen = true;
+			}
+		}
+		#end
+
 		if(PlayState.instance.boyfriend.healthIcon == null)
 			iconP1.changeIcon('bf');
 	
 			if(PlayState.instance.dad.healthIcon == null)
 				iconP2.changeIcon('bf');
 
-		if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
+		if (FlxG.keys.justPressed.ENTER #if android || touchedScreen #end) {
 			PlayState.isStoryMode ? MusicBeatState.switchState(new StoryModeState()) : MusicBeatState.switchState(new FreeplayState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}

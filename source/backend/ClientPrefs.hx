@@ -13,6 +13,7 @@ class ClientPrefs {
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
+	public static var totalFPS:Bool = false;
 	public static var rainbowFPS:Bool = false;
 	public static var memory:Bool = false;
 	public static var totalMemory:Bool = false;
@@ -113,6 +114,7 @@ class ClientPrefs {
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.totalFPS = totalFPS;
 		FlxG.save.data.rainbowFPS = rainbowFPS;
 		FlxG.save.data.memory = memory;
 		FlxG.save.data.totalMemory = totalMemory;
@@ -193,6 +195,9 @@ class ClientPrefs {
 			if (Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
 			}
+		}
+		if (FlxG.save.data.totalFPS != null) {
+			totalFPS = FlxG.save.data.totalFPS;
 		}
 		if (FlxG.save.data.rainbowFPS != null) {
 			rainbowFPS = FlxG.save.data.rainbowFPS;

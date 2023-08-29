@@ -35,6 +35,7 @@ class FPS extends TextField {
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentlyFPS(default, null):Int;
+	public var totalFPS(default, null):Int;
 
 	public var currentlyMemory:Float;
 	public var maximumMemory:Float;
@@ -52,6 +53,7 @@ class FPS extends TextField {
 		this.y = y;
 
 		currentlyFPS = 0;
+		totalFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
 		#if android
@@ -134,8 +136,11 @@ class FPS extends TextField {
 
 		var currentCount = times.length;
 		currentlyFPS = Math.round((currentCount + cacheCount) / 2);
+		totalFPS = Math.round(currentlyFPS + currentCount / 8);
 		if (currentlyFPS > ClientPrefs.framerate)
 			currentlyFPS = ClientPrefs.framerate;
+		if (totalFPS < 10)
+			totalFPS = 0;
 
 		if (currentCount != cacheCount) {
 			text = "FPS: " + currentlyFPS;
@@ -143,15 +148,23 @@ class FPS extends TextField {
 			currentlyMemory = obtainMemory();
 			if (currentlyMemory >= maximumMemory)
 				maximumMemory = currentlyMemory;
+
+			if (ClientPrefs.totalFPS) {
+				text += "\nTotal FPS: " + totalFPS;
+			}
+
 			if (ClientPrefs.memory) {
 				text += "\nMemory: " + CoolUtil.formatMemory(Std.int(currentlyMemory));
 			}
+
 			if (ClientPrefs.totalMemory) {
 				text += "\nMemory peak: " + CoolUtil.formatMemory(Std.int(maximumMemory));
 			}
+
 			if (ClientPrefs.engineVersion) {
 				text += "\nSB Engine v" + MainMenuState.sbEngineVersion + " (Psych Engine v" + MainMenuState.psychEngineVersion + ")";
 			}
+
 			if (ClientPrefs.debugInfo) {
 				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';
 				if (FlxG.state.subState != null)

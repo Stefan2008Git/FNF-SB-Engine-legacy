@@ -141,13 +141,14 @@ class OptionsState extends MusicBeatState {
 		tipBackground.alpha = 0.7;
 		add(tipBackground);
 
-		tipText = new FlxText(12, FlxG.height - 710, 0, "");
+		tipText = new FlxText(400, 1, FlxG.width - 800, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 		tipText.updateHitbox();
+		tipText.screenCenter(X);
 		add(tipText);
 
 		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
@@ -252,7 +253,7 @@ class OptionsState extends MusicBeatState {
 			case 'Note Colors': tipText.text = "Change your note colors.";
 			case 'Controls': tipText.text = "Change your keybinds on your keyboard.";
 			case 'Graphics': tipText.text = "Change graphics settings";
-			case 'Visuals and UI': tipText.text = "Change some ui stuff outside frome engine.";
+			case 'Visuals and UI': tipText.text = "Change some ui stuff outside from engine.";
 			case 'Gameplay': tipText.text = "Change hud and objects for better experience.";
 			case 'Adjust Delay and Combo': tipText.text = "Ajust rating position for offset";
 		}
