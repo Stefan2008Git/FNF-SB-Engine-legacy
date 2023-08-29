@@ -99,9 +99,13 @@ class NoteOffsetState extends MusicBeatState {
 		gf.x += gf.positionArray[0];
 		gf.y += gf.positionArray[1];
 		gf.scrollFactor.set(0.95, 0.95);
+		gf.visible = ClientPrefs.objectEffects;
+
 		boyfriend = new Character(770, 100, 'bf', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
+		boyfriend.visible = ClientPrefs.objectEffects;
+
 		add(gf);
 		add(boyfriend);
 
@@ -158,7 +162,7 @@ class NoteOffsetState extends MusicBeatState {
 		add(beatText);
 
 		timeTxt = new FlxText(0, 600, FlxG.width, "", 32);
-		timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.borderSize = 2;
 		timeTxt.visible = false;
@@ -167,7 +171,7 @@ class NoteOffsetState extends MusicBeatState {
 		barPercent = ClientPrefs.noteOffset;
 		updateNoteDelay();
 
-		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineBar'));
+		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineTimeBar'));
 		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
 		timeBarBG.updateHitbox();
 		timeBarBG.cameras = [camHUD];
@@ -196,7 +200,7 @@ class NoteOffsetState extends MusicBeatState {
 		add(blackBox);
 
 		changeModeText = new FlxText(0, 4, FlxG.width, "", 32);
-		changeModeText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
+		changeModeText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		changeModeText.scrollFactor.set();
 		changeModeText.cameras = [camHUD];
 		add(changeModeText);
@@ -418,7 +422,7 @@ class NoteOffsetState extends MusicBeatState {
 	function createTexts() {
 		for (i in 0...4) {
 			var text:FlxText = new FlxText(10, 48 + (i * 30), 0, '', 24);
-			text.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.borderSize = 2;
 			dumbTexts.add(text);

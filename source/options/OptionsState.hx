@@ -31,6 +31,7 @@ import backend.MusicBeatState;
 import backend.Paths;
 import objects.Alphabet;
 import states.ClassicMainMenuState;
+import states.LoadingState;
 import states.MainMenuState;
 import states.PlayState;
 import substates.PauseSubState;
@@ -78,7 +79,7 @@ class OptionsState extends MusicBeatState {
 				#end
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				MusicBeatState.switchState(new options.NoteOffsetState());
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -140,7 +141,7 @@ class OptionsState extends MusicBeatState {
 		tipBackground.alpha = 0.7;
 		add(tipBackground);
 
-		tipText = new FlxText(500, 0, 0, "");
+		tipText = new FlxText(12, FlxG.height - 710, 0, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
@@ -205,9 +206,10 @@ class OptionsState extends MusicBeatState {
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (PauseSubState.optionMenu) {
-				MusicBeatState.switchState(new PlayState());
+				LoadingState.loadAndSwitchState(new PlayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				PauseSubState.optionMenu = false;
+				FlxG.sound.music.volume = 0;
 			} else {
 				if (ClientPrefs.mainMenuStyle == 'Classic') {
 					MusicBeatState.switchState(new ClassicMainMenuState());
