@@ -58,9 +58,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		var option:Option = new Option('Hide Judgement Counter', 'If checked, hides Judgement Counter.', 'hideJudgementCounter', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Hide health bar overlay', 'If checked, hides health bar overlay.', 'hideHealthBarOverlay', 'bool', false);
-		addOption(option);
-
 		// I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', // Name
 			'If checked, notes go Down instead of Up, simple enough.', // Description
@@ -99,10 +96,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Show time bar',
 			"If unchecked, this is gonna unshow time bar on gameplay.", 'showTimeBar', 'bool', true);
-		addOption(option);
-
-		var option:Option = new Option('Less lag',
-		    "If checked, this is gonna hide your rating counter using botplay.\nIf you enable without botplay, the results can be crash.", 'lessLag', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Show playback speed decimal',

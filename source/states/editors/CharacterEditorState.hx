@@ -86,7 +86,6 @@ class CharacterEditorState extends MusicBeatState {
 
 	var cameraFollowPointer:FlxSprite;
 	var healthBarBG:FlxSprite;
-	var healthBarOverlay:FlxSprite;
 
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
@@ -130,16 +129,6 @@ class CharacterEditorState extends MusicBeatState {
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
-
-		healthBarOverlay = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('healthBarOverlay'));
-		healthBarOverlay.y = FlxG.height * 0.89;
-		healthBarOverlay.scrollFactor.set();
-        healthBarOverlay.color = FlxColor.BLACK;
-		healthBarOverlay.blend = MULTIPLY;
-		healthBarOverlay.x = healthBarBG.x-1.9;
-		healthBarOverlay.antialiasing = ClientPrefs.globalAntialiasing;
-		add(healthBarOverlay);
-		healthBarOverlay.cameras = [camHUD];
 
 		leHealthIcon = new HealthIcon(char.healthIcon, false);
 		leHealthIcon.y = FlxG.height - 150;

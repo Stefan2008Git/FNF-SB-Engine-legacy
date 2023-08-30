@@ -220,7 +220,6 @@ class PlayState extends MusicBeatState {
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
-	public var healthBarOverlay:FlxSprite;
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
@@ -1349,25 +1348,6 @@ class PlayState extends MusicBeatState {
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlay'));
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-		    healthBarOverlay = new FlxSprite().loadGraphic(Paths.image('healthBarOverlayDaveAndBambi'));
-		}
-
-		healthBarOverlay.y = FlxG.height * 0.89;
-		healthBarOverlay.screenCenter(X);
-		healthBarOverlay.scrollFactor.set();
-		healthBarOverlay.visible = !ClientPrefs.hideHud && ClientPrefs.hideHealthBarOverlay;
-        healthBarOverlay.color = FlxColor.BLACK;
-		healthBarOverlay.blend = MULTIPLY;
-		healthBarOverlay.x = healthBarBG.x-1.9;
-	    healthBarOverlay.alpha = ClientPrefs.healthBarAlpha;
-		healthBarOverlay.antialiasing = ClientPrefs.globalAntialiasing;
-		add(healthBarOverlay); healthBarOverlay.alpha = ClientPrefs.healthBarAlpha; if(ClientPrefs.downScroll) healthBarOverlay.y = 0.11 * FlxG.height;
-
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
@@ -1644,7 +1624,6 @@ class PlayState extends MusicBeatState {
 		watermarkTxt.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
-		healthBarOverlay.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -4450,19 +4429,17 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart2 = '-pixel';
 		}
 
-		if (!cpuControlled && !ClientPrefs.lessLag) {
-		    rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
-		    rating.cameras = [camHUD];
-		    rating.screenCenter();
-		    rating.x = coolText.x - 40;
-		    rating.y -= 60;
-		    rating.acceleration.y = 550 * playbackRate * playbackRate;
-		    rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
-		    rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
-		    rating.visible = (!ClientPrefs.hideHud && showRating);
-		    rating.x += ClientPrefs.comboOffset[0];
-		    rating.y -= ClientPrefs.comboOffset[1];
-		}
+		rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
+		rating.cameras = [camHUD];
+		rating.screenCenter();
+		rating.x = coolText.x - 40;
+		rating.y -= 60;
+		rating.acceleration.y = 550 * playbackRate * playbackRate;
+		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
+		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
+		rating.visible = (!ClientPrefs.hideHud && showRating);
+		rating.x += ClientPrefs.comboOffset[0];
+		rating.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'combo' + pixelfreakPart2));
 		comboSpr.cameras = [camHUD];

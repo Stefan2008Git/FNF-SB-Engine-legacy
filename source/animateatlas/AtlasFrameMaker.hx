@@ -1,6 +1,8 @@
 package animateatlas;
+
 import flixel.util.FlxDestroyUtil;
 import openfl.geom.Rectangle;
+import flixel.FlxG;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import openfl.Assets;
@@ -14,6 +16,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxColor;
+import backend.ClientPrefs;
 import backend.Paths;
 import states.PlayState;
 
@@ -80,41 +83,50 @@ class AtlasFrameMaker extends FlxFramesCollection
 	{
 		var sizeInfo:Rectangle = new Rectangle(0, 0);
 		t.currentLabel = animation;
-		var bitMapArray:Array<BitmapData> = [];
-		var daFramez:Array<FlxFrame> = [];
+		var bitmapArray:Array<BitmapData> = [];
+		var frameValue:Array<FlxFrame> = [];
 		var firstPass = true;
 		var frameSize:FlxPoint = new FlxPoint(0, 0);
 
 		for (i in t.getFrame(animation)...t.numFrames)
-		{
-			t.currentFrame = i;
-			if (t.currentLabel == animation)
 			{
-				sizeInfo = t.getBounds(t);
-				var bitmapfreak:BitmapData = new BitmapData(Std.int(sizeInfo.width + sizeInfo.x), Std.int(sizeInfo.height + sizeInfo.y), true, 0);
-				bitmapfreak.draw(t, null, null, null, null, true);
-				bitMapArray.push(bitmapfreak);
-
-				if (firstPass)
+				t.currentFrame = i;
+				if (t.currentLabel == animation)
 				{
-					frameSize.set(bitmapfreak.width,bitmapfreak.height);
-					firstPass = false;
+					sizeInfo = t.getBounds(t);
+					var bitmapValue:BitmapData = new BitmapData(Std.int(sizeInfo.width + sizeInfo.x), Std.int(sizeInfo.height + sizeInfo.y), true, 0);
+					if (ClientPrefs.gpuCaching)
+					{
+						var texture:openfl.display3D.textures.RectangleTexture = FlxG.stage.context3D.createRectangleTexture(bitmapValue.width, bitmapValue.height, BGRA, true);
+						texture.uploadFromBitmapData(bitmapValue);
+						bitmapValue.image.data = null;
+						bitmapValue.dispose();
+						bitmapValue.disposeImage();
+						bitmapValue = BitmapData.fromTexture(texture);
+					}
+					bitmapValue.draw(t, null, null, null, null, true);
+					bitmapArray.push(bitmapValue);
+	
+					if (firstPass)
+					{
+						frameSize.set(bitmapValue.width,bitmapValue.height);
+						firstPass = false;
+					}
 				}
+				else break;
 			}
-			else break;
+			
+			for (i in 0...bitmapArray.length)
+			{
+				var b = FlxGraphic.fromBitmapData(bitmapArray[i]);
+				var theFrame = new FlxFrame(b);
+				theFrame.parent = b;
+				theFrame.name = animation + i;
+				theFrame.sourceSize.set(frameSize.x,frameSize.y);
+				theFrame.frame = new FlxRect(0, 0, bitmapArray[i].width, bitmapArray[i].height);
+				frameValue.push(theFrame);
+				//trace(frameValue);
+			}
+			return frameValue;
 		}
-		
-		for (i in 0...bitMapArray.length)
-		{
-			var b = FlxGraphic.fromBitmapData(bitMapArray[i]);
-			var theFrame = new FlxFrame(b);
-			theFrame.parent = b;
-			theFrame.name = animation + i;
-			theFrame.sourceSize.set(frameSize.x,frameSize.y);
-			theFrame.frame = new FlxRect(0, 0, bitMapArray[i].width, bitMapArray[i].height);
-			daFramez.push(theFrame);
-			//trace(daFramez);
-		}
-		return daFramez;
 	}
-}

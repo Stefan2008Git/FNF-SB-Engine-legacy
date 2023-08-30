@@ -8,7 +8,6 @@ import backend.Controls;
 import states.TitleScreenState;
 
 class ClientPrefs {
-	public static var lessLag:Bool = false;
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
@@ -35,7 +34,6 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var hideWatermark:Bool = false;
 	public static var hideJudgementCounter:Bool = false;
-	public static var hideHealthBarOverlay:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var vibration:Bool = false;
@@ -109,7 +107,6 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-		FlxG.save.data.lessLag = lessLag;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -136,7 +133,6 @@ class ClientPrefs {
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
-		FlxG.save.data.hideHealthBarOverlay = hideHealthBarOverlay;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -178,9 +174,6 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
-		if (FlxG.save.data.lessLag != null) {
-			lessLag = FlxG.save.data.lessLag;
-		}
 		if (FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}
@@ -265,9 +258,6 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.hideJudgementCounter != null) {
 			hideJudgementCounter = FlxG.save.data.hideJudgementCounter;
-		}
-		if (FlxG.save.data.hideHealthBarOverlay != null) {
-			hideHealthBarOverlay = FlxG.save.data.hideHealthBarOverlay;
 		}
 		if (FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;
