@@ -25,6 +25,7 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
+import backend.ClientPrefs;
 import states.MainMenuState;
 import states.TitleScreenState;
 
@@ -83,7 +84,7 @@ class Main extends Sprite {
 
 		SUtil.doTheCheck();
 
-		backend.ClientPrefs.loadDefaultKeys();
+		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
 			game.skipSplash, game.startFullscreen));
 
