@@ -181,7 +181,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 
 		if (FlxG.keys.justPressed.ENTER #if android || touchedScreen #end) {
 			PlayState.isStoryMode ? MusicBeatState.switchState(new StoryModeState()) : MusicBeatState.switchState(new FreeplayState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 		}
 	}
 }

@@ -1762,7 +1762,7 @@ class ChartingState extends MusicBeatState {
 				// if(onMasterEditor) {
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 				FlxG.mouse.visible = false;
 				return;
 			}

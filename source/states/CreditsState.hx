@@ -50,7 +50,7 @@ class CreditsState extends MusicBeatState {
 	override function create() {
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Credits Menus", null);
 		#end
 
 		persistentUpdate = true;
@@ -130,6 +130,13 @@ class CreditsState extends MusicBeatState {
 				'stefan-ro123',
 				'Fixed Wiggle effect shaders to run possible on PC and Android',
 				'https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ',
+				'fc0000'
+			],
+			[
+				'Sussy Sam',
+				'sam',
+				'Maked new icons for SB Engine, but he is not on team',
+				'https://www.youtube.com/@sussysam6789',
 				'fc0000'
 			],
 			[

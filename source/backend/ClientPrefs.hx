@@ -20,6 +20,7 @@ class ClientPrefs {
 	public static var debugInfo:Bool = false;
 	public static var flashing:Bool = true;
 	public static var resultsScreen:Bool = false;
+	public static var mainMenuMusic:String = 'FNF';
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var opponentArrowGlow:Bool = true;
@@ -119,6 +120,7 @@ class ClientPrefs {
 		FlxG.save.data.debugInfo = debugInfo;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.resultsScreen = resultsScreen;
+		FlxG.save.data.mainMenuMusic = mainMenuMusic;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.opponentArrowGlow = opponentArrowGlow;
@@ -212,6 +214,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.resultsScreen != null) {
 			resultsScreen = FlxG.save.data.resultsScreen;
+		}
+		if (FlxG.save.data.mainMenuMusic != null) {
+			mainMenuMusic = FlxG.save.data.mainMenuMusic;
 		}
 		if (FlxG.save.data.globalAntialiasing != null) {
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;

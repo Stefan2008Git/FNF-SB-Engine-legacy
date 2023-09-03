@@ -367,7 +367,7 @@ class PauseSubState extends MusicBeatSubstate {
 						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 					}
 					PlayState.cancelMusicFadeTween();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}

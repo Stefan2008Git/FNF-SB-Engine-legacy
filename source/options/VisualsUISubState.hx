@@ -81,6 +81,11 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 
+		var option:Option = new Option('Main Menu Song:', "What song do you prefer for the Main Menu Screen?", 'mainMenuMusic', 'string', 'FNF',
+			['FNF', 'SB Engine']);
+		addOption(option);
+		option.onChange = onChangeMainMenuMusic;
+
 		var option:Option = new Option('Game engine type:', "What should the style on game do you you want to look like?", 'gameStyle', 'string', 'SB Engine',
 			['SB Engine', 'Psych Engine', 'Better UI']);
 		addOption(option);
@@ -114,9 +119,19 @@ class VisualsUISubState extends BaseOptionsMenu {
 		changedMusic = true;
 	}
 
+	var mainMenuMusicChanged:Bool = false;
+
+	function onChangeMainMenuMusic()
+	{
+			if (ClientPrefs.mainMenuMusic != 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
+			if (ClientPrefs.mainMenuMusic == 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			mainMenuMusicChanged = true;
+	}
+
+
 	override function destroy() {
 		if (changedMusic)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 		super.destroy();
 	}
 

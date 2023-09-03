@@ -33,8 +33,8 @@ using StringTools;
 
 class MasterEditorMenu extends MusicBeatState {
 	var options:Array<String> = [
-		'Chart Editor',
 		'Character Editor',
+		'Chart Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Menu Character Editor',
@@ -48,6 +48,11 @@ class MasterEditorMenu extends MusicBeatState {
 	private var directoryTxt:FlxText;
 
 	var background:FlxSprite;
+	var characterEditor:FlxSprite;
+	var chartEditor:FlxSprite;
+	var dialogueEditor:FlxSprite;
+	var dialoguePortraitEditor:FlxSprite;
+	var weekEditor:FlxSprite;
 	var velocityBackground:FlxBackdrop;
 
 	var textBackground:FlxSprite;
@@ -71,6 +76,41 @@ class MasterEditorMenu extends MusicBeatState {
 			background.color = 0xFF353535;
 		}
 		add(background);
+
+		characterEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/characterEditor'));
+		characterEditor.scrollFactor.set();
+		characterEditor.visible = false;
+		characterEditor.antialiasing = ClientPrefs.globalAntialiasing;
+		characterEditor.scale.set(2, 2);
+		add(characterEditor);
+
+		chartEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/chartEditor'));
+		chartEditor.scrollFactor.set();
+		chartEditor.visible = false;
+		chartEditor.antialiasing = ClientPrefs.globalAntialiasing;
+		chartEditor.scale.set(2, 2);
+		add(chartEditor);
+
+		dialogueEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/dialogueEditor'));
+		dialogueEditor.scrollFactor.set();
+		dialogueEditor.visible = false;
+		dialogueEditor.antialiasing = ClientPrefs.globalAntialiasing;
+		dialogueEditor.scale.set(2, 2);
+		add(dialogueEditor);
+
+		dialoguePortraitEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/dialoguePortraitEditor'));
+		dialoguePortraitEditor.scrollFactor.set();
+		dialoguePortraitEditor.visible = false;
+		dialoguePortraitEditor.antialiasing = ClientPrefs.globalAntialiasing;
+		dialoguePortraitEditor.scale.set(2, 2);
+		add(dialoguePortraitEditor);
+
+		weekEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/weekEditor'));
+		weekEditor.scrollFactor.set();
+		weekEditor.visible = false;
+		weekEditor.antialiasing = ClientPrefs.globalAntialiasing;
+		weekEditor.scale.set(2, 2);
+		add(weekEditor);
 
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
@@ -167,12 +207,12 @@ class MasterEditorMenu extends MusicBeatState {
 
 		if (controls.ACCEPT) {
 			switch (options[currentlySelected]) {
-				case 'Chart Editor': // felt it would be cool maybe
-					LoadingState.loadAndSwitchState(new ChartingState(), false);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Character Editor Menu";
+				case 'Chart Editor': // felt it would be cool maybe
+					LoadingState.loadAndSwitchState(new ChartingState(), false);
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Editor Menu";
@@ -217,6 +257,50 @@ class MasterEditorMenu extends MusicBeatState {
 			currentlySelected = options.length - 1;
 		if (currentlySelected >= options.length)
 			currentlySelected = 0;
+
+		switch (options[currentlySelected]) {
+			case 'Character Editor':
+				characterEditor.visible = true;
+	            chartEditor.visible = false;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = false;
+	            weekEditor.visible = false;
+			
+			case 'Chart Editor':
+				characterEditor.visible = false;
+	            chartEditor.visible = true;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = false;
+	            weekEditor.visible = false;
+			
+			case 'Dialogue Editor':
+				characterEditor.visible = false;
+	            chartEditor.visible = false;
+	            dialogueEditor.visible = true;
+	            dialoguePortraitEditor.visible = false;
+	            weekEditor.visible = false;
+			
+			case 'Dialogue Portrait Editor':
+				characterEditor.visible = false;
+	            chartEditor.visible = false;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = true;
+	            weekEditor.visible = false;
+			
+			case 'Menu Character Editor':
+				characterEditor.visible = false;
+	            chartEditor.visible = false;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = false;
+	            weekEditor.visible = false;
+			
+			case 'Week Editor':
+				characterEditor.visible = false;
+	            chartEditor.visible = false;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = false;
+	            weekEditor.visible = true;
+		}
 	}
 
 	#if MODS_ALLOWED

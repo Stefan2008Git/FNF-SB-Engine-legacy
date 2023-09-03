@@ -4247,7 +4247,7 @@ class PlayState extends MusicBeatState {
 
 				if (storyPlaylist.length <= 0) {
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 
 					cancelMusicFadeTween();
 					if (FlxTransitionableState.skipNextTransIn) {
@@ -4318,7 +4318,7 @@ class PlayState extends MusicBeatState {
 				}
 				MusicBeatState.switchState(new FreeplayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 				changedDifficulty = false;
 			    }
 		    }

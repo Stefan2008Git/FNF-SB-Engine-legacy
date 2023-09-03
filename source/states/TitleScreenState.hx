@@ -198,7 +198,7 @@ class TitleScreenState extends MusicBeatState {
 	function startIntro() {
 		if (!initialized) {
 			if (FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 0);
 			}
 		}
 
@@ -560,7 +560,7 @@ class TitleScreenState extends MusicBeatState {
 			sickBeats++;
 			switch (sickBeats) {
 				case 1:
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+					FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					createCoolText(['SB Engine by'], 15);
@@ -634,7 +634,7 @@ class TitleScreenState extends MusicBeatState {
 				}, 0);
 				FlxG.camera.flash(FlxColor.WHITE, 3);
 				{
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+					FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 					transitioning = false;
 				};
