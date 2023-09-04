@@ -48,6 +48,8 @@ class MasterEditorMenu extends MusicBeatState {
 	private var directoryTxt:FlxText;
 
 	var background:FlxSprite;
+	var imageInfoBackground:FlxSprite;
+	var tipText:FlxText;
 	var characterEditor:FlxSprite;
 	var chartEditor:FlxSprite;
 	var dialogueEditor:FlxSprite;
@@ -77,35 +79,52 @@ class MasterEditorMenu extends MusicBeatState {
 		}
 		add(background);
 
-		characterEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/characterEditor'));
+		tipText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: tipText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		add(tipText);
+
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+		        imageInfoBackground = new FlxSprite(tipText.x - 6, 0).makeGraphic(1, 250, 0xFFFF00FF);
+
+			case 'Psych Engine':
+		        imageInfoBackground = new FlxSprite(tipText.x - 6, 0).makeGraphic(1, 250, 0xFF000000);
+		}
+		imageInfoBackground.alpha = 0.6;
+		add(imageInfoBackground);
+
+		characterEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/characterEditor'));
 		characterEditor.scrollFactor.set();
 		characterEditor.visible = false;
 		characterEditor.antialiasing = ClientPrefs.globalAntialiasing;
 		characterEditor.scale.set(2, 2);
 		add(characterEditor);
 
-		chartEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/chartEditor'));
+		chartEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/chartEditor'));
 		chartEditor.scrollFactor.set();
 		chartEditor.visible = false;
 		chartEditor.antialiasing = ClientPrefs.globalAntialiasing;
 		chartEditor.scale.set(2, 2);
 		add(chartEditor);
 
-		dialogueEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/dialogueEditor'));
+		dialogueEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/dialogueEditor'));
 		dialogueEditor.scrollFactor.set();
 		dialogueEditor.visible = false;
 		dialogueEditor.antialiasing = ClientPrefs.globalAntialiasing;
 		dialogueEditor.scale.set(2, 2);
 		add(dialogueEditor);
 
-		dialoguePortraitEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/dialoguePortraitEditor'));
+		dialoguePortraitEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/dialoguePortraitEditor'));
 		dialoguePortraitEditor.scrollFactor.set();
 		dialoguePortraitEditor.visible = false;
 		dialoguePortraitEditor.antialiasing = ClientPrefs.globalAntialiasing;
 		dialoguePortraitEditor.scale.set(2, 2);
 		add(dialoguePortraitEditor);
 
-		weekEditor = new FlxSprite(1050, 100).loadGraphic(Paths.image('editors/weekEditor'));
+		weekEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/weekEditor'));
 		weekEditor.scrollFactor.set();
 		weekEditor.visible = false;
 		weekEditor.antialiasing = ClientPrefs.globalAntialiasing;
@@ -232,10 +251,10 @@ class MasterEditorMenu extends MusicBeatState {
 			#end
 		}
 
-		var optionFreak:Int = 0;
+		var optionValue:Int = 0;
 		for (item in grpTexts.members) {
-			item.targetY = optionFreak - currentlySelected;
-			optionFreak++;
+			item.targetY = optionValue - currentlySelected;
+			optionValue++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
@@ -260,6 +279,7 @@ class MasterEditorMenu extends MusicBeatState {
 
 		switch (options[currentlySelected]) {
 			case 'Character Editor':
+				tipText.text = "Make a new character!";
 				characterEditor.visible = true;
 	            chartEditor.visible = false;
 	            dialogueEditor.visible = false;
@@ -267,6 +287,7 @@ class MasterEditorMenu extends MusicBeatState {
 	            weekEditor.visible = false;
 			
 			case 'Chart Editor':
+				tipText.text = "Make a new chart!";
 				characterEditor.visible = false;
 	            chartEditor.visible = true;
 	            dialogueEditor.visible = false;
@@ -274,6 +295,7 @@ class MasterEditorMenu extends MusicBeatState {
 	            weekEditor.visible = false;
 			
 			case 'Dialogue Editor':
+				tipText.text = "Make a new dialogue!";
 				characterEditor.visible = false;
 	            chartEditor.visible = false;
 	            dialogueEditor.visible = true;
@@ -281,6 +303,7 @@ class MasterEditorMenu extends MusicBeatState {
 	            weekEditor.visible = false;
 			
 			case 'Dialogue Portrait Editor':
+				tipText.text = "Make a new dialogue character!";
 				characterEditor.visible = false;
 	            chartEditor.visible = false;
 	            dialogueEditor.visible = false;
@@ -288,6 +311,7 @@ class MasterEditorMenu extends MusicBeatState {
 	            weekEditor.visible = false;
 			
 			case 'Menu Character Editor':
+				tipText.text = "Make a new menu character!";
 				characterEditor.visible = false;
 	            chartEditor.visible = false;
 	            dialogueEditor.visible = false;
@@ -295,12 +319,14 @@ class MasterEditorMenu extends MusicBeatState {
 	            weekEditor.visible = false;
 			
 			case 'Week Editor':
+				tipText.text = "Make a new week!";
 				characterEditor.visible = false;
 	            chartEditor.visible = false;
 	            dialogueEditor.visible = false;
 	            dialoguePortraitEditor.visible = false;
 	            weekEditor.visible = true;
 		}
+		makeTipTextLong();
 	}
 
 	#if MODS_ALLOWED
@@ -324,4 +350,11 @@ class MasterEditorMenu extends MusicBeatState {
 		directoryTxt.text = directoryTxt.text.toUpperCase();
 	}
 	#end
+
+	private function makeTipTextLong() {
+		tipText.x = FlxG.width - tipText.width - 6;
+
+		imageInfoBackground.scale.x = FlxG.width - tipText.x + 6;
+		imageInfoBackground.x = FlxG.width - (imageInfoBackground.scale.x / 2);
+	}
 }
