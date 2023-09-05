@@ -82,7 +82,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 		option.onChange = onChangePauseMusic;
 
 		var option:Option = new Option('Main Menu Song:', "What song do you prefer for the Main Menu Screen?", 'mainMenuMusic', 'string', 'FNF',
-			['FNF', 'SB Engine']);
+			['FNF', 'SB Engine', 'Future']);
 		addOption(option);
 		option.onChange = onChangeMainMenuMusic;
 
