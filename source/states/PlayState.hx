@@ -4379,7 +4379,6 @@ class PlayState extends MusicBeatState {
 			if (!msScoreLabel.visible) msScoreLabel.color = FlxColor.PURPLE;
 		}
 
-		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
@@ -4387,7 +4386,6 @@ class PlayState extends MusicBeatState {
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
-		//
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
@@ -4519,7 +4517,6 @@ class PlayState extends MusicBeatState {
 			numScore.velocity.x = FlxG.random.float(-5, 5) * playbackRate;
 			numScore.visible = !ClientPrefs.hideHud;
 
-			// if (combo >= 10 || combo == 0)
 			if (showComboNum)
 				insert(members.indexOf(strumLineNotes), numScore);
 
@@ -4535,13 +4532,8 @@ class PlayState extends MusicBeatState {
 				xThing = numScore.x;
 		}
 		comboSpr.x = xThing + 50;
-		/*
-		trace(combo);
-		trace(seperatedScore);
-	 */
 
 		coolText.text = Std.string(seperatedScore);
-		// add(coolText);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2 / playbackRate, {
 			startDelay: Conductor.crochet * 0.001 / playbackRate

@@ -665,10 +665,7 @@ class FlxSound extends FlxBasic
 			active = true;
 		}
 		else
-		{
-			exists = false;
-			active = false;
-		}
+			exists = active = false;
 	}
 
 	/**
