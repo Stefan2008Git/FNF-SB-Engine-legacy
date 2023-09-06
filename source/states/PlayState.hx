@@ -1311,17 +1311,11 @@ class PlayState extends MusicBeatState {
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-			healthBarBG = new AttachedSprite('healthBar');
-			healthBarBG.y = FlxG.height * 0.89;
-			healthBarBG.screenCenter(X);
-		}
-
-		if (ClientPrefs.gameStyle == 'Better UI') {
-			healthBarBG = new AttachedSprite('longBar');
-			healthBarBG.y = FlxG.height * 0.89;
-			healthBarBG.screenCenter(X);
-		}
+		final m = (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine');
+		final antiRedundancy:String = m ? 'healthBar' : (ClientPrefs.gameStyle == 'Better UI') ? 'longBar' : 'heathBar';
+		healthBarBG = new AttachedSprite(antiRedundancy);
+		healthBarBG.y = FlxG.height * 0.89;
+		healthBarBG.screenCenter(X);
 
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
