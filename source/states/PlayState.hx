@@ -43,7 +43,6 @@ import substates.ResultsScreenSubState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-import openfl.filters.ShaderFilter;
 import openfl.display.Shader;
 import flixel.FlxGame;
 import flixel.FlxObject;
@@ -117,6 +116,11 @@ import vlc.MP4Handler;
 
 #if (SScript >= "3.0.0")
 import tea.SScript;
+#end
+
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
 #end
 
 
@@ -241,6 +245,8 @@ class PlayState extends MusicBeatState {
 	public var startingSong:Bool = false;
 
 	private var updateTime:Bool = true;
+	private var updatePercent:Bool = true;
+	var songPercentValue:Float = 0;
 
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
@@ -335,6 +341,7 @@ class PlayState extends MusicBeatState {
 	public var psychEngineVersionTxt:FlxText;
 	public var watermarkTxt:FlxText;
 	public var playbackRateDecimalTxt:FlxText;
+	public var timePercentTxt:FlxText;
 
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
@@ -1601,13 +1608,30 @@ class PlayState extends MusicBeatState {
 				playbackRateDecimalTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			default:
 				playbackRateDecimalTxt.setFormat(Paths.font('bahnschrift.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		    }
+		}
 		playbackRateDecimalTxt.visible = ClientPrefs.playbackRateDecimal;
 		playbackRateDecimalTxt.text = 'Playback: ' + Std.string(playbackRate) + 'x';
 		if (ClientPrefs.downScroll) {
 			playbackRateDecimalTxt.y = 140;
 		}
 		add(playbackRateDecimalTxt);
+
+		timePercentTxt = new FlxText(400, 1, FlxG.width - 800, "");
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI':
+				timePercentTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				timePercentTxt.setFormat(Paths.font('bahnschrift.ttf'), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		timePercentTxt.scrollFactor.set();
+		timePercentTxt.alpha = 0;
+		if (ClientPrefs.downScroll) {
+			timePercentTxt.y = timeBarBG.y - 1;
+		}
+		timePercentTxt.visible = ClientPrefs.timePercent;
+		updatePercent = ClientPrefs.timePercent;
+		timePercentTxt.screenCenter(X);
+		add(timePercentTxt);
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1624,6 +1648,7 @@ class PlayState extends MusicBeatState {
 		botplayTxt.cameras = [camHUD];
 		msScoreLabel.cameras = [camHUD];
 		playbackRateDecimalTxt.cameras = [camHUD];
+		timePercentTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -1819,6 +1844,80 @@ class PlayState extends MusicBeatState {
 		if (eventNotes.length < 1)
 			checkEventNote();
 	}
+
+	#if (!flash && sys)
+	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
+	public function createRuntimeShader(name:String):FlxRuntimeShader
+	{
+		if(!ClientPrefs.shaders) return new FlxRuntimeShader();
+
+		#if (!flash && MODS_ALLOWED && sys)
+		if(!runtimeShaders.exists(name) && !initLuaShader(name))
+		{
+			FlxG.log.warn('Shader $name is missing!');
+			return new FlxRuntimeShader();
+		}
+
+		var arr:Array<String> = runtimeShaders.get(name);
+		return new FlxRuntimeShader(arr[0], arr[1]);
+		#else
+		FlxG.log.warn("Platform unsupported for Runtime Shaders!");
+		return null;
+		#end
+	}
+
+	public function initLuaShader(name:String)
+	{
+		if(!ClientPrefs.shaders) return false;
+
+		if(runtimeShaders.exists(name))
+		{
+			FlxG.log.warn('Shader $name was already initialized!');
+			return true;
+		}
+
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('shaders/')];
+
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
+
+		for(mod in Paths.getGlobalMods())
+			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
+		
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				var frag:String = folder + name + '.frag';
+				var vert:String = folder + name + '.vert';
+				var found:Bool = false;
+				if(FileSystem.exists(frag))
+				{
+					frag = File.getContent(frag);
+					found = true;
+				}
+				else frag = null;
+
+				if (FileSystem.exists(vert))
+				{
+					vert = File.getContent(vert);
+					found = true;
+				}
+				else vert = null;
+
+				if(found)
+				{
+					runtimeShaders.set(name, [frag, vert]);
+					//trace('Finally Found shader $name!');
+					return true;
+				}
+			}
+		}
+		FlxG.log.warn('Missing shader $name .frag AND .vert files!');
+		return false;
+	}
+	#end
 
 	function set_songSpeed(value:Float):Float {
 		if (generatedMusic) {
@@ -2555,14 +2654,17 @@ class PlayState extends MusicBeatState {
 			case 'SB Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 
 			case 'Psych Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 			case 'Better UI':
 				FlxTween.tween(timeBar, {alpha: 1}, 1);
 		        FlxTween.tween(timeTxt, {alpha: 1}, 1);
+				FlxTween.tween(timePercentTxt, {alpha: 1}, 1);
 		}
 
 		switch (currentlyStage) {
@@ -3345,6 +3447,7 @@ class PlayState extends MusicBeatState {
 					songPercent = (currentlyTime / songLength);
 
 					var songDurationSeconds:Float = FlxMath.roundDecimal(songLength / 1000, 0);
+					songPercentValue = FlxMath.roundDecimal(currentlyTime / songLength * 100, ClientPrefs.timePercentValue);
 
 					var songCalculating:Float = (songLength - currentlyTime);
 					if (ClientPrefs.timeBarType == 'Time Elapsed')
@@ -3389,9 +3492,27 @@ class PlayState extends MusicBeatState {
 					if(ClientPrefs.timeBarType == 'Modern Time' && songLength >= 3600000)
 						timeTxt.text = hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining + ' / ' + hoursShown + ':' + minutesShownValue + ':' + secondsShown;
 
-		            if (cpuControlled && ClientPrefs.timeBarType != 'Song Name') timeTxt.text += ' (Bot)';
+		            if (cpuControlled && ClientPrefs.timeBarType != 'Song Name' && ClientPrefs.gameStyle == 'SB Engine') timeTxt.text += ' (Autoplay)';
+					if (cpuControlled && ClientPrefs.timeBarType != 'Song Name' && ClientPrefs.gameStyle == 'Psych Engine') timeTxt.text += ' (Botplay)';
+					if (cpuControlled && ClientPrefs.timeBarType != 'Song Name' && ClientPrefs.gameStyle == 'Better UI') timeTxt.text += ' (CpuControlled)';
 				}
 			}
+
+			     if(updatePercent) {
+					var currentlyTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
+					if(currentlyTime < 0) currentlyTime = 0;
+					songPercent = (currentlyTime / songLength);
+					songPercentValue = FlxMath.roundDecimal(currentlyTime / songLength * 100, ClientPrefs.timePercentValue);
+					if (ClientPrefs.gameStyle != 'SB Engine' && ClientPrefs.gameStyle != 'Psych Engine')
+					{
+					timePercentTxt.text = songPercentValue  + '% Completed';
+					}
+					else
+					{
+					timePercentTxt.text = songPercentValue  + '%';
+				}
+			}
+			
 
 			// Conductor.lastSongPos = FlxG.sound.music.time;
 		}

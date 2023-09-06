@@ -58,6 +58,8 @@ class ClientPrefs {
 	public static var gameStyle:String = 'SB Engine';
 	public static var watermarkStyle:String = 'SB Engine';
 	public static var playbackRateDecimal:Bool = false;
+	public static var timePercent:Bool = false;
+	public static var timePercentValue:Int = 2;
 	public static var objectEffects:Bool = true;
 	public static var themes:String = 'SB Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -162,6 +164,8 @@ class ClientPrefs {
 		FlxG.save.data.gameStyle = gameStyle;
 		FlxG.save.data.watermarkStyle = watermarkStyle;
 		FlxG.save.data.playbackRateDecimal = playbackRateDecimal;
+		FlxG.save.data.timePercent = timePercent;
+		FlxG.save.data.timePercentValue = timePercentValue;
 		FlxG.save.data.objectEffects = objectEffects;
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
@@ -339,6 +343,12 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.playbackRateDecimal != null) {
 			playbackRateDecimal = FlxG.save.data.playbackRateDecimal;
+		}
+		if (FlxG.save.data.timePercent != null) {
+			timePercent = FlxG.save.data.timePercent;
+		}
+		if (FlxG.save.data.timePercentValue != null) {
+			timePercentValue = FlxG.save.data.timePercentValue;
 		}
 		if (FlxG.save.data.objectEffects != null) {
 			objectEffects = FlxG.save.data.objectEffects;
