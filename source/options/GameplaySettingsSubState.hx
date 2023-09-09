@@ -106,6 +106,9 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If checked, this is gonna show how much do you have percent for song time", 'timePercent', 'bool', 'true');
 		addOption(option);
 
+		var option:Option = new Option('Song intro card', 'If unchecked, this is gonna hides song intro card.', 'songIntro', 'bool', 'true');
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);

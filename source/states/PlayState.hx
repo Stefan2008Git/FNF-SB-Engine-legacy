@@ -336,6 +336,9 @@ class PlayState extends MusicBeatState {
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var nowPlayingTxt:FlxText;
+	public var songNameTxt:FlxText;
+	public var songNameBackground:FlxSprite;
 	public var judgementCounterTxt:FlxText;
 	public var sbEngineVersionTxt:FlxText;
 	public var psychEngineVersionTxt:FlxText;
@@ -1381,6 +1384,47 @@ class PlayState extends MusicBeatState {
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
+		nowPlayingTxt = new FlxText(20, 15, 0, "", 32);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				nowPlayingTxt.setFormat(Paths.font("bahnscrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Psych Engine':
+				nowPlayingTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Better UI':
+				nowPlayingTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		nowPlayingTxt.visible = !ClientPrefs.hideHud && ClientPrefs.songIntro;
+		nowPlayingTxt.scrollFactor.set();
+		nowPlayingTxt.updateHitbox();
+		nowPlayingTxt.alpha = 0;
+		nowPlayingTxt.text = 'Now Playing: ';
+		add(nowPlayingTxt);
+
+		songNameTxt = new FlxText(20, 50, 0, "", 20);
+		switch (ClientPrefs.gameStyle) {
+			case 'SB Engine':
+				songNameTxt.setFormat(Paths.font("bahnscrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Psych Engine':
+				songNameTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			case 'Better UI':
+				songNameTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		songNameTxt.visible = !ClientPrefs.hideHud && ClientPrefs.songIntro;
+		songNameTxt.scrollFactor.set();
+		songNameTxt.updateHitbox();
+		songNameTxt.alpha = 0;
+		songNameTxt.text = currentlySong;
+		add(songNameTxt);
+
+		songNameBackground = new FlxSprite(songNameTxt.x, 20).makeGraphic((Std.int(songNameTxt.width + 50)), Std.int(songNameTxt.height + 40), FlxColor.BLACK);
+		songNameBackground.visible = !ClientPrefs.hideHud && ClientPrefs.songIntro;
+		songNameBackground.alpha = 0;
+		add(songNameBackground);
+
 		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1645,6 +1689,9 @@ class PlayState extends MusicBeatState {
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		nowPlayingTxt.cameras = [camHUD];
+		songNameTxt.cameras = [camHUD];
+		songNameBackground.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		msScoreLabel.cameras = [camHUD];
 		playbackRateDecimalTxt.cameras = [camHUD];
@@ -1869,7 +1916,7 @@ class PlayState extends MusicBeatState {
 	#if !android
 	public function initLuaShader(name:String, ?glslVersion:Int = 120)
 	#else
-	public function intiLuaShader(name:String, ?glslVersion:Int = 100)
+	public function initLuaShader(name:String, ?glslVersion:Int = 100)
 	#end
 	{
 		if(!ClientPrefs.shaders) return false;
@@ -2670,6 +2717,22 @@ class PlayState extends MusicBeatState {
 		        FlxTween.tween(timeTxt, {alpha: 1}, 1);
 				FlxTween.tween(timePercentTxt, {alpha: 1}, 1);
 		}
+
+		FlxTween.tween(nowPlayingTxt, {alpha: 1, y: 20}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+				{
+					FlxTween.tween(nowPlayingTxt, {alpha: 0, y: -20}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+				});
+		FlxTween.tween(songNameTxt, {alpha: 1, y: 47}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+				{
+					FlxTween.tween(songNameTxt, {alpha: 0, y: -20}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+			    });
+		FlxTween.tween(songNameBackground, {alpha: 0.5}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+				{
+					FlxTween.tween(songNameBackground, {alpha: 0, y: -20}, 0.8, {ease: FlxEase.quartInOut, startDelay: 0.3});
+				});
 
 		switch (currentlyStage) {
 			case 'tank':
@@ -4272,7 +4335,6 @@ class PlayState extends MusicBeatState {
 	}
 
 	public var transitioning = false;
-	public var endedTheSong = false;
 	public function endSong():Void {
 		// Should kill you if you tried to cheat
 		if (!startingSong) {
@@ -4292,39 +4354,6 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (!endedTheSong)	
-			{
-			Conductor.songPosition = 0; //so that it doesnt skip the results screen
-			if (!ClientPrefs.resultsScreen) {
-				#if android
-		        androidControls.visible = false;
-		        #end
-			    endedTheSong = true;
-			    timeBarBG.visible = false;
-			    timeBar.visible = false;
-			    timeTxt.visible = false;
-			    canPause = false;
-			    endingSong = true;
-			    camZooming = false;
-			    inCutscene = false;
-			    updateTime = false;
-
-				deathCounter = 0;
-		        seenCutscene = false;
-			}
-			if (ClientPrefs.resultsScreen && !isStoryMode) {
-			new FlxTimer().start(0.02, function(tmr:FlxTimer) {
-				endedTheSong = true;
-			});
-			persistentUpdate = false;
-			persistentDraw = true;
-			paused = true;
-			}
-			openSubState(new ResultsScreenSubState([sicks, goods, bads, freaks], songScore, songMisses, Highscore.floorDecimal(ratingPercent * 100, 2),
-						ratingName + (' [' + ratingFC + '] ')));
-		}
-
-		if (endedTheSong || !ClientPrefs.resultsScreen) {
 		    #if android
 		    androidControls.visible = false;
 		    #end
@@ -4435,12 +4464,15 @@ class PlayState extends MusicBeatState {
 				if (FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
+				if (ClientPrefs.resultsScreen)
+					openSubState(new ResultsScreenSubState([sicks, goods, bads, freaks], songScore, songMisses, Highscore.floorDecimal(ratingPercent * 100, 2),
+						ratingName + (' [' + ratingFC + '] ')));
+				else
 				MusicBeatState.switchState(new FreeplayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 				changedDifficulty = false;
 			    }
-		    }
 			transitioning = true;
 		}
 	}

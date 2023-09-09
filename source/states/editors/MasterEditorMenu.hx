@@ -118,7 +118,7 @@ class MasterEditorMenu extends MusicBeatState {
 		imageInfoBackground.alpha = 0.6;
 		add(imageInfoBackground);
 
-		characterEditor = new FlxSprite(1020, 55).loadGraphic(Paths.image('editors/characterEditor'));
+		characterEditor = new FlxSprite(1030, 55).loadGraphic(Paths.image('editors/characterEditor'));
 		characterEditor.scrollFactor.set();
 		characterEditor.visible = false;
 		characterEditor.antialiasing = ClientPrefs.globalAntialiasing;
@@ -132,7 +132,7 @@ class MasterEditorMenu extends MusicBeatState {
 		chartEditor.scale.set(2, 2);
 		add(chartEditor);
 
-		dialogueEditor = new FlxSprite(1010, 70).loadGraphic(Paths.image('editors/dialogueEditor'));
+		dialogueEditor = new FlxSprite(1020, 70).loadGraphic(Paths.image('editors/dialogueEditor'));
 		dialogueEditor.scrollFactor.set();
 		dialogueEditor.visible = false;
 		dialogueEditor.antialiasing = ClientPrefs.globalAntialiasing;
@@ -153,7 +153,7 @@ class MasterEditorMenu extends MusicBeatState {
 		menuCharacterEditor.scale.set(2, 2);
 		add(menuCharacterEditor);
 
-		weekEditor = new FlxSprite(1050, 70).loadGraphic(Paths.image('editors/weekEditor'));
+		weekEditor = new FlxSprite(1057, 70).loadGraphic(Paths.image('editors/weekEditor'));
 		weekEditor.scrollFactor.set();
 		weekEditor.visible = false;
 		weekEditor.antialiasing = ClientPrefs.globalAntialiasing;

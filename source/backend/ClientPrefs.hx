@@ -35,6 +35,7 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var hideWatermark:Bool = false;
 	public static var hideJudgementCounter:Bool = false;
+	public static var songIntro:Bool = true;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var vibration:Bool = false;
@@ -137,6 +138,7 @@ class ClientPrefs {
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.hideWatermark = hideWatermark;
 		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
+		FlxG.save.data.songIntro = songIntro;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.vibration = vibration;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -267,6 +269,9 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.hideJudgementCounter != null) {
 			hideJudgementCounter = FlxG.save.data.hideJudgementCounter;
+		}
+		if (FlxG.save.data.songIntro) {
+			songIntro = FlxG.save.data.songIntro;
 		}
 		if (FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;

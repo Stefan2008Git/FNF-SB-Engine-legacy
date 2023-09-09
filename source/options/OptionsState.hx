@@ -136,12 +136,14 @@ class OptionsState extends MusicBeatState {
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
-		tipBackground = new FlxSprite();
+		tipBackground = new FlxSprite(0, FlxG.height - 18).makeGraphic(Std.int(FlxG.width), 55, 0xFF000000);
 		tipBackground.scrollFactor.set();
-		tipBackground.alpha = 0.7;
+		tipBackground.alpha = 0;
+		tipBackground.y = 100;
+		FlxTween.tween(tipBackground, {y: tipBackground.y -100, alpha: 0.7}, 1, {ease: FlxEase.circOut, startDelay: 0.3});
 		add(tipBackground);
 
-		tipText = new FlxText(400, 1, FlxG.width - 800, "");
+		tipText = new FlxText(500, 1, FlxG.width - 800, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
@@ -149,9 +151,10 @@ class OptionsState extends MusicBeatState {
 		}
 		tipText.updateHitbox();
 		tipText.screenCenter(X);
+		tipText.alpha = 0;
+		tipText.y += 400;
+		FlxTween.tween(tipText, {y: tipText.y -400, alpha: 0.7}, 1, {ease: FlxEase.circOut, startDelay: 0.3});
 		add(tipText);
-
-		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
 
 		#if android
 		androidControlsStyleTipText = new FlxText(10, FlxG.height - 44, 0, 'Press Y to customize your opacity for hitbox, virtual pads and hitbox style!', 16);
