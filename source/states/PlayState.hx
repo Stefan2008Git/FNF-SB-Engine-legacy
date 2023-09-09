@@ -1866,7 +1866,11 @@ class PlayState extends MusicBeatState {
 		#end
 	}
 
-	public function initLuaShader(name:String)
+	#if !android
+	public function initLuaShader(name:String, ?glslVersion:Int = 120)
+	#else
+	public function intiLuaShader(name:String, ?glslVersion:Int = 100)
+	#end
 	{
 		if(!ClientPrefs.shaders) return false;
 

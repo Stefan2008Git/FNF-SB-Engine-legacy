@@ -264,12 +264,13 @@ class FunkinLua {
 			return false;
 		});
 
-		// FlxRuntimeShaders support (Actrually this shaders are deleted completely from 2.2.0 update)
-		Lua_helper.add_callback(lua, "initLuaShader", function(name:String) {
-			if(!ClientPrefs.shaders) return false;
+		
+		// FlxRuntimeShaders support (Actrually this shaders are deleted completely from 2.2.0 update and added back to 2.9.0)
+		Lua_helper.add_callback(lua, "initLuaShader", function(name:String, glslVersion:Int = 120) {
+			if (!ClientPrefs.shaders) return false;
 
 			#if (!flash && MODS_ALLOWED && sys)
-			return initLuaShader(name);
+			return initLuaShader(name, glslVersion);
 			#else
 			luaTrace("initLuaShader: Platform unsupported for Runtime Shaders!", false, false, FlxColor.RED);
 			#end
@@ -2830,7 +2831,11 @@ class FunkinLua {
 	}
 	#end
 	
-	function initLuaShader(name:String)
+	#if !android
+	function initLuaShader(name:String, ?glslVersion:Int = 120)
+	#else
+	function initLuaShader(name:String, ?glslVersion:Int = 100)
+	#end
 	{
 		if(!ClientPrefs.shaders) return false;
 

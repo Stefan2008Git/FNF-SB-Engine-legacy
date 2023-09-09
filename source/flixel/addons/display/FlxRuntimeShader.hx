@@ -196,7 +196,11 @@ class FlxRuntimeShader extends FlxShader
 	 * @param vertexSource The vertex shader source.
 	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
+	#if !android
 	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
+	#else
+	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
+	#end
 	{
     _glslesVersion = glslesVersion;
 
