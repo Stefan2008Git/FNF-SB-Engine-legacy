@@ -143,7 +143,7 @@ class OptionsState extends MusicBeatState {
 		FlxTween.tween(tipBackground, {y: tipBackground.y -100, alpha: 0.7}, 1, {ease: FlxEase.circOut, startDelay: 0.3});
 		add(tipBackground);
 
-		tipText = new FlxText(500, 1, FlxG.width - 800, "");
+		tipText = new FlxText(800, 1, FlxG.width - 800, "");
 		tipText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);

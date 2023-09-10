@@ -1387,7 +1387,7 @@ class PlayState extends MusicBeatState {
 		nowPlayingTxt = new FlxText(20, 15, 0, "", 32);
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
-				nowPlayingTxt.setFormat(Paths.font("bahnscrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				nowPlayingTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
 			case 'Psych Engine':
 				nowPlayingTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1405,7 +1405,7 @@ class PlayState extends MusicBeatState {
 		songNameTxt = new FlxText(20, 50, 0, "", 20);
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
-				songNameTxt.setFormat(Paths.font("bahnscrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				songNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
 			case 'Psych Engine':
 				songNameTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1420,7 +1420,7 @@ class PlayState extends MusicBeatState {
 		songNameTxt.text = currentlySong;
 		add(songNameTxt);
 
-		songNameBackground = new FlxSprite(songNameTxt.x, 20).makeGraphic((Std.int(songNameTxt.width + 50)), Std.int(songNameTxt.height + 40), FlxColor.BLACK);
+		songNameBackground = new FlxSprite(songNameTxt.x, 20).makeGraphic((Std.int(songNameTxt.width + 100)), Std.int(songNameTxt.height + 40), FlxColor.BLACK);
 		songNameBackground.visible = !ClientPrefs.hideHud && ClientPrefs.songIntro;
 		songNameBackground.alpha = 0;
 		add(songNameBackground);
