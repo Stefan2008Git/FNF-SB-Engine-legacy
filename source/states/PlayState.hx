@@ -1026,37 +1026,24 @@ class PlayState extends MusicBeatState {
 
 		// "GLOBAL" SCRIPTS
 		#if LUA_ALLOWED
-		var filesPushed:Array<String> = [];
 		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('scripts/')];
-
-		#if MODS_ALLOWED
-		foldersToCheck.insert(0, Paths.mods('scripts/'));
-		if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
-
-		for (mod in Paths.getGlobalMods())
-			foldersToCheck.insert(0, Paths.mods(mod + '/scripts/'));
-		#end
-
-		for (folder in foldersToCheck) {
-			if (FileSystem.exists(folder)) {
-				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.lua') && !filesPushed.contains(file)) {
-						luaArray.push(new FunkinLua(folder + file));
-						filesPushed.push(file);
-					if (file.endsWith('.hx') && !filesPushed.contains(file)) {
-					    luaArray.push(new FunkinLua(folder + file));
-					    filesPushed.push(file);
-					    }
-					}
-				}
+		for (folder in foldersToCheck)
+			for (file in FileSystem.readDirectory(folder))
+			{
+				if(file.toLowerCase().endsWith('.lua'))
+					new FunkinLua(folder + file);
+				if(file.toLowerCase().endsWith('.hx'))
+					initHScript(folder + file);
 			}
-		}
 		#end
 
 		// STAGE SCRIPTS
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		startLuasOnFolder('stages/' + currentlyStage + '.lua');
+		#end
+
+		#if HSCRIPT_ALLOWED
+		startHScriptsNamed('stages/' + currentlyStage + '.hx');
 		#end
 
 		var gfVersion:String = SONG.gfVersion;
@@ -1738,35 +1725,15 @@ class PlayState extends MusicBeatState {
 		}
 
 		#if LUA_ALLOWED
-		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [
-			SUtil.getPath() + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')
-		];
-
-		#if MODS_ALLOWED
-		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
-		if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
-
-		for (mod in Paths.getGlobalMods())
-			foldersToCheck.insert(0,
-				Paths.mods(mod + '/data/' + Paths.formatToSongPath(SONG.song) +
-					'/')); // using push instead of insert because these should run after everything else
-		#end
-
-		for (folder in foldersToCheck) {
-			if (FileSystem.exists(folder)) {
-				for (file in FileSystem.readDirectory(folder)) {
-					if (file.endsWith('.lua') && !filesPushed.contains(file)) {
-						luaArray.push(new FunkinLua(folder + file));
-						filesPushed.push(file);
-					if (file.endsWith('.hx') && !filesPushed.contains(file)) 
-					    luaArray.push(new FunkinLua(folder + file));
-						filesPushed.push(file);
-					}
-				}
+		var foldersToCheck:Array<String> = SUtil.getPath() + Paths.getPreloadPath(Paths.getPreloadPath(), 'data/' + songName + '/');
+		for (folder in foldersToCheck)
+			for (file in FileSystem.readDirectory(folder))
+			{
+				if(file.toLowerCase().endsWith('.lua'))
+					new FunkinLua(folder + file);
+				if(file.toLowerCase().endsWith('.hx'))
+					initHScript(folder + file);
 			}
-		}
 		#end
 
 		var daSong:String = Paths.formatToSongPath(currentlySong);
@@ -2167,6 +2134,33 @@ class PlayState extends MusicBeatState {
 				camGame.setFilters(newCamEffects);
 		}
 	}
+
+	// HScript
+	#if HSCRIPT_ALLOWED
+	var doPush:Bool = false;
+	var scriptFile:String = 'characters/' + name + '.hx';
+	var replacePath:String = Paths.modFolders(scriptFile);
+	if(FileSystem.exists(replacePath))
+	{
+		scriptFile = replacePath;
+		doPush = true;
+	}
+	else
+	{
+		scriptFile = Paths.getPreloadPath(Sutil.getPath() + scriptFile);
+		if(FileSystem.exists(scriptFile))
+			doPush = true;
+	}
+	
+	if(doPush)
+	{
+		if(SScript.global.exists(scriptFile))
+			doPush = false;
+
+		if(doPush) initHScript(scriptFile);
+	}
+	#end
+}
 
 	public function getLuaObject(tag:String, text:Bool = true):FlxSprite {
 		if (modchartSprites.exists(tag))
@@ -5328,15 +5322,26 @@ class PlayState extends MusicBeatState {
 	}
 
 	override function destroy() {
-		for (lua in luaArray) {
+		#if LUA_ALLOWED
+		for (i in 0...luaArray.length) {
+			var lua:FunkinLua = luaArray[0];
 			lua.call('onDestroy', []);
 			lua.stop();
 		}
 		luaArray = [];
+		FunkinLua.customFunctions.clear();
+		#end
 
-		#if hscript
-		if (FunkinLua.hscript != null)
-			FunkinLua.hscript = null;
+		#if HSCRIPT_ALLOWED
+		for (script in hscriptArray)
+			if(script != null)
+			{
+				script.call('onDestroy');
+				script.destroy();
+			}
+
+		while (hscriptArray.length > 0)
+			hscriptArray.pop();
 		#end
 
 		if (!ClientPrefs.controllerMode) {
@@ -5651,6 +5656,52 @@ class PlayState extends MusicBeatState {
 	}
 	#end
 
+	public function callOnHScript(funcToCall:String, args:Array<Dynamic> = null, ?ignoreStops:Bool = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
+		var returnVal:Dynamic = psychlua.FunkinLua.Function_Continue;
+
+		#if HSCRIPT_ALLOWED
+		if(exclusions == null) exclusions = new Array();
+		if(excludeValues == null) excludeValues = new Array();
+		excludeValues.push(psychlua.FunkinLua.Function_Continue);
+
+		var len:Int = hscriptArray.length;
+		if (len < 1)
+			return returnVal;
+		for(i in 0...len)
+		{
+			var script:HScript = hscriptArray[i];
+			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
+				continue;
+
+			var myValue:Dynamic = null;
+			try
+			{
+				var callValue = script.call(funcToCall, args);
+				if(!callValue.succeeded)
+				{
+					var e = callValue.exceptions[0];
+					if(e != null)
+						FunkinLua.luaTrace('ERROR (${script.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
+				}
+				else
+				{
+					myValue = callValue.returnValue;
+					if((myValue == FunkinLua.Function_StopHScript || myValue == FunkinLua.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
+					{
+						returnVal = myValue;
+						break;
+					}
+					
+					if(myValue != null && !excludeValues.contains(myValue))
+						returnVal = myValue;
+				}
+			}
+		}
+		#end
+
+		return returnVal;
+	}
+
 	public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null,
 			excludeValues:Array<Dynamic> = null):Dynamic {
 		var returnVal = FunkinLua.Function_Continue;
@@ -5778,6 +5829,18 @@ class PlayState extends MusicBeatState {
 		if(exclusions == null) exclusions = [];
 		for (script in luaArray) {
 			if(exclusions.contains(script.scriptName))
+				continue;
+
+			script.set(variable, arg);
+		}
+		#end
+	}
+
+	public function setOnHScript(variable:String, arg:Dynamic, exclusions:Array<String> = null) {
+		#if HSCRIPT_ALLOWED
+		if(exclusions == null) exclusions = [];
+		for (script in hscriptArray) {
+			if(exclusions.contains(script.origin))
 				continue;
 
 			script.set(variable, arg);
