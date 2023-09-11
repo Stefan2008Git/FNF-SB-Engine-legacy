@@ -6,7 +6,6 @@ import backend.Discord.DiscordClient;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
@@ -268,12 +267,14 @@ class StoryModeState extends MusicBeatState {
 				#end
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
+				FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 			} else if (controls.RESET #if android || virtualPad.buttonY.justPressed #end) {
 				#if android
 				removeVirtualPad();
 				#end
 				persistentUpdate = false;
 				openSubState(new ResetScoreSubState('', currentlyDifficulty, '', curWeek));
+				FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 				// FlxG.sound.play(Paths.sound('scrollMenu'));
 			} else if (controls.ACCEPT) {
 				selectWeek();

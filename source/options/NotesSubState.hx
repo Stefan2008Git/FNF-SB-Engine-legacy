@@ -9,7 +9,6 @@ import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -242,12 +241,7 @@ class NotesSubState extends MusicBeatSubstate
 		if (controls.BACK || (changingNote && controls.ACCEPT)) {
 			changeSelection();
 			if(!changingNote) {
-				#if android
-				FlxTransitionableState.skipNextTransOut = true;
-				FlxG.resetState();
-				#else
 				close();
-				#end
 				grpNumbers.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
 				});
@@ -258,6 +252,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
 		}
 
 		if(nextAccept > 0) {

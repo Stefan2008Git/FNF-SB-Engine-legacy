@@ -1646,7 +1646,7 @@ class PlayState extends MusicBeatState {
 		msScoreLabel.borderSize = 2;
 		add(msScoreLabel);
 
-		playbackRateDecimalTxt = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "", 12);
+		playbackRateDecimalTxt = new FlxText(12, FlxG.height - 550, FlxG.width - 24, "", 12);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI':
 				playbackRateDecimalTxt.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1655,12 +1655,9 @@ class PlayState extends MusicBeatState {
 		}
 		playbackRateDecimalTxt.visible = ClientPrefs.playbackRateDecimal;
 		playbackRateDecimalTxt.text = 'Playback: ' + Std.string(playbackRate) + 'x';
-		if (ClientPrefs.downScroll) {
-			playbackRateDecimalTxt.y = 140;
-		}
 		add(playbackRateDecimalTxt);
 
-		timePercentTxt = new FlxText(400, 1, FlxG.width - 800, "");
+		timePercentTxt = new FlxText(12, FlxG.height - 30, FlxG.width - 24, "", 12);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine' | 'Better UI':
 				timePercentTxt.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1670,7 +1667,7 @@ class PlayState extends MusicBeatState {
 		timePercentTxt.scrollFactor.set();
 		timePercentTxt.alpha = 0;
 		if (ClientPrefs.downScroll) {
-			timePercentTxt.y = timeBarBG.y - 1;
+			timePercentTxt.y = 140;
 		}
 		timePercentTxt.visible = ClientPrefs.timePercent;
 		updatePercent = ClientPrefs.timePercent;

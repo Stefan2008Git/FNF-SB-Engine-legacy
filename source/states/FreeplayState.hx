@@ -363,6 +363,7 @@ class FreeplayState extends MusicBeatState {
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[currentlySelected].songName, currentlyDifficulty, songs[currentlySelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
+			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
 		}
 		super.update(elapsed);
 	}

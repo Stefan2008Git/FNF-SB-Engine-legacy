@@ -227,6 +227,7 @@ class OptionsState extends MusicBeatState {
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[currentlySelected]);
+			FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 		}
 
 		#if android
