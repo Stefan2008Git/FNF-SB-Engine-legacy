@@ -1,6 +1,7 @@
 package substates;
 
 import flixel.FlxG;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
