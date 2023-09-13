@@ -210,7 +210,7 @@ class OptionsState extends MusicBeatState {
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (PauseSubState.optionMenu) {
-				LoadingState.loadAndSwitchState(new PlayState());
+				MusicBeatState.switchState(new PlayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 				PauseSubState.optionMenu = false;
 				FlxG.sound.music.volume = 0;

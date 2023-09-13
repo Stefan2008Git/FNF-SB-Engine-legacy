@@ -248,7 +248,12 @@ class NotesSubState extends MusicBeatSubstate
 				grpNotes.forEachAlive(function(spr:FlxSprite) {
 					spr.alpha = 0;
 				});
-				close();
+				#if android
+			    FlxTransitionableState.skipNextTransOut = true;
+			    FlxG.resetState();
+			    #else
+			    close();
+			    #end
 			}
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
