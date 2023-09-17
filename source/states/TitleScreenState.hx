@@ -470,9 +470,6 @@ class TitleScreenState extends MusicBeatState {
 
 				transitioning = true;
 
-				MainMenuState.firstStart = true;
-				MainMenuState.finishedFunnyMove = false;
-
 				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					MusicBeatState.switchState(new GameExitState());

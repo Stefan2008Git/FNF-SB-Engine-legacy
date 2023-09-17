@@ -117,11 +117,32 @@ class CreditsState extends MusicBeatState {
 				'5E99DF'
 			],
 			[
-				'Fearester',
+				'Fearester2008',
 				'fearester',
 				'Third Programmer of SB Engine',
 				'https://www.youtube.com/@fearester1282',
 				'5E99DF'
+			],
+			[
+				'SunBurntTails',
+				'sun',
+				'First Beta test player for SB Engine',
+				'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw',
+				'fc0000'
+			],
+			[
+				'Ali Alafandy',
+				'ali',
+				'Second Beta test player for SB Engine',
+				'https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA',
+				'00008b'
+			],
+			[
+				'HMFNF',
+				'hm',
+				'Third Beta test player for SB Engine',
+				'https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw',
+				'00ffda'
 			],
 			[''],
 			['Special credits'],
@@ -137,7 +158,7 @@ class CreditsState extends MusicBeatState {
 				'sam',
 				'Maked new icons for SB Engine, but he is not on team',
 				'https://www.youtube.com/@sussysam6789',
-				'fc0000'
+				'964B00'
 			],
 			[
 				'Lizzy Strawbery',
@@ -166,6 +187,13 @@ class CreditsState extends MusicBeatState {
 				'For health bar counter and Grafex Engine team',
 				'https://github.com/JustXale',
 				'f7a300'
+			],
+			[
+				'SquidBowl',
+				'tinki',
+				'For gallery stuff. Thanks',
+				'https://www.youtube.com/@squidbowl',
+				'964B00'
 			],
 			[
 				'MarioMaster',
