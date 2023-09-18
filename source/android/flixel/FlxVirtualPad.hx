@@ -164,6 +164,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 			.getByName(Graphic),
 			FlxPoint.get(Width, Height));
 		button.resetSizeFromFrame();
+		button.moves = false;
 		button.solid = false;
 		button.immovable = true;
 		button.scrollFactor.set();
