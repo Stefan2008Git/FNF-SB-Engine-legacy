@@ -1265,9 +1265,7 @@ class PlayState extends MusicBeatState {
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
-		// startCountdown();
-
-		generateSong(SONG.song);
+		generateSong();
 
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
@@ -1294,9 +1292,6 @@ class PlayState extends MusicBeatState {
 		}
 		#end
 
-		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
-		// add(strumLine);
-
 		cameraFollow = new FlxPoint();
 		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 
@@ -1312,7 +1307,6 @@ class PlayState extends MusicBeatState {
 		add(cameraFollowPosition);
 
 		FlxG.camera.follow(cameraFollowPosition, LOCKON, 1);
-		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(cameraFollow);
 
@@ -2655,9 +2649,8 @@ class PlayState extends MusicBeatState {
 		}
 		else
 			vocals.time = vocals.length;
-	
-			Conductor.songPosition = time;
-			songTime = time;
+
+		Conductor.songPosition = time;
 	}
 
 	function startNextDialogue() {
@@ -2669,15 +2662,8 @@ class PlayState extends MusicBeatState {
 		callOnLuas('onSkipDialogue', [dialogueCount]);
 	}
 
-	var previousFrameTime:Int = 0;
-	var lastReportedPlayheadPosition:Int = 0;
-	var songTime:Float = 0;
-
 	function startSong():Void {
 		startingSong = false;
-
-		previousFrameTime = FlxG.game.ticks;
-		lastReportedPlayheadPosition = 0;
 
 		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.pitch = playbackRate;
@@ -2699,15 +2685,10 @@ class PlayState extends MusicBeatState {
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
+			case 'SB Engine' | 'Psych Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
-
-			case 'Psych Engine':
-		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 			case 'Better UI':
 				FlxTween.tween(timeBar, {alpha: 1}, 1);
@@ -2751,8 +2732,7 @@ class PlayState extends MusicBeatState {
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 	private var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 
-	private function generateSong(dataPath:String):Void {
-		// FlxG.log.add(ChartParser.parse());
+	private function generateSong():Void {
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype', 'multiplicative');
 
 		switch (songSpeedType) {
@@ -2783,10 +2763,6 @@ class PlayState extends MusicBeatState {
 
 		// NEW freak
 		noteData = songData.notes;
-
-		var playerCounter:Int = 0;
-
-		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
@@ -2882,7 +2858,6 @@ class PlayState extends MusicBeatState {
 					noteTypeMap.set(swagNote.noteType, true);
 				}
 			}
-			daBeats += 1;
 		}
 		for (event in songData.events) // Event Notes
 		{
@@ -2898,8 +2873,6 @@ class PlayState extends MusicBeatState {
 				eventPushed(subEvent);
 			}
 		}
-		// trace(unspawnNotes.length);
-		// playerCounter += 1;
 		unspawnNotes.sort(sortByTime);
 		generatedMusic = true;
 	}
@@ -3407,32 +3380,14 @@ class PlayState extends MusicBeatState {
 		}
 
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			   var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP1.scale.set(mult, mult);
-			   iconP1.updateHitbox();
-
-			   var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP2.scale.set(mult, mult);
-			   iconP2.updateHitbox();
-
-			case 'Psych Engine':
-			   var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP1.scale.set(mult, mult);
-			   iconP1.updateHitbox();
-
-			   var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP2.scale.set(mult, mult);
-			   iconP2.updateHitbox();
-			
-			case 'Better UI':
-			   var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP1.scale.set(mult, mult);
-			   iconP1.updateHitbox();
-
-			   var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-			   iconP2.scale.set(mult, mult);
-			   iconP2.updateHitbox();
+			default:
+				var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP1.scale.set(mult, mult);
+				iconP1.updateHitbox();
+ 
+				var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP2.scale.set(mult, mult);
+				iconP2.updateHitbox();
 		}
 
 		var iconOffset:Int = 26;
@@ -3449,31 +3404,37 @@ class PlayState extends MusicBeatState {
 		if (health > 2)
 			health = 2;
 
-		if (iconP1.animation.numFrames == 3) {
-			if (healthBar.percent < 20)
-				iconP1.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent >80)
-				iconP1.animation.curAnim.curFrame = 2;
-			else
-				iconP1.animation.curAnim.curFrame = 0;
-		} 
-		else {
-			if (healthBar.percent < 20)
-				iconP1.animation.curAnim.curFrame = 1;
-			else
+		switch (iconP1.animation.numFrames){
+			case 3:
+				if (healthBar.percent < 20)
+					iconP1.animation.curAnim.curFrame = 1;
+				else if (healthBar.percent >80)
+					iconP1.animation.curAnim.curFrame = 2;
+				else
+					iconP1.animation.curAnim.curFrame = 0;
+			case 2:
+				if (healthBar.percent < 20)
+					iconP1.animation.curAnim.curFrame = 1;
+				else
+					iconP1.animation.curAnim.curFrame = 0;
+			case 1:
 				iconP1.animation.curAnim.curFrame = 0;
 		}
-		if (iconP2.animation.numFrames == 3) {
-			if (healthBar.percent > 80)
-				iconP2.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent < 20)
-				iconP2.animation.curAnim.curFrame = 2;
-			else 
-				iconP2.animation.curAnim.curFrame = 0;
-		} else {
-			if (healthBar.percent > 80)
-				iconP2.animation.curAnim.curFrame = 1;
-			else 
+
+		switch(iconP2.animation.numFrames){
+			case 3:
+				if (healthBar.percent > 80)
+					iconP2.animation.curAnim.curFrame = 1;
+				else if (healthBar.percent < 20)
+					iconP2.animation.curAnim.curFrame = 2;
+				else 
+					iconP2.animation.curAnim.curFrame = 0;
+			case 2:
+				if (healthBar.percent > 80)
+					iconP2.animation.curAnim.curFrame = 1;
+				else 
+					iconP2.animation.curAnim.curFrame = 0;
+			case 1:
 				iconP2.animation.curAnim.curFrame = 0;
 		}
 
@@ -3495,15 +3456,6 @@ class PlayState extends MusicBeatState {
 				Conductor.songPosition = -Conductor.crochet * 5;
 		} else {
 			if (!paused) {
-				songTime += FlxG.game.ticks - previousFrameTime;
-				previousFrameTime = FlxG.game.ticks;
-
-				// Interpolation type beat
-				if (Conductor.lastSongPos != Conductor.songPosition) {
-					songTime = (songTime + Conductor.songPosition) / 2;
-					Conductor.lastSongPos = Conductor.songPosition;
-				}
-
 				if (updateTime) {
 					var currentlyTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 					if (currentlyTime < 0)
