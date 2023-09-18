@@ -1834,6 +1834,8 @@ class PlayState extends MusicBeatState {
 					Paths.sound(key);
 				case 'music':
 					Paths.music(key);
+				case 'video':
+					Paths.video(key);
 			}
 		}
 
