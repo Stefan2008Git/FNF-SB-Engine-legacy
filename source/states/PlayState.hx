@@ -133,7 +133,6 @@ class PlayState extends MusicBeatState {
 	// event variables
 	private var isCameraOnForcedPos:Bool = false;
 
-	#if (haxe >= "4.0.0")
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
 	public var gfMap:Map<String, Character> = new Map();
@@ -144,18 +143,6 @@ class PlayState extends MusicBeatState {
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
-	#else
-	public var boyfriendMap:Map<String, Boyfriend> = new Map<String, Boyfriend>();
-	public var dadMap:Map<String, Character> = new Map<String, Character>();
-	public var gfMap:Map<String, Character> = new Map<String, Character>();
-	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
-	public var modchartTweens:Map<String, FlxTween> = new Map();
-	public var modchartSprites:Map<String, ModchartSprite> = new Map();
-	public var modchartTimers:Map<String, FlxTimer> = new Map();
-	public var modchartSounds:Map<String, FlxSound> = new Map();
-	public var modchartTexts:Map<String, ModchartText> = new Map();
-	public var modchartSaves:Map<String, FlxSave> = new Map();
-	#end
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -531,7 +518,6 @@ class PlayState extends MusicBeatState {
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 
-		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
@@ -1138,8 +1124,6 @@ class PlayState extends MusicBeatState {
 			dialogue = CoolUtil.coolTextFile(SUtil.getPath() + file);
 		}
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 		doof.nextDialogueThing = startNextDialogue;
