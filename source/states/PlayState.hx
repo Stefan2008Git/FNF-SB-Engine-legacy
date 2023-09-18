@@ -2897,6 +2897,7 @@ class PlayState extends MusicBeatState {
 				addCharacterToList(newCharacter, charType);
 
 			case 'Dadbattle Spotlight':
+				if (curStage != 'stage') return;
 				dadbattleBlack = new BGSprite(null, -800, -400, 0, 0);
 				dadbattleBlack.makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				dadbattleBlack.alpha = 0.25;
@@ -2930,6 +2931,7 @@ class PlayState extends MusicBeatState {
 				dadbattleSmokes.add(smoke);
 
 			case 'Philly Glow':
+				if (curStage != 'philly') return;
 				blammedLightsBlack = new FlxSprite(FlxG.width * -0.5,
 					FlxG.height * -0.5).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				blammedLightsBlack.visible = false;
@@ -3825,6 +3827,7 @@ class PlayState extends MusicBeatState {
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch (eventName) {
 			case 'Dadbattle Spotlight':
+				if (curStage != 'stage') return;
 				var val:Null<Int> = Std.parseInt(value1);
 				if (val == null)
 					val = 0;
@@ -3902,6 +3905,7 @@ class PlayState extends MusicBeatState {
 				gfSpeed = value;
 
 			case 'Philly Glow':
+				if (curStage != 'philly') return;
 				var lightId:Int = Std.parseInt(value1);
 				if (Math.isNaN(lightId))
 					lightId = 0;
