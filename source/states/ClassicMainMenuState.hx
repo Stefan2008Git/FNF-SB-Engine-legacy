@@ -1,27 +1,26 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import backend.ClientPrefs;
 import backend.CoolUtil;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 import backend.MusicBeatState;
 import backend.Paths;
 import backend.WeekData;
@@ -41,6 +40,8 @@ class ClassicMainMenuState extends MusicBeatState {
 	var background:FlxSprite;
 	var sbEngineVersionTxt:FlxText;
 	var fnfVersionTxt:FlxText;
+	var galleryText:FlxText;
+	var galleryTextSine:Float = 0;
 	var secretText:FlxText;
 	var secretTextSine:Float = 0;
 	var tipTextMargin:Float = 10;
@@ -57,6 +58,9 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	var cameraFollow:FlxObject;
 	var cameraFollowPosition:FlxObject;
+
+	var selectorLeft:Alphabet;
+	var selectorRight:Alphabet;
 
 	function openSelectedState(label:String) {
 		switch (label) {
@@ -79,9 +83,6 @@ class ClassicMainMenuState extends MusicBeatState {
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 		}
 	}
-
-	var selectorLeft:Alphabet;
-	var selectorRight:Alphabet;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -127,6 +128,11 @@ class ClassicMainMenuState extends MusicBeatState {
 		initOptions();
 
 		#if android
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press X for the gallery basemant!", 12);
+		#else
+		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for the gallery basemant!", 12);
+		#end
+		#if android
 		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for the secret screen!", 12);
 		#else
 		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
@@ -156,9 +162,11 @@ class ClassicMainMenuState extends MusicBeatState {
 			    fnfVersionTxt.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
+		galleryText.scrollFactor.set();
 		secretText.scrollFactor.set();
 		sbEngineVersionTxt.scrollFactor.set();
 		fnfVersionTxt.scrollFactor.set();
+		add(galleryText);
 		add(secretText);
 		add(sbEngineVersionTxt);
 		add(fnfVersionTxt);
@@ -189,7 +197,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		tipTextStartScrolling();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C);
+		addVirtualPad(UP_DOWN, A_B_C_X_Y);
 		virtualPad.y = -44;
 		#end
 
@@ -230,6 +238,11 @@ class ClassicMainMenuState extends MusicBeatState {
 			secretText.alpha = 1 - Math.sin((Math.PI * secretTextSine) / 150);
 		}
 
+		if (galleryText.visible) {
+			galleryTextSine += 150 * elapsed;
+			galleryText.alpha = 1 - Math.sin((Math.PI * galleryTextSine) / 150);
+		}
+
 		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}
@@ -264,9 +277,14 @@ class ClassicMainMenuState extends MusicBeatState {
 		}
 		#end
 
-		if (FlxG.keys.justPressed.S #if android || FlxG.android.justReleased.BACK #end) {
+		if (FlxG.keys.justPressed.G #if android || virtualPad.buttonX.justPressed #end) {
 			FlxG.sound.play(Paths.sound('scrollMenu'));
-			FlxG.sound.music.volume = 0;
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
+			MusicBeatState.switchState(new GalleryScreenState());
+		}
+
+		if (FlxG.keys.justPressed.S #if android || virtualPad.buttonY.justPressed #end) {
+			FlxG.sound.play(Paths.sound('scrollMenu'));
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
 			MusicBeatState.switchState(new DVDScreenState());
 		}

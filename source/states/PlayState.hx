@@ -20,8 +20,6 @@ import backend.WeekData;
 import cutscenes.DialogueBox;
 import cutscenes.DialogueBoxPsych;
 import shaders.Shaders;
-import shaders.WiggleEffect;
-import shaders.WiggleEffect.WiggleEffectType;
 import objects.AttachedSprite;
 import objects.Boyfriend;
 import objects.BackgroundDancer;
@@ -266,12 +264,6 @@ class PlayState extends MusicBeatState {
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
 
-	public static var theWiggleFlagEffect:WiggleEffect;
-	public static var theWiggleHorizontalWaveHeatEffect:WiggleEffect;
-	public static var theWiggleWavyEffect:WiggleEffect;
-	public static var theWiggleVerticalWaveHeatEffect:WiggleEffect;
-	public static var theWiggleDreamyEffect:WiggleEffect;
-
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
@@ -513,36 +505,6 @@ class PlayState extends MusicBeatState {
 		for (i in 0...keysArray.length) {
 			keysPressed.push(false);
 		}
-
-		theWiggleFlagEffect = new WiggleEffect();
-		theWiggleFlagEffect.effectType = WiggleEffectType.FLAG;
-		theWiggleFlagEffect.waveAmplitude = 0.1;
-		theWiggleFlagEffect.waveFrequency = 5;
-		theWiggleFlagEffect.waveSpeed = 2.25;
-
-		theWiggleHorizontalWaveHeatEffect = new WiggleEffect();
-		theWiggleHorizontalWaveHeatEffect.effectType = WiggleEffectType.HEAT_WAVE_HORIZONTAL;
-		theWiggleHorizontalWaveHeatEffect.waveAmplitude = 0.1;
-		theWiggleHorizontalWaveHeatEffect.waveFrequency = 5;
-		theWiggleHorizontalWaveHeatEffect.waveSpeed = 2.25;
-
-		theWiggleVerticalWaveHeatEffect = new WiggleEffect();
-		theWiggleVerticalWaveHeatEffect.effectType = WiggleEffectType.HEAT_WAVE_VERTICAL;
-		theWiggleVerticalWaveHeatEffect.waveAmplitude = 0.1;
-		theWiggleVerticalWaveHeatEffect.waveFrequency = 5;
-		theWiggleVerticalWaveHeatEffect.waveSpeed = 2.25;
-
-		theWiggleDreamyEffect = new WiggleEffect();
-		theWiggleDreamyEffect.effectType = WiggleEffectType.DREAMY;
-		theWiggleDreamyEffect.waveAmplitude = 0.1;
-		theWiggleDreamyEffect.waveFrequency = 5;
-		theWiggleDreamyEffect.waveSpeed = 2.25;
-
-		theWiggleWavyEffect = new WiggleEffect();
-		theWiggleWavyEffect.effectType = WiggleEffectType.WAVY;
-		theWiggleWavyEffect.waveAmplitude = 0.2;
-		theWiggleWavyEffect.waveFrequency = 3;
-		theWiggleWavyEffect.waveSpeed = 1.25;
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -2687,10 +2649,15 @@ class PlayState extends MusicBeatState {
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine' | 'Psych Engine':
+			case 'SB Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+
+			case 'Psych Engine':
+		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
+				FlxTween.tween(timePercentTxt, {alpha: 1}, 0.5, {ease: FlxEase.circInOut});
 
 			case 'Better UI':
 				FlxTween.tween(timeBar, {alpha: 1}, 1);
@@ -2897,7 +2864,7 @@ class PlayState extends MusicBeatState {
 				addCharacterToList(newCharacter, charType);
 
 			case 'Dadbattle Spotlight':
-				if (curStage != 'stage') return;
+				if (currentlyStage != 'stage') return;
 				dadbattleBlack = new BGSprite(null, -800, -400, 0, 0);
 				dadbattleBlack.makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				dadbattleBlack.alpha = 0.25;
@@ -2931,7 +2898,7 @@ class PlayState extends MusicBeatState {
 				dadbattleSmokes.add(smoke);
 
 			case 'Philly Glow':
-				if (curStage != 'philly') return;
+				if (currentlyStage != 'philly') return;
 				blammedLightsBlack = new FlxSprite(FlxG.width * -0.5,
 					FlxG.height * -0.5).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				blammedLightsBlack.visible = false;
@@ -3158,12 +3125,6 @@ class PlayState extends MusicBeatState {
 
 	override public function update(elapsed:Float) {
 		callOnLuas('onUpdate', [elapsed]);
-
-		theWiggleFlagEffect.update(elapsed);
-		theWiggleHorizontalWaveHeatEffect.update(elapsed);
-		theWiggleVerticalWaveHeatEffect.update(elapsed);
-		theWiggleDreamyEffect.update(elapsed);
-		theWiggleWavyEffect.update(elapsed);
 
 		switch (currentlyStage) {
 			case 'tank':
@@ -3827,7 +3788,7 @@ class PlayState extends MusicBeatState {
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch (eventName) {
 			case 'Dadbattle Spotlight':
-				if (curStage != 'stage') return;
+				if (currentlyStage != 'stage') return;
 				var val:Null<Int> = Std.parseInt(value1);
 				if (val == null)
 					val = 0;
@@ -3905,7 +3866,7 @@ class PlayState extends MusicBeatState {
 				gfSpeed = value;
 
 			case 'Philly Glow':
-				if (curStage != 'philly') return;
+				if (currentlyStage != 'philly') return;
 				var lightId:Int = Std.parseInt(value1);
 				if (Math.isNaN(lightId))
 					lightId = 0;

@@ -64,9 +64,9 @@ class GalleryScreenState extends MusicBeatState
         background.screenCenter();
         add(background);
 
-        imagePaths = ["sbEngineLogo", "newBoyfriendIcons", "newLemonMonstersIcons"];
-        imageDescriptions = ["Made by Nury. She is the best artist!", "Made by Nury again, she is the best artist again!", "Made by Nury again for the second time, she is the best artist!"];
-        imageTitle = ["New current SB Engine Logo", "New icons are coming very soon as possible. Probably on v3.0.0 version!", "Another leak?"];
+        imagePaths = ["sbEngineLogo", "newBoyfriendIcons", "newLemonMonsterIcons"];
+        imageDescriptions = ["Stefan Beta Engine then? Nolstalgia i think :(.", "Beep bop bap!", "And im gonna eat your girlfriend >:)!"];
+        imageTitle = ["New current SB Engine Logo", "New byofriend icons (Made by Nury btw)", "Another leak? (Made by Nury again btw!)"];
 
         itemGroup = new FlxTypedGroup<GalleryImage>();
 

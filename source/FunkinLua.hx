@@ -1815,28 +1815,6 @@ class FunkinLua {
 			}
 		});
 
-		if (ClientPrefs.shaders == true) {
-		    Lua_helper.add_callback(lua, "addWiggleEffect", function(tag:String, wavyType:String) {
-				if (PlayState.instance.modchartSprites.exists(tag)) {
-					var wiggleEffectValue:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-					switch (wavyType) {
-						case "flagEffect":
-							wiggleEffectValue.shader = PlayState.theWiggleFlagEffect.shader;
-						case "dreamyEffect":
-							wiggleEffectValue.shader = PlayState.theWiggleDreamyEffect.shader;
-						case "heatWaveHorizontalEffect":
-							wiggleEffectValue.shader = PlayState.theWiggleHorizontalWaveHeatEffect.shader;
-						case "heatWaveVerticalEffect":
-							wiggleEffectValue.shader = PlayState.theWiggleVerticalWaveHeatEffect.shader;
-						case "wavyEffect":
-							wiggleEffectValue.shader = PlayState.theWiggleWavyEffect.shader;
-						default:
-							wiggleEffectValue.shader = PlayState.theWiggleWavyEffect.shader;
-					}
-				}
-			});
-		}
-
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0, updateHitbox:Bool = true) {
 			if (PlayState.instance.getLuaObject(obj) != null) {
 				var freak:FlxSprite = PlayState.instance.getLuaObject(obj);
@@ -2697,6 +2675,33 @@ class FunkinLua {
 				});
 			Lua_helper.add_callback(lua, "addGlitchEffect", function(camera:String, waveSpeed:Float = 0.1, waveFrq:Float = 0.1, waveAmp:Float = 0.1) {
 				PlayState.instance.addLuaShaderToCamera(camera, new GlitchEffect(waveSpeed, waveFrq, waveAmp));
+			});
+			Lua_helper.add_callback(lua, "addWiggleEffect", function(camera:String, wiggleEffectType:String = 'dreamyEffect', waveSpeed:Float = 2.25, waveFrq:Float = 5, waveAmp:Float = 0.1) {
+
+				if (wiggleEffectType == 'dreamyEffect')
+				{
+					PlayState.instance.addLuaShaderToCamera(camera, new WiggleEffectDreamy(waveSpeed, waveFrq, waveAmp));
+				}
+	
+				if (wiggleEffectType == 'wavyEffect')
+				{
+					PlayState.instance.addLuaShaderToCamera(camera, new WiggleEffectWavy(waveSpeed = 1.25, waveFrq = 3, waveAmp = 0.2));
+				}
+	
+				if (wiggleEffectType == 'horizontalEffect')
+				{
+					PlayState.instance.addLuaShaderToCamera(camera, new WiggleEffectHorizontal(waveSpeed, waveFrq, waveAmp));
+				}
+	
+				if (wiggleEffectType == 'verticalEffect')
+				{
+					PlayState.instance.addLuaShaderToCamera(camera, new WiggleEffectVertical(waveSpeed, waveFrq, waveAmp));
+				}
+	
+				if (wiggleEffectType == 'flagEffect')
+				{
+					PlayState.instance.addLuaShaderToCamera(camera, new WiggleEffectFlag(waveSpeed, waveFrq, waveAmp));
+				}	
 			});
 			Lua_helper.add_callback(lua, "addPulseEffect", function(camera:String, waveSpeed:Float = 0.1, waveFrq:Float = 0.1, waveAmp:Float = 0.1) {
 				PlayState.instance.addLuaShaderToCamera(camera, new PulseEffect(waveSpeed, waveFrq, waveAmp));

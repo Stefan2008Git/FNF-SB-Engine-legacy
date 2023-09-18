@@ -217,7 +217,25 @@ class MainMenuState extends MusicBeatState
 		add(versionPsych);
 		add(versionFnf);
 
+		tipBackground = new FlxSprite();
+		tipBackground.scrollFactor.set();
+		tipBackground.alpha = 0.7;
+		add(tipBackground);
+
+		tipText = new FlxText(0, 0, 0, "");
+		tipText.scrollFactor.set();
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
+		}
+
+		tipText.updateHitbox();
+		add(tipText);
+
+		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
+
 		changeItem();
+		tipTextStartScrolling();
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_C_X_Y);
@@ -231,6 +249,18 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		
+		if (tipTextScrolling)
+		{
+			tipText.x -= elapsed * 130;
+			if (tipText.x < -tipText.width)
+			{
+				tipTextScrolling = false;
+				tipTextStartScrolling();
+				changeTipText();
+			}
+		}
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -328,18 +358,18 @@ class MainMenuState extends MusicBeatState
 			}
 			#end
 
-			if (FlxG.keys.justPressed.S #if android || virtualPad.buttonX.justPressed #end) {
-				selectedSomething = true;
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
-				MusicBeatState.switchState(new DVDScreenState());
-			}
-
-			if (FlxG.keys.justPressed.G #if android || virtualPad.buttonY.justPressed #end) {
+			if (FlxG.keys.justPressed.G #if android || virtualPad.buttonX.justPressed #end) {
 				selectedSomething = true;
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
 				MusicBeatState.switchState(new GalleryScreenState());
+			}
+
+			if (FlxG.keys.justPressed.S #if android || virtualPad.buttonY.justPressed #end) {
+				selectedSomething = true;
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
+				MusicBeatState.switchState(new DVDScreenState());
 			}
 		}
 
