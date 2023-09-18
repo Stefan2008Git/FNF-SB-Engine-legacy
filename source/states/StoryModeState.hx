@@ -268,12 +268,14 @@ class StoryModeState extends MusicBeatState {
 				#end
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
+				FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 			} else if (controls.RESET #if android || virtualPad.buttonY.justPressed #end) {
 				#if android
 				removeVirtualPad();
 				#end
 				persistentUpdate = false;
 				openSubState(new ResetScoreSubState('', currentlyDifficulty, '', curWeek));
+				FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 				// FlxG.sound.play(Paths.sound('scrollMenu'));
 			} else if (controls.ACCEPT) {
 				selectWeek();

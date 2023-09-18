@@ -102,6 +102,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If checked, this is gonna show how much do you have deciman on speed for song", 'playbackRateDecimal', 'bool', 'false');
 		addOption(option);
 
+		var option:Option = new Option('Show time percent',
+		    "If checked, this is gonna show how much do you have percent for song time", 'timePercent', 'bool', 'true');
+		addOption(option);
+
+		var option:Option = new Option('Song intro card', 'If unchecked, this is gonna hides song intro card.', 'songIntro', 'bool', 'true');
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
@@ -170,6 +177,17 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		option.maxValue = 10;
 		option.changeValue = 0.1;
 		addOption(option);
+
+		var option:Option = new Option('% Decimals: ',
+			"The amount of decimals you want for your Song Percentage. (0 means no decimals)",
+			'timePercentValue',
+			'int',
+			2);
+		addOption(option);
+
+		option.minValue = 0;
+		option.maxValue = 50;
+		option.displayFormat = '%v Decimals';
 
 		super();
 	}

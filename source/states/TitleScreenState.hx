@@ -75,8 +75,8 @@ class TitleScreenState extends MusicBeatState {
 
 	var blackScreen:FlxSprite;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
-	var credGroup:FlxGroup;
-	var credTextfreak:Alphabet;
+	var creditGroup:FlxGroup;
+	var creditText:Alphabet;
 	var textGroup:FlxGroup;
 	var checker:FlxBackdrop;
 
@@ -284,6 +284,7 @@ class TitleScreenState extends MusicBeatState {
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();
+		gradientBar.visible = ClientPrefs.objectEffects;
 		add(gradientBar);
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut});
 
@@ -325,19 +326,19 @@ class TitleScreenState extends MusicBeatState {
 		titleText.updateHitbox();
 		add(titleText);
 
-		credGroup = new FlxGroup();
-		add(credGroup);
+		creditGroup = new FlxGroup();
+		add(creditGroup);
 		textGroup = new FlxGroup();
 
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		credGroup.add(blackScreen);
+		creditGroup.add(blackScreen);
 
-		credTextfreak = new Alphabet(0, 0, "", true);
-		credTextfreak.screenCenter();
+		creditText = new Alphabet(0, 0, "", true);
+		creditText.screenCenter();
 
-		credTextfreak.visible = false;
+		creditText.visible = false;
 
-		FlxTween.tween(credTextfreak, {y: credTextfreak.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
+		FlxTween.tween(creditText, {y: creditText.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		if (initialized)
 			skipIntro();
@@ -469,9 +470,6 @@ class TitleScreenState extends MusicBeatState {
 
 				transitioning = true;
 
-				MainMenuState.firstStart = true;
-				MainMenuState.finishedFunnyMove = false;
-
 				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					MusicBeatState.switchState(new GameExitState());
@@ -508,15 +506,15 @@ class TitleScreenState extends MusicBeatState {
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 			money.screenCenter(X);
 			FlxTween.quadMotion(money, -300, -100, 30 + (i * 70), 150 + (i * 130), 100 + (i * 70), 80 + (i * 130), 0.4, true, {ease: FlxEase.quadInOut});
-			if (credGroup != null && textGroup != null) {
-				credGroup.add(money);
+			if (creditGroup != null && textGroup != null) {
+				creditGroup.add(money);
 				textGroup.add(money);
 			}
 		}
 	}
 
 	function addMoreText(text:String, ?offset:Float = 0) {
-		if (textGroup != null && credGroup != null) {
+		if (textGroup != null && creditGroup != null) {
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
 			coolText.x = -1500;
 			FlxTween.quadMotion(coolText, -300, -100, 10
@@ -527,14 +525,14 @@ class TitleScreenState extends MusicBeatState {
 				+ (textGroup.length * 130), 0.4, true, {
 					ease: FlxEase.quadInOut
 				});
-			credGroup.add(coolText);
+			creditGroup.add(coolText);
 			textGroup.add(coolText);
 		}
 	}
 
 	function deleteCoolText() {
 		while (textGroup.members.length > 0) {
-			credGroup.remove(textGroup.members[0], true);
+			creditGroup.remove(textGroup.members[0], true);
 			textGroup.remove(textGroup.members[0], true);
 		}
 	}
@@ -605,7 +603,7 @@ class TitleScreenState extends MusicBeatState {
 	function skipIntro():Void {
 		if (!skippedIntro) {
 			{
-				remove(credGroup);
+				remove(creditGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				if (ClientPrefs.objectEffects) {
 					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
@@ -640,7 +638,7 @@ class TitleScreenState extends MusicBeatState {
 				};
 			}
 		} else {
-			remove(credGroup);
+			remove(creditGroup);
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 		}
 		skippedIntro = true;

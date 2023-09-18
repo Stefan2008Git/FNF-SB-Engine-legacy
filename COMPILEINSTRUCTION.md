@@ -40,6 +40,5 @@ You'll also need to install a couple things that involve Gits. To do this, you n
 You should have everything ready for compiling the game! Follow the guide below to continue!
 
 ### Compiling game
-NOTE: If you see any messages relating to deprecated packages, ignore them. They're just warnings that don't affect compiling
 
 Once you have all those installed, it's pretty easy to compile the game. You just need to run `lime test windows -debug` in the root of the project to build and run the windows version

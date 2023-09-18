@@ -1,10 +1,11 @@
 package substates;
 
 import flixel.FlxG;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
-import flixel.addons.transition.FlxTransitionableState;
 import backend.ClientPrefs;
 import backend.CoolUtil;
 import backend.MusicBeatSubstate;
@@ -105,6 +106,7 @@ class ResetScoreSubState extends MusicBeatSubstate {
 		}
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
 			#if android
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
@@ -120,6 +122,7 @@ class ResetScoreSubState extends MusicBeatSubstate {
 				}
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
 			#if android
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
