@@ -4810,16 +4810,6 @@ class PlayState extends MusicBeatState {
 			RecalculateRating(true);
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
-			// FlxG.log.add('played imss note');
-
-			/*boyfriend.stunned = true;
-
-			// get stunned for 1/60 of a second, makes you able to
-			new FlxTimer().start(1 / 60, function(tmr:FlxTimer)
-			{
-				boyfriend.stunned = false;
-		});*/
 
 			if (boyfriend.hasMissAnimations) {
 				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
@@ -5357,7 +5347,7 @@ class PlayState extends MusicBeatState {
 					phillyWindow.alpha = 1;
 				}
 
-				if (curBeat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8) {
+				if (curBeat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8 && !trainSound.playing) {
 					trainCooldown = FlxG.random.int(-4, 0);
 					trainStart();
 				}
@@ -5591,30 +5581,6 @@ class PlayState extends MusicBeatState {
 					    ratingFC = "Single Digit Combo Breaks";
 				    else if (songMisses >= 10)
 					    ratingFC = "Cleared the song";
-
-			    case 'Psych Engine':
-				    if (sicks > 0)
-					    ratingFC = "SFC";
-				    if (goods > 0)
-					    ratingFC = "GFC";
-				    if (bads > 0 || freaks > 0)
-					    ratingFC = "FC";
-				    if (songMisses > 0 && songMisses < 10)
-					    ratingFC = "SDCB";
-				    else if (songMisses >= 10)
-					    ratingFC = "Clear";
-
-			    case 'Better UI':
-				    if (sicks > 0)
-					    ratingFC = "SFC";
-				    if (goods > 0)
-					    ratingFC = "GFC";
-				    if (bads > 0 || freaks > 0)
-					    ratingFC = "FC";
-				    if (songMisses > 0 && songMisses < 10)
-					    ratingFC = "SDCB";
-				    else if (songMisses >= 10)
-					    ratingFC = "Clear";
 			}
 		}
 		updateScore(badHit);
@@ -5626,10 +5592,7 @@ class PlayState extends MusicBeatState {
 			case 'SB Engine':
 		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
 			
-			case 'Psych Engine':
-		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
-			
-			case 'Better UI':
+			case 'Psych Engine' | 'Better UI':
 		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
 	    }
 	}
