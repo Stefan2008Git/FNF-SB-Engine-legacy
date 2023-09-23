@@ -1,14 +1,14 @@
 package objects;
 
 import animateatlas.AtlasFrameMaker;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.effects.FlxTrail;
+
+
+
 import flixel.animation.FlxBaseAnimation;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.tweens.FlxTween;
+
+
 import flixel.util.FlxSort;
-import backend.Section.SwagSection;
+
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -17,11 +17,11 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.Paths;
-import backend.Song;
-import states.PlayState;
+
+
+
+
+
 
 using StringTools;
 

@@ -1,16 +1,7 @@
 package android.flixel;
 
 import android.flixel.FlxButton;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.util.FlxDestroyUtil;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.FlxGraphic;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.group.FlxSpriteGroup;
 import openfl.utils.Assets;
-import backend.ClientPrefs;
 
 /**
  * A zone with 4 buttons (A hitbox).
@@ -32,10 +23,10 @@ class FlxHitbox extends FlxSpriteGroup {
 
 		scrollFactor.set();
 
-		add(buttonLeft = createHint(0, 0, 'left', 0xFF00FF));
-		add(buttonDown = createHint(FlxG.width / 4, 0, 'down', 0x00FFFF));
-		add(buttonUp = createHint(FlxG.width / 2, 0, 'up', 0x00FF00));
-		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', 0xFF0000));
+		add(buttonLeft = createHint(0, 0, 'left', ClientPrefs.arrowHSV[0][0]));
+		add(buttonDown = createHint(FlxG.width / 4, 0, 'down', ClientPrefs.arrowHSV[0][1]));
+		add(buttonUp = createHint(FlxG.width / 2, 0, 'up', ClientPrefs.arrowHSV[0][2]));
+		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', ClientPrefs.arrowHSV[0][3]));
 	}
 
 	/**

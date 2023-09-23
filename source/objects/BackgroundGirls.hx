@@ -1,9 +1,9 @@
 package objects;
 
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import backend.CoolUtil;
-import backend.Paths;
+
+
+
+
 
 class BackgroundGirls extends FlxSprite
 {

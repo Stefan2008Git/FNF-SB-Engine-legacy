@@ -1,29 +1,10 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.WeekData;
 import objects.Alphabet;
-import objects.AttachedSprite;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
+
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxButtonPlus;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
 import lime.app.Application;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
@@ -38,7 +19,6 @@ import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
 #end
-import flixel.FlxBasic;
 import sys.io.File;
 
 using StringTools;
@@ -96,8 +76,6 @@ class ModsMenuState extends MusicBeatState {
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(velocityBackground);
 
 		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);

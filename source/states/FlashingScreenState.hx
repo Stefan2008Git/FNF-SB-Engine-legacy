@@ -1,25 +1,8 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.ClientPrefs;
-import backend.MusicBeatState;
-import backend.Paths;
 import states.MainMenuState;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.effects.FlxFlicker;
 import lime.app.Application;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
 
 class FlashingScreenState extends MusicBeatState {
 	public static var leftState:Bool = false;

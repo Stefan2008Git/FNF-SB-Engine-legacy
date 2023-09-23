@@ -1,10 +1,10 @@
 package backend;
 
-import flixel.FlxG;
+
 import flixel.util.FlxSave;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import backend.Controls;
+
+
+
 import states.TitleScreenState;
 
 class ClientPrefs {

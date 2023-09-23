@@ -1,20 +1,13 @@
 package;
 
-import flixel.graphics.FlxGraphic;
-import flixel.FlxG;
-import flixel.FlxGame;
-import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
-import flixel.util.FlxColor;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
+
 // crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
@@ -25,7 +18,6 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-import backend.ClientPrefs;
 import states.MainMenuState;
 import states.TitleScreenState;
 

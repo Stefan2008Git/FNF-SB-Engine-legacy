@@ -1,19 +1,17 @@
 package states.editors;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+
+
+
+
+
+
+
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
+
+
+
+
 import flixel.system.FlxSound;
 import openfl.utils.Assets;
 import flixel.addons.ui.FlxInputText;
@@ -35,16 +33,16 @@ import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
 #end
-import backend.ClientPrefs;
-import backend.Paths;
-import backend.WeekData;
+
+
+
 import objects.Alphabet;
-import objects.HealthIcon;
+
 import objects.MenuCharacter;
 import objects.MenuItem;
 
 import states.editors.MasterEditorMenu;
-import backend.MusicBeatState;
+
 
 using StringTools;
 
@@ -656,9 +654,7 @@ class WeekEditorFreeplayState extends MusicBeatState {
 
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		velocityBackground.visible = ClientPrefs.velocityBackground;		
 		add(velocityBackground);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();

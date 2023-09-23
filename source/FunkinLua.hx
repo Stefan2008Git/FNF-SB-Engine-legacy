@@ -8,35 +8,15 @@ import llua.State;
 import llua.Convert;
 #end
 import animateatlas.AtlasFrameMaker;
-import flixel.FlxG;
-import shaders.Shaders;
-import flixel.addons.effects.FlxTrail;
-import flixel.input.keyboard.FlxKey;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.text.FlxText;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
-#if (flixel < "5.3.0")
-import flixel.sound.FlxSound;
-#else
-import flixel.system.FlxSound;
-#end
-import flixel.util.FlxTimer;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.util.FlxColor;
-import flixel.FlxBasic;
-import flixel.FlxObject;
-import flixel.FlxSprite;
+
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets;
-import flixel.math.FlxMath;
 import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxAssets.FlxShader;
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -46,21 +26,10 @@ import android.Hardware;
 #end
 import Type.ValueType;
 import lime.app.Application;
-import backend.ClientPrefs;
-import backend.Controls;
-import backend.Conductor;
-import backend.CoolUtil;
-import backend.CustomFadeTransition;
-import backend.Highscore;
-import backend.MusicBeatState;
-import backend.MusicBeatSubstate;
-import backend.Paths;
-import backend.Song;
-import backend.WeekData;
-import cutscenes.DialogueBoxPsych;
+
 import objects.Alphabet;
-import objects.Character;
-import objects.Note;
+
+
 import objects.StrumNote;
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
@@ -74,7 +43,7 @@ import states.MainMenuState;
 import states.LoadingState;
 import states.StoryModeState;
 import states.FreeplayState;
-import states.PlayState;
+
 
 import substates.PauseSubState;
 import substates.GameOverSubstate;

@@ -1,39 +1,37 @@
 package options;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.display.FlxBackdrop;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
+
+
+
+
+
+
+
+
+
+
 import lime.utils.Assets;
-import flixel.FlxSubState;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
+
+
+
+
 import flixel.util.FlxSave;
 import haxe.Json;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
+
+
+
+
+
 import lime.app.Application;
-import backend.ClientPrefs;
-import backend.Controls;
-import backend.MusicBeatState;
-import backend.Paths;
+
+
+
+
 import objects.Alphabet;
 import states.ClassicMainMenuState;
 import states.LoadingState;
 import states.MainMenuState;
-import states.PlayState;
+
 import substates.PauseSubState;
 
 using StringTools;
@@ -116,8 +114,6 @@ class OptionsState extends MusicBeatState {
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(velocityBackground);
 
 		optionsSelect = new FlxTypedGroup<Alphabet>();

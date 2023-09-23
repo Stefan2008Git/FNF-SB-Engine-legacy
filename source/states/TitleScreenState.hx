@@ -1,18 +1,9 @@
 package states;
 
-import flixel.addons.effects.FlxTrail;
+
 #if desktop
 import sys.thread.Thread;
 #end
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.input.keyboard.FlxKey;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
 import haxe.Json;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
@@ -21,34 +12,15 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import options.GraphicsSettingsSubState;
-// import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
 import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxGradient;
-import flixel.util.FlxTimer;
 import openfl.Assets;
 import lime.app.Application;
 import objects.Alphabet;
-import shaders.ColorSwap;
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.CoolUtil;
-import backend.Highscore;
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.PlayerSettings;
-import backend.WeekData;
 import states.MainMenuState;
 import states.FreeplayState;
 import states.StoryModeState;

@@ -1,32 +1,9 @@
 package states;
 
-import flixel.FlxG;
-import flixel.FlxCamera;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
-import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
 import lime.app.Application;
-import flixel.input.keyboard.FlxKey;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.WeekData;
-import shaders.ColorblindFilter;
+
+
 import states.FreeplayState;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
@@ -112,7 +89,6 @@ class MainMenuState extends MusicBeatState
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
 		add(velocityBackground);
 
 		cameraFollow = new FlxObject(0, 0, 1, 1);

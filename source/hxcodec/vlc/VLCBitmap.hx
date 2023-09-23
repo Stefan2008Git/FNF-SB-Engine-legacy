@@ -4,7 +4,7 @@ package hxcodec.vlc;
 import cpp.NativeArray;
 import cpp.UInt8;
 #end
-import flixel.FlxG;
+
 import openfl.Lib;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;

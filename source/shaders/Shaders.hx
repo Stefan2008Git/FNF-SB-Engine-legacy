@@ -6,10 +6,10 @@ import openfl.display.BitmapData;
 import openfl.display.Shader;
 import openfl.display.ShaderInput;
 import openfl.utils.Assets;
-import flixel.FlxG;
+
 import openfl.Lib;
 import shaders.WiggleEffect;
-import states.PlayState;
+
 
 using StringTools;
 

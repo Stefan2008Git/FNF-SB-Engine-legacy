@@ -4,22 +4,22 @@ import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
 import android.flixel.FlxNewHitbox;
 import android.flixel.FlxVirtualPad;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
+
+
+
+
+
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
+
+
 import flixel.util.FlxSave;
-import flixel.util.FlxColor;
+
 import flixel.input.touch.FlxTouch;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+
+
+
 import openfl.utils.Assets;
-import backend.ClientPrefs;
+
 
 class AndroidControlsSubState extends FlxSubState {
 	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];

@@ -1,32 +1,12 @@
 package states;
 
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
-import flixel.math.FlxMath;
-import flixel.util.FlxTimer;
-import flixel.util.FlxColor;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 import lime.app.Application;
 import states.editors.MasterEditorMenu;
-import flixel.input.keyboard.FlxKey;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.WeekData;
+
 import objects.Alphabet;
 import states.MainMenuState;
-import shaders.ColorblindFilter;
+
 
 using StringTools;
 

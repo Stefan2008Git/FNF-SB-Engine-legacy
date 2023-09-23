@@ -1,21 +1,7 @@
 package states;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
 import lime.app.Application;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.CustomFadeTransition;
-import backend.MusicBeatState;
-import backend.Paths;
 import states.MainMenuState;
 
 using StringTools;

@@ -3,11 +3,11 @@ package android;
 import android.flixel.FlxNewHitbox;
 import android.flixel.FlxHitbox;
 import android.flixel.FlxVirtualPad;
-import flixel.FlxG;
-import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxPoint;
-import flixel.util.FlxDestroyUtil;
-import backend.ClientPrefs;
+
+
+
+
+
 
 class AndroidControls extends FlxSpriteGroup {
 	public var virtualPad:FlxVirtualPad;

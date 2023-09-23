@@ -1,40 +1,14 @@
 package substates;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.addons.display.FlxBackdrop;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
-#if (flixel < "5.3.0")
-import flixel.sound.FlxSound;
-#else
-import flixel.system.FlxSound;
-#end
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxStringUtil;
+
 import lime.app.Application;
-import flixel.FlxCamera;
 import objects.Alphabet;
-import objects.HealthIcon;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.Controls;
+
 import backend.Controls.Control;
-import backend.Conductor;
-import backend.Highscore;
-import backend.MusicBeatState;
-import backend.MusicBeatSubstate;
-import backend.Paths;
-import backend.Song;
-import backend.WeekData;
 import states.MainMenuState;
 import states.FreeplayState;
-import states.PlayState;
+
 import states.StoryModeState;
 import states.editors.ChartingState;
 

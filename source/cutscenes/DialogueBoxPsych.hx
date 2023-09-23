@@ -1,15 +1,15 @@
 package cutscenes;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
+
+
 import flixel.addons.text.FlxTypeText;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
+
+
 import flixel.input.FlxKeyManager;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import flixel.FlxSubState;
+
+
+
+
 import haxe.Json;
 import haxe.format.JsonParser;
 import objects.Alphabet;
@@ -19,10 +19,10 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import openfl.utils.Assets;
-import states.PlayState;
-import backend.Paths;
-import backend.ClientPrefs;
-import backend.PlayerSettings;
+
+
+
+
 
 using StringTools;
 

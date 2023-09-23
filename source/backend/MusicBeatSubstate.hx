@@ -3,13 +3,9 @@ package backend;
 #if android
 import android.flixel.FlxVirtualPad;
 import flixel.input.actions.FlxActionInput;
-import flixel.util.FlxDestroyUtil;
 #end
-import backend.Conductor.BPMChangeEvent;
-import flixel.FlxG;
-import flixel.FlxSubState;
-import flixel.FlxBasic;
-import flixel.FlxSprite;
+
+
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -29,7 +25,7 @@ class MusicBeatSubstate extends FlxSubState
 	private var controls(get, never):Controls;
 
 	inline function get_controls():Controls
-		return backend.PlayerSettings.player1.controls;
+		return PlayerSettings.player1.controls;
 
 	#if android
 	var virtualPad:FlxVirtualPad;
@@ -107,7 +103,7 @@ class MusicBeatSubstate extends FlxSubState
 
 	private function updateCurStep():Void
 	{
-		var lastChange = backend.Conductor.getBPMFromSeconds(Conductor.songPosition);
+		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
 		var Freak = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
 		curDecStep = lastChange.stepTime + Freak;

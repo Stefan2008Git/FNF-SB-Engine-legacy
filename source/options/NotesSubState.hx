@@ -1,37 +1,11 @@
 package options;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
 import lime.utils.Assets;
-import flixel.FlxSubState;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.util.FlxSave;
 import haxe.Json;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import backend.ClientPrefs;
-import backend.Controls;
-import backend.CoolUtil;
-import backend.MusicBeatSubstate;
-import backend.Paths;
 import objects.Alphabet;
-import shaders.ColorSwap;
+
 
 using StringTools;
 

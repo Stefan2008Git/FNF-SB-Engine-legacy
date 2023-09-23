@@ -1,33 +1,12 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
-import flixel.graphics.FlxGraphic;
 import lime.app.Application;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.Highscore;
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.Song;
-import backend.WeekData;
 import objects.MenuItem;
 import objects.MenuCharacter;
-import states.PlayState;
+
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 

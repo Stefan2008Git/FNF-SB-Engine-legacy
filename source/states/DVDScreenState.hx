@@ -1,15 +1,6 @@
 package states;
 
-import backend.ClientPrefs;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.MusicBeatState;
-import backend.Paths;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.input.keyboard.FlxKey;
-import flixel.util.FlxColor;
+
 import lime.app.Application;
 
 using StringTools;

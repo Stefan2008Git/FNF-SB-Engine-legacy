@@ -1,8 +1,8 @@
 package flixel.util;
 
 import flash.display.BitmapData;
-import flixel.FlxG;
-import flixel.math.FlxMath;
+
+
 import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.typeLimit.OneOfTwo;

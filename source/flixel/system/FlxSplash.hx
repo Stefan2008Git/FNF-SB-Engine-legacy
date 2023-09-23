@@ -3,17 +3,17 @@ package flixel.system;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.Lib;
-import flash.text.TextField;
+
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import backend.Paths;
+
+
+
+
+
+
+
+
 
 class FlxSplash extends FlxState {
 	public static var nextState:Class<FlxState>;

@@ -1,16 +1,14 @@
 package states.editors;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
+
+
+
+
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
+
+
+
+
 import flixel.system.FlxSound;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
@@ -29,9 +27,9 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
-import cutscenes.DialogueBoxPsych;
-import flixel.FlxCamera;
-import flixel.group.FlxSpriteGroup;
+
+
+
 import lime.system.Clipboard;
 import objects.Alphabet;
 import objects.TypedAlphabet;
@@ -39,9 +37,9 @@ import lime.app.Application;
 #if sys
 import sys.io.File;
 #end
-import backend.ClientPrefs;
-import backend.MusicBeatState;
-import backend.Paths;
+
+
+
 import states.MainMenuState;
 import states.editors.MasterEditorMenu;
 

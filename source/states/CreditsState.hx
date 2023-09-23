@@ -1,33 +1,15 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import flash.geom.Rectangle;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.util.FlxSpriteUtil;
+
 import lime.app.Application;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
 #end
 import lime.utils.Assets;
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.MusicBeatState;
-import backend.Paths;
 import objects.Alphabet;
-import objects.AttachedSprite;
+
 
 using StringTools;
 
@@ -61,8 +43,6 @@ class CreditsState extends MusicBeatState {
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(velocityBackground);
 
 		optionSelect = new FlxTypedGroup<Alphabet>();

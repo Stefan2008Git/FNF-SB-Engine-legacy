@@ -1,7 +1,7 @@
 package objects;
 
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
+
+
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -9,8 +9,8 @@ import sys.FileSystem;
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
-import backend.ClientPrefs;
-import backend.Paths;
+
+
 
 typedef MenuCharacterFile = {
 	var image:String;

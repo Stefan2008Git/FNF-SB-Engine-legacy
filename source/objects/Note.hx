@@ -1,17 +1,17 @@
 package objects;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.math.FlxMath;
-import flixel.util.FlxColor;
+
+
+
+
+
 import flash.display.BitmapData;
 import states.editors.ChartingState;
-import shaders.ColorSwap;
-import states.PlayState;
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.Paths;
+
+
+
+
+
 
 using StringTools;
 

@@ -1,9 +1,9 @@
 package objects;
 
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import backend.ClientPrefs;
-import backend.Paths;
+
+
+
+
 
 class BackgroundDancer extends FlxSprite
 {

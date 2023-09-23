@@ -1,38 +1,38 @@
 package states.editors;
 
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.CoolUtil;
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.Section.SwagSection;
-import backend.Song.SwagSong;
-import objects.AttachedSprite;
-import objects.Note;
+
+
+
+
+
+
+
+
+
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.editors.EditorLua;
 import states.MainMenuState;
-import states.PlayState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
+
+
+
+
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.util.FlxColor;
-import flixel.FlxSprite;
-import flixel.FlxG;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+
+
+
+
+
+
 import flixel.ui.FlxBar;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
+
+
+
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
-import flixel.util.FlxTimer;
-import flixel.util.FlxStringUtil;
-import flixel.input.keyboard.FlxKey;
+
+
+
 import openfl.events.KeyboardEvent;
 import lime.app.Application;
 import FunkinLua;
@@ -108,8 +108,6 @@ class EditorPlayState extends MusicBeatState {
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(velocityBackground);
 
 		keysArray = [

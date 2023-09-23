@@ -1,22 +1,12 @@
 package states.editors;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
+
 import flash.geom.Rectangle;
 import tjson.TJSON as Json;
 import haxe.Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
-import backend.Conductor.BPMChangeEvent;
-import backend.Section;
-import backend.Section.SwagSection;
-import backend.Song.SwagSong;
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
+
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
@@ -27,27 +17,15 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUISlider;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-#if (flixel < "5.3.0")
-import flixel.sound.FlxSound;
-#else
-import flixel.system.FlxSound;
-#end
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+
+
 #if android
 import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
 #end
 import flixel.ui.FlxSpriteButton;
-import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import lime.media.AudioBuffer;
 import lime.utils.Assets;
@@ -58,17 +36,11 @@ import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
 import lime.app.Application;
-import objects.AttachedSprite;
-import objects.Character;
-import objects.HealthIcon;
-import objects.Note;
+
+
+
+
 import objects.StrumNote;
-import backend.CoolUtil;
-import backend.ClientPrefs;
-import backend.Conductor;
-import backend.Paths;
-import backend.Song;
-import backend.StageData;
 import states.MainMenuState;
 import substates.Prompt;
 
@@ -79,7 +51,6 @@ import flash.media.Sound;
 import sys.FileSystem;
 import sys.io.File;
 #end
-import backend.MusicBeatState;
 
 #if (flixel < "5.3.0")
 @:access(flixel.system.FlxSound._sound)
@@ -290,8 +261,6 @@ class ChartingState extends MusicBeatState {
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B161932, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
-		velocityBackground.alpha = 0;
-		FlxTween.tween(velocityBackground, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(velocityBackground);
 
 		gridLayer = new FlxTypedGroup<FlxSprite>();

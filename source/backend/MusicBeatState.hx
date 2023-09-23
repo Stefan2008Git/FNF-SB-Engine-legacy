@@ -4,23 +4,12 @@ package backend;
 import android.AndroidControls;
 import android.flixel.FlxVirtualPad;
 import flixel.input.actions.FlxActionInput;
-import flixel.util.FlxDestroyUtil;
 #end
-import backend.Conductor.BPMChangeEvent;
-import flixel.FlxG;
+
 import flixel.addons.ui.FlxUIState;
-import flixel.math.FlxRect;
-import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.FlxSprite;
-import flixel.util.FlxColor;
-import flixel.util.FlxGradient;
-import flixel.FlxState;
-import flixel.FlxCamera;
-import flixel.FlxBasic;
-import states.PlayState;
+
+
 
 class MusicBeatState extends FlxUIState {
 	private var curSection:Int = 0;

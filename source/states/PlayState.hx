@@ -1,34 +1,5 @@
 package states;
 
-import flixel.graphics.FlxGraphic;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-import backend.ClientPrefs;
-import backend.CustomFadeTransition;
-import backend.Conductor;
-import backend.CoolUtil;
-import backend.Highscore;
-import backend.MusicBeatState;
-import backend.Paths;
-import backend.Section.SwagSection;
-import backend.Conductor.Rating;
-import backend.Song;
-import backend.Song.SwagSong;
-import backend.StageData;
-import backend.WeekData;
-import cutscenes.DialogueBox;
-import cutscenes.DialogueBoxPsych;
-import shaders.Shaders;
-import objects.AttachedSprite;
-import objects.Boyfriend;
-import objects.BackgroundDancer;
-import objects.BackgroundGirls;
-import objects.BGSprite;
-import objects.Character;
-import objects.HealthIcon;
-import objects.Note;
-import objects.Note.EventNote;
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.StoryModeState;
@@ -38,41 +9,15 @@ import states.editors.CharacterEditorState;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
 import substates.ResultsScreenSubState;
-import flixel.FlxBasic;
-import flixel.FlxCamera;
-import flixel.FlxG;
 import openfl.display.Shader;
-import flixel.FlxGame;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.atlas.FlxAtlas;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
-#if (flixel < "5.3.0")
-import flixel.sound.FlxSound;
-#else
-import flixel.system.FlxSound;
-#end
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
-import flixel.util.FlxColor;
 import flixel.util.FlxSort;
-import flixel.util.FlxStringUtil;
-import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
 import openfl.Lib;
@@ -82,8 +27,6 @@ import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
@@ -92,7 +35,6 @@ import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
 import lime.app.Application;
 import FunkinLua;
-import FunkinLua.HScript;
 import flixel.system.FlxAssets.FlxShader;
 
 #if sys
@@ -110,10 +52,6 @@ import VideoHandler as MP4Handler;
 #else
 import vlc.MP4Handler;
 #end
-#end
-
-#if (SScript >= "3.0.0")
-import tea.SScript;
 #end
 
 #if !flash 
@@ -375,11 +313,6 @@ class PlayState extends MusicBeatState {
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 
 	public var introSoundsSuffix:String = '';
-
-	// HScript stuff, but different and edited to work
-	#if HSCRIPT_ALLOWED
-	public var hscriptArray:Array<HScript> = [];
-	#end
 
 	// Debug buttons
 	private var debugKeysChart:Array<FlxKey>;
@@ -1007,10 +940,6 @@ class PlayState extends MusicBeatState {
 					if (file.endsWith('.lua') && !filesPushed.contains(file)) {
 						luaArray.push(new FunkinLua(folder + file));
 						filesPushed.push(file);
-					if (file.endsWith('.hx') && !filesPushed.contains(file)) {
-					    luaArray.push(new FunkinLua(folder + file));
-					    filesPushed.push(file);
-					    }
 					}
 				}
 			}
@@ -1669,15 +1598,6 @@ class PlayState extends MusicBeatState {
 		}
 		#end
 
-		#if HSCRIPT_ALLOWED
-		for (notetype in noteTypeMap.keys()) {
-			startHScriptsNamed('custom_notetypes/' + notetype + '.hx');
-		}
-		for (event in eventPushedMap.keys()) {
-			startHScriptsNamed('custom_events/' + event + '.hx');
-		}
-		#end
-
 		noteTypeMap.clear();
 		noteTypeMap = null;
 		eventPushedMap.clear();
@@ -1711,9 +1631,6 @@ class PlayState extends MusicBeatState {
 				for (file in FileSystem.readDirectory(folder)) {
 					if (file.endsWith('.lua') && !filesPushed.contains(file)) {
 						luaArray.push(new FunkinLua(folder + file));
-						filesPushed.push(file);
-					if (file.endsWith('.hx') && !filesPushed.contains(file)) 
-					    luaArray.push(new FunkinLua(folder + file));
 						filesPushed.push(file);
 					}
 				}
@@ -5456,116 +5373,6 @@ class PlayState extends MusicBeatState {
 		return false;
 	}
 	#end
-
-	#if HSCRIPT_ALLOWED
-	public function startHScriptsNamed(scriptFile:String)
-	{
-		var scriptToLoad:String = Paths.modFolders(scriptFile);
-		if(!FileSystem.exists(scriptToLoad))
-			scriptToLoad = Paths.getPreloadPath(scriptFile);
-		
-		if(FileSystem.exists(scriptToLoad))
-		{
-			if (SScript.global.exists(scriptToLoad)) return false;
-	
-			initHScript(scriptToLoad);
-			return true;
-		}
-		return false;
-	}
-
-	public function initHScript(file:String)
-		{
-			try
-			{
-				var newScript:HScript = new HScript(null, file);
-				@:privateAccess
-				if(newScript.parsingExceptions != null && newScript.parsingExceptions.length > 0)
-				{
-					@:privateAccess
-					for (e in newScript.parsingExceptions)
-						if(e != null)
-							addTextToDebug('ERROR ON LOADING ($file): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
-					newScript.destroy();
-					return;
-				}
-	
-				hscriptArray.push(newScript);
-				if(newScript.exists('onCreate'))
-				{
-					var callValue = newScript.call('onCreate');
-					if(!callValue.succeeded)
-					{
-						for (e in callValue.exceptions)
-							if (e != null)
-								addTextToDebug('ERROR ($file: onCreate) - ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
-	
-						newScript.destroy();
-						hscriptArray.remove(newScript);
-						trace('failed to initialize sscript interp!!! ($file)');
-					}
-					else trace('initialized sscript interp successfully: $file');
-				}
-				
-			}
-			catch(e)
-			{
-				addTextToDebug('ERROR ($file) - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
-				var newScript:HScript = cast (SScript.global.get(file), HScript);
-				if(newScript != null)
-				{
-					newScript.destroy();
-					hscriptArray.remove(newScript);
-				}
-			}
-		}
-		#end
-
-	public function callOnHScript(funcToCall:String, args:Array<Dynamic> = null, ?ignoreStops:Bool = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
-		var returnVal:Dynamic = FunkinLua.Function_Continue;
-
-		#if HSCRIPT_ALLOWED
-		if(exclusions == null) exclusions = new Array();
-		if(excludeValues == null) excludeValues = new Array();
-		excludeValues.push(FunkinLua.Function_Continue);
-
-		var len:Int = hscriptArray.length;
-		if (len < 1)
-			return returnVal;
-		for(i in 0...len)
-		{
-			var script:HScript = hscriptArray[i];
-			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
-				continue;
-
-			var myValue:Dynamic = null;
-			try
-			{
-				var callValue = script.call(funcToCall, args);
-				if(!callValue.succeeded)
-				{
-					var e = callValue.exceptions[0];
-					if(e != null)
-						FunkinLua.luaTrace('ERROR (${script.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
-				}
-				else
-				{
-					myValue = callValue.returnValue;
-					if((myValue == FunkinLua.Function_StopHScript || myValue == FunkinLua.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
-					{
-						returnVal = myValue;
-						break;
-					}
-					
-					if(myValue != null && !excludeValues.contains(myValue))
-						returnVal = myValue;
-				}
-			}
-		}
-		#end
-
-		return returnVal;
-	}
 
 	public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null,
 			excludeValues:Array<Dynamic> = null):Dynamic {

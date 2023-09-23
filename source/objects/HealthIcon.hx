@@ -1,9 +1,9 @@
 package objects;
 
-import flixel.FlxSprite;
+
 import openfl.utils.Assets as OpenFlAssets;
-import backend.ClientPrefs;
-import backend.Paths;
+
+
 
 using StringTools;
 

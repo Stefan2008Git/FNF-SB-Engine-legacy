@@ -1,6 +1,6 @@
 package backend;
 
-import flixel.FlxG;
+
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
@@ -12,8 +12,8 @@ import sys.FileSystem;
 #else
 import openfl.utils.Assets;
 #end
-import backend.Paths;
-import states.PlayState;
+
+
 
 
 using StringTools;

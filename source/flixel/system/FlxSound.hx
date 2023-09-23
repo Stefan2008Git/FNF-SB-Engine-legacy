@@ -7,13 +7,13 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import flash.net.URLRequest;
-import flixel.FlxBasic;
-import flixel.FlxG;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
+;
+
+
+
 import flixel.system.FlxAssets.FlxSoundAsset;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxStringUtil;
+
+
 import openfl.Assets;
 #if flash11
 import flash.utils.ByteArray;

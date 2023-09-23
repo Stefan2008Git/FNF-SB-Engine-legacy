@@ -1,8 +1,8 @@
 package objects;
 
-import flixel.FlxSprite;
-import backend.ClientPrefs;
-import backend.Paths;
+
+
+
 
 using StringTools;
 

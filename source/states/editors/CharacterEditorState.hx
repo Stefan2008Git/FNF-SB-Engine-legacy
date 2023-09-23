@@ -1,20 +1,18 @@
 package states.editors;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
+
 import animateatlas.AtlasFrameMaker;
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.FlxCamera;
-import flixel.input.keyboard.FlxKey;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.graphics.FlxGraphic;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
+
+
+
+
+
+
+
+
+
+
+
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -40,13 +38,13 @@ import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
-import backend.ClientPrefs;
-import backend.CoolUtil;
-import backend.MusicBeatState;
-import backend.Paths;
-import objects.BGSprite;
-import objects.Character;
-import objects.HealthIcon;
+
+
+
+
+
+
+
 import states.editors.MasterEditorMenu;
 
 using StringTools;
