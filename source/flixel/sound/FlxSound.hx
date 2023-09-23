@@ -6,10 +6,6 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import flash.net.URLRequest;
-;
-
-
-
 import flixel.system.FlxAssets.FlxSoundAsset;
 
 
