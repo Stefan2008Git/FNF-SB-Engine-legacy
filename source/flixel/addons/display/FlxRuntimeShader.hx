@@ -197,7 +197,7 @@ class FlxRuntimeShader extends FlxShader
 	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
 	#if !android
-	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
+	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 120):Void
 	#else
 	public function new(fragmentSource:String = null, vertexSource:String = null, glslesVersion:Int = 100):Void
 	#end
