@@ -235,8 +235,13 @@ class FunkinLua {
 
 		
 		// FlxRuntimeShaders support (Actrually this shaders are deleted completely from 2.2.0 update and added back to 2.9.0)
+    #if !android
 		Lua_helper.add_callback(lua, "initLuaShader", function(name:String, glslVersion:Int = 120) {
 			if (!ClientPrefs.shaders) return false;
+		#else
+		Lua_helper.add_callback(lua, "initLuaShader", function(name:String, glslVersion:Int = 100) {
+			if (!ClientPrefs.shaders) return false;
+			#end
 
 			#if (!flash && MODS_ALLOWED && sys)
 			return initLuaShader(name, glslVersion);
