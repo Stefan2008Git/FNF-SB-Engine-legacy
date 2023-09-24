@@ -10,7 +10,6 @@ import sys.io.File;
 import lime.utils.Assets;
 import objects.Alphabet;
 
-
 using StringTools;
 
 class CreditsState extends MusicBeatState {
@@ -329,7 +328,9 @@ class CreditsState extends MusicBeatState {
 					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
-				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
+				var str:String = 'credits/unknownIcon';
+				if (Paths.image('credits/' + creditsStuff[i][1]) != null) str = 'credits/' + creditsStuff[i][1];
+				var icon:AttachedSprite = new AttachedSprite(str);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
 

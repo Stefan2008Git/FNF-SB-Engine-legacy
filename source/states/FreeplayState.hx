@@ -47,6 +47,9 @@ class FreeplayState extends MusicBeatState {
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
+	var missingFileBackground:FlxSprite;
+	var missingFileText:FlxText;
+
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -134,6 +137,17 @@ class FreeplayState extends MusicBeatState {
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
+		missingFileBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		missingFileBackground.alpha = 0.6;
+		missingFileBackground.visible = false;
+		add(missingFileBackground);
+		
+		missingFileText = new FlxText(50, 0, FlxG.width - 100, '', 24);
+		missingFileText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		missingFileText.scrollFactor.set();
+		missingFileText.visible = false;
+		add(missingFileText);
+
 		if (currentlySelected >= songs.length) currentlySelected = 0;
 		background.color = songs[currentlySelected].color;
 		intendedColor = background.color;
@@ -195,7 +209,7 @@ class FreeplayState extends MusicBeatState {
 			&& (!StoryModeState.weekCompleted.exists(leWeek.weekBefore) || !StoryModeState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
-	var instPlaying:Int = -1;
+	var instrumentalPlaying:Int = -1;
 
 	public static var vocals:FlxSound = null;
 
@@ -226,74 +240,89 @@ class FreeplayState extends MusicBeatState {
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
-		var upP = controls.UI_UP_P;
-		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
-		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
-
 		var shiftMult:Int = 1;
-		if (FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end)
-			shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (songs.length > 1) {
-			if (upP) {
+		if(songs.length > 1)
+		{
+			if(FlxG.keys.justPressed.HOME)
+			{
+				currentlySelected = 0;
+				changeSelection();
+				holdTime = 0;	
+			}
+
+			else if(FlxG.keys.justPressed.END)
+			{
+				currentlySelected = songs.length - 1;
+				changeSelection();
+				holdTime = 0;	
+			}
+
+			if (controls.UI_UP_P)
+			{
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
-			if (downP) {
+
+			if (controls.UI_DOWN_P)
+			{
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
 
-			if (controls.UI_DOWN || controls.UI_UP) {
+			if(controls.UI_DOWN || controls.UI_UP)
+			{
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
 				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
-				if (holdTime > 0.5 && checkNewHold - checkLastHold > 0) {
+				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
-					changeDifficulty();
-				}
 			}
 		}
 
 		if (controls.UI_LEFT_P)
+		{
 			changeDifficulty(-1);
-		else if (controls.UI_RIGHT_P)
-			changeDifficulty(1);
-		else if (upP || downP)
-			changeDifficulty();
+		}
 
-		if (controls.BACK) {
+		else if (controls.UI_RIGHT_P)
+		{
+			changeDifficulty(1);
+		}
+
+		if (controls.BACK)
+		{
 			persistentUpdate = false;
-			if (colorTween != null) {
+			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.mainMenuStyle == 'Classic') {
-				MusicBeatState.switchState(new ClassicMainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			} else {
-				MusicBeatState.switchState(new MainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			}
+			ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 
-		if (ctrl) {
+		if(FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end)
+		{
 			#if android
 			removeVirtualPad();
 			#end
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
-		} else if (space) {
-			if (instPlaying != currentlySelected) {
+			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
+		}
+
+		else if(FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end)
+		{
+			if(instrumentalPlaying != currentlySelected)
+			{
 				#if PRELOAD_ALL
 				destroyFreeplayVocals();
 				FlxG.sound.music.volume = 0;
 				Paths.currentModDirectory = songs[currentlySelected].folder;
-				var valueSong:String = Highscore.formatSong(songs[currentlySelected].songName.toLowerCase(), currentlyDifficulty);
-				PlayState.SONG = Song.loadFromJson(valueSong, songs[currentlySelected].songName.toLowerCase());
+				var songValue:String = Highscore.formatSong(songs[currentlySelected].songName.toLowerCase(), currentlyDifficulty);
+				PlayState.SONG = Song.loadFromJson(songValue, songs[currentlySelected].songName.toLowerCase());
 				if (PlayState.SONG.needsVoices)
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 				else
@@ -305,34 +334,54 @@ class FreeplayState extends MusicBeatState {
 				vocals.persist = true;
 				vocals.looped = true;
 				vocals.volume = 0.7;
-				instPlaying = currentlySelected;
+				instrumentalPlaying = currentlySelected;
 				#end
 			}
-		} else if (accepted) {
+		}
+
+		else if (controls.ACCEPT)
+		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
-			var valueSong:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
-			trace(valueSong);
+			var songValue:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
+			trace(songValue);
 
-			PlayState.SONG = Song.loadFromJson(valueSong, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyModeDifficulty = currentlyDifficulty;
+			try
+			{
+				PlayState.SONG = Song.loadFromJson(songValue, songLowercase);
+				PlayState.isStoryMode = false;
+				PlayState.storyModeDifficulty = currentlyDifficulty;
 
-			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-			if (colorTween != null) {
-				colorTween.cancel();
+				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+				if(colorTween != null) {
+					colorTween.cancel();
+				}
 			}
 
-			if (FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end) {
-				LoadingState.loadAndSwitchState(new ChartingState());
-			} else {
-				LoadingState.loadAndSwitchState(new PlayState());
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+			catch(e:Dynamic)
+			{
+				trace('ERROR! $e');
+
+				var fileNotFound:String = e.toString();
+				if(fileNotFound.startsWith('[file_contents,assets/data/')) fileNotFound = 'Missing chart file: ' + fileNotFound.substring(27, fileNotFound.length-1); //Missing chart
+				missingFileText.text = 'Error on loading song chart:\n$fileNotFound';
+				missingFileText.screenCenter(Y);
+				missingFileText.visible = true;
+				missingFileBackground.visible = true;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+
+				super.update(elapsed);
+				return;
 			}
+			LoadingState.loadAndSwitchState(new PlayState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 
 			FlxG.sound.music.volume = 0;
+					
 			destroyFreeplayVocals();
-		} else if (controls.RESET #if android || virtualPad.buttonY.justPressed #end) {
+		}
+		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)
+		{
 			#if android
 			removeVirtualPad();
 			#end
