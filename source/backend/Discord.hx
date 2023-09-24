@@ -39,16 +39,38 @@ class DiscordClient {
 		#end
 	}
 
+	public static function check()
+	{
+		if(!ClientPrefs.discordRPC)
+		{
+			if(DiscordClient.isInitialized) DiscordClient.shutdown();
+			DiscordClient.isInitialized = false;
+		}
+		else DiscordClient.start();
+	}
+
+	public static function start()
+	{
+		if (!DiscordClient.isInitialized && ClientPrefs.discordRPC) {
+			DiscordClient.initialize();
+			Application.current.window.onClose.add(function() {
+				DiscordClient.shutdown();
+			});
+		}
+	}
+
 	public static function shutdown() {
 		DiscordRpc.shutdown();
 	}
 
 	static function onReady() {
 		DiscordRpc.presence({
-			details: "In the Menus",
+			details: "Welcome to FNF': SB Engine",
 			state: null,
 			largeImageKey: 'icon',
-			largeImageText: "SB Engine"
+			largeImageText: "FNF': SB Engine",
+			smallImageKey: 'ministefan',
+			smallImageText: 'Creator: Stefan2008'
 		});
 	}
 
@@ -78,18 +100,12 @@ class DiscordClient {
 		DiscordRpc.presence({details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "Engine version: "
-			+ MainMenuState.sbEngineVersion
-			+ " (PE "
-			+ MainMenuState.psychEngineVersion
-			+ ") ",
-			smallImageKey: smallImageKey,
-			// Obtained times are in milliseconds so they are divided so Discord can use it
+			largeImageText: "Engine version: " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ") ",
+			smallImageKey: 'ministefan',
+			smallImageText: "Creator: Stefan2008",
 			startTimestamp: Std.int(startTimestamp / 1000),
 			endTimestamp: Std.int(endTimestamp / 1000)
 		});
-
-		trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
 
 	#if LUA_ALLOWED

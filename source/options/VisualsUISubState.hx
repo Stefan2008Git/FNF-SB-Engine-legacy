@@ -74,6 +74,13 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'objectEffects', 'bool', true);
 		addOption(option);
 
+		#if desktop
+		var option:Option = new Option('Discord RPC',
+		    'If unchecked, this to prevent accidental leaks, it will hide the Application from your \"Playing\" box on Discord',
+			'discordRPC', 'bool', true);
+		addOption(option);
+		#end
+
 		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
