@@ -13,10 +13,16 @@ import sys.FileSystem;
 import openfl.utils.Assets;
 #end
 
-
-
-
 using StringTools;
+
+enum Countdown
+{
+	THREE;
+	TWO;
+	ONE;
+	GO;
+	START;
+}
 
 class CoolUtil {
 	public static var defaultDifficulties:Array<String> = ['Easy', 'Normal', 'Hard'];
