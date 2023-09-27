@@ -143,7 +143,12 @@ class FreeplayState extends MusicBeatState {
 		add(missingFileBackground);
 		
 		missingFileText = new FlxText(50, 0, FlxG.width - 100, '', 24);
-		missingFileText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI':
+		        missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
 		missingFileText.scrollFactor.set();
 		missingFileText.visible = false;
 		add(missingFileText);

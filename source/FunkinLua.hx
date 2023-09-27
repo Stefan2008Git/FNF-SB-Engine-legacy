@@ -8,7 +8,6 @@ import llua.State;
 import llua.Convert;
 #end
 import animateatlas.AtlasFrameMaker;
-
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.filters.BitmapFilter;
@@ -26,10 +25,7 @@ import android.Hardware;
 #end
 import Type.ValueType;
 import lime.app.Application;
-
 import objects.Alphabet;
-
-
 import objects.StrumNote;
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
@@ -43,8 +39,6 @@ import states.MainMenuState;
 import states.LoadingState;
 import states.StoryModeState;
 import states.FreeplayState;
-
-
 import substates.PauseSubState;
 import substates.GameOverSubstate;
 
