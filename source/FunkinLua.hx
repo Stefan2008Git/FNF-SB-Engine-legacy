@@ -3329,10 +3329,10 @@ class DebugLuaText extends FlxText {
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
 		        setFormat(Paths.font("bahnschrift.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
+
 			case 'Psych Engine':
 		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
+
 			case 'Better UI':
 		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
