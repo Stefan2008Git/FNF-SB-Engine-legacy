@@ -3303,14 +3303,11 @@ class ModchartText extends FlxText {
 	public function new(x:Float, y:Float, text:String, width:Float) {
 		super(x, y, width, text, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
+			case 'Psych Engine' | 'Better UI':
+		        setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
 		        setFormat(Paths.font("bahnschrift.ttf"), 17, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Psych Engine':
-		        setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
-			case 'Better UI':
-		        setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		cameras = [PlayState.instance.camHUD];
 		scrollFactor.set();
@@ -3327,14 +3324,11 @@ class DebugLuaText extends FlxText {
 		this.parentGroup = parentGroup;
 		super(10, 10, 0, text, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
+			case 'Psych Engine' | 'Better UI':
+		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			default:
 		        setFormat(Paths.font("bahnschrift.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Psych Engine':
-		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		scrollFactor.set();
 		borderSize = 1;
