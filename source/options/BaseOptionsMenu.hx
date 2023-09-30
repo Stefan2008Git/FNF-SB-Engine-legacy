@@ -1,34 +1,11 @@
 package options;
 
-
-
-
-
-
-
+import states.MainMenuState;
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
 import lime.utils.Assets;
-
-
-
-
 import flixel.util.FlxSave;
 import haxe.Json;
-
-
-
-
-
-
 import flash.geom.Rectangle;
-
-
-
-
 import objects.Alphabet;
 import objects.CheckboxThingie;
 import objects.AttachedText;
@@ -182,6 +159,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 			#end
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 		}
 
 		if (nextAccept <= 0) {

@@ -6,8 +6,17 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import flash.net.URLRequest;
-import flixel.system.FlxAssets.FlxSoundAsset;
+import flixel.FlxBasic;
 
+import flixel.math.FlxPoint;
+import flixel.system.FlxAssets.FlxSoundAsset;
+import flixel.util.FlxStringUtil;
+
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSoundGroup;
+#else
+import flixel.system.FlxSoundGroup;
+#end
 
 import openfl.Assets;
 #if flash11
@@ -15,9 +24,6 @@ import flash.utils.ByteArray;
 #end
 #if (openfl >= "8.0.0")
 import openfl.utils.AssetType;
-#end
-#if lime
-import lime.media.AudioBuffer;
 #end
 
 /**
@@ -51,16 +57,6 @@ class FlxSound extends FlxBasic
 	 * The ID3 artist name. Defaults to null. Currently only works for streamed sounds.
 	 */
 	public var artist(default, null):String;
-
-	/**
-	 * Stores for how much channels are in the loaded sound.
-	 */
-	public var channels(get, null):Int;
-
-	/**
-	 * Stores the sound lime AudioBuffer.
-	 */
-	public var buffer(get, null):#if lime AudioBuffer #else Dynamic #end;
 
 	/**
 	 * Stores the average wave amplitude of both stereo channels
@@ -102,26 +98,6 @@ class FlxSound extends FlxBasic
 	 * Set volume to a value between 0 and 1 to change how this sound is.
 	 */
 	public var volume(get, set):Float;
-
-	/**
-	 * Internal tracker for amplitudeLeft.
-	 */
-	var _amplitudeLeft:Float;
-
-	/**
-	 * Internal tracker for amplitudeRight.
-	 */
-	var _amplitudeRight:Float;
-
-	/**
-	 * Internal tracker for sound last position on when amplitude was used.
-	 */
-	var _amplitudeTime:Float;
-
-	/**
-	 * Internal tracker for amplitude update debounce.
-	 */
-	var _amplitudeUpdate:Bool;
 
 	/**
 	 * Set pitch, which also alters the playback speed. Default is 1.
@@ -265,7 +241,6 @@ class FlxSound extends FlxBasic
 		_target = null;
 		_radius = 0;
 		_proximityPan = false;
-		_amplitudeUpdate = true;
 		visible = false;
 		amplitude = 0;
 		amplitudeLeft = 0;
@@ -311,8 +286,6 @@ class FlxSound extends FlxBasic
 	{
 		if (!playing)
 			return;
-
-		_amplitudeUpdate = true;
 
 		_time = _channel.position;
 
@@ -615,12 +588,8 @@ class FlxSound extends FlxBasic
 	/**
 	 * Call after adjusting the volume to update the sound channel's settings.
 	 */
-	@:allow(flixel.sound.FlxSoundGroup)
-	function updateTransform():Void
+	public function updateTransform():Void
 	{
-		if (_transform == null)
-			return;
-
 		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
 			(group != null ? group.volume : 1) * _volume * _volumeAdjust;
 
@@ -629,7 +598,7 @@ class FlxSound extends FlxBasic
 			_channel.soundTransform = _transform;
 
 			@:privateAccess
-			if (_channel.__source != null)
+			if(_channel.__source != null)
 			{
 				#if cpp
 				@:privateAccess
@@ -661,7 +630,10 @@ class FlxSound extends FlxBasic
 			active = true;
 		}
 		else
-			exists = active = false;
+		{
+			exists = false;
+			active = false;
+		}
 	}
 
 	/**
@@ -776,63 +748,6 @@ class FlxSound extends FlxBasic
 		_volume = FlxMath.bound(Volume, 0, 1);
 		updateTransform();
 		return Volume;
-	}
-
-	function get_loaded():Bool
-	{
-		return #if lime buffer != null #else _sound != null #end;
-	}
-
-	function get_channels():Int
-	{
-		@:privateAccess return (buffer == null) ? 0 : buffer.channels;
-	}
-
-	function get_stereo():Bool
-	{
-		return channels > 1;
-	}
-
-	function get_buffer():#if lime AudioBuffer #else Dynamic #end
-	{
-		#if lime
-		@:privateAccess if (_sound != null)
-			return _sound.__buffer;
-		#end
-		return null;
-	}
-
-	function update_amplitude():Void
-	{
-		if (_channel == null || _time == _amplitudeTime || !_amplitudeUpdate)
-			return;
-		@:privateAccess {
-			_channel.__updatePeaks();
-
-			_amplitudeLeft = _channel.__leftPeak;
-			_amplitudeRight = _channel.__rightPeak;
-		}
-
-		_amplitudeTime = _time;
-		_amplitudeUpdate = false;
-	}
-
-	function get_amplitudeLeft():Float
-	{
-		update_amplitude();
-		return _amplitudeLeft;
-	}
-
-	function get_amplitudeRight():Float
-	{
-		update_amplitude();
-		return _amplitudeRight;
-	}
-
-	function get_amplitude():Float
-	{
-		update_amplitude();
-		return channels > 1 ? (_amplitudeLeft + _amplitudeRight) * 0.5 : _amplitudeLeft;
 	}
 
 	inline function get_pitch():Float

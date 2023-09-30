@@ -1,29 +1,9 @@
 package android;
 
-
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
-
 import lime.utils.Assets;
-
-
-
-
 import flixel.util.FlxSave;
 import haxe.Json;
-
-
-
-
-
-
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;
@@ -61,7 +41,7 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 			"Allow Extend Space Control. --Made by NF | Beihu", // Credits: NF | Beihu (Created hitbox space)
 			'hitboxSpace',
 			'bool',
-			true);
+			false);
 		  addOption(option);
 		  
 		var option:Option = new Option('Space Location:',

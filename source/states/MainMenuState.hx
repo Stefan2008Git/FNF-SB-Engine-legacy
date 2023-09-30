@@ -2,8 +2,6 @@ package states;
 
 import flixel.addons.transition.FlxTransitionableState;
 import lime.app.Application;
-
-
 import states.FreeplayState;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
@@ -14,6 +12,7 @@ class MainMenuState extends MusicBeatState
 {
 	public static var sbEngineVersion:String = '2.9.0';
 	public static var psychEngineVersion:String = '0.6.3';
+	public static var fnfEngineVersion:String = '0.2.8';
 	public static var currentlySelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -153,7 +152,7 @@ class MainMenuState extends MusicBeatState
 		#end
 		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
-		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 16);
+		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + fnfEngineVersion, 16);
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine': 
 				galleryText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -220,7 +219,7 @@ class MainMenuState extends MusicBeatState
 		tipTextStartScrolling();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C_X_Y);
+		addVirtualPad(UP_DOWN, A_B_C_D);
 		virtualPad.y = -48;
 		#end
 
@@ -340,18 +339,16 @@ class MainMenuState extends MusicBeatState
 			}
 			#end
 
-			if (FlxG.keys.justPressed.G #if android || virtualPad.buttonX.justPressed #end) {
-				selectedSomething = true;
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
-				MusicBeatState.switchState(new GalleryScreenState());
-			}
+			if (FlxG.keys.justPressed.S #if android || FlxG.android.justReleased.BACK #end) {
+			    FlxG.sound.play(Paths.sound('scrollMenu'));
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
+			    MusicBeatState.switchState(new DVDScreenState());
+		    }
 
-			if (FlxG.keys.justPressed.S #if android || virtualPad.buttonY.justPressed #end) {
-				selectedSomething = true;
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - You are founded a secret!";
-				MusicBeatState.switchState(new DVDScreenState());
+		   if (FlxG.keys.justPressed.G #if android || virtualPad.buttonD.justPressed #end) {
+			   FlxG.sound.play(Paths.sound('scrollMenu'));
+			   Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
+			   MusicBeatState.switchState(new GalleryScreenState());
 			}
 		}
 

@@ -362,6 +362,7 @@ class PauseSubState extends MusicBeatSubstate {
 		PlayState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 
 		if (noTrans) {
 			FlxTransitionableState.skipNextTransOut = true;

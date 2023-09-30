@@ -1,26 +1,9 @@
 package options;
 
-
-
-
-
-
-
-
-
-
-
-
+import states.MainMenuState;
+import substates.PauseSubState;
 import flixel.ui.FlxBar;
-
-
-
-
-
-
 import objects.Alphabet;
-
-
 
 using StringTools;
 
@@ -356,8 +339,13 @@ class NoteOffsetState extends MusicBeatState {
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
+			if (PauseSubState.optionMenu) {
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
+			} else {
+				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+			}
 			MusicBeatState.switchState(new options.OptionsState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 			FlxG.mouse.visible = false;
 		}
 

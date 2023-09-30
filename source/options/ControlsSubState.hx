@@ -1,5 +1,6 @@
 package options;
 
+import states.MainMenuState;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
@@ -19,9 +20,30 @@ class ControlsSubState extends MusicBeatSubstate {
 	private var bindLength:Int = 0;
 
 	var optionFreak:Array<Dynamic> = [
-		['NOTES'], ['Left', 'note_left'], ['Down', 'note_down'], ['Up', 'note_up'], ['Right', 'note_right'], [''], ['UI'], ['Left', 'ui_left'],
-		['Down', 'ui_down'], ['Up', 'ui_up'], ['Right', 'ui_right'], [''], ['Reset', 'reset'], ['Accept', 'accept'], ['Back', 'back'], ['Pause', 'pause'],
-		[''], ['VOLUME'], ['Mute', 'volume_mute'], ['Up', 'volume_up'], ['Down', 'volume_down'], [''], ['DEBUG'], ['Key 1', 'debug_1'], ['Key 2', 'debug_2']];
+		['NOTES'], ['Left', 'note_left'],
+		['Down', 'note_down'],
+		['Up', 'note_up'],
+	    ['Right', 'note_right'],
+		[''],
+		['UI'],
+		['Left', 'ui_left'],
+		['Down', 'ui_down'],
+		['Up', 'ui_up'],
+		['Right', 'ui_right'],
+		[''],
+		['Reset', 'reset'],
+		['Accept', 'accept'],
+		['Back', 'back'],
+		['Pause', 'pause'],
+		[''],
+		['VOLUME'],
+		['Mute', 'volume_mute'],
+		['Up', 'volume_up'],
+		['Down', 'volume_down'],
+		[''],
+		['DEBUG'],
+		['Key 1', 'debug_1'],
+		['Key 2', 'debug_2']];
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
 	private var grpInputs:Array<AttachedText> = [];
@@ -118,6 +140,7 @@ class ControlsSubState extends MusicBeatSubstate {
 			    #end
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
 			}
 
 			if (controls.ACCEPT && nextAccept <= 0) {

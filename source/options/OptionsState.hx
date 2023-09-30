@@ -1,32 +1,9 @@
 package options;
 
-
-
-
-
-
-
-
-
-
-
 import lime.utils.Assets;
-
-
-
-
 import flixel.util.FlxSave;
 import haxe.Json;
-
-
-
-
-
 import lime.app.Application;
-
-
-
-
 import objects.Alphabet;
 import states.ClassicMainMenuState;
 import states.LoadingState;
@@ -38,12 +15,12 @@ using StringTools;
 
 class OptionsState extends MusicBeatState {
 	var options:Array<String> = [
-		'Note Colors',
-		'Controls',
 		'Adjust Delay and Combo',
+		'Controls',
+		'Gameplay',
 		'Graphics',
-		'Visuals and UI',
-		'Gameplay'
+		'Note Colors',
+		'Visuals and UI'
 	];
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
@@ -51,33 +28,39 @@ class OptionsState extends MusicBeatState {
 
 	function openSelectedSubstate(label:String) {
 		switch (label) {
-			case 'Note Colors':
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new options.NotesSubState());
+			case 'Adjust Delay and Combo':
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+				Application.current.window.title = "Friday Night Funkin: SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Adjusting Delay and Combo)";
 			case 'Controls':
 				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.ControlsSubState());
-			case 'Graphics':
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new options.VisualsUISubState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Controls Menu)";
 			case 'Gameplay':
 				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.GameplaySettingsSubState());
-			case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+				Application.current.window.title = "Friday Night Funkin: SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Gameplay Settings Menu)";
+			case 'Graphics':
+				#if android
+				removeVirtualPad();
+				#end
+				openSubState(new options.GraphicsSettingsSubState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Graphics Settings Menu)";
+			case 'Note Colors':
+				#if android
+				removeVirtualPad();
+				#end
+				openSubState(new options.NotesSubState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Note Colors Menu)";
+			case 'Visuals and UI':
+				#if android
+				removeVirtualPad();
+				#end
+				openSubState(new options.VisualsUISubState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Visuals & UI Settings Menu)";
 		}
 	}
 

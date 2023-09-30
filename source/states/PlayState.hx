@@ -2349,10 +2349,10 @@ class PlayState extends MusicBeatState {
 
 				final sound = switch (swagCounter)
 				{
-					case 0: 'intro3' + introSoundsSuffix;
-					case 1: 'intro2' + introSoundsSuffix;
-					case 2: 'intro1' + introSoundsSuffix;
-					case 3: 'introGo' + introSoundsSuffix;
+					case 0: 'intro3' + FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
+					case 1: 'intro2' + FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
+					case 2: 'intro1' + FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
+					case 3: 'introGo' + FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
 					default: null;
 				}
 				if (sound != null)

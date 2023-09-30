@@ -1,29 +1,8 @@
 package options;
 
-
-
-
-
-
-
-
-
-
 import lime.utils.Assets;
-
-
-
-
 import flixel.util.FlxSave;
 import haxe.Json;
-
-
-
-
-
-
-
-
 #if android
 import android.Hardware;
 #end
