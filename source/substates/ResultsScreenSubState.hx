@@ -148,7 +148,7 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 			pressEnterTxt.alpha = 1 - Math.sin((Math.PI * pressEnterTxtSine) / 150);
 		}
 
-		#if android
+		#if mobile
 		var touchedScreen:Bool = false;
 
 		for (touch in FlxG.touches.list) {

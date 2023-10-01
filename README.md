@@ -16,6 +16,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 * [SunBurntTails](https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw) - First Beta test player
 * [Ali Alafandy](https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA) - Second Beta test player
 * [HMFNF](https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw) - Third Beta test player
+* [Luiz Felipe Play](https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg) - Fourh Beta test player
 
 ## Psych Engine Credits:
 * [Shadow Mario](https://twitter.com/Shadow_Mario_) - Programmer
@@ -45,7 +46,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 # Added accruracy and watermark:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_3.png)
 
-# Added lua shaders. Here are 2 example's. Note: You need to enable "Shaders on lua" on graphic option's! [Thanks Lizzy Strawberry](https://www.youtube.com/@LizzyStrawberry):
+# Added lua shaders. Here are 2 examples. Note: You need to enable "Shaders on lua" on graphic option's! [Thanks Lizzy Strawberry](https://www.youtube.com/@LizzyStrawberry):
 ### Bloom effect:
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/Example_4.png)
 ### Glitch effect:

@@ -112,13 +112,10 @@ class ClassicMainMenuState extends MusicBeatState {
 		initOptions();
 
 		#if android
-	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press D for gallery basemant!", 12);
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
 		#else
 		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
-		#end
-		#if android
-	    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
-		#else
 		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for secret screen!", 12);
 		#end
 		sbEngineVersion = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + MainMenuState.sbEngineVersion + " (Modified Psych Engine)", 16);
@@ -195,7 +192,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		tipTextStartScrolling();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C_D);
+		addVirtualPad(UP_DOWN, A_B_X_Y);
 		virtualPad.y = -44;
 		#end
 
@@ -281,7 +278,7 @@ class ClassicMainMenuState extends MusicBeatState {
 			MusicBeatState.switchState(new DVDScreenState());
 		}
 
-		if (FlxG.keys.justPressed.G #if android || virtualPad.buttonD.justPressed #end) {
+		if (FlxG.keys.justPressed.G #if android || virtualPad.buttonX.justPressed #end) {
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
 			MusicBeatState.switchState(new GalleryScreenState());

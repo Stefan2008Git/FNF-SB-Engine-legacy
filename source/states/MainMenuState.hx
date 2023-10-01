@@ -29,6 +29,8 @@ class MainMenuState extends MusicBeatState
 	var menuBackground:FlxSprite;
 	var background:FlxSprite;
 	var velocityBackground:FlxBackdrop;
+	var sbEngineLogo:FlxSprite;
+	var mainSide:FlxSprite;
 	var versionSb:FlxText;
 	var versionPsych:FlxText;
 	var versionFnf:FlxText;
@@ -90,6 +92,30 @@ class MainMenuState extends MusicBeatState
 		velocityBackground.visible = ClientPrefs.velocityBackground;
 		add(velocityBackground);
 
+		sbEngineLogo = new FlxSprite(0).loadGraphic(Paths.image('sbEngineLogo'));
+		sbEngineLogo.scrollFactor.x = 0;
+		sbEngineLogo.scrollFactor.y = 0;
+		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		sbEngineLogo.setGraphicSize(Std.int(menuBackground.width * 0.32));
+		sbEngineLogo.updateHitbox();
+		sbEngineLogo.screenCenter();
+		sbEngineLogo.x = 1000;
+		sbEngineLogo.y = 90;
+		sbEngineLogo.scale.x = 1;
+		sbEngineLogo.scale.y = 1;
+		add(sbEngineLogo);
+
+		mainSide = new FlxSprite(0).loadGraphic(Paths.image('mainSide'));
+		mainSide.scrollFactor.x = 0;
+		mainSide.scrollFactor.y = 0;
+		mainSide.setGraphicSize(Std.int(mainSide.width * 0.75));
+		mainSide.updateHitbox();
+		mainSide.screenCenter();
+		mainSide.antialiasing = ClientPrefs.globalAntialiasing;
+		mainSide.x = -500;
+		mainSide.y = -90;
+		add(mainSide);
+
 		cameraFollow = new FlxObject(0, 0, 1, 1);
 		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 		add(cameraFollow);
@@ -109,7 +135,6 @@ class MainMenuState extends MusicBeatState
 			case 'Psych Engine':
 				background.color = 0xFFea71fd;
 		}
-		// background.scrollFactor.set();
 		add(background);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -117,7 +142,7 @@ class MainMenuState extends MusicBeatState
 
 		var scale:Float = 1;
 
-		for (i in 0...optionSelect.length)
+        for (i in 0...optionSelect.length)
 		{
 			var offset:Float = 108 - (Math.max(optionSelect.length, 4) - 4) * 80;
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
@@ -128,10 +153,12 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionSelect[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 60) - 75}, 1.3, {ease: FlxEase.expoInOut});
 			menuItems.add(menuItem);
 			var scr:Float = (optionSelect.length - 4) * 0.135;
-			if(optionSelect.length < 6) scr = 0;
+			if (optionSelect.length < 6)
+				scr = 0;
+			menuItem.scale.set(0.8, 0.8);
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
@@ -139,16 +166,17 @@ class MainMenuState extends MusicBeatState
 		}
 
 		FlxG.camera.follow(cameraFollowPosition, null, 1);
+		FlxTween.tween(cameraGame, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
+		FlxTween.tween(background, {angle: 0}, 1, {ease: FlxEase.quartInOut});
+		FlxTween.tween(mainSide, {x: -80}, 0.9, {ease: FlxEase.quartInOut});
+		FlxTween.tween(sbEngineLogo, {x: 725}, 0.9, {ease: FlxEase.quartInOut});
 
 		#if android
-	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press X for the gallery basemant!", 12);
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
 		#else
-		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for the gallery basemant!", 12);
-		#end
-		#if android
-	    secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press Y for the secret screen!", 12);
-		#else
-		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for the secret screen!", 12);
+		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for secret screen!", 12);
 		#end
 		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
 		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
@@ -219,7 +247,7 @@ class MainMenuState extends MusicBeatState
 		tipTextStartScrolling();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C_D);
+		addVirtualPad(UP_DOWN, A_B_X_Y);
 		virtualPad.y = -48;
 		#end
 
@@ -294,13 +322,17 @@ class MainMenuState extends MusicBeatState
 					{
 						if (currentlySelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
+							FlxTween.tween(cameraGame, {zoom: 10}, 1.6, {ease: FlxEase.expoIn});
+						    FlxTween.tween(menuBackground, {angle: 90}, 1.6, {ease: FlxEase.expoIn});
+						    FlxTween.tween(spr, {x: -600}, 0.6, {
+							ease: FlxEase.backIn,
+							onComplete: function(twn:FlxTween)
+							{
+								spr.kill();
+							}
+						});
+						FlxTween.tween(mainSide, {x: -500}, 1.2, {ease: FlxEase.quartInOut});
+						FlxTween.tween(sbEngineLogo, {x: 1000}, 1.2, {ease: FlxEase.quartInOut});
 						}
 						else
 						{
@@ -356,7 +388,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+			// spr.screenCenter(X);
 		});
 	}
 

@@ -896,23 +896,6 @@ void main()
 	}
 }
 
-/*STOLE FROM DAVE AND BAMBI
-
-	I LOVE BANUUU I LOVE BANUUU
-	  ________
-	 /        \
-	_/__________\_
-	||  o||  o||
-	|//--  --//|
-	 \____O___/
-	  |      |
-	  |______|
-	  |   |  |
-	  |___|__|
-		
-
- */
-
  class WiggleEffectDreamy extends Effect
  {
 	 // DEAD VARS
@@ -1000,17 +983,6 @@ void main()
 		 shader.uTime.value[0] += elapsed;
 	 }
  
-	 /*public function wiggleEffectTypeFromString(wig:String):WiggleEffectType 
-	 {
-		 switch(wig.toLowerCase()) {
-			 case 'dreamy' | 'DREAMY': return effectType = DREAMY;
-			 case 'wavy' | 'WAVY': return effectType = WAVY;
-			 case 'horizontal' | 'HORIZONTAL': return effectType = HORIZONTAL;
-			 case 'vertical' | 'VERTICAL': return effectType = VERTICAL;
-			 case 'flag' | 'FLAG': return effectType = FLAG;
-		 }
-		 return effectType = DREAMY;
-	 }*/
  
 	 function set_waveSpeed(v:Float):Float
 	 {
@@ -1060,17 +1032,6 @@ void main()
 		 shader.uTime.value[0] += elapsed;
 	 }
  
-	 /*public function wiggleEffectTypeFromString(wig:String):WiggleEffectType 
-	 {
-		 switch(wig.toLowerCase()) {
-			 case 'dreamy' | 'DREAMY': return effectType = DREAMY;
-			 case 'wavy' | 'WAVY': return effectType = WAVY;
-			 case 'horizontal' | 'HORIZONTAL': return effectType = HORIZONTAL;
-			 case 'vertical' | 'VERTICAL': return effectType = VERTICAL;
-			 case 'flag' | 'FLAG': return effectType = FLAG;
-		 }
-		 return effectType = DREAMY;
-	 }*/
  
 	 function set_waveSpeed(v:Float):Float
 	 {
@@ -1120,18 +1081,6 @@ void main()
 		 shader.uTime.value[0] += elapsed;
 	 }
  
-	 /*public function wiggleEffectTypeFromString(wig:String):WiggleEffectType 
-	 {
-		 switch(wig.toLowerCase()) {
-			 case 'dreamy' | 'DREAMY': return effectType = DREAMY;
-			 case 'wavy' | 'WAVY': return effectType = WAVY;
-			 case 'horizontal' | 'HORIZONTAL': return effectType = HORIZONTAL;
-			 case 'vertical' | 'VERTICAL': return effectType = VERTICAL;
-			 case 'flag' | 'FLAG': return effectType = FLAG;
-		 }
-		 return effectType = DREAMY;
-	 }*/
- 
 	 function set_waveSpeed(v:Float):Float
 	 {
 		 waveSpeed = v;
@@ -1155,10 +1104,7 @@ void main()
  }
  class WiggleEffectFlag extends Effect
  {
-	 // DEAD VARS
-	 //public var effectType(default, set):WiggleEffectType;
-	 //public var selectEffectTypeLua(default, set):String = effectType + '';
-	 public var shader:WiggleShaderVertical = new WiggleShaderVertical();
+	 public var shader:WiggleShaderFlag = new WiggleShaderFlag();
  
 	 public var waveSpeed(default, set):Float = 0;
 	 public var waveFrequency(default, set):Float = 0;

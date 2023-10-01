@@ -1,7 +1,5 @@
 package states;
 
-import flash.geom.Rectangle;
-
 import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -74,240 +72,50 @@ class CreditsState extends MusicBeatState {
 		var creditName:Array<Array<String>> = [
 			// Name - Icon name - Description - Link - BG Color
 			['SB Engine Team'],
-			[
-				'Stefan2008',
-				'stefan',
-				'Main Programmer of SB Engine',
-				'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ',
-				'800080'
-			],
-			[
-				'Nury',
-				'nury',
-				'Artist for SB Engine',
-				'https://youtube.com/@Nuury06',
-				'8A8AFF'
-			],
-			[
-				'MaysLastPlays',
-				'mays',
-				'Second Programmer of SB Engine',
-				'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA',
-				'5E99DF'
-			],
-			[
-				'Fearester2008',
-				'fearester',
-				'Third Programmer of SB Engine',
-				'https://www.youtube.com/@fearester1282',
-				'5E99DF'
-			],
-			[
-				'SunBurntTails',
-				'sun',
-				'First Beta test player for SB Engine',
-				'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw',
-				'fc0000'
-			],
-			[
-				'Ali Alafandy',
-				'ali',
-				'Second Beta test player for SB Engine',
-				'https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA',
-				'00008b'
-			],
-			[
-				'HMFNF',
-				'hm',
-				'Third Beta test player for SB Engine',
-				'https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw',
-				'00ffda'
-			],
+			['Stefan2008', 'stefan', 'Main Programmer of SB Engine', 'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', '800080'],
+			['Nury', 'nury', 'Main Artist for SB Engine', 'https://youtube.com/@Nuury06', '8A8AFF'],
+			['MaysLastPlays', 'mays', 'Second Programmer of SB Engine', 'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', '5E99DF'],
+			['Fearester2008', 'fearester', 'Third Programmer of SB Engine', 'https://www.youtube.com/@fearester1282', '5E99DF'],
+			['SunBurntTails', 'sun', 'First Beta test player for SB Engine', 'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw', 'fc0000' ],
+			['Ali Alafandy', 'ali', 'Second Beta test player for SB Engine', 'https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA', '00008b'],
+			['HMFNF', 'hm', 'Third Beta test player for SB Engine', 'https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw', '00ffda'],
+			['Luiz Felipe Play', 'luiz', 'Fourth Beta test player for SB Engine', 'https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg', '59d927'],
 			[''],
 			['Special credits'],
-			[
-				'Stefan Ro 123',
-				'stefan-ro123',
-				'Fixed Wiggle effect shaders to run possible on PC and Android',
-				'https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ',
-				'fc0000'
-			],
-			[
-				'Sussy Sam',
-				'sam',
-				'Maked new icons for SB Engine, but he is not on team',
-				'https://www.youtube.com/@sussysam6789',
-				'964B00'
-			],
-			[
-				'Lizzy Strawbery',
-				'lizzy',
-				'Fixed lua shaders from Psych Engine 0.5.1',
-				'https://www.youtube.com/@LizzyStrawberry',
-				'ff03d9'
-			],
-			[
-				'Joalor64',
-				'joalor',
-				'For simple main menu and Joalor64 Engine Rewriten',
-				'https://www.youtube.com/channel/UC4tRMRL_iAHX5n1qQpHibfg',
-				'00FFF6'
-			],
-			[
-				'Notweuz',
-				'weuz',
-				'Creator of OS Engine',
-				'https://www.youtube.com/channel/UC2XJzq2EaMQUw61IC_sComw',
-				'8633F2'
-			],
-			[
-				'JustXale',
-				'xale',
-				'For health bar counter and Grafex Engine team',
-				'https://github.com/JustXale',
-				'f7a300'
-			],
-			[
-				'SquidBowl',
-				'tinki',
-				'For gallery stuff. Thanks',
-				'https://www.youtube.com/@squidbowl',
-				'964B00'
-			],
-			[
-				'MarioMaster',
-				'mario',
-				'Created hitbox selector and virtual pad opacity',
-				'https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw',
-				'fc0000'
-			],
-			[
-				'NF | Beihu',
-				'beihu',
-				'Created hitbox space for dodge mechanic system on NF Engine.',
-				'https://www.youtube.com/@beihu235',
-				'964B00'
-			],
-			[
-				'M.A. Jigsaw',
-				'jigsaw',
-				'Main Programmer of Psych Engine\nWith Android Support',
-				'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ',
-				'444444'
-			],
-			[
-				'Goldie',
-				'goldie',
-				'Virtual Pad Artist',
-				'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA',
-				'444444'
-			],
+			['Stefan Ro 123', 'stefan-ro123', 'Fixed Wiggle effect shaders to run possible on PC and Android', 'https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ', 'fc0000'],
+			['Elgatosinnombre', 'elgatosinnombre', 'Made a code for new wiggle effect shaders fucntion to look like from\nPsych Engine 0.5.1 with shaders!', 'https://www.youtube.com/channel/UCQ7CD5-XkoFMlXbeX_9qG3w', '964B00'],
+			['Sussy Sam', 'sam', 'Maked new icons and new music for SB Engine, but he is not on team', 'https://www.youtube.com/@sussysam6789', '964B00'],
+			['Lizzy Strawbery', 'lizzy', 'Fixed shaders from Psych Engine 0.5.1', 'https://www.youtube.com/@LizzyStrawberry', 'ff03d9'],
+			['Joalor64', 'joalor', 'For simple main menu and Joalor64 Engine Rewriten', 'https://www.youtube.com/channel/UC4tRMRL_iAHX5n1qQpHibfg', '00FFF6'],
+			['JustXale', 'xale','Creator of Grafex Engine', 'https://github.com/JustXale', 'f7a300'],
+			['SquidBowl', 'tinki', 'For gallery stuff', 'https://www.youtube.com/@squidbowl', '964B00'],
+			['MarioMaster', 'mario', 'Created hitbox selector and virtual pad opacity', 'https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw', 'fc0000'],
+			['NF | Beihu', 'beihu', 'Created hitbox space for dodge mechanic system on NF Engine.', 'https://www.youtube.com/@beihu235', '964B00'],
+			['M.A. Jigsaw', 'jigsaw', 'Main Programmer of Psych Engine\nWith Android Support', 'https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ', '444444'],
+			['Goldie', 'goldie', 'Virtual Pad Artist', 'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', '444444'],
 			[''],
 			['Psych Engine Team'],
-			[
-				'Shadow Mario',
-				'shadowmario',
-				'Main Programmer of Psych Engine',
-				'https://twitter.com/Shadow_Mario_',
-				'444444'
-			],
-			[
-				'RiverOaken',
-				'river',
-				'Main Artist/Animator of Psych Engine',
-				'https://twitter.com/RiverOaken',
-				'B42F71'
-			],
+			['Shadow Mario', 'shadowmario', 'Main Programmer of Psych Engine', 'https://twitter.com/Shadow_Mario_', '444444'],
+			['RiverOaken', 'river', 'Main Artist/Animator of Psych Engine', 'https://twitter.com/RiverOaken', 'B42F71'],
 			[''],
 			['Former Engine Members'],
-			[
-				'bb-panzu',
-				'bb',
-				'Ex-Programmer of Psych Engine',
-				'https://twitter.com/bbsub3',
-				'3E813A'
-			],
+			['bb-panzu', 'bb', 'Ex-Programmer of Psych Engine', 'https://twitter.com/bbsub3', '3E813A'],
 			[''],
 			['Engine Contributors'],
-			[
-				'iFlicky',
-				'flicky',
-				'Composer of Psync and Tea Time\nMade the Dialogue Sounds',
-				'https://twitter.com/flicky_i',
-				'9E29CF'
-			],
-			[
-				'SqirraRNG',
-				'sqirra',
-				'Crash Handler and Base code for\nChart Editor\'s Waveform',
-				'https://twitter.com/gedehari',
-				'E1843A'
-			],
-			[
-				'PolybiusProxy',
-				'proxy',
-				'.MP4 Video Loader Library (hxCodec)',
-				'https://twitter.com/polybiusproxy',
-				'DCD294'
-			],
-			[
-				'KadeDev',
-				'kade',
-				'Fixed some cool stuff on Chart Editor\nand other PRs',
-				'https://twitter.com/kade0912',
-				'64A250'
-			],
-			[
-				'Keoiki',
-				'keoiki',
-				'Note Splash Animations',
-				'https://twitter.com/Keoiki_',
-				'D2D2D2'
-			],
-			[
-				'Nebula the Zorua',
-				'nebula',
-				'LUA JIT Fork and some Lua reworks',
-				'https://twitter.com/Nebula_Zorua',
-				'7D40B2'
-			],
-			[
-				'Smokey',
-				'smokey',
-				'Sprite Atlas Support',
-				'https://twitter.com/Smokey_5_',
-				'483D92'
-			],
+			['iFlicky', 'flicky', 'Composer of Psync and Tea Time\nMade the Dialogue Sounds', 'https://twitter.com/flicky_i', '9E29CF'],
+			['SqirraRNG', 'sqirra', 'Crash Handler and Base code for\nChart Editor\'s Waveform', 'https://twitter.com/gedehari', 'E1843A'],
+			['EliteMasterEric',	'mastereric', 'Runtime Shaders support', 'https://twitter.com/EliteMasterEric', 'FFBD40'],
+			['PolybiusProxy', 'proxy', '.MP4 Video Loader Library (hxCodec)', 'https://twitter.com/polybiusproxy', 'DCD294'],
+			['KadeDev', 'kade', 'Fixed some cool stuff on Chart Editor\nand other PRs', 'https://twitter.com/kade0912', '64A250'],
+			['Keoiki', 'keoiki', 'Note Splash Animations', 'https://twitter.com/Keoiki_', 'D2D2D2'],
+			['Nebula the Zorua', 'nebula', 'LUA JIT Fork and some Lua reworks', 'https://twitter.com/Nebula_Zorua', '7D40B2'],
+			['Smokey', 'smokey', 'Sprite Atlas Support', 'https://twitter.com/Smokey_5_', '483D92'],
 			[''],
 			["Funkin' Crew"],
-			[
-				'ninjamuffin99',
-				'ninjamuffin99',
-				"Programmer of Friday Night Funkin'",
-				'https://twitter.com/ninja_muffin99',
-				'CF2D2D'
-			],
-			[
-				'PhantomArcade',
-				'phantomarcade',
-				"Animator of Friday Night Funkin'",
-				'https://twitter.com/PhantomArcade3K',
-				'FADC45'
-			],
-			[
-				'evilsk8r',
-				'evilsk8r',
-				"Artist of Friday Night Funkin'",
-				'https://twitter.com/evilsk8r',
-				'5ABD4B'
-			],
-			[
-				'kawaisprite',
-				'kawaisprite',
-				"Composer of Friday Night Funkin'",
-				'https://twitter.com/kawaisprite',
-				'378FC7'
-			]
+			['ninjamuffin99', 'ninjamuffin99', "Main Programmer of Friday Night Funkin'", 'https://twitter.com/ninja_muffin99', 'CF2D2D'],
+			['PhantomArcade', 'phantomarcade', "Main Animator of Friday Night Funkin'", 'https://twitter.com/PhantomArcade3K', 'FADC45'],
+			['evilsk8r', 'evilsk8r', "Main Artist of Friday Night Funkin'", 'https://twitter.com/evilsk8r', '5ABD4B'],
+			['kawaisprite', 'kawaisprite', "Main Composer of Friday Night Funkin'", 'https://twitter.com/kawaisprite', '378FC7']
 		];
 
 		for (i in creditName) {
@@ -346,18 +154,23 @@ class CreditsState extends MusicBeatState {
 		}
 
 		descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				descBox.makeGraphic(1, 1, FlxColor.PURPLE);
+			
+			case 'Psych Engine':
+				descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		}
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
-		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, 20, 20, 20, 20, 20, 20, 0x99000000);
 		add(descBox);
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			default: descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			case 'Psych Engine' | 'Better UI': descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		descText.scrollFactor.set();
 		descBox.sprTracker = descText;
