@@ -450,9 +450,9 @@ class DialogueEditorState extends MusicBeatState {
 		}
 
 		if (!blockInput) {
-			FlxG.sound.muteKeys = states.TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = states.TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = states.TitleScreenState.volumeUpKeys;
+			FlxG.sound.muteKeys = states.TitleState.muteKeys;
+			FlxG.sound.volumeDownKeys = states.TitleState.volumeDownKeys;
+			FlxG.sound.volumeUpKeys = states.TitleState.volumeUpKeys;
 			if (#if !android FlxG.keys.justPressed.SPACE #else virtualPad.buttonC.justPressed #end) {
 				reloadText(false);
 			}

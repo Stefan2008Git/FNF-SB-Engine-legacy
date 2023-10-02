@@ -329,9 +329,9 @@ class MenuCharacterEditorState extends MusicBeatState {
 		}
 
 		if (!blockInput) {
-			FlxG.sound.muteKeys = TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
+			FlxG.sound.muteKeys = TitleState.muteKeys;
+			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
+			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if (#if !android FlxG.keys.justPressed.ESCAPE #else FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";

@@ -113,13 +113,6 @@ class FPS extends TextField {
 				skippedFrames = 0;
 		}
 
-		if ((FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this.width)
-			&& (FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height)
-			&& FlxG.mouse.visible) {
-			minAlpha = 0.1;
-			aggressor = 2.5;
-		}
-
 		if (!redText)
 			realAlpha = CoolUtil.boundTo(realAlpha - (deltaTime / 1000) * aggressor, minAlpha, 1);
 		else
@@ -153,7 +146,7 @@ class FPS extends TextField {
 			}
 
 			if (ClientPrefs.engineVersion) {
-				text += "\nSB Engine v" + MainMenuState.sbEngineVersion + " (Psych Engine v" + MainMenuState.psychEngineVersion + ")";
+				text += "\nEngine version: " + MainMenuState.sbEngineVersion + " (PE v" + MainMenuState.psychEngineVersion + ")";
 			}
 
 			if (ClientPrefs.debugInfo) {

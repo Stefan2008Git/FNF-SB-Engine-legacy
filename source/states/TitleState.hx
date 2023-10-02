@@ -38,7 +38,7 @@ typedef TitleData = {
 	bpm:Int
 }
 
-class TitleScreenState extends MusicBeatState {
+class TitleState extends MusicBeatState {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
@@ -345,10 +345,6 @@ class TitleScreenState extends MusicBeatState {
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
 
-		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-			MusicBeatState.switchState(new GameExitState());
-		}
-
 		if (FlxG.keys.justPressed.F) {
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
@@ -441,12 +437,6 @@ class TitleScreenState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
-
-				if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-					FlxG.sound.play(Paths.sound('cancelMenu'));
-					MusicBeatState.switchState(new GameExitState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Game Exit Menu";
-				}
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
 					if (ClientPrefs.mainMenuStyle == 'Classic')

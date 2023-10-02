@@ -19,7 +19,7 @@ import sys.io.Process;
 #end
 
 import states.MainMenuState;
-import states.TitleScreenState;
+import states.TitleState;
 
 using StringTools;
 
@@ -27,7 +27,7 @@ class Main extends Sprite {
 	var game = {
 		width: 1280,
 		height: 720,
-		initialState: TitleScreenState,
+		initialState: TitleState,
 		zoom: -1.0,
 		framerate: 60,
 		skipSplash: true,
@@ -37,8 +37,6 @@ class Main extends Sprite {
 	public static var fpsVar:FPS;
 	public static var changeID:Int = 0;
 
-	// You can pretty much ignore everything from here on - your code should go in your states.
-
 	public static function main():Void {
 		Lib.current.addChild(new Main());
 	}
@@ -46,7 +44,6 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		SUtil.gameCrashCheck();
 		if (stage != null) {
 			init();
 		} else {
@@ -74,9 +71,8 @@ class Main extends Sprite {
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 
-		SUtil.doTheCheck();
 		#if mobile
-		addChild(new FlxGame(1280, 720, TitleScreenState, 60, 60, true, false));
+		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, false));
 		#else
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		#end
@@ -85,9 +81,7 @@ class Main extends Sprite {
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if (fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
-		}
+		fpsVar.visible = ClientPrefs.showFPS;
 
 		FlxG.autoPause = false;
 
@@ -108,8 +102,6 @@ class Main extends Sprite {
 		fpsVar.textColor = color;
 	}
 
-	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
-	// very cool person for real they don't get enough credit for their work
 	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void {
 		var errorMessage:String = "";

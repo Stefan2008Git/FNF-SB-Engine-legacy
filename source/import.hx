@@ -37,6 +37,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flash.text.TextField;
 import lime.app.Application;
+import lime.system.System;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
 import backend.ClientPrefs;

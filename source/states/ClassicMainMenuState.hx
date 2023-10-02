@@ -247,7 +247,7 @@ class ClassicMainMenuState extends MusicBeatState {
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new TitleScreenState());
+			MusicBeatState.switchState(new TitleState());
 		}
 
 		if (controls.ACCEPT) {

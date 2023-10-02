@@ -3312,6 +3312,7 @@ class PlayState extends MusicBeatState {
 			paused = true;
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Character Editor Menu";
 		}
 
 		if (startedCountdown) {
@@ -3601,6 +3602,7 @@ class PlayState extends MusicBeatState {
 		paused = true;
 		cancelMusicFadeTween();
 		MusicBeatState.switchState(new ChartingState());
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 		chartingMode = true;
 
 		#if desktop

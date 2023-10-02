@@ -39,12 +39,6 @@ import lime.app.Application;
 import sys.FileSystem;
 #end
 
-
-
-
-
-
-
 import states.editors.MasterEditorMenu;
 
 using StringTools;
@@ -1052,9 +1046,9 @@ class CharacterEditorState extends MusicBeatState {
 				return;
 			}
 		}
-		FlxG.sound.muteKeys = states.TitleScreenState.muteKeys;
-		FlxG.sound.volumeDownKeys = states.TitleScreenState.volumeDownKeys;
-		FlxG.sound.volumeUpKeys = states.TitleScreenState.volumeUpKeys;
+		FlxG.sound.muteKeys = states.TitleState.muteKeys;
+		FlxG.sound.volumeDownKeys = states.TitleState.volumeDownKeys;
+		FlxG.sound.volumeUpKeys = states.TitleState.volumeUpKeys;
 
 		if (!charDropDown.dropPanel.visible) {
 			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {

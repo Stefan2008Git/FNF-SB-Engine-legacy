@@ -1648,9 +1648,9 @@ class ChartingState extends MusicBeatState {
 		}
 
 		if (!blockInput) {
-			FlxG.sound.muteKeys = TitleScreenState.muteKeys;
-			FlxG.sound.volumeDownKeys = TitleScreenState.volumeDownKeys;
-			FlxG.sound.volumeUpKeys = TitleScreenState.volumeUpKeys;
+			FlxG.sound.muteKeys = TitleState.muteKeys;
+			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
+			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			for (dropDownMenu in blockPressWhileScrolling) {
 				if (dropDownMenu.dropPanel.visible) {
 					blockInput = true;
@@ -1662,10 +1662,30 @@ class ChartingState extends MusicBeatState {
 		if (!blockInput) {
 			if (FlxG.keys.justPressed.ESCAPE #if android || virtualPad.buttonB.justPressed #end) {
 				autosaveSong();
+				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new states.editors.EditorPlayState(sectionStartTime()));
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + states.PlayState.SONG.song;
+			}});
 			}
 			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
+				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				autosaveSong();
 				FlxG.mouse.visible = false;
 				PlayState.SONG = _song;
@@ -1673,10 +1693,11 @@ class ChartingState extends MusicBeatState {
 				if (vocals != null)
 					vocals.stop();
 
-				// if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
+				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new PlayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+			}});
 			}
 
 			if (currentlySelectedNote != null && currentlySelectedNote[1] > -1) {
@@ -1689,11 +1710,21 @@ class ChartingState extends MusicBeatState {
 			}
 
 			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end) {
-				// if(onMasterEditor) {
+				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
+                FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 				FlxG.mouse.visible = false;
+			    }});
 				return;
 			}
 
@@ -1971,17 +2002,10 @@ class ChartingState extends MusicBeatState {
 		vocals.pitch = playbackSpeed;
 
 		bpmTxt.text = Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2))
-			+ " / "
-			+ Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
-			+ "\nSection: "
-			+ curSec
-			+ "\n\nBeat: "
-			+ Std.string(curDecBeat).substring(0, 4)
-			+ "\n\nStep: "
-			+ curStep
-			+ "\n\nBeat Snap: "
-			+ quantization
-			+ "th";
+			+ " / " + Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
+			+ "\nSection: " + curSec
+			+ "\n\nBeat: " + Std.string(curDecBeat).substring(0, 4) + "\n\nStep: " + curStep
+			+ "\n\nBeat Snap: " + quantization + "th";
 
 		var playedSound:Array<Bool> = [false, false, false, false]; // Prevents ouchy GF sex sounds
 		curRenderedNotes.forEachAlive(function(note:Note) {
