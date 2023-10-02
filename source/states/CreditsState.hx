@@ -74,7 +74,7 @@ class CreditsState extends MusicBeatState {
 			['SB Engine Team'],
 			['Stefan2008', 'stefan', 'Main Programmer of SB Engine', 'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', '800080'],
 			['Nury', 'nury', 'Main Artist for SB Engine', 'https://youtube.com/@Nuury06', '8A8AFF'],
-			['MaysLastPlays', 'mays', 'Second Programmer of SB Engine', 'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', '5E99DF'],
+			['MaysLastPlay', 'mays', 'Second Programmer of SB Engine', 'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', '5E99DF'],
 			['Fearester2008', 'fearester', 'Third Programmer of SB Engine', 'https://www.youtube.com/@fearester1282', '5E99DF'],
 			['SunBurntTails', 'sun', 'First Beta test player for SB Engine', 'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw', 'fc0000' ],
 			['Ali Alafandy', 'ali', 'Second Beta test player for SB Engine', 'https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA', '00008b'],
