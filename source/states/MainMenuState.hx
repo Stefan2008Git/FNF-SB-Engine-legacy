@@ -356,7 +356,7 @@ class MainMenuState extends MusicBeatState
 				});
 			}
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
+			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonX.justPressed #end) {
 				selectedSomething = true;
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 				MusicBeatState.switchState(new MasterEditorMenu());
