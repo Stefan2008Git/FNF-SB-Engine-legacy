@@ -2,10 +2,8 @@ package substates;
 
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxSound;
-
 import states.FreeplayState;
 import states.StoryModeState;
-
 
 class ResultsScreenSubState extends MusicBeatSubstate {
 	var background:FlxSprite;
@@ -80,11 +78,14 @@ class ResultsScreenSubState extends MusicBeatSubstate {
 		add(difficultyNameTxt);
 
 		judgementCounterTxt = new FlxText(0, difficultyNameTxt.y + difficultyNameTxt.height + 45, FlxG.width, '', 86);
-		judgementCounterTxt.text = 'Score: ' + campaignScore + '\nMisses: ' + songMisses + '\nAccuracy: ' + ratingPercent + '%\nRating: ' + ratingName;
 		judgementCounterTxt.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': judgementCounterTxt.setFormat("VCR OSD Mono", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			default: /*"SB Engine"*/ judgementCounterTxt.setFormat("Bahnschrift", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Psych Engine' | 'Better UI': 
+				judgementCounterTxt.text = 'Score: ' + campaignScore + '\nMisses: ' + songMisses + '\nAccuracy: ' + ratingPercent + '%\nRating: ' + ratingName;
+				judgementCounterTxt.setFormat("VCR OSD Mono", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default: /*"SB Engine"*/ 
+				judgementCounterTxt.text = 'Score: ' + campaignScore + '\nCombo Breaks: ' + songMisses + '\nAccuracy: ' + ratingPercent + '%\nRating: ' + ratingName;
+			    judgementCounterTxt.setFormat("Bahnschrift", 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		judgementCounterTxt.updateHitbox();
