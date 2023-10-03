@@ -1,28 +1,12 @@
 package states.editors;
 
-
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
-
-
 import flixel.system.FlxSound;
 import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
-
-
-
-
 import objects.Alphabet;
-
 import states.MainMenuState;
 import states.FreeplayState;
 import states.LoadingState;
