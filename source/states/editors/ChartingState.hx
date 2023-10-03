@@ -211,11 +211,12 @@ class ChartingState extends MusicBeatState {
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		if (ClientPrefs.themes == 'SB Engine') {
-			background.color = 0xFF800080;
-		}
-		if (ClientPrefs.themes == 'Psych Engine') {
-			background.color = 0xFF353535;
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				background.color = 0xFF800080;
+			
+			case 'Psych Engine':
+				background.color = 0xFFea71fd;
 		}
 		add(background);
 
@@ -1662,14 +1663,6 @@ class ChartingState extends MusicBeatState {
 		if (!blockInput) {
 			if (FlxG.keys.justPressed.ESCAPE #if android || virtualPad.buttonB.justPressed #end) {
 				autosaveSong();
-				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new states.editors.EditorPlayState(sectionStartTime()));
@@ -1677,14 +1670,6 @@ class ChartingState extends MusicBeatState {
 			}});
 			}
 			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
-				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				autosaveSong();
 				FlxG.mouse.visible = false;
@@ -1710,14 +1695,6 @@ class ChartingState extends MusicBeatState {
 			}
 
 			if (FlxG.keys.justPressed.BACKSPACE #if android || FlxG.android.justReleased.BACK #end) {
-				FlxTween.tween(leftIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(rightIcon, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(text, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(bpmTxt, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(strumLine, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridBG, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(gridLayer, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
-				FlxTween.tween(quant, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
                 FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());

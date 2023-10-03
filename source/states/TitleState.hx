@@ -209,7 +209,7 @@ class TitleState extends MusicBeatState {
 		fridayNightFunkinLogo.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		fridayNightFunkinLogo.animation.play('bump');
 		fridayNightFunkinLogo.updateHitbox();
-		if (ClientPrefs.objectEffects) {
+		if (ClientPrefs.objects) {
 			fridayNightFunkinLogo.alpha = 0;
 			fridayNightFunkinLogo.scale.x = 0;
 			fridayNightFunkinLogo.scale.y = 0;
@@ -221,7 +221,7 @@ class TitleState extends MusicBeatState {
 		add(fridayNightFunkinLogo);
 		fridayNightFunkinLogo.shader = swagShader.shader;
 
-		if (ClientPrefs.objectEffects) {
+		if (ClientPrefs.objects) {
 			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 24, 0, 0.4, 0.02);
 		} else {
 			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 0, 0, 0, 0);
@@ -233,7 +233,7 @@ class TitleState extends MusicBeatState {
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
-		if (ClientPrefs.objectEffects) {
+		if (ClientPrefs.objects) {
 			gfDance.alpha = 0;
 			gfDance.scale.x = 0;
 			gfDance.scale.y = 0;
@@ -245,8 +245,8 @@ class TitleState extends MusicBeatState {
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
 
-		if (ClientPrefs.objectEffects) {
-			gfDanceTrail = new FlxTrail(gfDance, 24, 0, 0.4, 0.02);
+		if (ClientPrefs.objects) {
+			gfDanceTrail = new FlxTrail(gfDance, 1, 0, 0.1, 0);
 		} else {
 			gfDanceTrail = new FlxTrail(gfDance, 0, 0, 0, 0);
 		}
@@ -256,7 +256,7 @@ class TitleState extends MusicBeatState {
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();
-		gradientBar.visible = ClientPrefs.objectEffects;
+		gradientBar.visible = ClientPrefs.objects;
 		add(gradientBar);
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut});
 
@@ -439,11 +439,8 @@ class TitleState extends MusicBeatState {
 				transitioning = true;
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					if (ClientPrefs.mainMenuStyle == 'Classic')
-						MusicBeatState.switchState(new ClassicMainMenuState());
-					else {
-						MusicBeatState.switchState(new MainMenuState());
-					}
+					ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+                  	Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 					closedState = true;
 				});
 			}
@@ -567,12 +564,12 @@ class TitleState extends MusicBeatState {
 			{
 				remove(creditGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
-				if (ClientPrefs.objectEffects) {
+				if (ClientPrefs.objects) {
 					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 				} else {
 					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 				}
-				if (ClientPrefs.objectEffects) {
+				if (ClientPrefs.objects) {
 					FlxTween.tween(fridayNightFunkinLogo, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
 					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
 					FlxTween.tween(gfDance, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});

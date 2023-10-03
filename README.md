@@ -15,8 +15,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 * [Fearester2008](https://www.youtube.com/@fearester1282) - Third Programmer
 * [SunBurntTails](https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw) - First Beta test player
 * [Ali Alafandy](https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA) - Second Beta test player
-* [HMFNF](https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw) - Third Beta test player
-* [Luiz Felipe Play](https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg) - Fourh Beta test player
+* [Luiz Felipe Play](https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg) - Third Beta test player
 
 ## Psych Engine Credits:
 * [Shadow Mario](https://twitter.com/Shadow_Mario_) - Programmer

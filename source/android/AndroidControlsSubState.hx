@@ -43,12 +43,13 @@ class AndroidControlsSubState extends FlxSubState {
 	var velocityBackground:FlxBackdrop;
 
 	override function create() {
-		if (ClientPrefs.themes == 'SB Engine') {
-		    background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.PURPLE);
-	    }
-		if (ClientPrefs.themes == 'Psych Engine') {
-		    background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1)));
-	    }
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.PURPLE);
+			
+			case 'Psych Engine':
+				background = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromHSB(FlxG.random.int(0, 359), FlxG.random.float(0, 0.8), FlxG.random.float(0.3, 1)));
+		}
 		background.alpha = 0.00001;
 		background.scrollFactor.set();
 		add(background);

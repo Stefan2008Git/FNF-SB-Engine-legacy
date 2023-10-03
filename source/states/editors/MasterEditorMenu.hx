@@ -70,11 +70,12 @@ class MasterEditorMenu extends MusicBeatState {
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
-		if (ClientPrefs.themes == 'SB Engine') {
-			background.color = 0xFF800080;
-		}
-		if (ClientPrefs.themes == 'Psych Engine') {
-			background.color = 0xFF353535;
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				background.color = 0xFF800080;
+			
+			case 'Psych Engine':
+				background.color = 0xFF353535;
 		}
 		add(background);
 
@@ -157,11 +158,12 @@ class MasterEditorMenu extends MusicBeatState {
 		add(weekEditor);
 
 		#if MODS_ALLOWED
-		if (ClientPrefs.themes == 'SB Engine') {
-		    textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF800080);
-		}
-		if (ClientPrefs.themes == 'Psych Engine') {
-		    textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF353535);
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF800080);
+			
+			case 'Psych Engine':
+				textBackground = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF353535);
 		}
 		textBackground.alpha = 0.6;
 		add(textBackground);
@@ -219,13 +221,8 @@ class MasterEditorMenu extends MusicBeatState {
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (ClientPrefs.mainMenuStyle == 'Classic') {
-				MusicBeatState.switchState(new ClassicMainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			} else {
-				MusicBeatState.switchState(new MainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			}
+			ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+            Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 
 		if (controls.ACCEPT) {

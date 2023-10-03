@@ -83,11 +83,12 @@ class OptionsState extends MusicBeatState {
 		#end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		if (ClientPrefs.themes == 'SB Engine') {
-			background.color = 0xFF800080;
-		}
-		if (ClientPrefs.themes == 'Psych Engine') {
-			background.color = 0xFFea71fd;
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				background.color = 0xFF800080;
+			
+			case 'Psych Engine':
+				background.color = 0xFFea71fd;
 		}
 		background.screenCenter();
 		background.antialiasing = ClientPrefs.globalAntialiasing;
@@ -194,13 +195,8 @@ class OptionsState extends MusicBeatState {
 				PauseSubState.optionMenu = false;
 				FlxG.sound.music.volume = 0;
 			} else {
-				if (ClientPrefs.mainMenuStyle == 'Classic') {
-					MusicBeatState.switchState(new ClassicMainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				} else {
-					MusicBeatState.switchState(new MainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				}
+				ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 			}
 		}
 

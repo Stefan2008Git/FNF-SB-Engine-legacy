@@ -97,11 +97,12 @@ class PauseSubState extends MusicBeatSubstate {
 		background.alpha = 0;
 		background.visible = !ClientPrefs.velocityBackground;
 		background.antialiasing = ClientPrefs.globalAntialiasing;
-		if (ClientPrefs.themes == 'SB Engine') {
-			background.color = 0xFF800080;
-		}
-		if (ClientPrefs.themes == 'Psych Engine') {
-			background.color = 0xFF353535;
+		switch (ClientPrefs.themes) {
+			case 'SB Engine':
+				background.color = 0xFF800080;
+			
+			case 'Psych Engine':
+				background.color = 0xFFea71fd;
 		}
 		add(background);
 

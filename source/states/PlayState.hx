@@ -1310,14 +1310,14 @@ class PlayState extends MusicBeatState {
 		add(songNameBackground);
 
 		judgementCounterTxt = new FlxText(25, 0, FlxG.width, "", 20);
-		if (ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
-		}
-
-		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
-			judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine' | 'Better UI':
+				judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}';
+			
+			default:
+				judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
 		}
 
 		judgementCounterTxt.borderSize = 2;
@@ -2464,25 +2464,17 @@ class PlayState extends MusicBeatState {
 	public function updateScore(miss:Bool = false) {
 		switch (ClientPrefs.gameStyle) {
 			case 'SB Engine':
-			    scoreTxt.text = 'Score: ' + songScore + ' | Combo breaks: ' + songMisses + ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2)
-				    + '%' + ' | ' + ratingName + ' [' + ratingFC + ']';
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+			    scoreTxt.text = 'Score: ' + songScore + ' | Combo breaks: ' + songMisses + ' | Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' | ' + ratingName + ' [' + ratingFC + ']';
+			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
 
 		    case 'Psych Engine':
-			    scoreTxt.text = 'Score: '
-				    + songScore
-				    + ' | Misses: '
-				    + songMisses
-				    + ' | Rating: '
-				    + ratingName
-				    + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+			    scoreTxt.text = 'Score: ' + songScore  + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}';
 
 			case 'Better UI':
 			    scoreTxt.text = 'NPS: ' + nps + ' // Average: ' + Math.round(averageMs) + 'ms'
-			    + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: '
-				    + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+			    + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Score: ' + songScore + ' // Misses: ' + songMisses + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' (' + ratingFC + ')';
+			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}';
 		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
@@ -5477,11 +5469,11 @@ class PlayState extends MusicBeatState {
 		setOnLuas('ratingFC', ratingFC);
 
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
-			
 			case 'Psych Engine' | 'Better UI':
-		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}';
+			
+			default:
+		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
 	    }
 	}
 

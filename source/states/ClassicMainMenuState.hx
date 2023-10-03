@@ -112,7 +112,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		initOptions();
 
 		#if android
-	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press Y for gallery basemant!", 12);
 		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
 		#else
 		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
@@ -278,7 +278,7 @@ class ClassicMainMenuState extends MusicBeatState {
 			MusicBeatState.switchState(new DVDScreenState());
 		}
 
-		if (FlxG.keys.justPressed.G #if android || virtualPad.buttonX.justPressed #end) {
+		if (FlxG.keys.justPressed.G #if android || virtualPad.buttonY.justPressed #end) {
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
 			MusicBeatState.switchState(new GalleryScreenState());

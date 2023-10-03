@@ -31,9 +31,6 @@ enum GLInfo {
 }
 
 class FPS extends TextField {
-	/**
-		The current frame rate, expressed using frames-per-second
-	**/
 	public var currentlyFPS(default, null):Int;
 	public var totalFPS(default, null):Int;
 
@@ -56,11 +53,7 @@ class FPS extends TextField {
 		totalFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		#if mobile
 		defaultTextFormat = new TextFormat('_sans', 14, color);
-		#else
-		defaultTextFormat = new TextFormat('_sans', 12, color);
-		#end
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";

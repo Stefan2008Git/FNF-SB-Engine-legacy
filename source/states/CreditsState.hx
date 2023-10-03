@@ -78,8 +78,7 @@ class CreditsState extends MusicBeatState {
 			['Fearester2008', 'fearester', 'Third Programmer of SB Engine', 'https://www.youtube.com/@fearester1282', '5E99DF'],
 			['SunBurntTails', 'sun', 'First Beta test player for SB Engine', 'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw', 'fc0000' ],
 			['Ali Alafandy', 'ali', 'Second Beta test player for SB Engine', 'https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA', '00008b'],
-			['HMFNF', 'hm', 'Third Beta test player for SB Engine', 'https://www.youtube.com/channel/UCUFEzBJ8ngs6IvYZK3mwWZw', '00ffda'],
-			['Luiz Felipe Play', 'luiz', 'Fourth Beta test player for SB Engine', 'https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg', '59d927'],
+			['Luiz Felipe Play', 'luiz', 'Third Beta test player for SB Engine', 'https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg', '59d927'],
 			[''],
 			['Special credits'],
 			['Stefan Ro 123', 'stefan-ro123', 'Fixed Wiggle effect shaders to run possible on PC and Android', 'https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ', 'fc0000'],
@@ -232,13 +231,8 @@ class CreditsState extends MusicBeatState {
 					colorTween.cancel();
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				if (ClientPrefs.mainMenuStyle == 'Classic') {
-					MusicBeatState.switchState(new ClassicMainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				} else {
-					MusicBeatState.switchState(new MainMenuState());
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				}
+				ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 				quitting = true;
 			}
 		}

@@ -118,13 +118,8 @@ override public function update(elapsed:Float):Void
     {
         allowInputs = false;
         FlxG.sound.play(Paths.sound('cancelMenu'));
-            if (ClientPrefs.mainMenuStyle == 'Classic') {
-				MusicBeatState.switchState(new ClassicMainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			} else {
-				MusicBeatState.switchState(new MainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			}
+        ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+        Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
         backspace.animation.addByPrefix('backspace to exit', "backspace to exit", 12);
         backspace.animation.play('backspace to exit');
     }

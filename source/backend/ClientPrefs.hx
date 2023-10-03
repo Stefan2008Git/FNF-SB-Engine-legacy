@@ -58,7 +58,7 @@ class ClientPrefs {
 	public static var playbackRateDecimal:Bool = false;
 	public static var timePercent:Bool = false;
 	public static var timePercentValue:Int = 2;
-	public static var objectEffects:Bool = true;
+	public static var objects:Bool = true;
 	public static var themes:String = 'SB Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -166,7 +166,7 @@ class ClientPrefs {
 		FlxG.save.data.playbackRateDecimal = playbackRateDecimal;
 		FlxG.save.data.timePercent = timePercent;
 		FlxG.save.data.timePercentValue = timePercentValue;
-		FlxG.save.data.objectEffects = objectEffects;
+		FlxG.save.data.objects = objects;
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
 
@@ -356,8 +356,8 @@ class ClientPrefs {
 		if (FlxG.save.data.timePercentValue != null) {
 			timePercentValue = FlxG.save.data.timePercentValue;
 		}
-		if (FlxG.save.data.objectEffects != null) {
-			objectEffects = FlxG.save.data.objectEffects;
+		if (FlxG.save.data.objects != null) {
+			objects = FlxG.save.data.objects;
 		}
 		if (FlxG.save.data.themes != null) {
 			themes = FlxG.save.data.themes;

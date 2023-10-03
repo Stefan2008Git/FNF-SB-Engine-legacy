@@ -55,14 +55,8 @@ class DVDScreenState extends MusicBeatState {
     override function update(elapsed:Float) 
     {
         if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
-            if (ClientPrefs.mainMenuStyle == 'Classic') {
-				MusicBeatState.switchState(new ClassicMainMenuState());
-                FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			} else {
-				MusicBeatState.switchState(new MainMenuState());
-			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-			}
+            ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
         }
 
         if (dvdIcon.x > FlxG.width - dvdIcon.width || dvdIcon.x < 0) {

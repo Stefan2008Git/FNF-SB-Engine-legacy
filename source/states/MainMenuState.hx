@@ -96,6 +96,7 @@ class MainMenuState extends MusicBeatState
 		sbEngineLogo.scrollFactor.x = 0;
 		sbEngineLogo.scrollFactor.y = 0;
 		sbEngineLogo.antialiasing = ClientPrefs.globalAntialiasing;
+		sbEngineLogo.visible = ClientPrefs.objects;
 		sbEngineLogo.setGraphicSize(Std.int(menuBackground.width * 0.32));
 		sbEngineLogo.updateHitbox();
 		sbEngineLogo.screenCenter();
@@ -112,6 +113,7 @@ class MainMenuState extends MusicBeatState
 		mainSide.updateHitbox();
 		mainSide.screenCenter();
 		mainSide.antialiasing = ClientPrefs.globalAntialiasing;
+		mainSide.visible = ClientPrefs.objects;
 		mainSide.x = -500;
 		mainSide.y = -90;
 		add(mainSide);
@@ -170,9 +172,16 @@ class MainMenuState extends MusicBeatState
 		FlxTween.tween(background, {angle: 0}, 1, {ease: FlxEase.quartInOut});
 		FlxTween.tween(mainSide, {x: -80}, 0.9, {ease: FlxEase.quartInOut});
 		FlxTween.tween(sbEngineLogo, {x: 725}, 0.9, {ease: FlxEase.quartInOut});
+		FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, -10, 2, {ease: FlxEase.quartInOut});
+		new FlxTimer().start(2, function(tmr:FlxTimer) {
+			if (sbEngineLogo.angle == -10)
+				FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, 10, 2, {ease: FlxEase.quartInOut});
+			else
+				FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, -10, 2, {ease: FlxEase.quartInOut});
+		}, 0);
 
 		#if android
-	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press Y for gallery basemant!", 12);
 		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
 		#else
 		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
@@ -182,38 +191,19 @@ class MainMenuState extends MusicBeatState
 		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
 		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + fnfEngineVersion, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine': 
+			case 'Psych Engine' | 'Better UI':
+				galleryText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				versionPsych.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
+			default:
 				galleryText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 				secretText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 				versionSb.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 				versionPsych.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 				versionFnf.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Psych Engine':
-				galleryText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionPsych.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-				galleryText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				secretText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionSb.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionPsych.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-				versionFnf.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		galleryText.scrollFactor.set();
 		secretText.scrollFactor.set();
@@ -229,6 +219,7 @@ class MainMenuState extends MusicBeatState
 		tipBackground = new FlxSprite();
 		tipBackground.scrollFactor.set();
 		tipBackground.alpha = 0.7;
+		tipBackground.visible = ClientPrefs.objects;
 		add(tipBackground);
 
 		tipText = new FlxText(0, 0, 0, "");
@@ -237,8 +228,8 @@ class MainMenuState extends MusicBeatState
 			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
 			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
-
 		tipText.updateHitbox();
+		tipText.visible = ClientPrefs.objects;
 		add(tipText);
 
 		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
@@ -332,7 +323,8 @@ class MainMenuState extends MusicBeatState
 							}
 						});
 						FlxTween.tween(mainSide, {x: -500}, 1.2, {ease: FlxEase.quartInOut});
-						FlxTween.tween(sbEngineLogo, {x: 1000}, 1.2, {ease: FlxEase.quartInOut});
+						FlxTween.tween(sbEngineLogo, {x: 1500}, 1.2, {ease: FlxEase.quartInOut});
+						FlxTween.angle(sbEngineLogo, sbEngineLogo.angle, 0, 0, {ease: FlxEase.quartInOut});
 						}
 						else
 						{
@@ -377,7 +369,7 @@ class MainMenuState extends MusicBeatState
 			    MusicBeatState.switchState(new DVDScreenState());
 		    }
 
-		   if (FlxG.keys.justPressed.G #if android || virtualPad.buttonD.justPressed #end) {
+		   if (FlxG.keys.justPressed.G #if android || virtualPad.buttonY.justPressed #end) {
 			   FlxG.sound.play(Paths.sound('scrollMenu'));
 			   Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Gallery Menus";
 			   MusicBeatState.switchState(new GalleryScreenState());

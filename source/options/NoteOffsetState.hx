@@ -82,12 +82,12 @@ class NoteOffsetState extends MusicBeatState {
 		gf.x += gf.positionArray[0];
 		gf.y += gf.positionArray[1];
 		gf.scrollFactor.set(0.95, 0.95);
-		gf.visible = ClientPrefs.objectEffects;
+		gf.visible = ClientPrefs.objects;
 
 		boyfriend = new Character(770, 100, 'bf', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
-		boyfriend.visible = ClientPrefs.objectEffects;
+		boyfriend.visible = ClientPrefs.objects;
 
 		add(gf);
 		add(boyfriend);
