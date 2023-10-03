@@ -334,21 +334,21 @@ jobs:
 
       - name: Install Haxelib
         run: |
-          haxelib --quiet setup /home/runner/haxelib
-          haxelib --quiet install hxcpp 4.2.1 > /dev/null
-          haxelib --quiet install lime 7.9.0
-          haxelib --quiet install openfl 9.1.0
-          haxelib --quiet install flixel
-          haxelib --quiet run lime setup flixel
-          haxelib --quiet install flixel-tools
-          haxelib --quiet install flixel-ui
-          haxelib --quiet install flixel-addons
-          haxelib --quiet install tjson
-          haxelib --quiet install hxjsonast
-          haxelib --quiet install hscript
-          haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
-          haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
-          haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
+          haxelib setup /home/runner/haxelib
+          haxelib install hxcpp 4.2.1 > /dev/null
+          haxelib install lime
+          haxelib install openfl
+          haxelib install flixel
+          haxelib run lime setup flixel
+          haxelib install flixel-tools
+          haxelib install flixel-ui
+          haxelib install flixel-addons
+          haxelib install tjson
+          haxelib install hxjsonast
+          haxelib install hscript
+          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
+          haxelib git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -360,9 +360,6 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 7.9.0
-          haxelib set openfl 9.1.0
-          haxelib set hxcpp 4.2.1
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
