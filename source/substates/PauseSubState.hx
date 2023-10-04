@@ -16,14 +16,7 @@ class PauseSubState extends MusicBeatSubstate {
 	var grpMenufreak:FlxTypedGroup<objects.Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = [
-		'Resume',
-		'Restart Song',
-		'Change Difficulty',
-		'Options',
-		'Chart Editor',
-		'Exit to menu'
-	];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Options', 'Chart Editor', 'Exit to menu'];
 	var difficultyChoices = [];
 	var currentlySelected:Int = 0;
 
@@ -302,6 +295,7 @@ class PauseSubState extends MusicBeatSubstate {
 							PlayState.instance.setSongTime(currentlyTime);
 						}
 						close();
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 					}
 				case "End Song":
 					close();

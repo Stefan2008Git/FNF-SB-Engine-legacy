@@ -1,5 +1,6 @@
 package options;
 
+import substates.PauseSubState;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
@@ -113,8 +114,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 
 
 	override function destroy() {
-		if (changedMusic)
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
+		if (changedMusic && !PauseSubState.optionMenu) FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 		super.destroy();
 	}
 
