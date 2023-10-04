@@ -45,7 +45,7 @@ jobs:
           sudo apt-get install libvlc-dev
           sudo apt-get install libvlccore-dev
           haxelib setup ~/haxelib
-          haxelib git hxcpp https://github.com/Fearester2008/hxcpp
+          haxelib install hxcpp 4.2.1
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -67,6 +67,7 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
+          haxelib set hxcpp 4.2.1
           haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
@@ -136,7 +137,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup C:/haxelib
-          haxelib git hxcpp https://github.com/Fearester2008/hxcpp
+          haxelib install hxcpp 4.2.1
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -161,6 +162,7 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
+          haxelib set hxcpp 4.2.1
           haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
@@ -229,7 +231,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib git hxcpp https://github.com/Fearester2008/hxcpp
+          haxelib install hxcpp 4.2.1
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -249,6 +251,7 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
+          haxelib set hxcpp 4.2.1
           haxelib set hxCodec 2.5.1
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION

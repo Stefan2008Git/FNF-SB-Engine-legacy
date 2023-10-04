@@ -44,6 +44,7 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
+		SUtil.gameCrashCheck();
 		if (stage != null) {
 			init();
 		} else {
@@ -70,6 +71,7 @@ class Main extends Sprite {
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		SUtil.doTheCheck();
 
 		#if mobile
 		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, false));

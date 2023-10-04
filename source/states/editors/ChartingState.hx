@@ -1667,8 +1667,10 @@ class ChartingState extends MusicBeatState {
 				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new states.editors.EditorPlayState(sectionStartTime()));
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + states.PlayState.SONG.song;
+				FlxG.mouse.visible = false;
 			}});
 			}
+
 			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
 				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				autosaveSong();
@@ -1682,6 +1684,7 @@ class ChartingState extends MusicBeatState {
 				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new PlayState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+				FlxG.mouse.visible = false;
 			}});
 			}
 

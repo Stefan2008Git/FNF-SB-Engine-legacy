@@ -13,12 +13,7 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	private var camGame:FlxCamera;
 
-	var options:Array<String> = 
-	    ['Story Mode',
-	     'Freeplay', 
-		 #if (MODS_ALLOWED) 'Mods', #end 
-		 'Credits', 
-		 'Options'];
+	var options:Array<String> = ['Story Mode', 'Freeplay', #if (MODS_ALLOWED) 'Mods', #end 'Credits', 'Options'];
 
 	var background:FlxSprite;
 	var sbEngineVersion:FlxText;
@@ -247,7 +242,7 @@ class ClassicMainMenuState extends MusicBeatState {
 		}
 
 		#if (desktop || android)
-		else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonC.justPressed #end) {
+		else if (FlxG.keys.anyJustPressed(debugKeys) #if android || virtualPad.buttonX.justPressed #end) {
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mod Maker Menu";
 			MusicBeatState.switchState(new MasterEditorMenu());
 		}

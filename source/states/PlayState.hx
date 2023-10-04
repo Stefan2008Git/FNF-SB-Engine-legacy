@@ -2345,7 +2345,7 @@ class PlayState extends MusicBeatState {
 				}
 
 				// putted it in coolutil for now
-				var tick:backend.CoolUtil.Countdown = THREE;
+				var tick:Countdown = THREE;
 
 				final sound = switch (swagCounter)
 				{
@@ -4352,7 +4352,7 @@ class PlayState extends MusicBeatState {
 			spawnNoteSplashOnNote(note);
 		}
 
-		if (!practiceMode) {
+		if (!practiceMode && !cpuControlled) {
 			songScore += score;
 			if (!note.ratingDisabled) {
 				songHits++;
@@ -4505,11 +4505,7 @@ class PlayState extends MusicBeatState {
 		var key:Int = getKeyFromEvent(eventKey);
 		// trace('Pressed: ' + eventKey);
 
-		if (!cpuControlled
-			&& startedCountdown
-			&& !paused
-			&& key > -1
-			&& (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode)) {
+		if (!cpuControlled && startedCountdown && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode)) {
 			if (!boyfriend.stunned && generatedMusic && !endingSong) {
 				// more accurate hit time for the ratings?
 				var lastTime:Float = Conductor.songPosition;
