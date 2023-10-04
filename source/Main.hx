@@ -25,7 +25,13 @@ using StringTools;
 
 class Main extends Sprite {
 	var game = {
-		width: 1280, height: 720, initialState: TitleState, zoom: -1.0, framerate: 60, skipSplash: true, startFullscreen: false
+		width: 1280,
+		height: 720,
+		initialState: TitleState,
+		zoom: -1.0,
+		framerate: 60,
+		skipSplash: true,
+		startFullscreen: false
 	};
 
 	public static var fpsVar:FPS;
@@ -65,7 +71,11 @@ class Main extends Sprite {
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
 
+		#if mobile
+		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, false));
+		#else
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		#end
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
