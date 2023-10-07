@@ -4702,7 +4702,10 @@ class PlayState extends MusicBeatState {
 		// For testing purposes
 		// trace(daNote.missHealth);
 		songMisses++;
-		vocals.volume = 0;
+		if(ClientPrefs.missSound) {
+        	FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), 0.07);
+			vocals.volume = 0; 
+		}
 		if (!practiceMode)
 			songScore -= 10;
 
@@ -4752,12 +4755,14 @@ class PlayState extends MusicBeatState {
 			totalPlayed++;
 			RecalculateRating(true);
 
-			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+			if (ClientPrefs.missSound)
+				FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.3, 0.4));
 
 			if (boyfriend.hasMissAnimations) {
 				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
 			}
-			vocals.volume = 0;
+			if (ClientPrefs.missSound)
+				vocals.volume = 0;
 		}
 		callOnLuas('noteMissPress', [direction]);
 	}

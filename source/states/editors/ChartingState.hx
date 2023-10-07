@@ -209,6 +209,7 @@ class ChartingState extends MusicBeatState {
 
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
+
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		background.scrollFactor.set();
 		switch (ClientPrefs.themes) {
@@ -216,7 +217,7 @@ class ChartingState extends MusicBeatState {
 				background.color = 0xFF800080;
 			
 			case 'Psych Engine':
-				background.color = 0xFFea71fd;
+				background.color = 0xFF353535;
 		}
 		add(background);
 

@@ -86,13 +86,17 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		var option:Option = new Option('Song intro card', 'If unchecked, this is gonna hides song intro card.', 'songIntro', 'bool', 'true');
 		addOption(option);
 
+		var option:Option = new Option('Miss sound',
+		    "If unchecked, this is gonna disable sound when you are missing the note.", 'missSound', 'bool', 'true');
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
 		option.onChange = onChangeVibration;
 		#end
 
-		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
+		var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Elapsed',
 			['Time Left', 'Time Elapsed', 'Song Name', 'Song Name + Time', 'Modern Time', 'Disabled']);
 		addOption(option);
 

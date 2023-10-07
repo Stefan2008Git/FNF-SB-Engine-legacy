@@ -64,14 +64,10 @@ class TitleState extends MusicBeatState {
 
 	override public function create():Void {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
-
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
@@ -80,21 +76,6 @@ class TitleState extends MusicBeatState {
 		WeekData.loadTheFirstEnabledMod();
 
 		// trace(path, FileSystem.exists(path));
-
-		/*#if (polymod && !html5)
-			if (sys.FileSystem.exists('mods/')) {
-				var folders:Array<String> = [];
-				for (file in sys.FileSystem.readDirectory('mods/')) {
-					var path = haxe.io.Path.join(['mods/', file]);
-					if (sys.FileSystem.isDirectory(path)) {
-						folders.push(file);
-					}
-				}
-				if(folders.length > 0) {
-					polymod.Polymod.init({modRoot: "mods", dirs: folders});
-				}
-			}
-			#end */
 		
 		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 
@@ -311,6 +292,8 @@ class TitleState extends MusicBeatState {
 		creditText.visible = false;
 
 		FlxTween.tween(creditText, {y: creditText.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
+
+		Paths.clearUnusedMemory();
 
 		if (initialized)
 			skipIntro();
@@ -591,8 +574,6 @@ class TitleState extends MusicBeatState {
 				}, 0);
 				FlxG.camera.flash(FlxColor.WHITE, 3);
 				{
-					FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 0);
-					FlxG.sound.music.fadeIn(4, 0, 0.7);
 					transitioning = false;
 				};
 			}
