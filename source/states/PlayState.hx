@@ -33,7 +33,6 @@ import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
-import lime.app.Application;
 import FunkinLua;
 import flixel.system.FlxAssets.FlxShader;
 

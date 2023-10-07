@@ -31,7 +31,6 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
-import lime.app.Application;
 import objects.StrumNote;
 import states.MainMenuState;
 import substates.Prompt;
@@ -174,6 +173,8 @@ class ChartingState extends MusicBeatState {
 	public var mouseQuant:Bool = false;
 
 	override function create() {
+		Paths.clearStoredMemory();
+
 		if (states.PlayState.SONG != null)
 			_song = PlayState.SONG;
 		else {
@@ -199,8 +200,6 @@ class ChartingState extends MusicBeatState {
 			addSection();
 			PlayState.SONG = _song;
 		}
-
-		// Paths.clearMemory();
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -401,6 +400,8 @@ class ChartingState extends MusicBeatState {
 		zoomTxt = new FlxText(10, 10, 0, "Zoom: 1 / 1", 16);
 		zoomTxt.scrollFactor.set();
 		add(zoomTxt);
+
+		Paths.clearUnusedMemory();
 
 		updateGrid();
 

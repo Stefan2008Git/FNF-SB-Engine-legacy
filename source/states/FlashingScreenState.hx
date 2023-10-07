@@ -1,7 +1,6 @@
 package states;
 
 import states.MainMenuState;
-import lime.app.Application;
 import flixel.addons.transition.FlxTransitionableState;
 
 class FlashingScreenState extends MusicBeatState {
@@ -14,7 +13,6 @@ class FlashingScreenState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		FlxG.sound.playMusic(Paths.music('warningScreenMusic'), 0.5);
 
@@ -71,6 +69,8 @@ class FlashingScreenState extends MusicBeatState {
 		warningText.scale.x = 0;
 		warningText.scale.y = 0;
 		add(warningText);
+
+		Paths.clearUnusedMemory();
 
 		#if android
 		addVirtualPad(NONE, A_B);

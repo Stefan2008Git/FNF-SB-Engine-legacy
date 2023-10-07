@@ -1,8 +1,5 @@
 package states;
 
-
-import lime.app.Application;
-
 using StringTools;
 
 class DVDScreenState extends MusicBeatState {
@@ -25,7 +22,6 @@ class DVDScreenState extends MusicBeatState {
     override function create() 
     {
         Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
         #if desktop
 		// Updating Discord Rich Presence
@@ -48,6 +44,9 @@ class DVDScreenState extends MusicBeatState {
         dvdIcon.setColorTransform(0, 0, 0, 1, 255, 255, 255);
         dvdIcon.antialiasing = ClientPrefs.globalAntialiasing;
         add(dvdIcon);
+
+        Paths.clearUnusedMemory();
+
     
         super.create();
     }

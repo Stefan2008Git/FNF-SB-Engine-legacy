@@ -1,40 +1,14 @@
 package states.editors;
 
-
-
-
-
-
-
-
-
-
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.editors.EditorLua;
 import states.MainMenuState;
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
-
-
 import flixel.ui.FlxBar;
-
-
-
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
-
-
-
 import openfl.events.KeyboardEvent;
-import lime.app.Application;
 import FunkinLua;
 
 using StringTools;
@@ -93,6 +67,8 @@ class EditorPlayState extends MusicBeatState {
 	public var timeBar:FlxBar;
 
 	override function create() {
+		Paths.clearStoredMemory();
+
 		instance = this;
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -322,6 +298,9 @@ class EditorPlayState extends MusicBeatState {
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);
+
+		Paths.clearUnusedMemory();
+
 		FlxG.mouse.visible = false;
 
 		// sayGo();

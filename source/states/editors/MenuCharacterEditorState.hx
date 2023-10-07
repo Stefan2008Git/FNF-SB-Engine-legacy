@@ -1,14 +1,6 @@
 package states.editors;
 
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
 import flixel.system.FlxSound;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
@@ -27,14 +19,10 @@ import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
-import lime.app.Application;
 import haxe.Json;
 #if sys
 import sys.io.File;
 #end
-
-
-
 import states.MainMenuState;
 import states.editors.MasterEditorMenu;
 
@@ -49,7 +37,6 @@ class MenuCharacterEditorState extends MusicBeatState {
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		characterFile = {
 			image: 'Menu_Dad',
@@ -112,6 +99,7 @@ class MenuCharacterEditorState extends MusicBeatState {
 		add(tipText);
 
 		addEditorBox();
+		Paths.clearUnusedMemory();
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 

@@ -1,13 +1,8 @@
 package lime.utils;
 
 import openfl.Lib;
-/*
-#if android
-import android.widget.Toast;
-#end
-*/
+
 import haxe.PosInfos;
-import lime.app.Application;
 import lime.system.System;
 #if sys
 import sys.io.File;

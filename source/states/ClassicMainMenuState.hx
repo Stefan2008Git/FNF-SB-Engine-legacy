@@ -1,7 +1,6 @@
 package states;
 
 import flixel.addons.transition.FlxTransitionableState;
-import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import objects.Alphabet;
 import states.MainMenuState;
@@ -65,7 +64,6 @@ class ClassicMainMenuState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
@@ -163,6 +161,8 @@ class ClassicMainMenuState extends MusicBeatState {
 		add(tipText);
 
 		tipBackground.makeGraphic(FlxG.width, Std.int((tipTextMargin * 2) + tipText.height), FlxColor.BLACK);
+
+		Paths.clearUnusedMemory();
 
 		changeSelection();
 		tipTextStartScrolling();

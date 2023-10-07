@@ -1,17 +1,6 @@
 package states.editors;
 
-
-
-
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
 import flixel.system.FlxSound;
 import openfl.utils.Assets;
 import flixel.addons.ui.FlxInputText;
@@ -27,22 +16,15 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import lime.system.Clipboard;
-import lime.app.Application;
 import haxe.Json;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
 #end
-
-
-
 import objects.Alphabet;
-
 import objects.MenuCharacter;
 import objects.MenuItem;
-
 import states.editors.MasterEditorMenu;
-
 
 using StringTools;
 
@@ -69,7 +51,6 @@ class WeekEditorState extends MusicBeatState {
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
 		switch (ClientPrefs.gameStyle) {
@@ -154,6 +135,8 @@ class WeekEditorState extends MusicBeatState {
 		txtTracklist.color = 0xFFe55777;
 		add(txtTracklist);
 		add(txtWeekTitle);
+
+		Paths.clearUnusedMemory();
 
 		addEditorBox();
 		reloadAllfreak();

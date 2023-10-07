@@ -3,7 +3,6 @@ package states;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup;
 import lime.net.curl.CURLCode;
-import lime.app.Application;
 import objects.MenuItem;
 import objects.MenuCharacter;
 
@@ -42,7 +41,6 @@ class StoryModeState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		PlayState.isStoryMode = true;
 		WeekData.reloadWeekFiles(true);
@@ -179,6 +177,8 @@ class StoryModeState extends MusicBeatState {
 		add(scoreText);
 		add(txtWeekTitle);
 
+		Paths.clearUnusedMemory();
+
 		changeWeek();
 		changeDifficulty();
 
@@ -296,7 +296,6 @@ class StoryModeState extends MusicBeatState {
 				stopspamming = true;
 			}
 
-			// We can't use Dynamic Array .copy() because that crashes HTML5, here's a workaround.
 			var songArray:Array<String> = [];
 			var leWeek:Array<Dynamic> = loadedWeeks[curWeek].songs;
 			for (i in 0...leWeek.length) {

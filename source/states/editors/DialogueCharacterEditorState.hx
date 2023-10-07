@@ -1,14 +1,6 @@
 package states.editors;
 
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
 import flixel.system.FlxSound;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
@@ -27,19 +19,12 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
-
-
-
 import lime.system.Clipboard;
 import objects.Alphabet;
 import objects.TypedAlphabet;
-import lime.app.Application;
 #if sys
 import sys.io.File;
 #end
-
-
-
 import states.MainMenuState;
 import states.editors.MasterEditorMenu;
 
@@ -93,7 +78,6 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		persistentUpdate = persistentDraw = true;
 		camGame = new FlxCamera();
@@ -219,6 +203,9 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		hudGroup.add(daText);
 
 		addEditorBox();
+
+		Paths.clearUnusedMemory();
+
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 

@@ -2,7 +2,6 @@ package states.editors;
 
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxSound;
-import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -44,7 +43,6 @@ class MasterEditorMenu extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if desktop
@@ -166,6 +164,8 @@ class MasterEditorMenu extends MusicBeatState {
 
 		directoryTxt.scrollFactor.set();
 		add(directoryTxt);
+
+		Paths.clearUnusedMemory();
 
 		for (folder in Paths.getModDirectories()) {
 			directories.push(folder);

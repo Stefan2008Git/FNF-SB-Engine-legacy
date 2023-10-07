@@ -1,6 +1,8 @@
 package states;
 
-
+#if android
+import android.backend.AndroidDialogsExtend;
+import extension.devicelang.DeviceLanguage;
 #if desktop
 import sys.thread.Thread;
 #end
@@ -19,7 +21,6 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import openfl.Assets;
-import lime.app.Application;
 import objects.Alphabet;
 import states.MainMenuState;
 import states.FreeplayState;
@@ -66,16 +67,24 @@ class TitleState extends MusicBeatState {
 		Paths.clearStoredMemory();
 
 		#if android
+		var language:String = '';
+		if (DeviceLanguage.getLang() == 'srb') 
+		language = 'Friday Night Funkin'': SB Engine\nnapravio: Stefan2008!';
+		else
+		language = 'Friday Night Funkin'': SB Engine\nmade by: Stefan2008!';
+		if(!checkToast) {		
+		    checkToast = true;
+		    AndroidDialogsExtend.OpenToast(language, 2);
+		}
+
+		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
 		#end
-		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
-
-		// trace(path, FileSystem.exists(path));
 		
 		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 
@@ -106,7 +115,6 @@ class TitleState extends MusicBeatState {
 		if (!initialized) {
 			if (FlxG.save.data != null && FlxG.save.data.fullscreen) {
 				FlxG.fullscreen = FlxG.save.data.fullscreen;
-				// trace('LOADED FULLSCREEN SETTING!!');
 			}
 			persistentUpdate = true;
 			persistentDraw = true;

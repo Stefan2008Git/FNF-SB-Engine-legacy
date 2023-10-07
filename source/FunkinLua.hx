@@ -24,7 +24,6 @@ import sys.io.File;
 import android.Hardware;
 #end
 import Type.ValueType;
-import lime.app.Application;
 import objects.Alphabet;
 import objects.StrumNote;
 #if (!flash && sys)

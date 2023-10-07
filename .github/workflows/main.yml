@@ -352,6 +352,8 @@ jobs:
           haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
+          haxelib git androiddialogs https://github.com/beihu235/AndroidDialogs
+          haxelib git devicelanguage https://github.com/beihu235/devicelanguage
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION

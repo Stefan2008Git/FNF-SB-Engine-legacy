@@ -1,6 +1,5 @@
 package states;
 
-import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -27,6 +26,8 @@ class CreditsState extends MusicBeatState {
 	var offsetThing:Float = -75;
 
 	override function create() {
+		Paths.clearStoredMemory();
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Credits Menus", null);
@@ -174,6 +175,8 @@ class CreditsState extends MusicBeatState {
 		descText.scrollFactor.set();
 		descBox.sprTracker = descText;
 		add(descText);
+
+		Paths.clearUnusedMemory();
 
 		background.color = getCurrentBGColor();
 		intendedColor = background.color;

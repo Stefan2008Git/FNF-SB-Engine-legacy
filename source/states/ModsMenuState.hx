@@ -4,7 +4,6 @@ import objects.Alphabet;
 
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxButtonPlus;
-import lime.app.Application;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
@@ -59,7 +58,6 @@ class ModsMenuState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		WeekData.setDirectoryFromWeek();
 
@@ -319,6 +317,8 @@ class ModsMenuState extends MusicBeatState {
 		changeSelection();
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+
+		Paths.clearUnusedMemory();
 
 		#if !android
 		FlxG.mouse.visible = true;

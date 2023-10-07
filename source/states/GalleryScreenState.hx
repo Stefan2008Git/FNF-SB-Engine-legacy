@@ -1,7 +1,6 @@
 package states;
 
 import flixel.addons.transition.FlxTransitionableState;
-import lime.app.Application;
 import states.MainMenuState;
 
 using StringTools;
@@ -29,7 +28,6 @@ class GalleryScreenState extends MusicBeatState
     override public function create():Void
     {
         Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -90,6 +88,8 @@ class GalleryScreenState extends MusicBeatState
         backspace.animation.play('backspace to exit white0');
         backspace.updateHitbox();
         add(backspace);
+
+        Paths.clearUnusedMemory();
         
         persistentUpdate = true;
         changeSelection();

@@ -34,7 +34,6 @@ import haxe.Json;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
-import lime.app.Application;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -43,9 +42,6 @@ import states.editors.MasterEditorMenu;
 
 using StringTools;
 
-/**
-	*DEBUG MODE
- */
 class CharacterEditorState extends MusicBeatState {
 	var char:Character;
 	var ghostChar:Character;

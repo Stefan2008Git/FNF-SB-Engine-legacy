@@ -6,7 +6,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
-import lime.app.Application;
 import objects.Alphabet;
 
 import states.MainMenuState;
@@ -52,7 +51,6 @@ class FreeplayState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
@@ -189,6 +187,8 @@ class FreeplayState extends MusicBeatState {
 
 		text.scrollFactor.set();
 		add(text);
+
+		Paths.clearUnusedMemory();
 
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);

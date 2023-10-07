@@ -3,7 +3,6 @@ package options;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
-import lime.app.Application;
 import objects.Alphabet;
 import states.ClassicMainMenuState;
 import states.LoadingState;
@@ -76,7 +75,6 @@ class OptionsState extends MusicBeatState {
 
 	override function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
@@ -160,6 +158,8 @@ class OptionsState extends MusicBeatState {
 		add(androidControlsStyleTipText);
 		add(customizeAndroidControlsTipText);
 		#end
+
+		Paths.clearUnusedMemory();
 
 		changeSelection();
 		ClientPrefs.saveSettings();
