@@ -3,6 +3,7 @@ package states;
 #if android
 import android.backend.AndroidDialogsExtend;
 import extension.devicelang.DeviceLanguage;
+#end
 #if desktop
 import sys.thread.Thread;
 #end
@@ -68,14 +69,16 @@ class TitleState extends MusicBeatState {
 
 		#if android
 		var language:String = '';
-		if (DeviceLanguage.getLang() == 'srb') 
-		language = 'Friday Night Funkin'': SB Engine\nnapravio: Stefan2008!';
-		else
-		language = 'Friday Night Funkin'': SB Engine\nmade by: Stefan2008!';
+		if (DeviceLanguage.getLang() == 'srb') {
+			language = 'Friday Night Funkin'': SB Engine\nnapravio: Stefan2008!';
+		} else {
+		    language = 'Friday Night Funkin'': SB Engine\nmade by: Stefan2008!';
+	    }
 		if(!checkToast) {		
 		    checkToast = true;
 		    AndroidDialogsExtend.OpenToast(language, 2);
 		}
+		#end
 
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];

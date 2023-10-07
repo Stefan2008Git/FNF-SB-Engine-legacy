@@ -53,7 +53,11 @@ class FPS extends TextField {
 		totalFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat('_sans', 14, color);
+		#if android
+		defaultTextFormat = new TextFormat('_sans', 16, color);
+		#else
+		defaultTextFormat = new TextFormat('_sans', 12, color);
+		#end
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
