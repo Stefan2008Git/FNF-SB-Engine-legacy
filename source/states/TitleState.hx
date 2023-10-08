@@ -44,8 +44,8 @@ class TitleState extends MusicBeatState {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
-
 	public static var initialized:Bool = false;
+	public static var checkingToastMessage:Bool = false;
 
 	var blackScreen:FlxSprite;
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFF800080);
@@ -53,30 +53,22 @@ class TitleState extends MusicBeatState {
 	var creditText:Alphabet;
 	var textGroup:FlxGroup;
 	var checker:FlxBackdrop;
-
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
-
 	var Timer:Float = 0;
 	var currentlyWacky:Array<String> = [];
-
 	var wackyImage:FlxSprite;
-
 	var titleJSON:TitleData;
+	var toastText:String = '';
 
 	override public function create():Void {
 		Paths.clearStoredMemory();
 
 		#if android
-		var language:String = '';
-		if (DeviceLanguage.getLang() == 'srb') {
-			language = 'Friday Night Funkin'': SB Engine\nnapravio: Stefan2008!';
-		} else {
-		    language = 'Friday Night Funkin'': SB Engine\nmade by: Stefan2008!';
-	    }
-		if(!checkToast) {		
-		    checkToast = true;
-		    AndroidDialogsExtend.OpenToast(language, 2);
+		toastText = 'Welcome to: SB Engine v' + MainMenuState.sbEngineVersion;
+		if(!checkingToastMessage) {		
+		    checkingToastMessage = true;
+		    AndroidDialogsExtend.OpenToast(toastText, 1);
 		}
 		#end
 
@@ -103,7 +95,7 @@ class TitleState extends MusicBeatState {
 
 		// DEBUG optionFreak
 
-		swagShader = new ColorSwap();
+		if (ClientPrefs.shaders) swagShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');

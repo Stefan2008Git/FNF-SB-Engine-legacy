@@ -378,12 +378,25 @@ class FreeplayState extends MusicBeatState {
 				super.update(elapsed);
 				return;
 			}
-			LoadingState.loadAndSwitchState(new PlayState());
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
 
-			FlxG.sound.music.volume = 0;
-					
-			destroyFreeplayVocals();
+			for (item in groupSongs.members)
+				if (item.targetY == 0)
+					FlxFlicker.flicker(item, 1.05, 0.06, false, false);
+				    FlxFlicker.flicker(iconArray[currentlySelected], 1.05, 0.06, false, false);
+				    FlxG.sound.play(Paths.sound('confirmMenu'));
+				    FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.1);
+				    destroyFreeplayVocals();
+					FlxTween.tween(scoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+					FlxTween.tween(scoreBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+					FlxTween.tween(difficultyText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+					FlxTween.tween(missingFileText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+	
+			new FlxTimer().start(1.5, function(tmr:FlxTimer) 
+			{
+			    LoadingState.loadAndSwitchState(new PlayState());
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+			});
 		}
 		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)
 		{
