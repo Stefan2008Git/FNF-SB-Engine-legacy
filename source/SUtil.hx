@@ -29,10 +29,6 @@ class SUtil
 
 	#if android
 	private static var aDir:String = null; // android dir
-	public static var checkingToastMessage:Bool = false;
-	var toastText:String = '';
-	public static var checkingSaveFileToastMessage:Bool = false;
-	var toastFileSaveText:String = '';
 	#end
 
 	public static function getPath():String
@@ -118,11 +114,9 @@ class SUtil
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 		#if android
+		var toastText:String = '';
 		toastText = 'Uncaught Error happends!';
-		if(!checkingToastMessage) {		
-		    checkingToastMessage = true;
-		    AndroidDialogsExtend.OpenToast(toastText, 2);
-		}
+		AndroidDialogsExtend.OpenToast(toastText, 2);
 		#end
 
 		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
@@ -141,21 +135,17 @@ class SUtil
 			FileSystem.createDirectory(SUtil.getPath() + 'saves');
 
 		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
+		var toastFileSaveText.String = '';
 		toastFileSaveText = 'Done! File Saved Successfully!';
-		if(!checkingSaveFileToastMessage) {		
-		    checkingSaveFileToastMessage = true;
-		    AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
-		}
+		AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
 	}
 
 	public static function saveClipboard(fileData:String = 'you forgot something to add in your code')
 	{
 		openfl.system.System.setClipboard(fileData);
-		toastFileSaveText = 'Done! Data Saved to Clipboard Successfully!';
-		if(!checkingSaveFileToastMessage) {		
-		    checkingSaveFileToastMessage = true;
-		    AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
-		}
+		var toastClipboardSaveText:String = '';
+		toastClipboardSaveText = 'Done! Data Saved to Clipboard Successfully!';
+		AndroidDialogsExtend.OpenToast(toastClipboardSaveText, 2);
 	}
 
 	public static function copyContent(copyPath:String, savePath:String)
