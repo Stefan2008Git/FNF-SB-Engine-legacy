@@ -135,7 +135,7 @@ class SUtil
 			FileSystem.createDirectory(SUtil.getPath() + 'saves');
 
 		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
-		var toastFileSaveText.String = '';
+		var toastFileSaveText:String = '';
 		toastFileSaveText = 'Done! File Saved Successfully!';
 		AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
 	}
