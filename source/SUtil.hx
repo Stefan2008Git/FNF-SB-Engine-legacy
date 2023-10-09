@@ -4,6 +4,7 @@ package;
 import android.Tools;
 import android.Permissions;
 import android.PermissionsList;
+import android.backend.AndroidDialogsExtend;
 #end
 import openfl.events.UncaughtErrorEvent;
 import openfl.utils.Assets as OpenFlAssets;
@@ -25,8 +26,13 @@ using StringTools;
 
 class SUtil
 {
+
 	#if android
 	private static var aDir:String = null; // android dir
+	public static var checkingToastMessage:Bool = false;
+	var toastText:String = '';
+	public static var checkingSaveFileToastMessage:Bool = false;
+	var toastFileSaveText:String = '';
 	#end
 
 	public static function getPath():String
@@ -35,7 +41,7 @@ class SUtil
 		if (aDir != null && aDir.length > 0)
 			return aDir;
 		else
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+			return aDir = Tools.getExternalStorageDirectory() + '/.SB Engine/';  // I think this thing makes your storage on your phone really big because it's using from Project.xml -
 		#else
 		return '';
 		#end
@@ -81,11 +87,6 @@ class SUtil
 		#end
 	}
 
-	public static function gameCrashCheck()
-	{
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-	}
-
 	public static function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
@@ -116,6 +117,13 @@ class SUtil
 
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
+		#if android
+		toastText = 'Uncaught Error happends!';
+		if(!checkingToastMessage) {		
+		    checkingToastMessage = true;
+		    AndroidDialogsExtend.OpenToast(toastText, 2);
+		}
+		#end
 
 		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
 		System.exit(0);
@@ -133,13 +141,21 @@ class SUtil
 			FileSystem.createDirectory(SUtil.getPath() + 'saves');
 
 		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
-		SUtil.applicationAlert('Done !', 'File Saved Successfully!');
+		toastFileSaveText = 'Done! File Saved Successfully!';
+		if(!checkingSaveFileToastMessage) {		
+		    checkingSaveFileToastMessage = true;
+		    AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
+		}
 	}
 
 	public static function saveClipboard(fileData:String = 'you forgot something to add in your code')
 	{
 		openfl.system.System.setClipboard(fileData);
-		SUtil.applicationAlert('Done!', 'Data Saved to Clipboard Successfully!');
+		toastFileSaveText = 'Done! Data Saved to Clipboard Successfully!';
+		if(!checkingSaveFileToastMessage) {		
+		    checkingSaveFileToastMessage = true;
+		    AndroidDialogsExtend.OpenToast(toastFileSaveText, 2);
+		}
 	}
 
 	public static function copyContent(copyPath:String, savePath:String)

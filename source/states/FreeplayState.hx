@@ -1,6 +1,5 @@
 package states;
 
-
 import states.editors.ChartingState;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
@@ -384,7 +383,8 @@ class FreeplayState extends MusicBeatState {
 					FlxFlicker.flicker(item, 1.05, 0.06, false, false);
 				    FlxFlicker.flicker(iconArray[currentlySelected], 1.05, 0.06, false, false);
 				    FlxG.sound.play(Paths.sound('confirmMenu'));
-				    FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.1);
+					if (FlxG.sound.music != null)
+				    FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 				    destroyFreeplayVocals();
 					FlxTween.tween(scoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 					FlxTween.tween(scoreBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});

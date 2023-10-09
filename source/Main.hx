@@ -43,7 +43,6 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		SUtil.gameCrashCheck();
 		if (stage != null) {
 			init();
 		} else {
@@ -72,7 +71,7 @@ class Main extends Sprite {
 		}
 		SUtil.doTheCheck();
 
-		#if mobile
+		#if android
 		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, false));
 		#else
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));

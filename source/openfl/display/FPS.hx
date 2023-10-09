@@ -54,7 +54,7 @@ class FPS extends TextField {
 		selectable = false;
 		mouseEnabled = false;
 		#if android
-		defaultTextFormat = new TextFormat('_sans', 16, color);
+		defaultTextFormat = new TextFormat('_sans', 18, color);
 		#else
 		defaultTextFormat = new TextFormat('_sans', 12, color);
 		#end

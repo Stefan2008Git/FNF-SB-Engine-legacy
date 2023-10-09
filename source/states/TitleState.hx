@@ -2,7 +2,6 @@ package states;
 
 #if android
 import android.backend.AndroidDialogsExtend;
-import extension.devicelang.DeviceLanguage;
 #end
 #if desktop
 import sys.thread.Thread;
@@ -336,7 +335,7 @@ class TitleState extends MusicBeatState {
 		}
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
-		#if mobile
+		#if android
 		for (touch in FlxG.touches.list) {
 			if (touch.justPressed) {
 				pressedEnter = true;
