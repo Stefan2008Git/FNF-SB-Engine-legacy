@@ -1,5 +1,8 @@
 package;
 
+#if android
+import android.backend.AndroidDialogsExtend;
+#end
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
@@ -136,6 +139,12 @@ class Main extends Sprite {
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
+		#if android
+		var toastText:String = '';
+		toastText = 'Uncaught Error happends!';
+		AndroidDialogsExtend.OpenToast(toastText, 2);
+		#end
+	
 		#if desktop
 		DiscordClient.shutdown();
 		#end
