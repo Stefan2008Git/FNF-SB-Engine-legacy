@@ -113,11 +113,6 @@ class SUtil
 
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
-		#if android
-		var toastText:String = '';
-		toastText = 'Uncaught Error happends!';
-		AndroidDialogsExtend.OpenToast(toastText, 2);
-		#end
 
 		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
 		System.exit(0);
