@@ -3302,7 +3302,7 @@ class ModchartText extends FlxText {
 	public function new(x:Float, y:Float, text:String, width:Float) {
 		super(x, y, width, text, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI':
+			case 'Psych Engine':
 		        setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
 			default:
@@ -3323,7 +3323,7 @@ class DebugLuaText extends FlxText {
 		this.parentGroup = parentGroup;
 		super(10, 10, 0, text, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI':
+			case 'Psych Engine':
 		        setFormat(Paths.font("vcr.ttf"), 16, color, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 			default:

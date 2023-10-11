@@ -129,14 +129,12 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 		tipText = new FlxText(10, 10, FlxG.width - 20, TIP_TEXT_MAIN, 8);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			case 'Better UI':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		tipText.cameras = [camHUD];
@@ -145,14 +143,11 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 		offsetLoopText = new FlxText(10, 10, 0, '', 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    offsetLoopText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    offsetLoopText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    offsetLoopText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    offsetLoopText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		offsetLoopText.cameras = [camHUD];
@@ -162,14 +157,11 @@ class DialogueCharacterEditorState extends MusicBeatState {
 
 		offsetIdleText = new FlxText(10, 46, 0, '', 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    offsetIdleText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    offsetIdleText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    offsetIdleText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    offsetIdleText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		offsetIdleText.cameras = [camHUD];
@@ -178,15 +170,12 @@ class DialogueCharacterEditorState extends MusicBeatState {
 		offsetIdleText.visible = false;
 
 		animationText = new FlxText(10, 22, FlxG.width - 20, '', 8);
-		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				animationText.setFormat("Bahnschrift", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
+		switch (ClientPrefs.gameStyle) {	
 			case 'Psych Engine':
 				animationText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
-			case 'Better UI':
-				animationText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				animationText.setFormat("Bahnschrift", 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		animationText.scrollFactor.set();

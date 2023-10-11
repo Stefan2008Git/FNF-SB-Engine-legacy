@@ -33,7 +33,6 @@ class NoteOffsetState extends MusicBeatState {
 
 	override public function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -154,7 +153,7 @@ class NoteOffsetState extends MusicBeatState {
 		barPercent = ClientPrefs.noteOffset;
 		updateNoteDelay();
 
-		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineTimeBar'));
+		timeBarBG = new FlxSprite(0, timeTxt.y + 8).loadGraphic(Paths.image('sbEngineBar'));
 		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
 		timeBarBG.updateHitbox();
 		timeBarBG.cameras = [camHUD];
@@ -188,6 +187,8 @@ class NoteOffsetState extends MusicBeatState {
 		changeModeText.cameras = [camHUD];
 		add(changeModeText);
 		updateMode();
+
+		Paths.clearUnusedMemory();
 
 		Conductor.changeBPM(128.0);
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);

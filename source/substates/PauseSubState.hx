@@ -110,7 +110,7 @@ class PauseSubState extends MusicBeatSubstate {
 		songNameText.text += "Song: " + PlayState.SONG.song;
 		songNameText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': songNameText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine': songNameText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ songNameText.setFormat("Bahnschrift", 32);	
 		}
 		songNameText.updateHitbox();
@@ -120,7 +120,7 @@ class PauseSubState extends MusicBeatSubstate {
 		difficultyNameText.text += "Difficulty: " + CoolUtil.difficultyString();
 		difficultyNameText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': difficultyNameText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine': difficultyNameText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ difficultyNameText.setFormat("Bahnschrift", 32);
 		}
 		difficultyNameText.updateHitbox();
@@ -130,7 +130,7 @@ class PauseSubState extends MusicBeatSubstate {
 		deathCounterText.text = "Death counter: " + PlayState.deathCounter;
 		deathCounterText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': deathCounterText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine': deathCounterText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ deathCounterText.setFormat("Bahnschrift", 32);
 		}
 		deathCounterText.updateHitbox();
@@ -144,7 +144,7 @@ class PauseSubState extends MusicBeatSubstate {
 		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': practiceText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine': practiceText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ practiceText.setFormat("Bahnschrift", 32);
 		}
 		practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -155,7 +155,7 @@ class PauseSubState extends MusicBeatSubstate {
 		chartingText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': chartingText.setFormat("VCR OSD Mono", 32);
+			case 'Psych Engine': chartingText.setFormat("VCR OSD Mono", 32);
 			default: /* SB Engine */ chartingText.setFormat("Bahnschrift", 32);
 		}
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -265,7 +265,7 @@ class PauseSubState extends MusicBeatSubstate {
 			switch (daSelected) {
 				case "Resume":
 					close();
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
@@ -276,11 +276,11 @@ class PauseSubState extends MusicBeatSubstate {
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					restartSong();
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Skip Time':
 					if (currentlyTime < Conductor.songPosition) {
 						PlayState.startOnTime = currentlyTime;
@@ -291,12 +291,12 @@ class PauseSubState extends MusicBeatSubstate {
 							PlayState.instance.setSongTime(currentlyTime);
 						}
 						close();
-						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 					}
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
@@ -353,7 +353,7 @@ class PauseSubState extends MusicBeatSubstate {
 		PlayState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
-		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 
 		if (noTrans) {
 			FlxTransitionableState.skipNextTransOut = true;
@@ -418,7 +418,7 @@ class PauseSubState extends MusicBeatSubstate {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 
 				switch (ClientPrefs.gameStyle) {
-					case 'Psych Engine' | 'Better UI': skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					case 'Psych Engine': skipTimeText.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					default: /* SB Engine */ skipTimeText.setFormat("Bahnschrift", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 

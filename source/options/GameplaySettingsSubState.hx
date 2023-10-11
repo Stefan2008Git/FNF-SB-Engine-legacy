@@ -63,6 +63,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Icon bounce', 
+		    "If unchecked, disables icon bounce for SB Engine HUD only.", 'iconBounce', 
+			'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Results screen',
 			"If checked, you will have results screen about your rating, accruracy and rating name when you finish the song.", 'resultsScreen', 'bool', false);
 		addOption(option);
@@ -90,6 +95,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If unchecked, this is gonna disable sound when you are missing the note.", 'missSound', 'bool', 'true');
 		addOption(option);
 
+		var option:Option = new Option('Average Miliseconds',
+		    "If unchecked, this is gonna hides Miliseconds \"(ms)\" when you hit a note on average.", 'averageMiliseconds', 'bool', 'true');
+		addOption(option);
+
+		var option:Option = new Option('Lane Underlay',
+		    "If checked, this options is gonna make to show black background to make your ame tofocus on notes when are you playing a song.", 'laneunderlay', 'bool', false);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
@@ -104,7 +117,15 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			['SB Engine', 'Kade Engine', 'Dave and Bambi']);
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
+		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be?', 'healthBarAlpha', 'percent', 1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
+		addOption(option);
+
+		var option:Option = new Option('Lane Underlay Transparency', 'How much transparent should the lane underlay be?', 'laneunderlayAlpha', 'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;

@@ -68,7 +68,7 @@ class GalleryScreenState extends MusicBeatState
         descriptionText.screenCenter();
         descriptionText.y += 250;
         switch (ClientPrefs.gameStyle) {
-            case 'Psych Engine' | 'Better UI': descriptionText.setFormat("VCR OSD Mono", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            case 'Psych Engine': descriptionText.setFormat("VCR OSD Mono", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			default: descriptionText.setFormat("Bahnschrift", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         }
         add(descriptionText);
@@ -77,7 +77,7 @@ class GalleryScreenState extends MusicBeatState
         titleText.screenCenter(X);
         titleText.setFormat(null, 40, 0xffffff, "center");
         switch (ClientPrefs.gameStyle) {
-            case 'Psych Engine' | 'Better UI': titleText.setFormat("VCR OSD Mono", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            case 'Psych Engine': titleText.setFormat("VCR OSD Mono", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			default: titleText.setFormat("Bahnschrift", 32, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         }
         add(titleText);

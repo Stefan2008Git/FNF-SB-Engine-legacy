@@ -108,7 +108,7 @@ class EditorPlayState extends MusicBeatState {
 			timeTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
-		if (ClientPrefs.gameStyle == 'Psych Engine' || ClientPrefs.gameStyle == 'Better UI') {
+		if (ClientPrefs.gameStyle == 'Psych Engine') {
 			timeTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
@@ -126,26 +126,19 @@ class EditorPlayState extends MusicBeatState {
 		updateTime = showTime;
 
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    timeBarBG = new AttachedSprite('sbEngineTimeBar');
-			    timeBarBG.x = timeTxt.x;
-			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
-			    timeBarBG.scrollFactor.set();
-			    timeBarBG.screenCenter(X);
-			
 			case 'Psych Engine':
 			    timeBarBG = new AttachedSprite('timeBar');
 			    timeBarBG.x = timeTxt.x;
 			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			    timeBarBG.scrollFactor.set();
 			
-			case 'Better UI':
-			    timeBarBG = new AttachedSprite('longBar');
+			default:
+			    timeBarBG = new AttachedSprite('sbEngineBar');
 			    timeBarBG.x = timeTxt.x;
 			    timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 			    timeBarBG.scrollFactor.set();
 			    timeBarBG.screenCenter(X);
-			    timeBarBG.sprTracker = timeBar;
+				timeBarBG.sprTracker = timeBar;
 		}
 
 		timeBarBG.alpha = 0;
@@ -160,14 +153,11 @@ class EditorPlayState extends MusicBeatState {
 		timeBar.scrollFactor.set();
 
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				timeBar.createFilledBar(0xFF000000, 0xFF800080);
-			
 			case 'Psych Engine':
 				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 			
-			case 'Better UI':
-				timeBar.createFilledBar(0xFF3E3E3E, 0xFF22FF00);
+			default:
+				timeBar.createFilledBar(0xFF000000, 0xFF800080);
 				insert(members.indexOf(timeBarBG), timeBar);
 		}
 
@@ -216,14 +206,11 @@ class EditorPlayState extends MusicBeatState {
 
 		scoreTxt = new FlxText(10, FlxG.height - 50, FlxG.width - 20, "Hits: 0 | Misses: 0", 20);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    scoreTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			case 'Better UI':
-			    scoreTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+			    scoreTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		scoreTxt.scrollFactor.set();
@@ -233,14 +220,11 @@ class EditorPlayState extends MusicBeatState {
 
 		sectionTxt = new FlxText(10, 580, FlxG.width - 20, "Section: 0", 20);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    sectionTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    sectionTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    sectionTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		sectionTxt.scrollFactor.set();
@@ -249,14 +233,11 @@ class EditorPlayState extends MusicBeatState {
 
 		beatTxt = new FlxText(10, sectionTxt.y + 30, FlxG.width - 20, "Beat: 0", 20);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    beatTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			case 'Better UI':
-			    beatTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+			    beatTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		beatTxt.scrollFactor.set();
@@ -265,14 +246,11 @@ class EditorPlayState extends MusicBeatState {
 
 		stepTxt = new FlxText(10, beatTxt.y + 30, FlxG.width - 20, "Step: 0", 20);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    stepTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    stepTxt.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    stepTxt.setFormat("Bahnschrift", 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		stepTxt.scrollFactor.set();
@@ -285,14 +263,11 @@ class EditorPlayState extends MusicBeatState {
 		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press ESC to Go Back to Chart Editor', 16);
 		#end
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		tipText.borderSize = 2;
@@ -641,17 +616,13 @@ class EditorPlayState extends MusicBeatState {
 
 		songLength = FlxG.sound.music.length;
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
-		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
-
 			case 'Psych Engine':
 		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
-			case 'Better UI':
-				FlxTween.tween(timeBar, {alpha: 1}, 1);
-		        FlxTween.tween(timeTxt, {alpha: 1}, 1);
+			default:
+		        FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+		        FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 		}
 
 	   	Conductor.songPosition = FlxG.sound.music.time;

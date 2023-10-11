@@ -18,6 +18,7 @@ class ClientPrefs {
 	public static var flashing:Bool = true;
 	public static var resultsScreen:Bool = false;
 	public static var mainMenuMusic:String = 'FNF';
+	public static var iconBounce:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var opponentArrowGlow:Bool = true;
@@ -38,6 +39,8 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Elapsed';
 	public static var showTimeBar:Bool = true;
+	public static var laneunderlayAlpha:Float = 0.1;
+	public static var laneunderlay:Bool = false;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
@@ -60,6 +63,7 @@ class ClientPrefs {
 	public static var timePercentValue:Int = 2;
 	public static var objects:Bool = true;
 	public static var missSound:Bool = true;
+	public static var averageMiliseconds:Bool = true;
 	public static var themes:String = 'SB Engine';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -123,6 +127,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.mainMenuMusic = mainMenuMusic;
+		FlxG.save.data.iconBounce = iconBounce;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.opponentArrowGlow = opponentArrowGlow;
@@ -143,6 +148,8 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.showTimeBar = showTimeBar;
+		FlxG.save.data.laneunderlayAlpha = laneunderlayAlpha;
+		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
@@ -169,6 +176,7 @@ class ClientPrefs {
 		FlxG.save.data.timePercentValue = timePercentValue;
 		FlxG.save.data.objects = objects;
 		FlxG.save.data.missSound = missSound;
+		FlxG.save.data.averageMiliseconds = averageMiliseconds;
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
 
@@ -201,6 +209,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing != null ? flashing = FlxG.save.data.flashing : flashing = true;
 		FlxG.save.data.resultsScreen != null ? resultsScreen = FlxG.save.data.resultsScreen : resultsScreen = false;
 		FlxG.save.data.mainMenuMusic != null ? mainMenuMusic = FlxG.save.data.mainMenuMusic : mainMenuMusic = 'FNF';
+		FlxG.save.data.iconBounce != null ? iconBounce = FlxG.save.data.iconBounce : iconBounce = true;
 		FlxG.save.data.globalAntialiasing != null ? globalAntialiasing = FlxG.save.data.globalAntialiasing : globalAntialiasing = true;
 		FlxG.save.data.colorblindMode != null ? colorblindMode = FlxG.save.data.colorblindMode : colorblindMode = 'None';
 		FlxG.save.data.noteSplashes != null ? noteSplashes = FlxG.save.data.noteSplashes : noteSplashes = true;
@@ -230,6 +239,8 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping != null ? ghostTapping = FlxG.save.data.ghostTapping : ghostTapping = true;
 		FlxG.save.data.timeBarType != null ? timeBarType = FlxG.save.data.timeBarType : timeBarType = 'Time Elapsed';
 		FlxG.save.data.showTimeBar != null ? showTimeBar = FlxG.save.data.showTimeBar : showTimeBar = true;
+		FlxG.save.data.laneunderlayAlpha != null ? laneunderlayAlpha = FlxG.save.data.laneunderlayAlpha : laneunderlayAlpha = 0;
+		FlxG.save.data.laneunderlay != null ? laneunderlay = FlxG.save.data.laneunderlay : laneunderlay = false;
 		FlxG.save.data.scoreZoom != null ? scoreZoom = FlxG.save.data.scoreZoom : scoreZoom = true;
 		FlxG.save.data.noReset != null ? noReset = FlxG.save.data.noReset : noReset = false;
 		FlxG.save.data.healthBarAlpha != null ? healthBarAlpha = FlxG.save.data.healthBarAlpha : healthBarAlpha = 1;
@@ -253,6 +264,7 @@ class ClientPrefs {
 		FlxG.save.data.timePercentValue != null ? timePercentValue = FlxG.save.data.timePercentValue : timePercentValue = 1;
 		FlxG.save.data.objects != null ? objects = FlxG.save.data.objects : objects = true;
 		FlxG.save.data.missSound != null ? missSound = FlxG.save.data.missSound : missSound = true;
+		FlxG.save.data.averageMiliseconds != null ? averageMiliseconds = FlxG.save.data.averageMiliseconds : averageMiliseconds = true;
 		FlxG.save.data.themes != null ? themes = FlxG.save.data.themes : themes = 'SB Engine';
 		if (FlxG.save.data.gameplaySettings != null) {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

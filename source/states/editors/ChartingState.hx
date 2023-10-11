@@ -355,20 +355,11 @@ class ChartingState extends MusicBeatState {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
 			switch (ClientPrefs.gameStyle) {
-				case 'SB Engine':
-				   tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-
 				case 'Psych Engine':
 				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 				
-				case 'Better UI':
-				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-				
-				case 'Forever Engine':
-				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-				
-				case 'Grafex Engine':
-				   tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+				default:
+				   tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT /*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			}
 
 			// tipText.borderSize = 2;
@@ -1668,7 +1659,7 @@ class ChartingState extends MusicBeatState {
 				FlxTween.tween(UI_box, {y: FlxG.height}, 0.25, {ease: FlxEase.cubeOut});
 				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new states.editors.EditorPlayState(sectionStartTime()));
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + states.PlayState.SONG.song;
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Testing chart song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				FlxG.mouse.visible = false;
 			}});
 			}
@@ -1685,7 +1676,7 @@ class ChartingState extends MusicBeatState {
 				StageData.loadDirectory(_song);
 				FlxTween.tween(FlxG.camera.scroll, {x: FlxG.camera.scroll.x + FlxG.width}, 0.25, {ease: FlxEase.cubeOut, onComplete: function(t) {
 				LoadingState.loadAndSwitchState(new PlayState());
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				FlxG.mouse.visible = false;
 			}});
 			}
@@ -2567,20 +2558,11 @@ class ChartingState extends MusicBeatState {
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 100, theType, 24);
 				switch (ClientPrefs.gameStyle) {
-					case 'SB Engine':
-					    daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-					
 					case 'Psych Engine':
 					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					
-					case 'Better UI':
-					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-					case 'Forever Engine':
-					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-					case 'Grafex Engine':
-					    daText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					default:
+					    daText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}
 
 				daText.xAdd = -32;
@@ -2609,14 +2591,11 @@ class ChartingState extends MusicBeatState {
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 400, text, 12);
 				switch (ClientPrefs.gameStyle) {
-					case 'SB Engine':
-						daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-					
 					case 'Psych Engine':
 						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 					
-					case 'Better UI':
-						daText.setFormat("VCR OSD Mono", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+					default:
+						daText.setFormat("Bahnschrift", 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 				}
 
 				daText.xAdd = -410;
@@ -2946,8 +2925,9 @@ class ChartingState extends MusicBeatState {
 			{
 				missingFileText = new FlxText(50, 0, FlxG.width - 100, '', 24);
 				switch (ClientPrefs.gameStyle) {
-					case 'Psych Engine' | 'Better UI':
+					case 'Psych Engine':
 						missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+
 					default:
 						missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				}

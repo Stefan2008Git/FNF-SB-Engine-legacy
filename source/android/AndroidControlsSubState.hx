@@ -73,14 +73,11 @@ class AndroidControlsSubState extends FlxSubState {
 			}
 		});
 		switch (ClientPrefs.gameStyle) {
-		    case 'SB Engine':
-			   resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
-
 			case 'Psych Engine':
 			   resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
-
-			case 'Better UI':
-				resetButton.label.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, CENTER);
+			
+			default:
+			   resetButton.label.setFormat('Bahnschrift', 16, FlxColor.WHITE, CENTER);
 		}
 
 		resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
@@ -103,17 +100,13 @@ class AndroidControlsSubState extends FlxSubState {
 		noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
 		inputText = new FlxText(0, 100, 0, '', 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			    inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 			case 'Psych Engine':
 			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
-			case 'Better UI':
-			    noAndroidControlsText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			    inputText.setFormat('VCR OSD Mono', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+			    noAndroidControlsText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    inputText.setFormat('Bahnschrift', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		
 		noAndroidControlsText.borderSize = 2.4;
@@ -144,38 +137,19 @@ class AndroidControlsSubState extends FlxSubState {
 		downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
 		upPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 		    case 'Psych Engine':
 			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
-			case 'Better UI':
-			    tipText.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    rightPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    leftPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    downPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			    upPosition.setFormat('VCR OSD Mono', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				tipText.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    rightPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    leftPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    downPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			    upPosition.setFormat('Bahnschrift', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		tipText.scrollFactor.set();

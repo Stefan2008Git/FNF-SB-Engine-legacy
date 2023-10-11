@@ -64,14 +64,11 @@ class NotesSubState extends MusicBeatSubstate
 		resetText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
 		#end
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				resetText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
-
             case 'Psych Engine':
 			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-
-			case 'Better UI':
-			    resetText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
+			
+			default:
+				resetText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
 		}
 		add(resetText);
 

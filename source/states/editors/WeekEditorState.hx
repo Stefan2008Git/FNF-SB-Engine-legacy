@@ -54,14 +54,11 @@ class WeekEditorState extends MusicBeatState {
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
-
             case 'Psych Engine':
 			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-
-			case 'Better UI':
-			    txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+			
+			default:
+				txtWeekTitle.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT);
 		}
 
 		txtWeekTitle.alpha = 0.7;
@@ -90,14 +87,11 @@ class WeekEditorState extends MusicBeatState {
 
 		missingFileText = new FlxText(0, 0, FlxG.width, "");
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		missingFileText.borderSize = 2;
@@ -122,14 +116,11 @@ class WeekEditorState extends MusicBeatState {
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				txtTracklist.setFormat("Bahnschrift", 10, FlxColor.WHITE);
-
             case 'Psych Engine':
 			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
-
-			case 'Better UI':
-			    txtTracklist.setFormat("VCR OSD Mono", 10, FlxColor.WHITE);
+			
+			default:
+				txtTracklist.setFormat("Bahnschrift", 10, FlxColor.WHITE);
 		}
 
 		txtTracklist.color = 0xFFe55777;

@@ -86,14 +86,11 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		descText = new FlxText(50, 600, 1180, "", 32);
 		switch (ClientPrefs.gameStyle) {
-		    case 'SB Engine':
-			    descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
 		    case 'Psych Engine':
 			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
-			case 'Better UI':
-			    descText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+			    descText.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;

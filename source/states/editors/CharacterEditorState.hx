@@ -128,14 +128,11 @@ class CharacterEditorState extends MusicBeatState {
 
 		textAnim = new FlxText(300, 16);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				textAnim.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			
 			case 'Psych Engine':
 			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			
-			case 'Better UI':
-			    textAnim.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				textAnim.setFormat("Bahnschrift", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		textAnim.borderSize = 1;

@@ -93,14 +93,11 @@ class DialogueEditorState extends MusicBeatState {
 			'Press A Button to remove the current dialogue line, Press B Button to add another line after the current one.', 8);
 		#end
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    addLineText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    addLineText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    addLineText.setFormat("Bahnschrift", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		addLineText.scrollFactor.set();
@@ -108,14 +105,11 @@ class DialogueEditorState extends MusicBeatState {
 
 		selectedText = new FlxText(10, 32, FlxG.width - 20, '', 8);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    selectedText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
-			case 'Better UI':
-			    selectedText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    selectedText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		selectedText.scrollFactor.set();
@@ -123,14 +117,12 @@ class DialogueEditorState extends MusicBeatState {
 
 		animationText = new FlxText(10, 62, FlxG.width - 20, '', 8);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-			    animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-
             case 'Psych Engine':
 			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			
+			default:
+			    animationText.setFormat("Bahnschrift", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
-			case 'Better UI':
-			    animationText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 
 		animationText.scrollFactor.set();

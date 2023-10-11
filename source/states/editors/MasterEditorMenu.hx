@@ -82,7 +82,7 @@ class MasterEditorMenu extends MusicBeatState {
 
 		tipText = new FlxText(FlxG.width - 250, 5, 0, "", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine' | 'Better UI': tipText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Psych Engine': tipText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			default: tipText.setFormat("Bahnschrift", 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		add(tipText);
@@ -152,14 +152,11 @@ class MasterEditorMenu extends MusicBeatState {
 
 		directoryTxt = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, '', 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
-
             case 'Psych Engine':
 			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-
-			case 'Better UI':
-			    directoryTxt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			default:
+				directoryTxt.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 		}
 
 		directoryTxt.scrollFactor.set();

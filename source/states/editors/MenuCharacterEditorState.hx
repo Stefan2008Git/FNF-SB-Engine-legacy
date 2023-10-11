@@ -64,14 +64,11 @@ class MenuCharacterEditorState extends MusicBeatState {
 
 		txtOffsets = new FlxText(20, 10, 0, "[0, 0]", 32);
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				txtOffsets.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
-
             case 'Psych Engine':
 			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-
-			case 'Better UI':
-			    txtOffsets.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+			
+			default:
+				txtOffsets.setFormat("Bahnschrift", 32, FlxColor.WHITE, CENTER);
 		}
 
 		txtOffsets.alpha = 0.7;
@@ -85,14 +82,11 @@ class MenuCharacterEditorState extends MusicBeatState {
 			\nB - Play \"Start Press\" animation (Boyfriend Character Type)", 16);
 		#end
 		switch (ClientPrefs.gameStyle) {
-			case 'SB Engine':
-				tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, CENTER);
-
             case 'Psych Engine':
 			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
-
-			case 'Better UI':
-			    tipText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER);
+			
+			default:
+				tipText.setFormat("Bahnschrift", 16, FlxColor.WHITE, CENTER);
 		}
 
 		tipText.scrollFactor.set();
