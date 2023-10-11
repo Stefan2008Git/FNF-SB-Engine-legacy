@@ -142,11 +142,8 @@ class Main extends Sprite {
 		var toastText:String = '';
 		toastText = 'Uncaught Error happends!';
 		AndroidDialogsExtend.OpenToast(toastText, 2);
-		SUtil.applicationAlert("Error! SB Engine v" + MainMenuState.sbEngineVersion, errorMessage);
-		System.exit(0);
-		#else
-		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
 		#end
+		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
 	
 		#if desktop
 		DiscordClient.shutdown();
