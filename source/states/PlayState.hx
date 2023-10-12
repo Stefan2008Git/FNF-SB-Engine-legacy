@@ -3608,7 +3608,7 @@ class PlayState extends MusicBeatState {
 				}
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0],
 					boyfriend.getScreenPosition().y - boyfriend.positionArray[1], cameraFollowPosition.x, cameraFollowPosition.y));
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Game Over: " + SONG.song + " (" + storyModeDifficultyText + ") ";
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Game Over: " + SONG.song + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
