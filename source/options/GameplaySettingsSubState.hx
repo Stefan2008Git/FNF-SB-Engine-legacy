@@ -100,7 +100,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Lane Underlay',
-		    "If checked, this options is gonna make to show black background to make your ame tofocus on notes when are you playing a song.", 'laneunderlay', 'bool', false);
+		    "If checked, this options is gonna make to show black background to make your game to focus on notes when are you playing a song.", 'laneunderlay', 'bool', false);
 		addOption(option);
 
 		#if android

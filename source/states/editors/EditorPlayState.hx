@@ -435,6 +435,8 @@ class EditorPlayState extends MusicBeatState {
 	}
 
 	private function endSong() {
+		if (FlxG.sound.music != null)
+			FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 		LoadingState.loadAndSwitchState(new states.editors.ChartingState());
 		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
 	}
@@ -445,6 +447,8 @@ class EditorPlayState extends MusicBeatState {
 	override function update(elapsed:Float) {
 		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 			FlxG.sound.music.pause();
+			if (FlxG.sound.music != null)
+				FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 			vocals.pause();
 			#if android
 			androidControls.visible = false;
@@ -483,18 +487,6 @@ class EditorPlayState extends MusicBeatState {
 		if (generatedMusic) {
 			var fakeCrochet:Float = (60 / PlayState.SONG.bpm) * 1000;
 			notes.forEachAlive(function(daNote:Note) {
-				/*if (daNote.y > FlxG.height)
-					{
-						daNote.active = false;
-						daNote.visible = false;
-					}
-					else
-					{
-						daNote.visible = true;
-						daNote.active = true;
-				}*/
-
-				// i am so freaking sorry for this if condition
 				var strumX:Float = 0;
 				var strumY:Float = 0;
 				var strumAlpha:Float = 0;

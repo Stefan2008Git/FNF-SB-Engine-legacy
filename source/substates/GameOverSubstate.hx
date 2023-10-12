@@ -7,6 +7,7 @@ import android.Hardware;
 #end
 import states.StoryModeState;
 import states.FreeplayState;
+import states.MainMenuState;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -101,17 +102,20 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK)
 		{
-			FlxG.sound.music.stop();
+			if (FlxG.sound.music != null)
+				FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			PlayState.chartingMode = false;
 
 			WeekData.loadTheFirstEnabledMod();
-			if (PlayState.isStoryMode)
+			if (PlayState.isStoryMode) {
 				MusicBeatState.switchState(new StoryModeState());
-			else
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Story Mode";
+			} else {
 				MusicBeatState.switchState(new FreeplayState());
-
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Freeplay Menu";
+			}
 			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
@@ -184,6 +188,8 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
 					MusicBeatState.resetState();
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+
 				});
 			});
 			PlayState.instance.callOnLuas('onGameOverConfirm', [true]);

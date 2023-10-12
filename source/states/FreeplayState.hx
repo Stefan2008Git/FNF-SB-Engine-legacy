@@ -392,10 +392,10 @@ class FreeplayState extends MusicBeatState {
 					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 					FlxTween.tween(missingFileText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 	
-			new FlxTimer().start(1.5, function(tmr:FlxTimer) 
+			new FlxTimer().start(1, function(tmr:FlxTimer) 
 			{
 			    LoadingState.loadAndSwitchState(new PlayState());
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 			});
 		}
 		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)

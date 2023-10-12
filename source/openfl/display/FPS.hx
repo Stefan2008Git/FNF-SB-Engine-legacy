@@ -34,6 +34,7 @@ class FPS extends TextField {
 	public var currentlyFPS(default, null):Int;
 	public var totalFPS(default, null):Int;
 
+	public var color:Int = 0xFF000000;
 	public var currentlyMemory:Float;
 	public var maximumMemory:Float;
 	public var realAlpha:Float = 1;
@@ -41,9 +42,10 @@ class FPS extends TextField {
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
+
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000) {
+	public function new(x:Float = 10, y:Float = 10) {
 		super();
 
 		this.x = x;
@@ -54,9 +56,9 @@ class FPS extends TextField {
 		selectable = false;
 		mouseEnabled = false;
 		#if android
-		defaultTextFormat = new TextFormat('_sans', 18, color);
+		defaultTextFormat = new TextFormat(null, 18, color);
 		#else
-		defaultTextFormat = new TextFormat('_sans', 12, color);
+		defaultTextFormat = new TextFormat(null, 12, color);
 		#end
 		autoSize = LEFT;
 		multiline = true;
@@ -153,6 +155,22 @@ class FPS extends TextField {
 				text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
 				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
 				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+			}
+
+			switch (ClientPrefs.gameStyle) {
+				case 'Psych Engine':
+					#if android
+					Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 18, color);
+					#else
+					Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 12, color);
+					#end
+				
+				default:
+					#if android
+					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 18, color);
+					#else
+					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 14, color);
+					#end
 			}
 
 			textColor = FlxColor.fromRGBFloat(255, 255, 255, realAlpha);
