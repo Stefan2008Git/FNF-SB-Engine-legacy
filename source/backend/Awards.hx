@@ -94,7 +94,7 @@ class Awards {
 
 		if(awards.exists(name))
 		{
-			var award:award = awards.get(name);
+			var award:Award = awards.get(name);
 			if(award.maxScore < 1) throw new Exception('award has score disabled or is incorrectly configured: $name');
 
 			if(awardsUnlocked.contains(name)) return award.maxScore;
@@ -152,8 +152,8 @@ class Awards {
 	inline public static function isUnlocked(name:String)
 		return awardsUnlocked.contains(name);
 
-	@:allow(objects.awardPopup)
-	private static var _popups:Array<awardPopup> = [];
+	@:allow(objects.AwardsPopup)
+	private static var _popups:Array<AwardsPopup> = [];
 
 	public static var showingPopups(get, never):Bool;
 	public static function get_showingPopups()
@@ -166,7 +166,7 @@ class Awards {
 			popup.intendedY += 150;
 		}
 
-		var newPop:awardPopup = new awardPopup(achieve, endFunc);
+		var newPop:AwardsPopup = new AwardPopup(achieve, endFunc);
 		_popups.push(newPop);
 		//trace('Giving award ' + achieve);
 	}

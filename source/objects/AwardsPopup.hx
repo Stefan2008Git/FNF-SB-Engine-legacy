@@ -6,7 +6,7 @@ import openfl.geom.Matrix;
 import flash.display.BitmapData;
 import openfl.Lib;
 
-class AwardsPopup extends openfl.display.Sprite {
+class AwardPopup extends openfl.display.Sprite {
 	public var onFinish:Void->Void = null;
 	var alphaTween:FlxTween;
 	var lastScale:Float = 1;

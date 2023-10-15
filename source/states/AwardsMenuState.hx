@@ -176,7 +176,7 @@ class AwardsMenuState extends MusicBeatState
 		super.create();
 	}
 
-	function makeAward(award:String, data:award, unlocked:Bool, mod:String = null)
+	function makeAward(award:String, data:Awards, unlocked:Bool, mod:String = null)
 	{
 		var unlocked:Bool = awards.isUnlocked(award);
 		return {
@@ -328,7 +328,7 @@ class ResetAwardsSubstate extends MusicBeatSubstate
 		text.scrollFactor.set();
 		add(text);
 		
-		var state:awardsMenuState = cast FlxG.state;
+		var state:AwardsMenuState = cast FlxG.state;
 		var text:FlxText = new FlxText(50, text.y + 90, FlxG.width - 100, state.options[state.currentlySelected].displayName, 40);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
@@ -387,7 +387,7 @@ class ResetAwardsSubstate extends MusicBeatSubstate
 		{
 			if(onYes)
 			{
-				var state:awardsMenuState = cast FlxG.state;
+				var state:AwardsMenuState = cast FlxG.state;
 				var option:Dynamic = state.options[state.currentlySelected];
 
 				awards.variables.remove(option.name);
