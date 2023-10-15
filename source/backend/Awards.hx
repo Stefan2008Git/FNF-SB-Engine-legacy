@@ -43,8 +43,9 @@ class Awards {
 	public static var awardsUnlocked:Array<String> = [];
 	private static var _firstLoad:Bool = true;
 
-	public static function get(name:String):award
+	public static function get(name:String):Award
 		return awards.get(name);
+	
 	public static function exists(name:String):Bool
 		return awards.exists(name);
 
