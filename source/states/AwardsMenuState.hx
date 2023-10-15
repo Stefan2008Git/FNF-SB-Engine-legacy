@@ -139,14 +139,14 @@ class AwardsMenuState extends MusicBeatState
 		progressBarBackground = new FlxSprite(0, descriptionText.y + 50).loadGraphic(Paths.image('awards/awardsProgressBarBG'));
 		progressBarBackground.screenCenter(X);
 		progressBarBackground.scrollFactor.set();
-		timeBarBG.sprTracker = timeBar;
+		progressBarBackground.sprTracker = progressBar;
 
 		progressBar = new FlxBar(0, descriptionText.y + 50);
 		progressBar.screenCenter(X);
 		progressBar.scrollFactor.set();
 		progressBar.enabled = false;
 		progressBar.createFilledBar(0xFF000000, 0xFF800080);
-		insert(members.indexOf(timeBarBG), timeBar);
+		insert(members.indexOf(progressBarBackground), progressBar);
 		
 		progressTxt = new FlxText(50, progressBar.y - 6, FlxG.width - 100, "", 32);
 		switch (ClientPrefs.gameStyle) {
