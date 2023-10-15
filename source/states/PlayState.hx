@@ -158,6 +158,7 @@ class PlayState extends MusicBeatState {
 	public var timeBar:FlxBar;
 
 	public var ratingsData:Array<Rating> = [];
+	public var impressives:Int = 0;
 	public var sicks:Int = 0;
 	public var goods:Int = 0;
 	public var bads:Int = 0;
@@ -267,6 +268,7 @@ class PlayState extends MusicBeatState {
 
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+	var judgementCounterTxtTween:FlxTween;
 
 	var allNotesMs:Float = 0;
 	var averageMs:Float = 0;
@@ -357,7 +359,13 @@ class PlayState extends MusicBeatState {
 		controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
 
 		// Ratings
-		ratingsData.push(new Rating('sick')); // default rating
+		ratingsData.push(new Rating('impressive')); // default rating
+
+		var rating:Rating = new Rating('sick');
+		rating.ratingMod = 1;
+		rating.score = 350;
+		rating.noteSplash = true;
+		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0.7;
@@ -422,7 +430,7 @@ class PlayState extends MusicBeatState {
 		        ];
 		}
 
-		sbEngineIconBounce = (ClientPrefs.iconBounce);
+		sbEngineIconBounce = (ClientPrefs.iconBounce && ClientPrefs.gameStyle == 'SB Engine');
 
 		// For the "Just the Two of Us" achievement
 		for (i in 0...keysArray.length) {
@@ -1309,11 +1317,11 @@ class PlayState extends MusicBeatState {
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
 				judgementCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMisses: ${songMisses}';
+			    judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMissess: ${songMisses}';
 			
 			default:
 				judgementCounterTxt.setFormat(Paths.font("bahnschrift.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
+			    judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
 		}
 
 		judgementCounterTxt.borderSize = 2;
@@ -2438,15 +2446,15 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function updateScore(miss:Bool = false) {
-			if (ClientPrefs.gameStyle == 'SB Engine') {
-				scoreTxt.text = 'Score: ' + songScore + ' // NPS: ' + nps + ' // Average: ' + Math.round(averageMs) + 'ms' + ' // Combo Breaks: ' + songMisses + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
-			    judgementCounterTxt.text = 'nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
-			}
-
-		    if (ClientPrefs.gameStyle == 'Psych Engine') {
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine':
 				scoreTxt.text = 'Score: ' + songScore  + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
-			    judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMisses: ${songMisses}';
-			}
+				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMissess: ${songMisses}';
+				
+			default:
+				scoreTxt.text = 'Score: ' + songScore + ' // NPS: ' + nps + ' // Average: ' + Math.round(averageMs) + 'ms' + ' // Combo Breaks: ' + songMisses + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
+				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
+		}
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
 			if (scoreTxtTween != null) {
@@ -2459,6 +2467,19 @@ class PlayState extends MusicBeatState {
 				}
 			});
 		}
+
+		if (ClientPrefs.judgementZoom && !miss && !cpuControlled) {
+			if (judgementCounterTxtTween != null) {
+				judgementCounterTxtTween.cancel();
+			}
+			judgementCounterTxt.scale.x = judgementCounterTxt.scale.y = 1.075;
+			judgementCounterTxtTween = FlxTween.tween(judgementCounterTxt.scale, {x: 1, y: 1}, 0.2, {
+				onComplete: function(twn:FlxTween) {
+					judgementCounterTxtTween = null;
+				}
+			});
+		}
+
 		callOnLuas('onUpdateScore', [miss]);
 	}
 
@@ -3168,6 +3189,12 @@ class PlayState extends MusicBeatState {
 				maximumNPS = nps;
 		}
 
+		var sum:Float = 0.0;
+        for (value in notesHitArray) {
+            sum += value;
+        }
+        nps = sum;
+
 		healthCounter = health * 100;
 
 		super.update(elapsed);
@@ -3223,16 +3250,14 @@ class PlayState extends MusicBeatState {
 			openChartEditor();
 		}
 
-		switch (ClientPrefs.gameStyle) {
-			default:
-				var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-				iconP1.scale.set(mult, mult);
-				iconP1.updateHitbox();
+		
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		iconP1.scale.set(mult, mult);
+		iconP1.updateHitbox();
  
-				var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-				iconP2.scale.set(mult, mult);
-				iconP2.updateHitbox();
-		}
+		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		iconP2.scale.set(mult, mult);
+		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
 
@@ -4147,6 +4172,19 @@ class PlayState extends MusicBeatState {
 		    deathCounter = 0;
 		    seenCutscene = false;
 
+			#if AWARDS_ALLOWED
+		    if(awardObj != null) {
+			   return;
+		    } else {
+			   var achieve:String = checkForAward(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss', 'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
+
+			    if(achieve != null) {
+				   startAward(achieve);
+				return;
+			    }
+		    }
+		    #end
+
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if (ret != FunkinLua.Function_Stop && !transitioning) {
 			if (SONG.validScore) {
@@ -4254,6 +4292,23 @@ class PlayState extends MusicBeatState {
 			transitioning = true;
 		}
 	}
+
+	#if AWARDS_ALLOWED
+	var awardObj:AwardObject = null;
+	function startAward(achieve:String) {
+		awardObj = new AwardObject(achieve, camOther);
+		awardObj.onFinish = awardEnd;
+		add(awardObj);
+		trace('Giving award ' + achieve);
+	}
+	function awardEnd():Void
+	{
+		awardObj = null;
+		if(endingSong && !inCutscene) {
+			endSong();
+		}
+	}
+	#end
 
 	public function KillNotes() {
 		while (notes.length > 0) {
@@ -4636,12 +4691,18 @@ class PlayState extends MusicBeatState {
 				}
 			});
 
-			if (boyfriend.animation.curAnim != null
-				&& boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration
-					&& boyfriend.animation.curAnim.name.startsWith('sing')
-					&& !boyfriend.animation.curAnim.name.endsWith('miss')) {
+			if (parsedHoldArray.contains(true) && !endingSong) {
+				#if AWARDS_ALLOWED
+				var achieve:String = checkForAward(['oversinging']);
+				if (achieve != null) {
+					startAward(achieve);
+				}
+				#end
+			}
+			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			{
 				boyfriend.dance();
-				// boyfriend.animation.curAnim.finish();
+				//boyfriend.animation.curAnim.finish();
 			}
 		}
 
@@ -5064,6 +5125,18 @@ class PlayState extends MusicBeatState {
 				limoCorpse.visible = false;
 				limoCorpseTwo.visible = false;
 				limoKillingState = 1;
+
+				#if AWARDS_ALLOWED
+				Awards.henchmenDeath++;
+				FlxG.save.data.henchmenDeath = Awards.henchmenDeath;
+				var achieve:String = game.checkForAward(['roadkill_enthusiast']);
+				if (achieve != null) {
+					game.startAward(achieve);
+				} else {
+					FlxG.save.flush();
+				}
+				FlxG.log.add('Deaths: ' + Awards.henchmenDeath);
+				#end
 			}
 		}
 	}
@@ -5182,32 +5255,6 @@ class PlayState extends MusicBeatState {
 				}
 			}
 		}
-
-		/*if (ClientPrefs.gameStyle == 'SB Engine') {
-			if (curBeat % gfSpeed == 0) 
-				{
-				curBeat % (gfSpeed * 2) == 0 ? 
-				{
-					iconP1.scale.set(1.2, 1.2);
-		            iconP2.scale.set(1.2, 1.2);
-				} 
-				: 
-				{
-					iconP1.scale.set(1.2, 1.2);
-		            iconP2.scale.set(1.2, 1.2);
-					FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});	
-				}
-	
-				FlxTween.tween(iconP1, {'scale.x': 0.8, 'scale.y': 0.8}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.tween(iconP2, {'scale.x': 1.2, 'scale.y': 1.2}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-				FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-	
-				iconP1.updateHitbox();
-				iconP2.updateHitbox();
-			}
-		}*/ //[OVERRIDES THE BEATHIT BOPPING]
 
 		if (gf != null
 			&& curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0
@@ -5388,26 +5435,33 @@ class PlayState extends MusicBeatState {
 	public var ratingName:String = '?';
 	public var ratingPercent:Float;
 	public var ratingFC:String;
-
 	public function RecalculateRating(badHit:Bool = false) {
 		setOnLuas('score', songScore);
 		setOnLuas('misses', songMisses);
 		setOnLuas('hits', songHits);
 
 		var ret:Dynamic = callOnLuas('onRecalculateRating', [], false);
-		if (ret != FunkinLua.Function_Stop) {
-			if (totalPlayed < 1) // Prevent divide by 0
+		if(ret != FunkinLua.Function_Stop)
+		{
+			if(totalPlayed < 1) //Prevent divide by 0
 				ratingName = '?';
-			else {
+			else
+			{
 				// Rating Percent
-				ratingPercent = Math.min(1, Math.max(0, totalNotes / totalPlayed));
+				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
+				//trace((totalNotesHit / totalPlayed) + ', Total: ' + totalPlayed + ', notes hit: ' + totalNotesHit);
 
 				// Rating Name
-				if (ratingPercent >= 1) {
-					ratingName = ratingStuff[ratingStuff.length - 1][0]; // Uses last string
-				} else {
-					for (i in 0...ratingStuff.length - 1) {
-						if (ratingPercent < ratingStuff[i][1]) {
+				if(ratingPercent >= 1)
+				{
+					ratingName = ratingStuff[ratingStuff.length-1][0]; //Uses last string
+				}
+				else
+				{
+					for (i in 0...ratingStuff.length-1)
+					{
+						if(ratingPercent < ratingStuff[i][1])
+						{
 							ratingName = ratingStuff[i][0];
 							break;
 						}
@@ -5417,31 +5471,21 @@ class PlayState extends MusicBeatState {
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0)
-				ratingFC = "SFC";
-			if (goods > 0)
-				ratingFC = "GFC";
-			if (bads > 0 || freaks > 0)
-				ratingFC = "FC";
-			if (songMisses > 0 && songMisses < 10)
-				ratingFC = "SDCB";
-			else if (songMisses >= 10)
-				ratingFC = "Clear";
-
+			if (sicks > 0) ratingFC = "SFC";
+			if (goods > 0) ratingFC = "GFC";
+			if (bads > 0 || freaks > 0) ratingFC = "FC";
+			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
+			else if (songMisses >= 10) ratingFC = "Clear";
 			switch (ClientPrefs.gameStyle) {
 				case 'SB Engine':
-				    if (sicks > 0)
-					    ratingFC = "Sick full combo";
-				    if (goods > 0)
-					    ratingFC = "Good Full Combo";
-				    if (bads > 0 || freaks > 0)
-					    ratingFC = "Full Combo";
-				    if (songMisses > 0 && songMisses < 10)
-					    ratingFC = "Single Digit Combo Breaks";
-				    else if (songMisses >= 10)
-					    ratingFC = "Cleared the song";
+					if (impressives > 0) ratingFC = "Impressive Full combo";
+			        if (sicks > 0) ratingFC = "Sick Full combo";
+			        if (goods > 0) ratingFC = "Good Full Combo";
+		            if (bads > 0 || freaks > 0) ratingFC = "Full Combo";
+			        if (songMisses > 0 && songMisses < 10) ratingFC = "Single Digit Combo Breaks";
+			        else if (songMisses >= 10) ratingFC = "Cleared the song";
+			    }
 			}
-		}
 		updateScore(badHit);
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
@@ -5449,12 +5493,82 @@ class PlayState extends MusicBeatState {
 
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
-		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMisses: ${songMisses}';
-			
+				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nMisses: ${songMisses}';
+
 			default:
-		        judgementCounterTxt.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
-	    }
+				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
+		}
 	}
+
+	#if AWARDS_ALLOWED
+	private function checkForAward(achievesToCheck:Array<String> = null):String
+	{
+		if(chartingMode) return null;
+
+		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
+		for (i in 0...achievesToCheck.length) {
+			var awardName:String = achievesToCheck[i];
+			if(!Awards.isAwardUnlocked(awardName) && !cpuControlled) {
+				var unlock:Bool = false;
+				
+				if (awardName.contains(WeekData.getWeekFileName()) && awardName.endsWith('nomiss')) // any FC awards, name should be "weekFileName_nomiss", e.g: "weekd_nomiss";
+				{
+					if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'EASY' || CoolUtil.difficultyString() == 'NORMAL' || CoolUtil.difficultyString() == 'HARD'
+						&& storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice)
+						unlock = true;
+				}
+				switch(awardName)
+				{
+					case 'ur_bad':
+						if(ratingPercent < 0.2 && !practiceMode) {
+							unlock = true;
+						}
+					case 'ur_good':
+						if(ratingPercent >= 1 && !usedPractice) {
+							unlock = true;
+						}
+					case 'roadkill_enthusiast':
+						if(Awards.henchmenDeath >= 100) {
+							unlock = true;
+						}
+					case 'oversinging':
+						if(boyfriend.holdTimer >= 10 && !usedPractice) {
+							unlock = true;
+						}
+					case 'hype':
+						if(!boyfriendIdled && !usedPractice) {
+							unlock = true;
+						}
+					case 'two_keys':
+						if(!usedPractice) {
+							var howManyPresses:Int = 0;
+							for (j in 0...keysPressed.length) {
+								if(keysPressed[j]) howManyPresses++;
+							}
+
+							if(howManyPresses <= 2) {
+								unlock = true;
+							}
+						}
+					case 'toastie':
+						if(/*ClientPrefs.framerate <= 60 &&*/ !ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
+							unlock = true;
+						}
+					case 'debugger':
+						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
+							unlock = true;
+						}
+				}
+
+				if(unlock) {
+					Awards.unlockAward(awardName);
+					return awardName;
+				}
+			}
+		}
+		return null;
+	}
+	#end
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;

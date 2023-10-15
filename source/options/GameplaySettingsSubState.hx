@@ -63,8 +63,18 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Judgement Counter Text Zoom on Hit', "If unchecked, disables the Judgement Counter text zooming\neverytime you hit a note.", 'judgementZoom',
+			'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Icon bounce', 
 		    "If unchecked, disables icon bounce for SB Engine HUD only.", 'iconBounce', 
+			'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Rating images',
+		    "If unckecked, disables rating images.",
+			'ratingImages',
 			'bool', true);
 		addOption(option);
 

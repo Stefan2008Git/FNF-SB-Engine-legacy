@@ -21,6 +21,7 @@ class MainMenuState extends MusicBeatState
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
+		#if AWARDS_ALLOWED 'awards', #end
 		'credits',
 		'options'
 	];
@@ -237,6 +238,13 @@ class MainMenuState extends MusicBeatState
 		changeItem();
 		tipTextStartScrolling();
 
+		#if AWARDS_ALLOWED
+		// Unlocks "Freaky on a Friday Night" award if it's a Friday and between 18:00 PM and 23:59 PM
+		var leDate = Date.now();
+		if (leDate.getDay() == 5 && leDate.getHours() >= 18)
+			Awards.unlock('friday_night_play');
+		#end
+
 		#if android
 		addVirtualPad(UP_DOWN, A_B_X_Y);
 		virtualPad.y = -48;
@@ -343,6 +351,11 @@ class MainMenuState extends MusicBeatState
 							case 'mods':
 								MusicBeatState.switchState(new ModsMenuState());
 								Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Mods Menu";
+							#end
+							#if AWARDS_ALLOWED
+							case 'awards':
+								MusicBeatState.switchState(new AwardsMenuState());
+								Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Awards Menu";
 							#end
 							case 'credits':
 								MusicBeatState.switchState(new CreditsState());

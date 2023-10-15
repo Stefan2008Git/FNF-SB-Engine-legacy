@@ -1,7 +1,9 @@
 package backend;
 
 import flixel.util.FlxSave;
+import backend.Awards;
 import states.TitleState;
+import backend.Awards;
 
 class ClientPrefs {
 	public static var discordRPC:Bool = true;
@@ -19,6 +21,7 @@ class ClientPrefs {
 	public static var resultsScreen:Bool = false;
 	public static var mainMenuMusic:String = 'FNF';
 	public static var iconBounce:Bool = true;
+	public static var ratingImages:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var opponentArrowGlow:Bool = true;
@@ -43,6 +46,7 @@ class ClientPrefs {
 	public static var laneunderlay:Bool = false;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
+	public static var judgementZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
 	public static var controllerMode:Bool = #if android true #else false #end;
@@ -128,6 +132,7 @@ class ClientPrefs {
 		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.mainMenuMusic = mainMenuMusic;
 		FlxG.save.data.iconBounce = iconBounce;
+		FlxG.save.data.ratingImages = ratingImages;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.opponentArrowGlow = opponentArrowGlow;
@@ -151,9 +156,12 @@ class ClientPrefs {
 		FlxG.save.data.laneunderlayAlpha = laneunderlayAlpha;
 		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.scoreZoom = scoreZoom;
+		FlxG.save.data.judgementZoom = judgementZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
+		FlxG.save.data.awardsMap = Awards.awardsMap;
+		FlxG.save.data.henchmenDeath = Awards.henchmenDeath;
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;
 		FlxG.save.data.goodWindow = goodWindow;
@@ -210,6 +218,7 @@ class ClientPrefs {
 		FlxG.save.data.resultsScreen != null ? resultsScreen = FlxG.save.data.resultsScreen : resultsScreen = false;
 		FlxG.save.data.mainMenuMusic != null ? mainMenuMusic = FlxG.save.data.mainMenuMusic : mainMenuMusic = 'FNF';
 		FlxG.save.data.iconBounce != null ? iconBounce = FlxG.save.data.iconBounce : iconBounce = true;
+		FlxG.save.data.ratingImages != null ? ratingImages = FlxG.save.data.ratingImages : ratingImages = true;
 		FlxG.save.data.globalAntialiasing != null ? globalAntialiasing = FlxG.save.data.globalAntialiasing : globalAntialiasing = true;
 		FlxG.save.data.colorblindMode != null ? colorblindMode = FlxG.save.data.colorblindMode : colorblindMode = 'None';
 		FlxG.save.data.noteSplashes != null ? noteSplashes = FlxG.save.data.noteSplashes : noteSplashes = true;
@@ -242,6 +251,7 @@ class ClientPrefs {
 		FlxG.save.data.laneunderlayAlpha != null ? laneunderlayAlpha = FlxG.save.data.laneunderlayAlpha : laneunderlayAlpha = 0;
 		FlxG.save.data.laneunderlay != null ? laneunderlay = FlxG.save.data.laneunderlay : laneunderlay = false;
 		FlxG.save.data.scoreZoom != null ? scoreZoom = FlxG.save.data.scoreZoom : scoreZoom = true;
+		FlxG.save.data.judgementZoom != null ? scoreZoom = FlxG.save.data.judgementZoom : judgementZoom = true;
 		FlxG.save.data.noReset != null ? noReset = FlxG.save.data.noReset : noReset = false;
 		FlxG.save.data.healthBarAlpha != null ? healthBarAlpha = FlxG.save.data.healthBarAlpha : healthBarAlpha = 1;
 		FlxG.save.data.comboOffset != null ? comboOffset = FlxG.save.data.comboOffset : comboOffset = [0, 0, 0, 0];

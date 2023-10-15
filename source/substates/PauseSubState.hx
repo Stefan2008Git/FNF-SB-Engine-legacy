@@ -265,7 +265,7 @@ class PauseSubState extends MusicBeatSubstate {
 			switch (daSelected) {
 				case "Resume":
 					close();
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
@@ -276,11 +276,11 @@ class PauseSubState extends MusicBeatSubstate {
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					restartSong();
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Skip Time':
 					if (currentlyTime < Conductor.songPosition) {
 						PlayState.startOnTime = currentlyTime;
@@ -291,12 +291,12 @@ class PauseSubState extends MusicBeatSubstate {
 							PlayState.instance.setSongTime(currentlyTime);
 						}
 						close();
-						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 					}
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
@@ -353,7 +353,7 @@ class PauseSubState extends MusicBeatSubstate {
 		PlayState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
-		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
 
 		if (noTrans) {
 			FlxTransitionableState.skipNextTransOut = true;

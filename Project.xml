@@ -46,6 +46,7 @@
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop || android" />
 	<define name="LUA_ALLOWED" if="desktop || android"/>
+	<define name="AWARDS_ALLOWED"/>
 	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
 	<define name="CRASH_HANDLER" if="desktop release || release" />
 	
