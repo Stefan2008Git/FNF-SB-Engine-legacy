@@ -1,6 +1,7 @@
 package states;
 
 import flixel.FlxObject;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxSort;
 import flixel.ui.FlxBar;
 import backend.Awards;
