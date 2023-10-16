@@ -1,6 +1,6 @@
 package objects;
 
-#if AWARS_ALLOWED
+#if AWARDS_ALLOWED
 import openfl.events.Event;
 import openfl.geom.Matrix;
 import flash.display.BitmapData;
