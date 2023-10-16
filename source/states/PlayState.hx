@@ -1,5 +1,7 @@
 package states;
 
+import backend.Awards;
+import objects.AwardsPopup;
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.StoryModeState;
@@ -3189,12 +3191,6 @@ class PlayState extends MusicBeatState {
 				maximumNPS = nps;
 		}
 
-		var sum:Float = 0.0;
-        for (value in notesHitArray) {
-            sum += value;
-        }
-        nps = sum;
-
 		healthCounter = health * 100;
 
 		super.update(elapsed);
@@ -4173,16 +4169,8 @@ class PlayState extends MusicBeatState {
 		    seenCutscene = false;
 
 			#if AWARDS_ALLOWED
-		    if(awardObj != null) {
-			   return;
-		    } else {
-			   var achieve:String = checkForAward(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss', 'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
-
-			    if(achieve != null) {
-				   startAward(achieve);
-				return;
-			    }
-		    }
+		    var weekNoMiss:String = WeekData.getWeekFileName() + '_nomiss';
+		    checkForAward([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
 		    #end
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
@@ -4292,23 +4280,6 @@ class PlayState extends MusicBeatState {
 			transitioning = true;
 		}
 	}
-
-	#if AWARDS_ALLOWED
-	var awardObj:AwardObject = null;
-	function startAward(achieve:String) {
-		awardObj = new AwardObject(achieve, camOther);
-		awardObj.onFinish = awardEnd;
-		add(awardObj);
-		trace('Giving award ' + achieve);
-	}
-	function awardEnd():Void
-	{
-		awardObj = null;
-		if(endingSong && !inCutscene) {
-			endSong();
-		}
-	}
-	#end
 
 	public function KillNotes() {
 		while (notes.length > 0) {
@@ -4691,19 +4662,16 @@ class PlayState extends MusicBeatState {
 				}
 			});
 
-			if (parsedHoldArray.contains(true) && !endingSong) {
-				#if AWARDS_ALLOWED
-				var achieve:String = checkForAward(['oversinging']);
-				if (achieve != null) {
-					startAward(achieve);
-				}
-				#end
-			}
-			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			if (!parsedHoldArray.contains(true) || endingSong)
 			{
-				boyfriend.dance();
-				//boyfriend.animation.curAnim.finish();
+				if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+				{
+					boyfriend.dance();
+				}
 			}
+			#if AWARDS_ALLOWED
+			else checkForAward(['oversinging']);
+			#end
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
@@ -5129,13 +5097,8 @@ class PlayState extends MusicBeatState {
 				#if AWARDS_ALLOWED
 				Awards.henchmenDeath++;
 				FlxG.save.data.henchmenDeath = Awards.henchmenDeath;
-				var achieve:String = game.checkForAward(['roadkill_enthusiast']);
-				if (achieve != null) {
-					game.startAward(achieve);
-				} else {
-					FlxG.save.flush();
-				}
-				FlxG.log.add('Deaths: ' + Awards.henchmenDeath);
+				var kills = Awards.addScore("roadkill_enthusiast");
+				FlxG.log.add('Henchmen kills: $kills');
 				#end
 			}
 		}
@@ -5448,7 +5411,7 @@ class PlayState extends MusicBeatState {
 			else
 			{
 				// Rating Percent
-				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
+				ratingPercent = Math.min(1, Math.max(0, totalNotes / totalPlayed));
 				//trace((totalNotesHit / totalPlayed) + ', Total: ' + totalPlayed + ', notes hit: ' + totalNotesHit);
 
 				// Rating Name
@@ -5508,7 +5471,7 @@ class PlayState extends MusicBeatState {
 		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
 		for (i in 0...achievesToCheck.length) {
 			var awardName:String = achievesToCheck[i];
-			if(!Awards.isAwardUnlocked(awardName) && !cpuControlled) {
+			if(!Awards.isUnlocked(awardName) && !cpuControlled) {
 				var unlock:Bool = false;
 				
 				if (awardName.contains(WeekData.getWeekFileName()) && awardName.endsWith('nomiss')) // any FC awards, name should be "weekFileName_nomiss", e.g: "weekd_nomiss";
@@ -5561,7 +5524,7 @@ class PlayState extends MusicBeatState {
 				}
 
 				if(unlock) {
-					Awards.unlockAward(awardName);
+					Awards.unlock(awardName);
 					return awardName;
 				}
 			}

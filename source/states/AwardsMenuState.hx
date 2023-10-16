@@ -3,6 +3,8 @@ package states;
 import flixel.FlxObject;
 import flixel.util.FlxSort;
 import flixel.ui.FlxBar;
+import backend.Awards;
+import objects.Alphabet;
 
 #if AWARDS_ALLOWED
 class AwardsMenuState extends MusicBeatState
@@ -35,11 +37,11 @@ class AwardsMenuState extends MusicBeatState
 		#end
 
 		// prepare award list
-		for (award => data in awards.awards)
+		for (award => data in Awards.awards)
 		{
-			var unlocked:Bool = awards.isUnlocked(award);
+			var unlocked:Bool = Awards.isUnlocked(award);
 			if(data.hidden != true || unlocked)
-				options.push(makeaward(award, data, unlocked));
+				options.push(makeAward(award, data, unlocked));
 		}
 
 		// TO DO: check for mods
@@ -101,12 +103,12 @@ class AwardsMenuState extends MusicBeatState
 		}
 
 		bigBox = new FlxSprite(0, -30).makeGraphic(1, 1, FlxColor.BLACK);
-		box.scale.set(groupOptions.width + 60, groupOptions.height + 60);
-		box.updateHitbox();
-		box.alpha = 0.6;
-		box.scrollFactor.x = 0;
-		box.screenCenter(X);
-		add(box);
+		bigBox.scale.set(groupOptions.width + 60, groupOptions.height + 60);
+		bigBox.updateHitbox();
+		bigBox.alpha = 0.6;
+		bigBox.scrollFactor.x = 0;
+		bigBox.screenCenter(X);
+		add(bigBox);
 		add(groupOptions);
 
 		miniBox = new FlxSprite(0, 570).makeGraphic(1, 1, FlxColor.BLACK);
@@ -139,12 +141,10 @@ class AwardsMenuState extends MusicBeatState
 		progressBarBackground = new FlxSprite(0, descriptionText.y + 50).loadGraphic(Paths.image('awards/awardsProgressBarBG'));
 		progressBarBackground.screenCenter(X);
 		progressBarBackground.scrollFactor.set();
-		progressBarBackground.sprTracker = progressBar;
 
 		progressBar = new FlxBar(0, descriptionText.y + 50);
 		progressBar.screenCenter(X);
 		progressBar.scrollFactor.set();
-		progressBar.enabled = false;
 		progressBar.createFilledBar(0xFF000000, 0xFF800080);
 		insert(members.indexOf(progressBarBackground), progressBar);
 		
@@ -176,14 +176,14 @@ class AwardsMenuState extends MusicBeatState
 		super.create();
 	}
 
-	function makeAward(award:String, data:Awards, unlocked:Bool, mod:String = null)
+	function makeAward(award:String, data:Award, unlocked:Bool, mod:String = null)
 	{
-		var unlocked:Bool = awards.isUnlocked(award);
+		var unlocked:Bool = Awards.isUnlocked(award);
 		return {
 			name: award,
 			displayName: unlocked ? data.name : '???',
 			description: data.description,
-			currentlyProgress: data.maxScore > 0 ? awards.getScore(award) : 0,
+			currentlyProgress: data.maxScore > 0 ? Awards.getScore(award) : 0,
 			maxProgress: data.maxScore > 0 ? data.maxScore : 0,
 			decimalProgress: data.maxScore > 0 ? data.maxDecimals : 0,
 			unlocked: unlocked,
@@ -390,13 +390,13 @@ class ResetAwardsSubstate extends MusicBeatSubstate
 				var state:AwardsMenuState = cast FlxG.state;
 				var option:Dynamic = state.options[state.currentlySelected];
 
-				awards.variables.remove(option.name);
-				awards.awardsUnlocked.remove(option.name);
+				Awards.variables.remove(option.name);
+				Awards.awardsUnlocked.remove(option.name);
 				option.unlocked = false;
 				option.currentlyProgress = 0;
 				option.name = state.awardNameText.text = '???';
 				if(option.maxProgress > 0) state.progressTxt.text = '0 / ' + option.maxProgress;
-				state.groupOptions.members[state.currentlySelected].loadGraphic(Paths.image('awards/lockedaward'));
+				state.groupOptions.members[state.currentlySelected].loadGraphic(Paths.image('awards/lockedAward'));
 				state.groupOptions.members[state.currentlySelected].antialiasing = ClientPrefs.globalAntialiasing;
 
 				if(state.progressBar.visible)

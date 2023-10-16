@@ -38,6 +38,7 @@ class Awards {
 		_originalLength = _sortID + 1;
 	}
 
+	public static var henchmenDeath:Int = 0;
 	public static var awards:Map<String, Award> = new Map<String, Award>();
 	public static var variables:Map<String, Float> = [];
 	public static var awardsUnlocked:Array<String> = [];
@@ -76,6 +77,8 @@ class Awards {
 		FlxG.save.data.awardsUnlocked = awardsUnlocked;
 		FlxG.save.data.awardsVariables = variables;
 	}
+
+	
 	
 	public static function getScore(name:String):Float
 		return _scoreFunc(name, 0);
@@ -113,7 +116,7 @@ class Awards {
 			}
 			variables.set(name, val);
 
-			awards.save();
+			Awards.save();
 			if(saveIfNotUnlocked || val >= award.maxScore) FlxG.save.flush();
 			return val;
 		}
@@ -129,7 +132,7 @@ class Awards {
 			return null;
 		}
 
-		if(awards.isUnlocked(name)) return null;
+		if(Awards.isUnlocked(name)) return null;
 
 		trace('Completed award "$name"');
 		awardsUnlocked.push(name);
@@ -142,7 +145,7 @@ class Awards {
 			_lastUnlock = time;
 		}
 
-		awards.save();
+		Awards.save();
 		FlxG.save.flush();
 
 		if(autoStartPopup) startPopup(name);
@@ -166,7 +169,7 @@ class Awards {
 			popup.intendedY += 150;
 		}
 
-		var newPop:AwardsPopup = new AwardPopup(achieve, endFunc);
+		var newPop:AwardsPopup = new AwardsPopup(achieve, endFunc);
 		_popups.push(newPop);
 		//trace('Giving award ' + achieve);
 	}

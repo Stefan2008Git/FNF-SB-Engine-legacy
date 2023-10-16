@@ -1,6 +1,7 @@
 package objects;
 
 #if AWARDS_ALLOWED
+import backend.Awards;
 import openfl.events.Event;
 import openfl.geom.Matrix;
 import flash.display.BitmapData;
@@ -42,12 +43,12 @@ class AwardsPopup extends openfl.display.Sprite {
 
 		// award name/description
 		var name:String = 'Unknown';
-		var desc:String = 'Description not found';
+		var description:String = 'Description not found';
 		if(Awards.exists(achieve))
 		{
 			var award:Award = Awards.get(achieve);
 			if(award.name != null) name = award.name;
-			if(award.description != null)  desc = award.description;
+			if(award.description != null)  description = award.description;
 		}
 
 		var textX = sizeX + imgX + 15;
@@ -56,7 +57,7 @@ class AwardsPopup extends openfl.display.Sprite {
 		var text:FlxText = new FlxText(0, 0, 270, 'TEST!!!', 16);
 		text.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT);
 		drawTextAt(text, name, textX, textY);
-		drawTextAt(text, desc, textX, textY + 30);
+		drawTextAt(text, description, textX, textY + 30);
 		graphics.endFill();
 
 		text.graphic.bitmap.dispose();

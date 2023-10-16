@@ -1,9 +1,7 @@
 package backend;
 
 import flixel.util.FlxSave;
-import backend.Awards;
 import states.TitleState;
-import backend.Awards;
 
 class ClientPrefs {
 	public static var discordRPC:Bool = true;
@@ -160,8 +158,6 @@ class ClientPrefs {
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
-		FlxG.save.data.awardsMap = Awards.awardsMap;
-		FlxG.save.data.henchmenDeath = Awards.henchmenDeath;
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;
 		FlxG.save.data.goodWindow = goodWindow;
