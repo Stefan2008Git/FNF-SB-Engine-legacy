@@ -4294,9 +4294,9 @@ class PlayState extends MusicBeatState {
 	}
 
 	#if AWARDS_ALLOWED
-	var awardObj:AwardObject = null;
+	var awardObj:AwardsPopup = null;
 	function startAward(achieve:String) {
-		awardObj = new AwardObject(achieve, camOther);
+		awardObj = new AwardsPopup(achieve, camOther);
 		awardObj.onFinish = awardEnd;
 		add(awardObj);
 		trace('Giving award ' + achieve);
