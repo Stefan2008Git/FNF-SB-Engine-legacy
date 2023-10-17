@@ -29,6 +29,8 @@ class AwardsMenuState extends MusicBeatState
 
 	var MAX_PER_ROW:Int = 4;
 
+	var daSprites:FlxSpriteGroup; // to store sprites in just as a failsafe
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -75,6 +77,8 @@ class AwardsMenuState extends MusicBeatState
 		groupOptions = new FlxSpriteGroup();
 		groupOptions.scrollFactor.x = 0;
 
+		daSprites = new FlxSpriteGroup();
+
 		options.sort(sortByID);
 		for (option in options)
 		{
@@ -101,6 +105,7 @@ class AwardsMenuState extends MusicBeatState
 			spr.ID = groupOptions.members.length;
 			spr.antialiasing = globalAntialiasing;
 			groupOptions.add(spr);
+			daSprites.add(spr);
 		}
 
 		bigBox = new FlxSprite(0, -30).makeGraphic(1, 1, FlxColor.BLACK);
@@ -175,6 +180,16 @@ class AwardsMenuState extends MusicBeatState
 		_changeSelection();
 
 		super.create();
+	}
+
+	inline final function pushAwards(){
+		// prepare award list
+		for (award => data in Awards.awards)
+		{
+			var unlocked:Bool = Awards.isUnlocked(award);
+			if(data.hidden != true || unlocked)
+				options.push(makeAward(award, data, unlocked));
+		}
 	}
 
 	function makeAward(award:String, data:Award, unlocked:Bool, mod:String = null)
@@ -273,9 +288,12 @@ class AwardsMenuState extends MusicBeatState
 	function _changeSelection()
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'));
-		var hasProgress = options[currentlySelected].maxProgress > 0;
-		awardNameText.text = options[currentlySelected].displayName;
-		descriptionText.text = options[currentlySelected].description;
+		if (options.length <= 0)
+			pushAwards();
+
+		var hasProgress = try options[currentlySelected].maxProgress > 0 catch(e) false;
+		awardNameText.text = try options[currentlySelected].displayName catch (e) '???';
+		descriptionText.text = try options[currentlySelected].description catch(e) 'Unknown';
 		progressTxt.visible = progressBar.visible = hasProgress;
 
 		if(barTween != null) barTween.cancel();
@@ -299,7 +317,17 @@ class AwardsMenuState extends MusicBeatState
 			var camY:Float = FlxG.height / 2 + (Math.floor(currentlySelected / MAX_PER_ROW) / maxRows) * Math.max(0, groupOptions.height - FlxG.height / 2 - 50) - 100;
 			camFollow.setPosition(0, camY);
 		}
-		else camFollow.setPosition(0, groupOptions.members[currentlySelected].getGraphicMidpoint().y - 100);
+		else {
+			if (groupOptions.members.length > 0)
+				camFollow.setPosition(0, groupOptions.members[currentlySelected].getGraphicMidpoint().y - 100);
+			else{
+				for (sprite in daSprites.members){
+					if (sprite == null) continue;
+					// groupOptions.replace(groupOptions.getFirstDead(), sprite);
+					camFollow.setPosition(0, sprite.getGraphicMidpoint().y - 100);
+				}
+			}
+		}
 
 		groupOptions.forEach(function(spr:FlxSprite) {
 			spr.alpha = 0.6;
