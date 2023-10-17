@@ -170,7 +170,7 @@ class CreditsEditorState extends MusicBeatState
 		changeSelection();
 
 		#if android
-		addVirtualPad(LEFT_DOWN, A_B_C_D_V_X_Y_Z);
+		addVirtualPad(UP_DOWN, A_B_C_D_V_X_Y_Z);
 		addPadCamera();
 		#end
 		
