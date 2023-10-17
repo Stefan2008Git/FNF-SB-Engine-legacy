@@ -4,6 +4,7 @@ package backend;
 import haxe.Json;
 import haxe.format.JsonParser;
 import lime.utils.Assets;
+import backend.StageData;
 
 #if sys
 import sys.io.File;
@@ -134,7 +135,7 @@ class Song
 				daBpm = songData.bpm; */
 
 		var songJson:Dynamic = parseJSONfreak(rawJson);
-		if(jsonInput != 'events') backend.StageData.loadDirectory(songJson);
+		if(jsonInput != 'events') StageData.loadDirectory(songJson);
 		onLoadJson(songJson);
 		return songJson;
 	}

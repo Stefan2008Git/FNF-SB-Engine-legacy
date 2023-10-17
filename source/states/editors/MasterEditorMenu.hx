@@ -16,6 +16,7 @@ class MasterEditorMenu extends MusicBeatState {
 	var options:Array<String> = [
 		'Character Editor',
 		'Chart Editor',
+		'Credits Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Menu Character Editor',
@@ -214,6 +215,9 @@ class MasterEditorMenu extends MusicBeatState {
 				case 'Chart Editor': // felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Chart Editor Menu";
+				case 'Credits Editor':
+					MusicBeatState.switchState(new CreditsEditorState());
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Credits Editor Menu";
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
 					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Dialogue Editor Menu";
@@ -273,6 +277,15 @@ class MasterEditorMenu extends MusicBeatState {
 				tipText.text = "Make a new chart!";
 				characterEditor.visible = false;
 	            chartEditor.visible = true;
+	            dialogueEditor.visible = false;
+	            dialoguePortraitEditor.visible = false;
+				menuCharacterEditor.visible = false;
+	            weekEditor.visible = false;
+			
+			case 'Credits Editor':
+				tipText.text = "Make a new credit!";
+				characterEditor.visible = false;
+	            chartEditor.visible = false;
 	            dialogueEditor.visible = false;
 	            dialoguePortraitEditor.visible = false;
 				menuCharacterEditor.visible = false;

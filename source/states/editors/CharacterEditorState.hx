@@ -1,18 +1,6 @@
 package states.editors;
 
-
 import animateatlas.AtlasFrameMaker;
-
-
-
-
-
-
-
-
-
-
-
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;

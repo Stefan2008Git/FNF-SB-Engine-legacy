@@ -56,7 +56,7 @@ class FPS extends TextField {
 		selectable = false;
 		mouseEnabled = false;
 		#if android
-		defaultTextFormat = new TextFormat(null, 18, color);
+		defaultTextFormat = new TextFormat(null, 14, color);
 		#else
 		defaultTextFormat = new TextFormat(null, 12, color);
 		#end
@@ -149,9 +149,9 @@ class FPS extends TextField {
 			}
 
 			if (ClientPrefs.debugInfo) {
-				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}';
+				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}' + '.hx';
 				if (FlxG.state.subState != null)
-					text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}';
+					text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}' + '.hx';
 				text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
 				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
 				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
@@ -160,14 +160,14 @@ class FPS extends TextField {
 			switch (ClientPrefs.gameStyle) {
 				case 'Psych Engine':
 					#if android
-					Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 18, color);
+					Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 14, color);
 					#else
 					Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 12, color);
 					#end
 				
 				default:
 					#if android
-					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 18, color);
+					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 14, color);
 					#else
 					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 14, color);
 					#end

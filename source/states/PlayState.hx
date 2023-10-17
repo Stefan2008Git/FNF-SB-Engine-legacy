@@ -1,7 +1,5 @@
 package states;
 
-import backend.Awards;
-import objects.AwardsPopup;
 import objects.NoteSplash;
 import objects.StrumNote;
 import states.StoryModeState;
@@ -4168,11 +4166,6 @@ class PlayState extends MusicBeatState {
 		    deathCounter = 0;
 		    seenCutscene = false;
 
-			#if AWARDS_ALLOWED
-		    var weekNoMiss:String = WeekData.getWeekFileName() + '_nomiss';
-		    checkForAward([weekNoMiss, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
-		    #end
-
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if (ret != FunkinLua.Function_Stop && !transitioning) {
 			if (SONG.validScore) {
@@ -4669,9 +4662,6 @@ class PlayState extends MusicBeatState {
 					boyfriend.dance();
 				}
 			}
-			#if AWARDS_ALLOWED
-			else checkForAward(['oversinging']);
-			#end
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
@@ -5093,13 +5083,6 @@ class PlayState extends MusicBeatState {
 				limoCorpse.visible = false;
 				limoCorpseTwo.visible = false;
 				limoKillingState = 1;
-
-				#if AWARDS_ALLOWED
-				Awards.henchmenDeath++;
-				FlxG.save.data.henchmenDeath = Awards.henchmenDeath;
-				var kills = Awards.addScore("roadkill_enthusiast");
-				FlxG.log.add('Henchmen kills: $kills');
-				#end
 			}
 		}
 	}
@@ -5434,6 +5417,7 @@ class PlayState extends MusicBeatState {
 
 			// Rating FC
 			ratingFC = "";
+			if (impressives > 0) ratingFC = "IFC";
 			if (sicks > 0) ratingFC = "SFC";
 			if (goods > 0) ratingFC = "GFC";
 			if (bads > 0 || freaks > 0) ratingFC = "FC";
@@ -5441,12 +5425,12 @@ class PlayState extends MusicBeatState {
 			else if (songMisses >= 10) ratingFC = "Clear";
 			switch (ClientPrefs.gameStyle) {
 				case 'SB Engine':
-					if (impressives > 0) ratingFC = "Impressive Full combo";
-			        if (sicks > 0) ratingFC = "Sick Full combo";
+					if (impressives > 0) ratingFC = "Impressive Full Combo";
+			        if (sicks > 0) ratingFC = "Sick Full Combo";
 			        if (goods > 0) ratingFC = "Good Full Combo";
 		            if (bads > 0 || freaks > 0) ratingFC = "Full Combo";
 			        if (songMisses > 0 && songMisses < 10) ratingFC = "Single Digit Combo Breaks";
-			        else if (songMisses >= 10) ratingFC = "Cleared the song";
+			        else if (songMisses >= 10) ratingFC = "Cleared The Song";
 			    }
 			}
 		updateScore(badHit);
@@ -5462,76 +5446,6 @@ class PlayState extends MusicBeatState {
 				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
 		}
 	}
-
-	#if AWARDS_ALLOWED
-	private function checkForAward(achievesToCheck:Array<String> = null):String
-	{
-		if(chartingMode) return null;
-
-		var usedPractice:Bool = (ClientPrefs.getGameplaySetting('practice', false) || ClientPrefs.getGameplaySetting('botplay', false));
-		for (i in 0...achievesToCheck.length) {
-			var awardName:String = achievesToCheck[i];
-			if(!Awards.isUnlocked(awardName) && !cpuControlled) {
-				var unlock:Bool = false;
-				
-				if (awardName.contains(WeekData.getWeekFileName()) && awardName.endsWith('nomiss')) // any FC awards, name should be "weekFileName_nomiss", e.g: "weekd_nomiss";
-				{
-					if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'EASY' || CoolUtil.difficultyString() == 'NORMAL' || CoolUtil.difficultyString() == 'HARD'
-						&& storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice)
-						unlock = true;
-				}
-				switch(awardName)
-				{
-					case 'ur_bad':
-						if(ratingPercent < 0.2 && !practiceMode) {
-							unlock = true;
-						}
-					case 'ur_good':
-						if(ratingPercent >= 1 && !usedPractice) {
-							unlock = true;
-						}
-					case 'roadkill_enthusiast':
-						if(Awards.henchmenDeath >= 100) {
-							unlock = true;
-						}
-					case 'oversinging':
-						if(boyfriend.holdTimer >= 10 && !usedPractice) {
-							unlock = true;
-						}
-					case 'hype':
-						if(!boyfriendIdled && !usedPractice) {
-							unlock = true;
-						}
-					case 'two_keys':
-						if(!usedPractice) {
-							var howManyPresses:Int = 0;
-							for (j in 0...keysPressed.length) {
-								if(keysPressed[j]) howManyPresses++;
-							}
-
-							if(howManyPresses <= 2) {
-								unlock = true;
-							}
-						}
-					case 'toastie':
-						if(/*ClientPrefs.framerate <= 60 &&*/ !ClientPrefs.shaders && ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
-							unlock = true;
-						}
-					case 'debugger':
-						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
-							unlock = true;
-						}
-				}
-
-				if(unlock) {
-					Awards.unlock(awardName);
-					return awardName;
-				}
-			}
-		}
-		return null;
-	}
-	#end
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
