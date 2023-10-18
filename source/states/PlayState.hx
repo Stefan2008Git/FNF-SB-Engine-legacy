@@ -4285,7 +4285,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	public var totalPlayed:Int = 0;
-	public var totalNotes:Float = 0.0;
+	public var totalNotes:Float = 0;
 	public var showCombo:Bool = true;
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
