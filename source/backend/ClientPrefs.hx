@@ -82,12 +82,13 @@ class ClientPrefs {
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public static var ratingOffset:Int = 0;
+	public static var impressiveWindow:Int = 25;
 	public static var sickWindow:Int = 45;
 	public static var goodWindow:Int = 90;
 	public static var badWindow:Int = 135;
 	public static var safeFrames:Float = 10;
 
-	// Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
+	// Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and backend/Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
 		// Key Bind, Name for ControlsSubState
 		'note_left' => [A, LEFT],
@@ -160,6 +161,7 @@ class ClientPrefs {
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
 		FlxG.save.data.ratingOffset = ratingOffset;
+		FlxG.save.data.impressiveWindow = impressiveWindow;
 		FlxG.save.data.sickWindow = sickWindow;
 		FlxG.save.data.goodWindow = goodWindow;
 		FlxG.save.data.badWindow = badWindow;
@@ -221,7 +223,7 @@ class ClientPrefs {
 		FlxG.save.data.colorblindMode != null ? colorblindMode = FlxG.save.data.colorblindMode : colorblindMode = 'None';
 		FlxG.save.data.noteSplashes != null ? noteSplashes = FlxG.save.data.noteSplashes : noteSplashes = true;
 		FlxG.save.data.opponentArrowGlow != null ? opponentArrowGlow = FlxG.save.data.opponentArrowGlow : opponentArrowGlow= true;
-		FlxG.save.data.lowQuality != null ? lowQuality = FlxG.save.data.lowQuality : lowQuality = true;
+		FlxG.save.data.lowQuality != null ? lowQuality = FlxG.save.data.lowQuality : lowQuality = false;
 		FlxG.save.data.shaders != null ? shaders = FlxG.save.data.shaders : shaders = true;
 		FlxG.save.data.velocityBackground != null ? velocityBackground = FlxG.save.data.velocityBackground : velocityBackground = true;
 		if (FlxG.save.data.framerate != null) {
@@ -254,6 +256,7 @@ class ClientPrefs {
 		FlxG.save.data.healthBarAlpha != null ? healthBarAlpha = FlxG.save.data.healthBarAlpha : healthBarAlpha = 1;
 		FlxG.save.data.comboOffset != null ? comboOffset = FlxG.save.data.comboOffset : comboOffset = [0, 0, 0, 0];
 		FlxG.save.data.ratingOffset != null ? ratingOffset = FlxG.save.data.ratingOffset : ratingOffset = 0;
+		FlxG.save.data.impressiveWindow != null ? impressiveWindow = FlxG.save.data.impressiveWindow : impressiveWindow = 25;
 		FlxG.save.data.sickWindow != null ? sickWindow = FlxG.save.data.sickWindow : sickWindow = 45;
 		FlxG.save.data.goodWindow != null ? goodWindow = FlxG.save.data.goodWindow : goodWindow = 90;
 		FlxG.save.data.badWindow != null ? badWindow = FlxG.save.data.badWindow : badWindow = 135;

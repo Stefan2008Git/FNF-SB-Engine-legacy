@@ -124,7 +124,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',
-			['SB Engine', 'Kade Engine', 'Dave and Bambi']);
+			['SB Engine', 'Kade Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be?', 'healthBarAlpha', 'percent', 1);
@@ -158,6 +158,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		option.scrollSpeed = 20;
 		option.minValue = -30;
 		option.maxValue = 30;
+		addOption(option);
+
+		var option:Option = new Option('Impressive Hit Window', 'Changes the amount of time you have\nfor hitting a "Impressive" in milliseconds.', 'impressiveWindow', 'int',
+			25);
+		option.displayFormat = '%vms';
+		option.scrollSpeed = 15;
+		option.minValue = 1;
+		option.maxValue = 20;
 		addOption(option);
 
 		var option:Option = new Option('Sick! Hit Window', 'Changes the amount of time you have\nfor hitting a "Sick!" in milliseconds.', 'sickWindow', 'int',
