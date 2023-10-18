@@ -4313,20 +4313,20 @@ class PlayState extends MusicBeatState {
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
 		vocals.volume = vocalsFinished ? 0 : 1;
 		allNotesMs += noteDiff;
-		averageMs = allNotesMs/songHits;
+		averageMs = allNotesMs / songHits;
 		if (ClientPrefs.averageMiliseconds) {
 			msScoreLabel.alpha = 1;
-		    msScoreLabel.text =Std.string(Math.round(noteDiff)) + "ms";
-		    if (msScoreLabelTween != null){
+		    msScoreLabel.text = Std.string(Math.round(noteDiff)) + "ms";
+		    if (msScoreLabelTween != null) {
 			    msScoreLabelTween.cancel(); msScoreLabelTween.destroy(); // top 10 awesome code
 		    }
 			    msScoreLabelTween = FlxTween.tween(msScoreLabel, {alpha: 0}, 0.25, {
 			    onComplete: function(tw:FlxTween) {msScoreLabelTween = null;}, startDelay: 0.7
 		    });
+			if (noteDiff >= ClientPrefs.impressiveWindow) msScoreLabel.color = FlxColor.BLUE;
 		    if (noteDiff >= ClientPrefs.sickWindow) msScoreLabel.color = FlxColor.LIME;
 		    if (noteDiff >= ClientPrefs.goodWindow) msScoreLabel.color = FlxColor.ORANGE;
 		    if (noteDiff >= ClientPrefs.badWindow) msScoreLabel.color = FlxColor.RED;
-		    if (!msScoreLabel.visible) msScoreLabel.color = FlxColor.PURPLE;
 		}
 
 		vocals.volume = 1;
