@@ -42,7 +42,7 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 			'hitboxSpace',
 			'bool',
 			false);
-		  addOption(option);
+		addOption(option);
 		  
 		var option:Option = new Option('Space Location:',
 			"Choose Space Control Location. --Made by NF | Beihu", // Credits: NF | Beihu (Created hitbox space)
@@ -51,6 +51,13 @@ class AndroidControlsSettingsSubState extends BaseOptionsMenu {
 			'Bottom',
 			['Bottom', 'Middle', 'Top']);
 		  addOption(option);  
+		
+		var option:Option = new Option('Dynamic colours',
+			"If unchecked, disables colours from note. Made by mcgabe19", //  Credits: mcgabe19 (Created dynamic colours for notes on Psych Engine 0.7.1h Android port)
+			'dynamicColours',
+			'bool',
+			true);
+		addOption(option);
 
 		super();
 	}

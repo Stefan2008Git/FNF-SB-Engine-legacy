@@ -21,12 +21,28 @@ class FlxHitbox extends FlxSpriteGroup {
 	public function new() {
 		super();
 
+		var buttonLeftColor:Array<FlxColor>;
+		var buttonDownColor:Array<FlxColor>;
+		var buttonUpColor:Array<FlxColor>;
+		var buttonRightColor:Array<FlxColor>;
+		if (ClientPrefs.dynamicColours) {
+			buttonLeftColor = ClientPrefs.arrowHSV[0];
+			buttonDownColor = ClientPrefs.arrowHSV[1];
+			buttonUpColor = ClientPrefs.arrowHSV[2];
+			buttonRightColor = ClientPrefs.arrowHSV[3];
+		} else {
+			buttonLeftColor = ClientPrefs.arrowHSV[0];
+			buttonDownColor = ClientPrefs.arrowHSV[1];
+			buttonUpColor = ClientPrefs.arrowHSV[2];
+			buttonRightColor = ClientPrefs.arrowHSV[3];
+		}
+
 		scrollFactor.set();
 
-		add(buttonLeft = createHint(0, 0, 'left', 0xFF00FF));
-		add(buttonDown = createHint(FlxG.width / 4, 0, 'down', 0x00FFFF));
-		add(buttonUp = createHint(FlxG.width / 2, 0, 'up', 0x00FF00));
-		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', 0xFF0000));
+		add(buttonLeft = createHint(0, 0, 'left', buttonLeftColor[0]));
+		add(buttonDown = createHint(FlxG.width / 4, 0, 'down', buttonDownColor[0]));
+		add(buttonUp = createHint(FlxG.width / 2, 0, 'up', buttonUpColor[0]));
+		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', buttonRightColor[0]));
 	}
 
 	/**

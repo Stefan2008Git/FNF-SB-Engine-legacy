@@ -52,6 +52,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var comboStacking = true;
 	public static var vibration:Bool = true;
+	public static var dynamicColours:Bool = true;
 	public static var hitboxSelection:String = 'Original';
 	public static var hitboxAlpha:Float = 0.5;
 	public static var virtualPadAlpha:Float = 0.5;
@@ -167,6 +168,7 @@ class ClientPrefs {
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
+		FlxG.save.data.dynamicColours = dynamicColours;
 		FlxG.save.data.hitboxSelection = hitboxSelection;
 		FlxG.save.data.hitboxAlpha = hitboxAlpha;
 		FlxG.save.data.virtualPadAlpha = virtualPadAlpha;
@@ -259,6 +261,7 @@ class ClientPrefs {
 		FlxG.save.data.controllerMode != null ? controllerMode = FlxG.save.data.controllerMode : controllerMode = #if android true #else false #end;
 		FlxG.save.data.hitsoundVolume != null ? hitsoundVolume = FlxG.save.data.hitsoundVolume : hitsoundVolume = 0;
 		FlxG.save.data.pauseMusic != null ? pauseMusic = FlxG.save.data.pauseMusic : pauseMusic = 'Tea Time';
+		FlxG.save.data.dynamicColours != null ? dynamicColours = FlxG.save.data.dynamicColours : dynamicColours = true;
 		FlxG.save.data.hitboxSelection != null ? hitboxSelection = FlxG.save.data.hitboxSelection : hitboxSelection = 'Original';
 		FlxG.save.data.hitboxAlpha != null ? hitboxAlpha = FlxG.save.data.hitboxAlpha : hitboxAlpha = 0.5;
 		FlxG.save.data.virtualPadAlpha != null ? virtualPadAlpha = FlxG.save.data.virtualPadAlpha : virtualPadAlpha = 0.5;
