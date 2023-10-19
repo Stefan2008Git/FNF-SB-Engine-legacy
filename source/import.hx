@@ -83,4 +83,6 @@ import objects.Note;
 import objects.Note.EventNote;
 import objects.StrumNote;
 import states.PlayState;
+
+using StringTools;
 #end

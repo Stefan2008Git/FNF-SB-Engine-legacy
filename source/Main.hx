@@ -20,6 +20,10 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
+#if linux
+import lime.graphics.Image;
+#end
+
 import states.MainMenuState;
 import states.TitleState;
 
@@ -99,6 +103,32 @@ class Main extends Sprite {
 		#if desktop
 		DiscordClient.start();
 		#end
+
+		#if linux
+		var icon = Image.fromFile("icon.png");
+		Lib.current.stage.window.setIcon(icon);
+		#end
+
+		// shader coords fix
+		FlxG.signals.gameResized.add(function (w, h) {
+			if (FlxG.cameras != null) {
+			    for (cam in FlxG.cameras.list) {
+			    @:privateAccess
+			    if (cam != null && cam._filters != null)
+				   resetSpriteCache(cam.flashSprite);
+			    }
+			}
+
+			if (FlxG.game != null)
+			resetSpriteCache(FlxG.game);
+	    });
+    }
+
+    static function resetSpriteCache(sprite:Sprite):Void {
+	    @:privateAccess {
+			    sprite.__cacheBitmap = null;
+		    sprite.__cacheBitmapData = null;
+	    }
 	}
 
 	public function changeFPSColor(color:FlxColor) {
