@@ -1,9 +1,6 @@
 package objects;
 
-
 import openfl.utils.Assets as OpenFlAssets;
-
-
 
 using StringTools;
 

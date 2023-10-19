@@ -1,10 +1,5 @@
 package objects;
 
-
-
-
-
-
 using StringTools;
 
 class Boyfriend extends Character

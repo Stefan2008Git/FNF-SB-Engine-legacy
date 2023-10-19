@@ -1,13 +1,5 @@
 package objects;
 
-
-
-
-
-
-
-
-
 using StringTools;
 
 class StrumNote extends FlxSprite

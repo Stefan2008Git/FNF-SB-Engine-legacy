@@ -1,17 +1,7 @@
 package objects;
 
-
-
-
-
-
 import flash.display.BitmapData;
 import states.editors.ChartingState;
-
-
-
-
-
 
 using StringTools;
 

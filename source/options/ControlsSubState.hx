@@ -5,7 +5,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
-
 import objects.Alphabet;
 import objects.AttachedText;
 

@@ -1,10 +1,5 @@
 package objects;
 
-
-
-
-
-
 class BackgroundGirls extends FlxSprite
 {
 	var isPissed:Bool = true;

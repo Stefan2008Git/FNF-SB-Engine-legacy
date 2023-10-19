@@ -1,19 +1,7 @@
 package backend;
 
-
-
 import flixel.addons.ui.FlxUIState;
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
-
-
-
-
-
-
 class CustomFadeTransition extends MusicBeatSubstate {
 	public static var finishCallback:Void->Void;
 	private var leTween:FlxTween = null;

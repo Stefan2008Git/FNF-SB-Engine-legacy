@@ -6,10 +6,7 @@ import openfl.display.BitmapData;
 import openfl.display.Shader;
 import openfl.display.ShaderInput;
 import openfl.utils.Assets;
-
 import openfl.Lib;
-import shaders.WiggleEffect;
-
 
 using StringTools;
 

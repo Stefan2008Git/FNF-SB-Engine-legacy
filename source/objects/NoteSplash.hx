@@ -1,13 +1,5 @@
 package objects;
 
-
-
-
-
-
-
-
-
 class NoteSplash extends FlxSprite
 {
 	public var colorSwap:ColorSwap = null;

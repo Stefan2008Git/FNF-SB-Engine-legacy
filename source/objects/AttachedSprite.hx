@@ -1,9 +1,5 @@
 package objects;
 
-
-
-
-
 using StringTools;
 
 class AttachedSprite extends FlxSprite

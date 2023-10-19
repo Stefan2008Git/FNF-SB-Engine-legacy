@@ -1,7 +1,5 @@
 package flixel.animation;
 
-
-
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 

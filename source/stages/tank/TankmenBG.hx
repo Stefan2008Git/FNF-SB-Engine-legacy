@@ -1,4 +1,4 @@
-package;
+package stages.tank;
 
 class TankmenBG extends FlxSprite
 {

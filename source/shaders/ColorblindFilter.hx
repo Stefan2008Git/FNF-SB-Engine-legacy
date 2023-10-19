@@ -1,9 +1,7 @@
 package shaders;
 
-
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
-
 
 class ColorblindFilter {
     // i honesly have no ideas how to make it, so i hope that works

@@ -1,8 +1,5 @@
 package backend;
 
-
-
-
 using StringTools;
 
 class InputFormatter {

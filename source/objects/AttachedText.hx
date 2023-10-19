@@ -1,8 +1,5 @@
 package objects;
 
-
-
-
 class AttachedText extends Alphabet {
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;

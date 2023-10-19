@@ -5,15 +5,6 @@ import flash.errors.Error;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
 import flixel.addons.ui.FlxUI.NamedString;
-
-
-
-
-
-
-
-
-
 /**
  * FlxInputText v1.11, ported to Haxe
  * @author larsiusprime, (Lars Doucet)

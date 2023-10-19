@@ -1,17 +1,7 @@
 package cutscenes;
 
-
-
 import flixel.addons.text.FlxTypeText;
-
-
 import flixel.input.FlxKeyManager;
-
-
-
-
-
-
 
 using StringTools;
 

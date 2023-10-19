@@ -1,7 +1,5 @@
 package objects;
 
-
-
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -9,9 +7,6 @@ import sys.FileSystem;
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
-
-
-
 typedef MenuCharacterFile = {
 	var image:String;
 	var scale:Float;

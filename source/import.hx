@@ -40,6 +40,7 @@ import lime.app.Application;
 import lime.system.System;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
+import FunkinLua;
 import backend.ClientPrefs;
 import backend.Conductor;
 import backend.Conductor.BPMChangeEvent;
@@ -68,6 +69,8 @@ import cutscenes.DialogueBoxPsych;
 import shaders.ColorblindFilter;
 import shaders.ColorSwap;
 import shaders.Shaders;
+import objects.Alphabet;
+import objects.StrumNote;
 import objects.AttachedSprite;
 import objects.Boyfriend;
 import objects.BackgroundDancer;
@@ -77,4 +80,5 @@ import objects.Character;
 import objects.HealthIcon;
 import objects.Note;
 import objects.Note.EventNote;
+import objects.StrumNote;
 import states.PlayState;

@@ -1,14 +1,8 @@
 package objects;
 
 import animateatlas.AtlasFrameMaker;
-
-
-
 import flixel.animation.FlxBaseAnimation;
-
-
 import flixel.util.FlxSort;
-
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -17,11 +11,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
-
-
-
-
-
+import stages.tank.TankmenBG;
 
 using StringTools;
 

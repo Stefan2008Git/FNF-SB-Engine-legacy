@@ -24,8 +24,6 @@ import sys.io.File;
 import android.Hardware;
 #end
 import Type.ValueType;
-import objects.Alphabet;
-import objects.StrumNote;
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
 #end

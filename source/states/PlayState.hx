@@ -2,6 +2,9 @@ package states;
 
 import objects.NoteSplash;
 import objects.StrumNote;
+import stages.tank.TankmenBG;
+import stages.pico.PhillyGlowGradient;
+import stages.pico.PhillyGlowParticle;
 import states.StoryModeState;
 import states.FreeplayState;
 import states.editors.ChartingState;
@@ -33,7 +36,6 @@ import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
-import FunkinLua;
 import flixel.system.FlxAssets.FlxShader;
 
 #if sys
@@ -219,8 +221,8 @@ class PlayState extends MusicBeatState {
 	var phillyWindowEvent:BGSprite;
 	var trainSound:FlxSound;
 
-	var phillyGlowGradient:PhillyGlow.PhillyGlowGradient;
-	var phillyGlowParticles:FlxTypedGroup<PhillyGlow.PhillyGlowParticle>;
+	var phillyGlowGradient:PhillyGlowGradient;
+	var phillyGlowParticles:FlxTypedGroup<PhillyGlowParticle>;
 
 	var limoKillingState:Int = 0;
 	var limo:BGSprite;
@@ -2813,14 +2815,14 @@ class PlayState extends MusicBeatState {
 				phillyWindowEvent.visible = false;
 				insert(members.indexOf(blammedLightsBlack) + 1, phillyWindowEvent);
 
-				phillyGlowGradient = new PhillyGlow.PhillyGlowGradient(-400, 225); // This freak was refusing to properly load FlxGradient so freak it
+				phillyGlowGradient = new PhillyGlowGradient(-400, 225); // This freak was refusing to properly load FlxGradient so freak it
 				phillyGlowGradient.visible = false;
 				insert(members.indexOf(blammedLightsBlack) + 1, phillyGlowGradient);
 				if (!ClientPrefs.flashing)
 					phillyGlowGradient.intendedAlpha = 0.7;
 
 				precacheList.set('philly/particle', 'image'); // precache particle image
-				phillyGlowParticles = new FlxTypedGroup<PhillyGlow.PhillyGlowParticle>();
+				phillyGlowParticles = new FlxTypedGroup<PhillyGlowParticle>();
 				phillyGlowParticles.visible = false;
 				insert(members.indexOf(phillyGlowGradient) + 1, phillyGlowParticles);
 		}
@@ -3814,7 +3816,7 @@ class PlayState extends MusicBeatState {
 						for (who in chars) {
 							who.color = charColor;
 						}
-						phillyGlowParticles.forEachAlive(function(particle:PhillyGlow.PhillyGlowParticle) {
+						phillyGlowParticles.forEachAlive(function(particle:PhillyGlowParticle) {
 							particle.color = color;
 						});
 						phillyGlowGradient.color = color;
@@ -3830,7 +3832,7 @@ class PlayState extends MusicBeatState {
 							var color:FlxColor = phillyLightsColors[curLightEvent];
 							for (j in 0...3) {
 								for (i in 0...particlesNum) {
-									var particle:PhillyGlow.PhillyGlowParticle = new PhillyGlow.PhillyGlowParticle(-400
+									var particle:PhillyGlowParticle = new PhillyGlowParticle(-400
 										+ width * i
 										+ FlxG.random.float(-width / 5, width / 5),
 										phillyGlowGradient.originalY

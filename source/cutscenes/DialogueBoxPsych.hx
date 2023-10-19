@@ -1,15 +1,7 @@
 package cutscenes;
 
-
-
 import flixel.addons.text.FlxTypeText;
-
-
 import flixel.input.FlxKeyManager;
-
-
-
-
 import haxe.Json;
 import haxe.format.JsonParser;
 import objects.Alphabet;
@@ -19,10 +11,6 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import openfl.utils.Assets;
-
-
-
-
 
 using StringTools;
 

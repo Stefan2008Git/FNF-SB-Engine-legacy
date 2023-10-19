@@ -1,10 +1,5 @@
 package objects;
 
-
-
-
-
-
 class BackgroundDancer extends FlxSprite
 {
 	public function new(x:Float, y:Float)

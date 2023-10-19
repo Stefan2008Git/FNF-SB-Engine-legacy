@@ -9,7 +9,6 @@ import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
 import openfl.events.KeyboardEvent;
-import FunkinLua;
 
 using StringTools;
 

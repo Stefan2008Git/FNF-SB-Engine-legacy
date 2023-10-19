@@ -1,9 +1,4 @@
 package backend;
-
-
-
-
-
 typedef BPMChangeEvent =
 {
 	var stepTime:Int;

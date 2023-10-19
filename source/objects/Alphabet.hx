@@ -1,17 +1,7 @@
 package objects;
 
-
-
-
-
-
-
-
 import flixel.system.FlxSound;
 import flash.media.Sound;
-
-
-
 
 using StringTools;
 

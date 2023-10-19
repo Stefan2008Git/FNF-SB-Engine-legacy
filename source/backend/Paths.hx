@@ -1,14 +1,10 @@
 package backend;
 
 import animateatlas.AtlasFrameMaker;
-
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
 import openfl.geom.Rectangle;
-
 import haxe.xml.Access;
 import openfl.system.System;
-
-
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.display.BitmapData;
@@ -22,7 +18,6 @@ import sys.FileSystem;
 
 import openfl.display.BitmapData;
 import haxe.Json;
-
 import flash.media.Sound;
 
 using StringTools;

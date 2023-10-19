@@ -1,8 +1,5 @@
 package backend;
 
-
-
-
 import flixel.util.FlxSignal;
 
 // import ui.DeviceManager;
