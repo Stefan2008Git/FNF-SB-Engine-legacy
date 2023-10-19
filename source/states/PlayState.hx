@@ -1079,6 +1079,67 @@ class PlayState extends MusicBeatState {
 			strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
+		strumLineNotes = new FlxTypedGroup<StrumNote>();
+		add(strumLineNotes);
+		add(grpNoteSplashes);
+
+		var splash:NoteSplash = new NoteSplash(100, 100, 0);
+		grpNoteSplashes.add(splash);
+		splash.alpha = 0.0;
+
+		opponentStrums = new FlxTypedGroup<StrumNote>();
+		playerStrums = new FlxTypedGroup<StrumNote>();
+
+		generateSong();
+
+		#if LUA_ALLOWED
+		for (notetype in noteTypeMap.keys()) {
+			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
+			if (FileSystem.exists(luaToLoad)) {
+				luaArray.push(new FunkinLua(luaToLoad));
+			} else {
+				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
+				if (FileSystem.exists(luaToLoad)) {
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
+			}
+		}
+		for (event in eventPushedMap.keys()) {
+			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
+			if (FileSystem.exists(luaToLoad)) {
+				luaArray.push(new FunkinLua(luaToLoad));
+			} else {
+				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_events/' + event + '.lua');
+				if (FileSystem.exists(luaToLoad)) {
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
+			}
+		}
+		#end
+
+		cameraFollow = new FlxPoint();
+		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
+
+		snapcameraFollowToPos(camPos.x, camPos.y);
+		if (prevcameraFollow != null) {
+			cameraFollow = prevcameraFollow;
+			prevcameraFollow = null;
+		}
+		if (prevcameraFollowPosition != null) {
+			cameraFollowPosition = prevcameraFollowPosition;
+			prevcameraFollowPosition = null;
+		}
+		add(cameraFollowPosition);
+
+		FlxG.camera.follow(cameraFollowPosition, LOCKON, 1);
+		FlxG.camera.zoom = defaultCamZoom;
+		FlxG.camera.focusOn(cameraFollow);
+
+		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+
+		FlxG.fixedTimestep = false;
+		moveCameraSection();
+
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1144,71 +1205,10 @@ class PlayState extends MusicBeatState {
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
 
-		strumLineNotes = new FlxTypedGroup<StrumNote>();
-		add(strumLineNotes);
-		add(grpNoteSplashes);
-
 		if (ClientPrefs.timeBarType == 'Song Name') {
 			timeTxt.size = 24;
 			timeTxt.y += 3;
 		}
-
-		var splash:NoteSplash = new NoteSplash(100, 100, 0);
-		grpNoteSplashes.add(splash);
-		splash.alpha = 0.0;
-
-		opponentStrums = new FlxTypedGroup<StrumNote>();
-		playerStrums = new FlxTypedGroup<StrumNote>();
-
-		generateSong();
-
-		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys()) {
-			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if (FileSystem.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(luaToLoad));
-			} else {
-				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-				if (FileSystem.exists(luaToLoad)) {
-					luaArray.push(new FunkinLua(luaToLoad));
-				}
-			}
-		}
-		for (event in eventPushedMap.keys()) {
-			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if (FileSystem.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(luaToLoad));
-			} else {
-				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_events/' + event + '.lua');
-				if (FileSystem.exists(luaToLoad)) {
-					luaArray.push(new FunkinLua(luaToLoad));
-				}
-			}
-		}
-		#end
-
-		cameraFollow = new FlxPoint();
-		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
-
-		snapcameraFollowToPos(camPos.x, camPos.y);
-		if (prevcameraFollow != null) {
-			cameraFollow = prevcameraFollow;
-			prevcameraFollow = null;
-		}
-		if (prevcameraFollowPosition != null) {
-			cameraFollowPosition = prevcameraFollowPosition;
-			prevcameraFollowPosition = null;
-		}
-		add(cameraFollowPosition);
-
-		FlxG.camera.follow(cameraFollowPosition, LOCKON, 1);
-		FlxG.camera.zoom = defaultCamZoom;
-		FlxG.camera.focusOn(cameraFollow);
-
-		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-
-		FlxG.fixedTimestep = false;
-		moveCameraSection();
 
 		final m = (ClientPrefs.gameStyle == 'Psych Engine');
 		final antiRedundancy:String = m ? 'healthBar' : (ClientPrefs.gameStyle == 'SB Engine') ? 'sbEngineBar' : 'heathBar';
@@ -1288,6 +1288,7 @@ class PlayState extends MusicBeatState {
 		nowPlayingTxt.alpha = 0;
 		nowPlayingTxt.text = 'Now Playing: ';
 		nowPlayingTxt.cameras = [camHUD];
+		nowPlayingTxt.x = FlxG.width - (nowPlayingTxt.width + 20);
 		add(nowPlayingTxt);
 
 		songNameTxt = new FlxText(20, 50, 0, "", 20);
@@ -1304,6 +1305,7 @@ class PlayState extends MusicBeatState {
 		songNameTxt.alpha = 0;
 		songNameTxt.text = currentlySong;
 		songNameTxt.cameras = [camHUD];
+		songNameTxt.x = FlxG.width - (songNameTxt.width + 20);
 		add(songNameTxt);
 
 		songNameBackground = new FlxSprite(songNameTxt.x, 20).makeGraphic((Std.int(songNameTxt.width + 100)), Std.int(songNameTxt.height + 40), FlxColor.BLACK);
@@ -3397,9 +3399,9 @@ class PlayState extends MusicBeatState {
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 		}
 
-		FlxG.watch.addQuick("secfreak", curSection);
-		FlxG.watch.addQuick("beatfreak", curBeat);
-		FlxG.watch.addQuick("stepfreak", curStep);
+		FlxG.watch.addQuick("sectionValue", curSection);
+		FlxG.watch.addQuick("beatValue", curBeat);
+		FlxG.watch.addQuick("stepValue", curStep);
 
 		// RESET = Quick Game Over Screen
 		if (!ClientPrefs.noReset && controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong) {

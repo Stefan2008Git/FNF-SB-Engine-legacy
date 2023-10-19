@@ -6,9 +6,7 @@ import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import objects.Alphabet;
-
 import states.MainMenuState;
-
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
