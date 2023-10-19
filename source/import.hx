@@ -1,3 +1,4 @@
+#if (!macro)
 package;
 
 // Basic Flixel stuff for HaxeFlixel engine!
@@ -82,3 +83,4 @@ import objects.Note;
 import objects.Note.EventNote;
 import objects.StrumNote;
 import states.PlayState;
+#end
