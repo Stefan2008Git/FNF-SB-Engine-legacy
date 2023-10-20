@@ -110,21 +110,32 @@ class CreditsEditorState extends MusicBeatState
 		add(UI_box);
 		UI_box.selected_tab = 0;
 
-		text =
-		"W/S or Up/Down - Change selected item
+		#if !android
+		text = "W/S or Up/Down - Change selected item
 		\nEnter - Apply changes
 		\nSpace - Get selected item data
 		\nDelete - Delete selected item
 		\nR - Reset inputs
 		\n1 - Add title
-		\n2 - Add credit
-		";
+		\n2 - Add credit";
+		#else
+		text = "Up/down buttons - Change selected item
+		\nA button - Apply changes
+		\nX button - Get selected item data
+		\nY button - Delete selected item
+		\nZ button - Reset inputs
+		\nC button - Add title
+		\nB button - Add credit";
+		#end
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 14);
 			tipText.y += i * 9;
-			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			switch (ClientPrefs.gameStyle) {
+				case 'Psych Engine': tipText.setFormat("VCR OSD Mono", 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				default: tipText.setFormat("Bahnschrift", 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
 			tipText.borderSize = 1;
 			tipText.scrollFactor.set();
 			add(tipText);
@@ -170,7 +181,7 @@ class CreditsEditorState extends MusicBeatState
 		changeSelection();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_C_D_V_X_Y_Z);
+		addVirtualPad(UP_DOWN, A_B_C_X_Y_Z);
 		addPadCamera();
 		#end
 		
@@ -193,6 +204,7 @@ class CreditsEditorState extends MusicBeatState
 	{
 		var yDist:Float = 20;
 		titleInput = new FlxUIInputText(60, 20, 180, '', 8);
+		titleInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		titleJump = new FlxUICheckBox(20, titleInput.y + yDist, null, null, 'Space betwen titles', 110);
 		titleJump.textX += 3;
 		titleJump.textY += 4;
@@ -210,11 +222,16 @@ class CreditsEditorState extends MusicBeatState
 		blockPressWhileTypingOn.push(titleInput);
 
 		creditNameInput = new FlxUIInputText(60, titleInput.y + 100, 180, '', 8);
+		creditNameInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		iconInput = new FlxUIInputText(60, creditNameInput.y + yDist, 155, '', 8);
+		iconInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		iconExistCheck = new FlxSprite(iconInput.x + 165, iconInput.y).makeGraphic(15, 15, 0xFFFFFFFF);
 		descInput = new FlxUIInputText(100, iconInput.y + yDist, 140, '', 8);
+		descInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		linkInput = new FlxUIInputText(60, descInput.y + yDist, 180, '', 8);
+		linkInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		colorInput = new FlxUIInputText(60, linkInput.y + yDist, 70, '', 8);
+		colorInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		colorSquare = new FlxSprite(colorInput.x + 80, colorInput.y).makeGraphic(15, 15, 0xFFFFFFFF);
 		var getIconColor:FlxButton = new FlxButton(colorSquare.x + 23, colorSquare.y - 2, "Get Icon Color", function()
 			{
@@ -511,11 +528,6 @@ class CreditsEditorState extends MusicBeatState
 					changeSelection(shiftMult);
 					holdTime = 0;
 				}
-				if(FlxG.mouse.wheel != 0)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.2);
-					changeSelection(-shiftMult * FlxG.mouse.wheel, false);
-				}
 
 				if((FlxG.keys.justPressed.S || FlxG.keys.justPressed.DOWN) || (FlxG.keys.justPressed.W || FlxG.keys.justPressed.UP))
 				{
@@ -530,28 +542,28 @@ class CreditsEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.ENTER) {
+			if (FlxG.keys.justPressed.ENTER #if android || virtualPad.buttonA.justPressed #end) {
 				setItemData();
 				updateCreditObjects();
 				changeSelection();
 			}
 
-			if(FlxG.keys.justPressed.SPACE) {
+			if (FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end) {
 				dataGoToInputs();
 			}
 
-			if(FlxG.keys.justPressed.DELETE) {
+			if (FlxG.keys.justPressed.DELETE #if android || virtualPad.buttonY.justPressed #end) {
 				deleteSelItem();
 			}
 
-			if(FlxG.keys.pressed.R){
+			if (FlxG.keys.pressed.R #if android || virtualPad.buttonZ.justPressed #end){
 				cleanInputs();
 			}
 
-			if(FlxG.keys.justPressed.ONE) {
+			if (FlxG.keys.justPressed.ONE #if android || virtualPad.buttonC.justPressed #end) {
 				addTitle();
 			}
-			if(FlxG.keys.justPressed.TWO) {
+			if (FlxG.keys.justPressed.TWO #if android || virtualPad.buttonB.justPressed #end) {
 				addCredit();
 			}
 
@@ -568,7 +580,7 @@ class CreditsEditorState extends MusicBeatState
 				quitting = true;
 			}
 		}
-		if(blockInput){
+		if (blockInput){
 			if (FlxG.keys.justPressed.ENTER) {
 				for (i in 0...blockPressWhileTypingOn.length) {
 					if(blockPressWhileTypingOn[i].hasFocus) {
@@ -580,7 +592,7 @@ class CreditsEditorState extends MusicBeatState
 		
 		for (item in groupOptions.members)
 		{
-			if(!item.bold)
+			if (!item.bold)
 			{
 				item.x = 200;
 			}
@@ -748,7 +760,7 @@ class CreditsEditorState extends MusicBeatState
 		if (data.length > 0)
 		{
 			#if android
-			SUtil.saveContent("credits.txt");
+			SUtil.saveContent("credits", ".txt", data.trim());
 			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
