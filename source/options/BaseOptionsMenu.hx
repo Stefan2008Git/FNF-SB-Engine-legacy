@@ -76,7 +76,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		descBox = new FlxSprite().makeGraphic(wight, height, 0x00);
 		descBox.alpha = 0.8;
 		add(descBox);
-		FlxSpriteUtil.drawRoundRectComplex(descBox, 0, 0, wight, height, 85, 85, 150, 150, 0x99000000);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
 		titleText.scaleX = 0.6;

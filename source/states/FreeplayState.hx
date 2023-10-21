@@ -34,14 +34,18 @@ class FreeplayState extends MusicBeatState {
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
+	var intendedMisses:Int = 0;
 
 	private var groupSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
 
 	var background:FlxSprite;
 	var velocityBackground:FlxBackdrop;
+	var textBackground:FlxSprite;
+	var text:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
+	var cameraZoom:FlxTween;
 
 	var missingFileBackground:FlxSprite;
 	var missingFileText:FlxText;
@@ -124,11 +128,11 @@ class FreeplayState extends MusicBeatState {
 		}
 		add(scoreText);
 
-		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 92, 0xFF000000);
+		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 193, 0xFF000000);
 		scoreBackground.alpha = 0.6;
 		add(scoreBackground);
 
-		difficultyText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
+		difficultyText = new FlxText(scoreText.x, scoreText.y + 160, 0, "", 24);
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
@@ -158,9 +162,11 @@ class FreeplayState extends MusicBeatState {
 		changeSelection();
 		changeDifficulty();
 
+		cameraZoom = FlxTween.tween(this, {}, 0);
+
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
-		var textBackground:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBackground = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBackground.alpha = 0.6;
 		add(textBackground);
 
@@ -176,19 +182,18 @@ class FreeplayState extends MusicBeatState {
 		var leText:String = "Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
 		var size:Int = 18;
 		#end
-		var text:FlxText = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
+		text = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine': text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
 			default: text.setFormat("Bahnschrift", size, FlxColor.WHITE, CENTER);
 		}
-
 		text.scrollFactor.set();
 		add(text);
 
 		Paths.clearUnusedMemory();
 
 		#if android
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y);
 		#end
 
 		super.create();
@@ -239,11 +244,11 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.') + '%\nMISSES: ' + intendedMisses;
 		positionHighscore();
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.justPressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -384,11 +389,13 @@ class FreeplayState extends MusicBeatState {
 					if (FlxG.sound.music != null)
 				    FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 				    destroyFreeplayVocals();
-					FlxTween.tween(scoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-					FlxTween.tween(scoreBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-					FlxTween.tween(difficultyText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-					FlxTween.tween(missingFileText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+					FlxTween.tween(scoreText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(scoreBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(difficultyText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(textBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(text, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+					FlxTween.tween(missingFileText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 	
 			new FlxTimer().start(1, function(tmr:FlxTimer) 
 			{
@@ -407,6 +414,30 @@ class FreeplayState extends MusicBeatState {
 			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
 		}
 		super.update(elapsed);
+	}
+
+	override function beatHit()
+	{
+		super.beatHit();
+		  bopOnBeat();
+	}
+
+	function bopOnBeat()
+	{
+		FlxG.camera.zoom += 0.0175;
+		cameraZoom = FlxTween.tween(FlxG.camera, {zoom: 1}, 0.15);
+
+		instrumentalPlaying >= 0 ? {
+			if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > 20 || (PlayState.SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > 20))
+				resyncVocals();
+
+		    iconArray[instrumentalPlaying].doIconSize(); // Reasons - PurSnake (Developer of Grafex Engine)
+	    } : {
+           for (i in 0...iconArray.length)
+		    {
+				iconArray[i].doIconSize(); // Reasons - PurSnake (Developer of Grafex Engine)
+		    }
+	    }
 	}
 
 	public static function destroyFreeplayVocals() {
@@ -430,6 +461,7 @@ class FreeplayState extends MusicBeatState {
 		#if !switch
 		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
 		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
+		intendedMisses = Highscore.getMiss(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
 
 		PlayState.storyModeDifficulty = currentlyDifficulty;
@@ -461,11 +493,10 @@ class FreeplayState extends MusicBeatState {
 			});
 		}
 
-		// selector.y = (70 * currentlySelected) + 30;
-
 		#if !switch
 		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
 		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
+		intendedMisses = Highscore.getMiss(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
 
 		var optionFreak:Int = 0;
@@ -534,6 +565,16 @@ class FreeplayState extends MusicBeatState {
 		scoreBackground.x = FlxG.width - (scoreBackground.scale.x / 2);
 		difficultyText.x = Std.int(scoreBackground.x + (scoreBackground.width / 2));
 		difficultyText.x -= difficultyText.width / 2;
+	}
+
+	function resyncVocals():Void
+	{
+		vocals.pause();
+
+		FlxG.sound.music.play();
+		Conductor.songPosition = FlxG.sound.music.time;
+		vocals.time = Conductor.songPosition;
+		vocals.play();
 	}
 }
 

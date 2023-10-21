@@ -168,6 +168,8 @@ class Main extends Sprite {
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
+		FlxG.sound.play(Paths.sound('error'));
+
 		#if android
 		var toastText:String = '';
 		toastText = 'Uncaught Error happends!';
@@ -178,7 +180,7 @@ class Main extends Sprite {
 		#if desktop
 		DiscordClient.shutdown();
 		#end
-		Sys.exit(1);
+		System.exit(1);
 	}
 	#end
 }

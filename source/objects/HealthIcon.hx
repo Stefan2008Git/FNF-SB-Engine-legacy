@@ -77,6 +77,11 @@ class HealthIcon extends FlxSprite
 		offset.y = iconOffsets[1];
 	}
 
+	public function doIconSize() {
+		scale.set(1.2, 1.2);
+		updateHitbox();
+	}
+
 	public function getCharacter():String {
 		return char;
 	}
