@@ -20,6 +20,20 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/ali.png) | [Ali Alafandy](https://youtube.com/channel/UClK5uzYLZDUZmbI6O56J-QA) | Second SB Engine Beta tester.
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/luiz.png) | [Luiz Felipe Playz](https://www.youtube.com/channel/UCb0odiyqDCKje8rlBZGvKBg) | Third SB Engine Beta tester.
 
+## Special credits:
+| Avatar | Username | Involvement |
+| ------ | -------- | ----------- |
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/stefan-ro123.png) | [Stefan Ro 123](https://www.youtube.com/channel/UCXVxTNqqrrHLGw_6ulzhfzQ) | Fixed Wiggle effect shaders to run possible on PC and Android.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/elgatosinnombre.png) | [Elgatosinnombre](https://www.youtube.com/channel/UCQ7CD5-XkoFMlXbeX_9qG3w) | Made a code for new wiggle effect shaders function to look like from\nPsych Engine 0.5.1 with shaders.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/sam.png) | [Sussy Sam](https://www.youtube.com/@sussysam6789) | Maked new icons and new music for SB Engine, but he is not on SB Engine team.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/lizzy.png) | [Lizzy Strawbery](https://www.youtube.com/@LizzyStrawberry) | Fixed shaders from Psych Engine 0.5.1 with shaders build.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/joalor.png) | [Joalor64](https://www.youtube.com/channel/UC4tRMRL_iAHX5n1qQpHibfg) | For simple main menu and Joalor64 Engine Rewriten.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/xale.png) | [JustXale](https://github.com/JustXale) | Main Programmer of Grafex Engine.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/tinki.png) | [SquidBowl](https://www.youtube.com/@squidbowl) | For gallery stuff.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/mario.png) | [MarioMaster](https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw) | Created hitbox selector and virtual pad opacity.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/beihu.png) | [NF | Beihu](https://www.youtube.com/@beihu235) | Created hitbox space for dodge mechanic system on NF Engine.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/jigsaw.png) | [M.A. Jigsaw77](https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ) | Main Programmer of Psych Engine with Android Support.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/goldie.png) | [Goldie](https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA) | Old Hitbox and Virtual Pad Artist.
 
 ## Psych Engine Credits:
 | Avatar | Username | Involvement |
