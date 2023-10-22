@@ -1212,8 +1212,8 @@ class PlayState extends MusicBeatState {
 			timeTxt.y += 3;
 		}
 
-		final m = (ClientPrefs.gameStyle == 'Psych Engine');
-		final antiRedundancy:String = m ? 'healthBar' : (ClientPrefs.gameStyle == 'SB Engine') ? 'sbEngineBar' : 'heathBar';
+		final m = (ClientPrefs.gameStyle == 'Psych Engine'); 
+		final antiRedundancy:String = m ? 'healthBar' : (ClientPrefs.gameStyle == 'SB Engine') ? 'sbEngineBar' : 'healthBar';
 		healthBarBG = new AttachedSprite(antiRedundancy);
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
