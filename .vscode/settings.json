@@ -1,9 +1,0 @@
-{
-    "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/main.yml"
-    ],
-    "Lua.diagnostics.globals": [
-        "addWiggleEffect",
-        "onCreate"
-    ]
-}
