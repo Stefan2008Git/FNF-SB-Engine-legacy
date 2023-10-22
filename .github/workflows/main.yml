@@ -1,4 +1,4 @@
-name: androidBuild
+name: SB Engine worflow
 
 # Controls when the action will run.
 on:
@@ -108,7 +108,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Linux Build
+          name: SB Engine Linux build
           path: 'export/release/linux/bin'
   BuildWindows:
     runs-on: windows-latest
@@ -203,7 +203,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Windows Build
+          name: SB Engine Windows build
           path: export/release/windows/bin
   BuildMac:
     runs-on: macos-latest
@@ -267,7 +267,7 @@ jobs:
             	})
             	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
             		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-macos-build") {
+            			if (cache.key == "cache-mac-build") {
             				console.log('Clearing ' + cache.key + '...')
             				await github.rest.actions.deleteActionsCacheById({
             					owner: context.repo.owner,
@@ -294,7 +294,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: SB Engine Mac Build
+          name: SB Engine Mac build
           path: export/release/macos/bin
   BuildAndroid:
     name: BuildAndroid
@@ -367,7 +367,7 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Building
+      - name: Compile
         run: haxelib run lime build android -${{ matrix.arch }}
         env:
           cert_pass: nullfunni
