@@ -39,6 +39,8 @@ import flixel.tweens.FlxTween;
 import flash.text.TextField;
 import lime.app.Application;
 import lime.system.System;
+import openfl.events.EventDispatcher;
+import openfl.display.DisplayObject;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
 import FunkinLua;

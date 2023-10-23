@@ -18,6 +18,7 @@ class ClientPrefs {
 	public static var flashing:Bool = true;
 	public static var resultsScreen:Bool = false;
 	public static var mainMenuMusic:String = 'FNF';
+	public static var showKeybindsOnStart:Bool = true;
 	public static var iconBounce:Bool = true;
 	public static var ratingImages:Bool = true;
 	public static var globalAntialiasing:Bool = true;
@@ -131,6 +132,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.mainMenuMusic = mainMenuMusic;
+		FlxG.save.data.showKeybindsOnStart = showKeybindsOnStart;
 		FlxG.save.data.iconBounce = iconBounce;
 		FlxG.save.data.ratingImages = ratingImages;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
@@ -217,6 +219,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing != null ? flashing = FlxG.save.data.flashing : flashing = true;
 		FlxG.save.data.resultsScreen != null ? resultsScreen = FlxG.save.data.resultsScreen : resultsScreen = false;
 		FlxG.save.data.mainMenuMusic != null ? mainMenuMusic = FlxG.save.data.mainMenuMusic : mainMenuMusic = 'FNF';
+		FlxG.save.data.showKeybindsOnStart != null ? showKeybindsOnStart = FlxG.save.data.showKeybindsOnStart : showKeybindsOnStart = true;
 		FlxG.save.data.iconBounce != null ? iconBounce = FlxG.save.data.iconBounce : iconBounce = true;
 		FlxG.save.data.ratingImages != null ? ratingImages = FlxG.save.data.ratingImages : ratingImages = true;
 		FlxG.save.data.globalAntialiasing != null ? globalAntialiasing = FlxG.save.data.globalAntialiasing : globalAntialiasing = true;

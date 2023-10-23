@@ -31,7 +31,7 @@ Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/xale.png) | [JustXale](https://github.com/JustXale) | Main Programmer of Grafex Engine.
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/tinki.png) | [SquidBowl](https://www.youtube.com/@squidbowl) | For gallery stuff.
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/mario.png) | [MarioMaster](https://www.youtube.com/channel/UC65m-_5tbYFJ7oRqZzpFBJw) | Created hitbox selector and virtual pad opacity.
-| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/beihu.png) | [NF | Beihu](https://www.youtube.com/@beihu235) | Created hitbox space for dodge mechanic system on NF Engine.
+| ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/beihu.png) | [NF Beihu](https://www.youtube.com/@beihu235) | Created hitbox space for dodge mechanic system on NF Engine.
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/jigsaw.png) | [M.A. Jigsaw77](https://www.youtube.com/channel/UC2Sk7vtPzOvbVzdVTWrribQ) | Main Programmer of Psych Engine with Android Support.
 | ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/assets/preload/images/credits/goldie.png) | [Goldie](https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA) | Old Hitbox and Virtual Pad Artist.
 

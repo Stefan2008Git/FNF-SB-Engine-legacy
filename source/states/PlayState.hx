@@ -149,6 +149,7 @@ class PlayState extends MusicBeatState {
 	public var health:Float = 1;
 	public var combo:Int = 0;
 	public var maxCombo:Int = 0;
+	public var missCombo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -261,9 +262,8 @@ class PlayState extends MusicBeatState {
 	public var songNameTxt:FlxText;
 	public var songNameBackground:FlxSprite;
 	public var judgementCounterTxt:FlxText;
-	public var sbEngineVersionTxt:FlxText;
-	public var psychEngineVersionTxt:FlxText;
-	public var watermarkTxt:FlxText;
+	public var engineVersionTxt:FlxText;
+	public var songAndDifficultyNameTxt:FlxText;
 	public var playbackRateDecimalTxt:FlxText;
 	public var timePercentTxt:FlxText;
 
@@ -1290,7 +1290,6 @@ class PlayState extends MusicBeatState {
 		nowPlayingTxt.alpha = 0;
 		nowPlayingTxt.text = 'Now Playing: ';
 		nowPlayingTxt.cameras = [camHUD];
-		nowPlayingTxt.x = FlxG.width - (nowPlayingTxt.width + 20);
 		add(nowPlayingTxt);
 
 		songNameTxt = new FlxText(20, 50, 0, "", 20);
@@ -1307,7 +1306,6 @@ class PlayState extends MusicBeatState {
 		songNameTxt.alpha = 0;
 		songNameTxt.text = currentlySong;
 		songNameTxt.cameras = [camHUD];
-		songNameTxt.x = FlxG.width - (songNameTxt.width + 20);
 		add(songNameTxt);
 
 		songNameBackground = new FlxSprite(songNameTxt.x, 20).makeGraphic((Std.int(songNameTxt.width + 100)), Std.int(songNameTxt.height + 40), FlxColor.BLACK);
@@ -1337,157 +1335,81 @@ class PlayState extends MusicBeatState {
 		add(judgementCounterTxt);
 
 		if (ClientPrefs.watermarkStyle == 'SB Engine') {
-			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+		    engineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
-		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-
-		    sbEngineVersionTxt.scrollFactor.set();
-			if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		        sbEngineVersionTxt.borderSize = 1.25;
-			}
-			
-		    sbEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		    sbEngineVersionTxt.text = "SB Engine v" + MainMenuState.sbEngineVersion;
-
-		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-			if (ClientPrefs.gameStyle == 'SB Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        engineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        engineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
-		    psychEngineVersionTxt.scrollFactor.set();
+		    engineVersionTxt.scrollFactor.set();
 		    if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		        psychEngineVersionTxt.borderSize = 1.25;
+		        engineVersionTxt.borderSize = 1.25;
 			}
+		    engineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+		    engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
 
-		    psychEngineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		    psychEngineVersionTxt.text = "Psych Engine v" + MainMenuState.psychEngineVersion;
-
-		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		    songAndDifficultyNameTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
-		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        songAndDifficultyNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        songAndDifficultyNameTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
-		    watermarkTxt.scrollFactor.set();
+		    songAndDifficultyNameTxt.scrollFactor.set();
 			if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.borderSize = 1.25;
+		        songAndDifficultyNameTxt.borderSize = 1.25;
 			}
-
-		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
+		    songAndDifficultyNameTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			songAndDifficultyNameTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") ";
 		}
 
 		if (ClientPrefs.watermarkStyle == 'Kade Engine') {
-			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
+			engineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
-		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				sbEngineVersionTxt.borderSize = 1.25;
-			}
-
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				sbEngineVersionTxt.borderSize = 1.25;
-			}
-
-		    sbEngineVersionTxt.scrollFactor.set();
-		    sbEngineVersionTxt.visible = false;
-
-		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-		    if (ClientPrefs.gameStyle == 'SB Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        engineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        engineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
-		    psychEngineVersionTxt.scrollFactor.set();
-		    psychEngineVersionTxt.borderSize = 1.25;
-		    psychEngineVersionTxt.visible = false;
-
-		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		    if (ClientPrefs.gameStyle == 'SB Engine') {
-		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-		    watermarkTxt.scrollFactor.set();
+		    engineVersionTxt.scrollFactor.set();
 		    if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.borderSize = 1.25;
+		        engineVersionTxt.borderSize = 1.25;
+			}
+		    engineVersionTxt.visible = false;
+		    engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			
+		    songAndDifficultyNameTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
+		    if (ClientPrefs.gameStyle == 'SB Engine') {
+		        songAndDifficultyNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+			if (ClientPrefs.gameStyle == 'Psych Engine') {
+		        songAndDifficultyNameTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			}
+		    songAndDifficultyNameTxt.scrollFactor.set();
+		    if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
+		        songAndDifficultyNameTxt.borderSize = 1.25;
 			}
 
-		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-			watermarkTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
+		    songAndDifficultyNameTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
+			songAndDifficultyNameTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
 			+ MainMenuState.psychEngineVersion + ") ";
 		}
 
-		if (ClientPrefs.watermarkStyle == 'Dave and Bambi') {
-			sbEngineVersionTxt = new FlxText(12, FlxG.height - 64, 0, "", 8);
-		    if (ClientPrefs.gameStyle == 'SB Engine') {
-		        sbEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-			if (ClientPrefs.gameStyle == 'Psych Engine' ) {
-		        sbEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-		    sbEngineVersionTxt.scrollFactor.set();
-		    sbEngineVersionTxt.borderSize = 1.25;
-		    sbEngineVersionTxt.visible = false;
-
-		    psychEngineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
-			if (ClientPrefs.gameStyle == 'SB Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        psychEngineVersionTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-
-		    psychEngineVersionTxt.scrollFactor.set();
-		    psychEngineVersionTxt.borderSize = 1.25;
-		    psychEngineVersionTxt.visible = false;
-
-		    watermarkTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
-		    if (ClientPrefs.gameStyle == 'SB Engine') {
-		        watermarkTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-
-		    watermarkTxt.scrollFactor.set();
-		    if (ClientPrefs.gameStyle == 'SB Engine' || ClientPrefs.gameStyle == 'Psych Engine') {
-		        watermarkTxt.borderSize = 1.25;
-			}
-
-		    watermarkTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-			watermarkTxt.text =  currentlySong;
-		}
-
 		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'SB Engine') {
-			sbEngineVersionTxt.y = 140;
-			psychEngineVersionTxt.y = 160;
-			watermarkTxt.y = 180;
+			engineVersionTxt.y = 140;
+			songAndDifficultyNameTxt.y = 160;
 		}
 
 		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'Kade Engine' || ClientPrefs.watermarkStyle == 'Dave and Bambi') {
-			sbEngineVersionTxt.y = 0;
-			psychEngineVersionTxt.y = 0;
-			watermarkTxt.y = 140;
+			engineVersionTxt.y = 0;
+			songAndDifficultyNameTxt.y = 140;
 		}
 
-		sbEngineVersionTxt.cameras = [camHUD];
-		psychEngineVersionTxt.cameras = [camHUD];
-		watermarkTxt.cameras = [camHUD];
-		add(sbEngineVersionTxt);
-		add(psychEngineVersionTxt);
-		add(watermarkTxt);
+		engineVersionTxt.cameras = [camHUD];
+		songAndDifficultyNameTxt.cameras = [camHUD];
+		add(engineVersionTxt);
+		add(songAndDifficultyNameTxt);
 
 		if (ClientPrefs.gameStyle == 'SB Engine') {
 			botplayTxt = new FlxText(400, timeBarBG.y + 500, FlxG.width - 800, "[AUTOPLAY]", 32);
@@ -2853,6 +2775,8 @@ class PlayState extends MusicBeatState {
 
 	private function generateStaticArrows(player:Int):Void {
 		for (i in 0...4) {
+			var tweenDuration:Float = 4;
+			var tweenStart:Float = 0.5 + ((0.8) * i);
 			var targetAlpha:Float = 1;
 			if (player < 1) {
 				if (!ClientPrefs.opponentStrums)
@@ -2884,6 +2808,43 @@ class PlayState extends MusicBeatState {
 
 			strumLineNotes.add(opponentArrow);
 			opponentArrow.postAddedToGroup();
+
+			#if desktop
+			if (ClientPrefs.showKeybindsOnStart && player == 1) {
+				for (j in 0...keysArray[i].length) {
+					var daKeyTxt:FlxText = new FlxText(opponentArrow.x, opponentArrow.y - 10, 0, InputFormatter.getKeyName(keysArray[i][j]), 32);
+					switch (ClientPrefs.gameStyle) {
+						case 'Psych Engine':
+							daKeyTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+						
+						default:
+							daKeyTxt.setFormat(Paths.font("bahnschrift.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					}
+					daKeyTxt.borderSize = 1.25;
+					daKeyTxt.alpha = 0;
+					daKeyTxt.size = 32;
+					daKeyTxt.x = opponentArrow.x + (opponentArrow.width / 2);
+					daKeyTxt.x -= daKeyTxt.width / 2;
+					add(daKeyTxt);
+					daKeyTxt.cameras = [camHUD];
+					var textY:Float = (j == 0 ? opponentArrow.y - 32 : ((opponentArrow.y - 32) + opponentArrow.height) - daKeyTxt.height);
+					daKeyTxt.y = textY;
+
+					if (!skipArrowStartTween) {
+						FlxTween.tween(daKeyTxt, {y: textY + 32, alpha: 1}, tweenDuration, {ease: FlxEase.circOut, startDelay: tweenStart});
+					} else {
+						daKeyTxt.y += 16;
+						daKeyTxt.alpha = 1;
+					}
+					new FlxTimer().start(Conductor.crochet * 0.001 * 12, function(_) {
+						FlxTween.tween(daKeyTxt, {y: daKeyTxt.y + 32, alpha: 0}, tweenDuration, {ease: FlxEase.circIn, startDelay: tweenStart, onComplete:
+						function(t) {
+							remove(daKeyTxt);
+						}});
+					});
+				}
+			}
+			#end
 		}
 	}
 
@@ -3176,21 +3137,17 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		for (i in 0...notesHitArray.length)
 		{
 			var valueNoteHit = notesHitArray.length-1;
-			while (valueNoteHit >= 0)
-			{
-				var npsCounter:Date = notesHitArray[valueNoteHit];
-				if (npsCounter != null && npsCounter.getTime() + 1000 / playbackRate < Date.now().getTime())
+			var npsCounter:Date = notesHitArray[valueNoteHit];
+			if (npsCounter != null && npsCounter.getTime() + 1000 / playbackRate < Date.now().getTime())
+				if (npsCounter.getTime() + 2000 < Date.now().getTime())
 					notesHitArray.remove(npsCounter);
-				else
-					valueNoteHit = 0;
-				valueNoteHit--;
-			}
-			nps = notesHitArray.length;
 			if (nps > maximumNPS)
 				maximumNPS = nps;
 		}
+		nps = Math.floor(notesHitArray.length / 2);
 
 		healthCounter = health * 100;
 
@@ -4700,7 +4657,8 @@ class PlayState extends MusicBeatState {
 			}
 		});
 		combo = 0;
-		health -= daNote.missHealth * healthLoss;
+		missCombo = 1;
+		health -= daNote.missHealth * healthLoss * missCombo;
 
 		if (instakillOnMiss) {
 			vocals.volume = 0;
@@ -4754,6 +4712,7 @@ class PlayState extends MusicBeatState {
 				gf.playAnim('sad');
 			}
 			combo = 0;
+			missCombo = 1;
 
 			if (!practiceMode)
 				songScore -= 10;
@@ -4871,6 +4830,7 @@ class PlayState extends MusicBeatState {
 				if(combo >= maxCombo)
                 	maxCombo += 1;
 				combo += 1;
+				missCombo = 0;
 				popUpScore(note);
 
 				if(combo > 9999)

@@ -67,6 +67,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'bool', true);
 		addOption(option);
 
+		#if desktop
+		var option:Option = new Option('Show Keybinds on start', 
+		    "If unchecked, disables to show keybind text when arrows gonna to start tween.", 'showKeybindsOnStart', 
+			'bool', true);
+		addOption(option);
+		#end
+
 		var option:Option = new Option('Icon bounce', 
 		    "If unchecked, disables icon bounce for SB Engine HUD only.", 'iconBounce', 
 			'bool', true);
