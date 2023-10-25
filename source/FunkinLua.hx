@@ -69,7 +69,8 @@ class FunkinLua {
 			var resultStr:String = Lua.tostring(lua, result);
 			if (resultStr != null && result != 0) {
 				trace('Error on lua script! ' + resultStr);
-				#if (windows || android)
+				#if (windows || linux || mac || android)
+				FlxG.sound.play(Paths.sound('luaError'));
 				Application.current.window.alert(resultStr, 'Error on lua script! SB Engine v' + MainMenuState.sbEngineVersion);
 				#else
 				luaTrace('Error loading lua script: "$script"\n' + resultStr, true, false, FlxColor.RED);
@@ -84,7 +85,7 @@ class FunkinLua {
 		scriptName = script;
 		initHaxeModule();
 
-		trace('lua file loaded succesfully:' + script);
+		trace('Lua script file loaded succesfully:' + script);
 
 		// Lua freak
 		set('Function_StopLua', Function_StopLua);
@@ -225,7 +226,7 @@ class FunkinLua {
 		});
 
 		
-		// FlxRuntimeShaders support (Actrually this shaders are deleted completely from 2.2.0 update and added back to 2.9.0)
+	// FlxRuntimeShaders support (Actrually this shaders are deleted completely from 2.2.0 update and added back to 2.9.0)
     #if !android
 		Lua_helper.add_callback(lua, "initLuaShader", function(name:String, glslVersion:Int = 120) {
 			if (!ClientPrefs.shaders) return false;
@@ -454,7 +455,7 @@ class FunkinLua {
 			function(?funcName:String, ?args:Array<Dynamic>, ignoreStops = false, ignoreSelf = true, ?exclusions:Array<String>) {
 				if (funcName == null) {
 					#if (linc_luajit >= "0.0.6")
-					LuaL.error(lua, "bad argument #1 to 'callOnLuas' (string expected, got nil)");
+					LuaL.error(lua, "Bad argument #1 to 'callOnLuas' (string expected, got nil)");
 					#end
 					return;
 				}
@@ -1140,6 +1141,7 @@ class FunkinLua {
 			return values;
 		});
 
+		#if android
 		Lua_helper.add_callback(lua, "touchJustPressed", function(button:String) {
 			var value = false;
 			#if android
@@ -1173,6 +1175,7 @@ class FunkinLua {
 			#end
 			return value;
 		});
+		#end
 
 		Lua_helper.add_callback(lua, "noteTweenAngle", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
 			cancelTween(tag);
