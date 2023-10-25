@@ -204,7 +204,7 @@ class ChartingState extends MusicBeatState {
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
+		DiscordClient.changePresence("Chart Editor - Charting: " + StringTools.replace(_song.song, '-', ' '), '${FlxStringUtil.formatMoney(Note.getNoteAmount(_song), false)} Notes');
 		#end
 
 		vortex = FlxG.save.data.chart_vortex;
@@ -275,7 +275,22 @@ class ChartingState extends MusicBeatState {
 		Conductor.changeBPM(_song.bpm);
 		Conductor.mapBPMChanges(_song);
 
-		bpmTxt = new FlxText(1000, 50, 0, "", 16);
+		// This is gonna change the position if you disable some FPS options because yeah -- Stefan2008 says
+		if (!ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 30, 0, "", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 150, 0, "", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 130, 0, "", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 110, 0, "", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 90, 0, "", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 70, 0, "", 16);
+		} else if (ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			bpmTxt = new FlxText(25, 50, 0, "", 16);
+		}
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
 
@@ -389,7 +404,22 @@ class ChartingState extends MusicBeatState {
 		}
 		lastSong = currentSongName;
 
-		zoomTxt = new FlxText(10, 10, 0, "Zoom: 1 / 1", 16);
+		// This is gonna change the position of zoom text if you disable some FPS options because yeah -- Stefan2008 says
+		if (!ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 10, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 110, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 90, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 75, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 55, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 35, 0, "Zoom: 1 / 1", 16);
+		} else if (ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
+			zoomTxt = new FlxText(25, 25, 0, "Zoom: 1 / 1", 16);
+		}
 		zoomTxt.scrollFactor.set();
 		add(zoomTxt);
 
@@ -1975,11 +2005,13 @@ class ChartingState extends MusicBeatState {
 		FlxG.sound.music.pitch = playbackSpeed;
 		vocals.pitch = playbackSpeed;
 
-		bpmTxt.text = Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2))
-			+ " / " + Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
-			+ "\nSection: " + curSec
-			+ "\n\nBeat: " + Std.string(curDecBeat).substring(0, 4) + "\n\nStep: " + curStep
-			+ "\n\nBeat Snap: " + quantization + "th";
+		bpmTxt.text =
+		FlxStringUtil.formatTime(Conductor.songPosition / 1000, true) + ' / ' + FlxStringUtil.formatTime(FlxG.sound.music.length / 1000, true) 
+		+ "\nSection: " + curSec 
+		+ "\n\nBeat: " + Std.string(curDecBeat).substring(0,4) 
+		+ "\n\nStep: " + curStep 
+		+ "\n\nBeat Snap: " + quantization + "th" 
+		+ "\n\nNotes counter: " + FlxStringUtil.formatMoney(Note.getNoteAmount(_song), false) + ' Notes';
 
 		var playedSound:Array<Bool> = [false, false, false, false]; // Prevents ouchy GF sex sounds
 		curRenderedNotes.forEachAlive(function(note:Note) {
@@ -2611,27 +2643,34 @@ class ChartingState extends MusicBeatState {
 
 		// NEXT SECTION
 		var beats:Float = getSectionBeats(1);
-		if (curSec < _song.notes.length - 1) {
-			for (i in _song.notes[curSec + 1].sectionNotes) {
-				var note:Note = setupNoteData(i, true);
-				note.alpha = 0.6;
-				nextRenderedNotes.add(note);
-				if (note.sustainLength > 0) {
-					nextRenderedSustains.add(setupSusNote(note, beats));
+		if (ClientPrefs.objects) {
+			if (curSec < _song.notes.length - 1) {
+				for (i in _song.notes[curSec + 1].sectionNotes) {
+					var note:Note = setupNoteData(i, true);
+					note.alpha = 0.6;
+					nextRenderedNotes.add(note);
+					if (note.sustainLength > 0) {
+						nextRenderedSustains.add(setupSusNote(note, beats));
+					}
 				}
-			}
+			}	
 		}
-
 		// NEXT EVENTS
-		var startThing:Float = sectionStartTime(1);
-		var endThing:Float = sectionStartTime(2);
-		for (i in _song.events) {
-			if (endThing > i[0] && i[0] >= startThing) {
-				var note:Note = setupNoteData(i, true);
-				note.alpha = 0.6;
-				nextRenderedNotes.add(note);
-			}
-		}
+		if (ClientPrefs.objects) {
+			var startThing:Float = sectionStartTime(1);
+		    var endThing:Float = sectionStartTime(2);
+		        for (i in _song.events) {
+			        if (endThing > i[0] && i[0] >= startThing) {
+				    var note:Note = setupNoteData(i, true);
+				    note.alpha = 0.6;
+				    nextRenderedNotes.add(note);
+			    }
+		    }
+	    }
+		#if desktop
+		// Updating Discord Rich Presence (for updating Note Count)
+		DiscordClient.changePresence("Chart Editor - Charting " + StringTools.replace(_song.song, '-', ' '), '${FlxStringUtil.formatMoney(Note.getNoteAmount(_song), false)} Notes');
+		#end
 	}
 
 	function setupNoteData(i:Array<Dynamic>, isNextSection:Bool):Note {
@@ -2703,7 +2742,25 @@ class ChartingState extends MusicBeatState {
 		if (height < 1)
 			height = 1; // Prevents error of invalid height
 
-		var spr:FlxSprite = new FlxSprite(note.x + (GRID_SIZE * 0.5) - 4, note.y + GRID_SIZE / 2).makeGraphic(8, height);
+		var colorSwap = new ColorSwap();
+		var shader = colorSwap.shader;
+
+		var colorList:Array<String> = ['c24b99', '00ffff', '12fa05', 'f9393f'];
+		if (PlayState.isPixelStage) colorList = ['e276ff', '3dcaff', '71e300', 'ff884e'];
+		var susColor:Int = Std.parseInt('0xff' + colorList[note.noteData]);
+
+		var hueColor = ClientPrefs.arrowHSV[note.noteData][0] / 360;
+		var saturationColor = ClientPrefs.arrowHSV[note.noteData][1] / 100;
+		var brightnessColor = ClientPrefs.arrowHSV[note.noteData][2] / 100;
+		if (note.noteType == "Hurt Note") susColor = Note.dominantColor(note); //Make black if hurt note
+
+		var spr:FlxSprite = new FlxSprite(note.x + (GRID_SIZE * 0.5) - 4, note.y + GRID_SIZE / 2).makeGraphic(8, height, susColor);
+		if (note.noteType != 'Hurt Note') {
+			spr.shader = colorSwap.shader;
+			colorSwap.hue = hueColor;
+			colorSwap.saturation = saturationColor;
+			colorSwap.brightness = brightnessColor;
+		}
 		return spr;
 	}
 
