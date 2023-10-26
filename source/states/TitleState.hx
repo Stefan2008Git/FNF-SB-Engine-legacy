@@ -63,15 +63,17 @@ class TitleState extends MusicBeatState {
 	override public function create():Void {
 		Paths.clearStoredMemory();
 
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Title Menus", null);
+		#end
+
 		#if android
 		toastText = 'Welcome to: SB Engine v' + MainMenuState.sbEngineVersion;
 		if(!checkingToastMessage) {		
 		    checkingToastMessage = true;
 		    AndroidDialogsExtend.OpenToast(toastText, 1);
 		}
-		#end
-
-		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
@@ -205,7 +207,7 @@ class TitleState extends MusicBeatState {
 		fridayNightFunkinLogo.shader = swagShader.shader;
 
 		if (ClientPrefs.objects) {
-			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 24, 0, 0.4, 0.02);
+			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 4, 0, 0.4, 0.02);
 		} else {
 			fridayNightFunkinLogoTrail = new FlxTrail(fridayNightFunkinLogo, 0, 0, 0, 0);
 		}
@@ -229,7 +231,7 @@ class TitleState extends MusicBeatState {
 		gfDance.shader = swagShader.shader;
 
 		if (ClientPrefs.objects) {
-			gfDanceTrail = new FlxTrail(gfDance, 1, 0, 0.1, 0);
+			gfDanceTrail = new FlxTrail(gfDance, 4, 0, 0.1, 0);
 		} else {
 			gfDanceTrail = new FlxTrail(gfDance, 0, 0, 0, 0);
 		}
@@ -417,6 +419,13 @@ class TitleState extends MusicBeatState {
 					type: ONESHOT,
 					onComplete: function(twn:FlxTween) {
 						titleText.kill();
+					}
+				});
+				FlxTween.tween(gradientBar, {alpha: 0}, 1.3, {
+					ease: FlxEase.backInOut,
+					type: ONESHOT,
+					onComplete: function(twn:FlxTween) {
+						gradientBar.kill();
 					}
 				});
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);

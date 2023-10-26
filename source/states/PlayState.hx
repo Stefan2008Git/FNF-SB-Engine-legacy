@@ -1215,7 +1215,13 @@ class PlayState extends MusicBeatState {
 		final m = (ClientPrefs.gameStyle == 'Psych Engine'); 
 		final antiRedundancy:String = m ? 'healthBar' : (ClientPrefs.gameStyle == 'SB Engine') ? 'sbEngineBar' : 'healthBar';
 		healthBarBG = new AttachedSprite(antiRedundancy);
-		healthBarBG.y = FlxG.height * 0.89;
+		switch (ClientPrefs.watermarkStyle) {
+			case 'Kade Engine':
+				healthBarBG.y = FlxG.height * 0.85;
+			
+			default:
+				healthBarBG.y = FlxG.height * 0.83;
+		}
 		healthBarBG.screenCenter(X);
 
 		healthBarBG.scrollFactor.set();

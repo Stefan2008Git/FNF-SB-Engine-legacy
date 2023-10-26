@@ -173,7 +173,7 @@ class Main extends Sprite {
 		#if android
 		var toastText:String = '';
 		toastText = 'Uncaught Error happends!';
-		AndroidDialogsExtend.OpenToast(toastText, 2);
+		AndroidDialogsExtend.OpenToast(toastText, 1);
 		#end
 		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
 	
