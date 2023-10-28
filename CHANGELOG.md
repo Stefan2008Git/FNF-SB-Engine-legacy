@@ -75,11 +75,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Android hitbox changes (BRAND NEW!):
   - Now you can change hitbox colour using note colour option because yeah. Credits (mcgabe19)
 
-
 ## [2.8.0] - 01.09.2023
 - Now SB Engine is using new HaxeFlixel 5.3x stuff because the old one was crashing without any reason to enter the game. Some fixes did by: @MemeHovy for Sound stuff and other things. (SWITCHED AND BRAND NEW!)
 - EDITED THE ENTIRE SOURCE CODE TO LOOK LIKE 0.7 (BRAND NEW!)
-
 
 Question about new folder organization from Psych Engine 0.7:
 
