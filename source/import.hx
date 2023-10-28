@@ -72,6 +72,7 @@ import cutscenes.DialogueBoxPsych;
 import shaders.ColorblindFilter;
 import shaders.ColorSwap;
 import shaders.Shaders;
+import scroller.FlxUIDropDownMenuCustom;
 import objects.Alphabet;
 import objects.StrumNote;
 import objects.AttachedSprite;

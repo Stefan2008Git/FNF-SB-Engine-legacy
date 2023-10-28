@@ -70,11 +70,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added lane underlay from Grafex Engine
   - Added to show now playing with song name for now. It can be enabled/disabled by checking/unckecking option on gameplay option
   - Added to show keybinds text only for PC build
+  - Now you can enable/disable Average MS text by checking/unckecking option on gameplay
 - Shaders changes (BRAND NEW!):
   - Fixed wiggle effects. Now you can add wiggle effect speed and effect on camera HUD or game too. To use brand new wiggle effect shader update, you need to do this: "`addWiggleEffect('camHud', 'wiggleEffectName', speed1, speed2);`". Credits: (Elgatosinnombre)
-  - Added runtime shaders. Actrually that shaders are removed from 2.2.0 because i used already Psych 0.6.3 for that
-- Android hitbox changes (BRAND NEW!):
+  - Added runtime shaders. Note: That shaders are removed from 2.2.0 because i used already Psych 0.6.3 build for that and remove it completely
+- Android controls changes (BRAND NEW!):
   - Now you can change hitbox colour using note colour option because yeah. Credits (mcgabe19)
+  - Fixed stupid bug when you re-open game to restart option how game is setuped
 
 ## [2.8.0] - 01.09.2023
 - Now SB Engine is using new HaxeFlixel 5.3x stuff because the old one was crashing without any reason to enter the game. Some fixes did by: @MemeHovy for Sound stuff and other things. (SWITCHED AND BRAND NEW!)

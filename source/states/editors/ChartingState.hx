@@ -15,7 +15,6 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUISlider;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import scroller.FlxUIDropDownMenuCustom;
 import flixel.group.FlxGroup;
 #if android
 import android.flixel.FlxButton;
@@ -276,6 +275,7 @@ class ChartingState extends MusicBeatState {
 		Conductor.mapBPMChanges(_song);
 
 		// This is gonna change the position if you disable some FPS options because yeah -- Stefan2008 says
+		#if !android
 		if (!ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
 			bpmTxt = new FlxText(25, 30, 0, "", 16);
 		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && ClientPrefs.debugInfo) {
@@ -291,6 +291,9 @@ class ChartingState extends MusicBeatState {
 		} else if (ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
 			bpmTxt = new FlxText(25, 50, 0, "", 16);
 		}
+		#else
+		bpmTxt = new FlxText(25, 30, 0, "", 16);
+		#end
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
 
@@ -405,6 +408,7 @@ class ChartingState extends MusicBeatState {
 		lastSong = currentSongName;
 
 		// This is gonna change the position of zoom text if you disable some FPS options because yeah -- Stefan2008 says
+		#if !android
 		if (!ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
 			zoomTxt = new FlxText(25, 10, 0, "Zoom: 1 / 1", 16);
 		} else if (ClientPrefs.showFPS && ClientPrefs.totalFPS && ClientPrefs.memory && ClientPrefs.totalMemory && ClientPrefs.engineVersion && ClientPrefs.debugInfo) {
@@ -420,6 +424,9 @@ class ChartingState extends MusicBeatState {
 		} else if (ClientPrefs.showFPS && !ClientPrefs.totalFPS && !ClientPrefs.memory && !ClientPrefs.totalMemory && !ClientPrefs.engineVersion && !ClientPrefs.debugInfo) {
 			zoomTxt = new FlxText(25, 25, 0, "Zoom: 1 / 1", 16);
 		}
+		#else
+		zoomTxt = new FlxText(25, 10, 0, "Zoom: 1 / 1", 16);
+		#end
 		zoomTxt.scrollFactor.set();
 		add(zoomTxt);
 
