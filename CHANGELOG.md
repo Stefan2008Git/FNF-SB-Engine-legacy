@@ -6,6 +6,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.9.0] - 31.10.2023
+- Source code folder is rechanged again because yeah (RE-CHANGED!)
+- SB Engine is now little bit optimized for better gameplay (OPTIMIZED!)
+- You will get a Toast message box when you enter on game, save file and get a crash handler too on Android (BRAND NEW!)
+- Now crash handler will play sound (BRAND NEW!)
+- Now when you get a lua error message box will play sound too (BRAND NEW!)
+- Recreated FlxSave values on ClientPrefs. Credits: (JustXale - Main Programmer of Grafex Engine) (RECREATED AND BRAND NEW!)
+- Removed VideoHandler and hxcodec folder from source code. It makes your game really buggy with videos
+- FPS counter changes (BRAND NEW!):
+  - You can now select font size and font style if you change game engine type. It can be changable by going on visual and ui option
+- Title screen changes (BRAND NEW!):
+  - Renamed back to "TitlteState" because the current name is really boring and annoying
+  - Now you can disable gradient bar too if you check/uncheck "Objects" on Visuals and UI option
+  - "effectsOnObjects" is renamed to "objects" for better name
+  - Trail for Friday Night Funkin logo and girlfriend is now on 4 values because for FPS cap to 60 - 55 maximum
+  - Fixed stupid bug that makes when you skip title text or when you go back to title screen to restart freaky menu.
+- Main menu changes (BRAND NEW!):
+  - Recreated the entire main menu
+  - Now you can enable/disable tip background and text with "Objects" on Visual and UI by checking/unckecking option
+  - Added gallery basemant. Press G keybing to open (Press Y virtual pad button to open)
+  - Added main side for main menu buttons, re-added better position for SB Engine logo, added main menu buttons to do some better effect and when you press on any main menu button it's gonna make camera zoomable
+  - Removed some useless code
+- Story mode changes (BRAND NEW!):
+  - When you press on any week it's gonna make music pitch tweeenabke to 0
+- Freeplay menu changes (BRAND NEW!):
+  - When you press on any songs, it's gonna hide almost all freeplay menu UI elements and flash icon and alphabet text. Credits (JustXale - Main Programmer of Grafex Engine (Instead of hiding all UI elements and tweenable pitch))
+  - Now you can see how many misses and accruracy do you have when you finish song
+  - Added funny icon size from Grafex Engine. NOTE: It can be randomble
+- Credits menu changes (BRAND NEW!):
+  - Brand new Fearester icon made by (Unknown person)
+  - Added 3 beta test players because they are awesome (You guys are best)
+    - Beta test players are:
+      SunBurntTails - First beta test player
+      Ali Alafandy - Secod beta test player
+      Luiz Felipe Plays - Third beta test player
+  - Brand new icons for special credits made by Sussy Sam (Thank you man). He is not on SB Engine team anyways
+- Options changes (BRAND NEW!):
+  - Option are now on alphabet letters for better experience
+  - Tip text and tip background gonna to do some funny tween because yeah
+  - Added to change application title for that option
+  - Now you can change freaky menu music with three ones: (Basic FNF, Brand new SB Engine music (Made by Sussy Sam anyways))
+  - Fully fixed GPU caching. Now you will get a less memory peak
+- Editors changes (BRAND NEW):
+  - Added to show images and tip text when you select/swipe that editor on master editor (I don't know how to explain better)
+  - Added music to play on editors
+  - Now character editor will have a small less memory peak by enabling GPU caching
+  - Added credits editor. Now you can easily make credits instead to edit credits.txt for that. Credits (haoneRG)
+  - Added to show notes counter, long tails now have colours from notes, show song time, BPM and zoom text will change the position if you check/unckeck some FPS options and makes chart UI box goes down if you test and play song from YoshiCrafter Engine (Credits: Jordan Santiago - Main Programmer of JS Engine (Psych Engine Anti-lag for botplay edition) instead of BPM and zoom text)
+- PlayState changes (BRAND NEW! Warning: some stuff are not finished yet, but hey, it's done LOL:)
+  - Now you can disable icon bounce for SB Engine HUD only
+  - Added "Impressive" rating combo
+  - Added to show NPS and health counter on SB Engine score text only
+  - Added extra judgement stuff. It will show total notes hit, combo, max combo (Credits: JustXale - Main Programmer of Grafex Engine), impressives and misses too
+  - Time bar is now inside from notes because for better experience
+  - Added anti-botplay lag
+  - Added to show combo only if you don't use a botplay
+  - Removed "Better UI" completely because it's breaking the entire HUD without any reason
+  - Added a little bit up health bar
+  - Changed a little bit SB Engine watermark
+  - SB Engine time bar and health bar is now usind Dave and Bambi's one
+  - Added lane underlay from Grafex Engine
+  - Added to show now playing with song name for now. It can be enabled/disabled by checking/unckecking option on gameplay option
+  - Added to show keybinds text only for PC build
+- Shaders changes (BRAND NEW!):
+  - Fixed wiggle effects. Now you can add wiggle effect speed and effect on camera HUD or game too. To use brand new wiggle effect shader update, you need to do this: "`addWiggleEffect('camHud', 'wiggleEffectName', speed1, speed2);`
+  - Added runtime shaders. Actrually that shaders are removed from 2.2.0 because i used already Psych 0.6.3 for that
+
+
 ## [2.8.0] - 01.09.2023
 - Now SB Engine is using new HaxeFlixel 5.3x stuff because the old one was crashing without any reason to enter the game. Some fixes did by: @MemeHovy for Sound stuff and other things. (SWITCHED AND BRAND NEW!)
 - EDITED THE ENTIRE SOURCE CODE TO LOOK LIKE 0.7 (BRAND NEW!)
