@@ -335,7 +335,7 @@ class ChartingState extends MusicBeatState {
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
-		UI_box.resize(300, 400);
+		UI_box.resize(450, 400);
 		UI_box.x = 640 + GRID_SIZE / 2;
 		UI_box.y = 25;
 		UI_box.scrollFactor.set();
@@ -453,11 +453,11 @@ class ChartingState extends MusicBeatState {
 	var sliderRate:FlxUISlider;
 
 	function addSongUI():Void {
-		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
+		UI_songTitle = new FlxUIInputText(10, 10, 250, _song.song, 8);
 		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(UI_songTitle);
 
-		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
+		var check_voices = new FlxUICheckBox(10, 30, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
 		// _song.needsVoices = check_voices.checked;
 		check_voices.callback = function() {
@@ -465,7 +465,7 @@ class ChartingState extends MusicBeatState {
 			// trace('CHECKED!');
 		};
 
-		var saveButton:FlxButton = new FlxButton(110, 8, "Save", function() {
+		var saveButton:FlxButton = new FlxButton(270, 8, "Save", function() {
 			saveLevel();
 		});
 
@@ -502,31 +502,31 @@ class ChartingState extends MusicBeatState {
 			}
 		});
 
-		var saveEvents:FlxButton = new FlxButton(110, reloadSongJson.y, 'Save Events', function() {
+		var saveEvents:FlxButton = new FlxButton(270, reloadSongJson.y, 'Save Events', function() {
 			saveEvents();
 		});
 
-		var check_Trails = new FlxUICheckBox(170, 310, null, null, "Opponent Trail", 100);
+		var check_Trails = new FlxUICheckBox(320, 310, null, null, "Opponent Trail", 100);
 		check_Trails.checked = _song.opponentTrail;
 		check_Trails.callback = function()
 		{
 			_song.opponentTrail = check_Trails.checked;
 		};
 
-		var check_boyfriendTrail = new FlxUICheckBox(170, check_Trails.y + 30, null, null, "Boyfriend Trail", 100);
+		var check_boyfriendTrail = new FlxUICheckBox(320, check_Trails.y + 30, null, null, "Boyfriend Trail", 100);
 		check_boyfriendTrail.checked = _song.boyfriendTrail;
 		check_boyfriendTrail.callback = function()
 		{
 			_song.boyfriendTrail = check_boyfriendTrail.checked;
 		};
 
-		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function() {
+		var clear_events:FlxButton = new FlxButton(460, 310, 'Clear events', function() {
 			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null, ignoreWarnings));
 		});
 		clear_events.color = FlxColor.RED;
 		clear_events.label.color = FlxColor.WHITE;
 
-		var clear_notes:FlxButton = new FlxButton(320, clear_events.y + 30, 'Clear notes', function() {
+		var clear_notes:FlxButton = new FlxButton(460, clear_events.y + 30, 'Clear notes', function() {
 			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function() {
 				for (sec in 0..._song.notes.length) {
 					_song.notes[sec].sectionNotes = [];
@@ -537,12 +537,12 @@ class ChartingState extends MusicBeatState {
 		clear_notes.color = FlxColor.RED;
 		clear_notes.label.color = FlxColor.WHITE;
 
-		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 70, 1, 1, 1, 400, 3);
+		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(285, 70, 1, 1, 1, 400, 3);
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
 		blockPressWhileTypingOnStepper.push(stepperBPM);
 
-		var stepperSpeed:FlxUINumericStepper = new FlxUINumericStepper(10, stepperBPM.y + 35, 0.1, 1, 0.1, 10, 1);
+		var stepperSpeed:FlxUINumericStepper = new FlxUINumericStepper(285, stepperBPM.y + 35, 0.1, 1, 0.1, 10, 1);
 		stepperSpeed.value = _song.speed;
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
@@ -582,7 +582,7 @@ class ChartingState extends MusicBeatState {
 		}
 		#end
 
-		var player1DropDown = new FlxUIDropDownMenuCustom(10, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true),
+		var player1DropDown = new FlxUIDropDownMenuCustom(90, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true),
 			function(character:String) {
 				_song.player1 = characters[Std.parseInt(character)];
 				updateHeads();
@@ -686,7 +686,7 @@ class ChartingState extends MusicBeatState {
 		noteSplashesInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(noteSplashesInputText);
 
-		var reloadNotesButton:FlxButton = new FlxButton(noteSplashesInputText.x + 5, noteSplashesInputText.y + 20, 'Change Notes', function() {
+		var reloadNotesButton:FlxButton = new FlxButton(noteSplashesInputText.x + 1, noteSplashesInputText.y + 25, 'Change Notes', function() {
 			_song.arrowSkin = noteSkinInputText.text;
 			updateGrid();
 		});
@@ -712,7 +712,7 @@ class ChartingState extends MusicBeatState {
 		tab_group_song.add(noteSkinInputText);
 		tab_group_song.add(noteSplashesInputText);
 		tab_group_song.add(new FlxText(stepperBPM.x, stepperBPM.y - 15, 0, 'Song BPM:'));
-		tab_group_song.add(new FlxText(stepperBPM.x + 100, stepperBPM.y - 15, 0, 'Song Offset:'));
+		tab_group_song.add(new FlxText(stepperBPM.x + 95, stepperBPM.y - 15, 0, 'Song Offset:'));
 		tab_group_song.add(new FlxText(stepperSpeed.x, stepperSpeed.y - 15, 0, 'Song Speed:'));
 		tab_group_song.add(new FlxText(player2DropDown.x, player2DropDown.y - 15, 0, 'Opponent:'));
 		tab_group_song.add(new FlxText(gfVersionDropDown.x, gfVersionDropDown.y - 15, 0, 'Girlfriend:'));
@@ -913,14 +913,14 @@ class ChartingState extends MusicBeatState {
 		var duetButton:FlxButton = new FlxButton(10, copyLastButton.y + 45, "Duet Notes", function() {
 			var duetNotes:Array<Array<Dynamic>> = [];
 			for (note in _song.notes[curSec].sectionNotes) {
-				var boob = note[1];
-				if (boob > 3) {
-					boob -= 4;
+				var noteValue = note[1];
+				if (noteValue > 3) {
+					noteValue -= 4;
 				} else {
-					boob += 4;
+					noteValue += 4;
 				}
 
-				var copiedNote:Array<Dynamic> = [note[0], boob, note[2], note[3]];
+				var copiedNote:Array<Dynamic> = [note[0], noteValue, note[2], note[3]];
 				duetNotes.push(copiedNote);
 			}
 
@@ -933,13 +933,13 @@ class ChartingState extends MusicBeatState {
 		var mirrorButton:FlxButton = new FlxButton(duetButton.x + 100, duetButton.y, "Mirror Notes", function() {
 			var duetNotes:Array<Array<Dynamic>> = [];
 			for (note in _song.notes[curSec].sectionNotes) {
-				var boob = note[1] % 4;
-				boob = 3 - boob;
+				var noteValue = note[1] % 4;
+				noteValue = 3 - noteValue;
 				if (note[1] > 3)
-					boob += 4;
+					noteValue += 4;
 
-				note[1] = boob;
-				var copiedNote:Array<Dynamic> = [note[0], boob, note[2], note[3]];
+				note[1] = noteValue;
+				var copiedNote:Array<Dynamic> = [note[0], noteValue, note[2], note[3]];
 				// duetNotes.push(copiedNote);
 			}
 

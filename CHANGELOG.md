@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added music to play on editors
   - Now character editor will have a small less memory peak by enabling GPU caching
   - Added credits editor. Now you can easily make credits instead to edit credits.txt for that. Credits (haoneRG)
-  - Added to show notes counter, long tails now have colours from notes, show song time, BPM and zoom text will change the position if you check/unckeck some FPS options and makes chart UI box goes down if you test and play song from YoshiCrafter Engine (Credits: Jordan Santiago - Main Programmer of JS Engine (Psych Engine Anti-lag for botplay edition) instead of BPM and zoom text)
+  - Changed UI box size and re-positioned buttons too (OS Engine moment), added to show notes counter, long tails now have colours from notes, show song time, BPM and zoom text will change the position if you check/unckeck some FPS options and makes chart UI box goes down if you test and play song from YoshiCrafter Engine (Credits: Jordan Santiago - Main Programmer of JS Engine (Psych Engine Anti-lag for botplay edition) instead of BPM and zoom text)
 - PlayState changes (BRAND NEW! Warning: some stuff are not finished yet, but hey, it's done LOL:)
   - Now you can disable icon bounce for SB Engine HUD only
   - Added "Impressive" rating combo
@@ -71,6 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added to show now playing with song name for now. It can be enabled/disabled by checking/unckecking option on gameplay option
   - Added to show keybinds text only for PC build
   - Now you can enable/disable Average MS text by checking/unckecking option on gameplay
+  - Fixed miss sound when you miss a note, but it can been enabled/disabled by checking/uchecking "Miss sound" on gameplay option. Credits: (JustXale - Main Programmer of Grafex Engine)
 - Shaders changes (BRAND NEW!):
   - Fixed wiggle effects. Now you can add wiggle effect speed and effect on camera HUD or game too. To use brand new wiggle effect shader update, you need to do this: "`addWiggleEffect('camHud', 'wiggleEffectName', speed1, speed2);`". Credits: (Elgatosinnombre)
   - Added runtime shaders. Note: That shaders are removed from 2.2.0 because i used already Psych 0.6.3 build for that and remove it completely
