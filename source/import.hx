@@ -44,6 +44,7 @@ import openfl.display.DisplayObject;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
 import FunkinLua;
+import SUtil;
 import backend.ClientPrefs;
 import backend.Conductor;
 import backend.Conductor.BPMChangeEvent;
