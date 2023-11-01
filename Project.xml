@@ -156,6 +156,14 @@
 	<!-- It's ignoring all warning when you compile the game -->
 	<haxedef name="no-deprecation-warnings"/>
 
+	<!-- _________________________________ Custom _______________________________ -->
+
+	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	
+	<icon path="art/icon16.png" size='16'/>
+	<icon path="art/icon32.png" size='32'/>
+	<icon path="art/icon64.png" size='64'/>
+	<icon path="art/iconOG.png" />
 	<!-- _________________________________ Android Stuff _______________________________ -->
 	<section if="android">
 		<config>
@@ -165,18 +173,9 @@
 			<!--Permission-->
 			<android permission="android.permission.READ_EXTERNAL_STORAGE" />
 			<android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
-			<!--android permission="android.permission.WRITE_EXTERNAL_STORAGE" --> <!--For reasons!-->
+			<!--android permission="android.permission.MANAGE_EXTERNAL_STORAGE" --> <!--For reasons!-->
 
 			<!--Target SDK-->
 			<android target-sdk-version="29" if="${lime &lt; 8.1.0}" />
 		</config>
-
-	<!-- _________________________________ Custom _______________________________ -->
-
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
-	
-	<icon path="art/icon16.png" size='16'/>
-	<icon path="art/icon32.png" size='32'/>
-	<icon path="art/icon64.png" size='64'/>
-	<icon path="art/iconOG.png" />
 </project>
