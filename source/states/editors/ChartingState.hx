@@ -62,7 +62,7 @@ class ChartingState extends MusicBeatState {
 	var redos = [];
 	var eventStuff:Array<Dynamic> =
 	[
-		['', "Nothing. Yep, that's right."],
+		['', "Nothing. This is nameless event."],
 		['Dadbattle Spotlight', "Used in Dad Battle,\nValue 1: 0/1 = ON/OFF,\n2 = Target Dad\n3 = Target BF"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
@@ -77,8 +77,7 @@ class ChartingState extends MusicBeatState {
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
-		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"]
+		['Set Property', "Value 1: Variable name\nValue 2: New value"]
 	];
 
 	var _file:FileReference;
@@ -1061,7 +1060,7 @@ class ChartingState extends MusicBeatState {
 		var tab_group_stacking = new FlxUI(null, UI_box);
 		tab_group_stacking.name = 'Note Stacking';
 
-		check_stackActive = new FlxUICheckBox(10, 10, null, null, "Enable Note Stacking (Not Recommended)", 100);
+		check_stackActive = new FlxUICheckBox(10, 10, null, null, "Enable Note Stacking", 100);
 		check_stackActive.name = 'check_stackActive';
 
 		stepperStackNum = new FlxUINumericStepper(10, 30, 1, 1, 0, 999999, 4);
@@ -1084,6 +1083,7 @@ class ChartingState extends MusicBeatState {
 		tab_group_stacking.add(new FlxText(100, 30, 0, "Stacking Count"));
 		tab_group_stacking.add(new FlxText(100, 50, 0, "Stacking Multiplier"));
 		tab_group_stacking.add(new FlxText(100, 70, 0, "Stacking Scroll Amount"));
+		tab_group_stacking.add(new FlxText(20, 320, 0, 'Enable "Note Stacking" if you want to make note stacakble or else its not gonna work'));
 
 		UI_box.addGroup(tab_group_stacking);
 	}
@@ -1599,8 +1599,8 @@ class ChartingState extends MusicBeatState {
 			stepHitValue();
 		}
 
-		p1Lerp = FlxMath.lerp(0.6, leftIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1));
-		p2Lerp = FlxMath.lerp(0.6, rightIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1));
+		p1Lerp = FlxMath.lerp(0.4, leftIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		p2Lerp = FlxMath.lerp(0.4, rightIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 		leftIcon.scale.set(p1Lerp, p1Lerp);
 		rightIcon.scale.set(p2Lerp, p2Lerp);
 		rightIcon.updateHitbox();
@@ -1677,7 +1677,7 @@ class ChartingState extends MusicBeatState {
 					    }
 					    // var funnySnap:Float = ((GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]) + Conductor.stepCrochet / stepperStackOffset.value);
 					    for(i in 0...Std.int(addCount)) {
-						    addNote(curSelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000 / _song.notes[curSec].bpm : 15000 / _song.bpm) / stepperStackOffset.value, curSelectedNote[1], currentType);
+						    addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, currentlySelectedNote[1], currentTypE);
 					    }
 					}
 				}
@@ -1729,7 +1729,7 @@ class ChartingState extends MusicBeatState {
 					}
 					// var funnySnap:Float = ((GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]) + Conductor.stepCrochet / stepperStackOffset.value);
 					for(i in 0...Std.int(addCount)) {
-						addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000 / _song.bpm) / stepperStackOffset.value, currentlySelectedNote[1], currentType);
+						addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, currentlySelectedNote[1], currentType);
 					}
 				}
 			}
