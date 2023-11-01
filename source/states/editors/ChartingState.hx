@@ -1680,6 +1680,7 @@ class ChartingState extends MusicBeatState {
 						    addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000 / _song.notes[curSec].bpm : 15000 / _song.bpm) / stepperStackOffset.value, currentlySelectedNote[1], currentType);
 					    }
 					}
+				}
 			}
 		}
 		#else
