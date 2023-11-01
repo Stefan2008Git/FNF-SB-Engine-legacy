@@ -1339,6 +1339,36 @@ class PlayState extends MusicBeatState {
 		judgementCounterTxt.cameras = [camHUD];
 		add(judgementCounterTxt);
 
+		// Used from Bambi Purgatory repository :D (Please don't kill me WhatsDown :(. If you want me to remove the code, i will remove it and never use it)
+		var randomName:Int = FlxG.random.int(0, 12);
+		var engineName:String = 'Null';
+		switch (randomName)
+	    {
+			case 0:
+				engineName = 'SB ';
+			case 1:
+				engineName = 'StefanBeta Engine ';
+			case 2:
+				engineName = 'Stefan2008 Engine ';
+			case 3:
+				engineName = 'Nury Engine ';
+			case 4:
+				engineName = 'MaysLastPlay Engine ';
+			case 5:
+				engineName = 'Fearester Engine ';
+			case 6:
+				engineName = 'Play Engine ';
+			case 7:
+				engineName = 'SunBurntTails Engine '; 
+			case 8:
+				engineName = 'Ali Alafandy Engine ';
+			case 9:
+				engineName = 'Luiz Engine ';
+			case 10:
+				engineName = 'MemeHoovy Engine '; // Added because he is helpful and best dude who want to help :)
+			case 11:
+				engineName = 'Boris2014 Engine '; // My little brother engine :).
+		}
 		if (ClientPrefs.watermarkStyle == 'SB Engine') {
 		    engineVersionTxt = new FlxText(12, FlxG.height - 44, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1352,7 +1382,11 @@ class PlayState extends MusicBeatState {
 		        engineVersionTxt.borderSize = 1.25;
 			}
 		    engineVersionTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-		    engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+		    if (ClientPrefs.randomEngineNames) {
+				engineVersionTxt.text = engineName + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			} else {
+				engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			}
 
 		    songAndDifficultyNameTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 			if (ClientPrefs.gameStyle == 'SB Engine') {
@@ -1382,13 +1416,16 @@ class PlayState extends MusicBeatState {
 		        engineVersionTxt.borderSize = 1.25;
 			}
 		    engineVersionTxt.visible = false;
-		    engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			if (ClientPrefs.randomEngineNames) {
+				engineVersionTxt.text = engineName + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			} else {
+				engineVersionTxt.text = "SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ")";
+			}
 			
 		    songAndDifficultyNameTxt = new FlxText(12, FlxG.height - 24, 0, "", 8);
 		    if (ClientPrefs.gameStyle == 'SB Engine') {
 		        songAndDifficultyNameTxt.setFormat(Paths.font("bahnschrift.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			}
-			if (ClientPrefs.gameStyle == 'Psych Engine') {
+			} else {
 		        songAndDifficultyNameTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			}
 		    songAndDifficultyNameTxt.scrollFactor.set();
@@ -1397,8 +1434,11 @@ class PlayState extends MusicBeatState {
 			}
 
 		    songAndDifficultyNameTxt.visible = !ClientPrefs.hideWatermark && !ClientPrefs.hideHud;
-			songAndDifficultyNameTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE "
-			+ MainMenuState.psychEngineVersion + ") ";
+			if (ClientPrefs.randomEngineNames) {
+				songAndDifficultyNameTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| " + engineName + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ") ";
+			} else {
+				songAndDifficultyNameTxt.text =  currentlySong + " (" + CoolUtil.difficulties[storyModeDifficulty] + ") " + "| SB " + MainMenuState.sbEngineVersion + " (PE " + MainMenuState.psychEngineVersion + ") ";
+			}
 		}
 
 		if (ClientPrefs.downScroll && ClientPrefs.watermarkStyle == 'SB Engine') {

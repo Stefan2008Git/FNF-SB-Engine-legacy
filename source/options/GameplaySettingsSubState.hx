@@ -120,6 +120,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If checked, this options is gonna make to show black background to make your game to focus on notes when are you playing a song.", 'laneunderlay', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('Random engine names',
+		    "If checked, this options is gonna make to show random engine names (aka. Usernames for example) instead of SB.", 'randomEngineNames', 'bool', false);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);

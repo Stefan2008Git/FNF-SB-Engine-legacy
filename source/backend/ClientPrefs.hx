@@ -43,6 +43,7 @@ class ClientPrefs {
 	public static var showTimeBar:Bool = true;
 	public static var laneunderlayAlpha:Float = 0.1;
 	public static var laneunderlay:Bool = false;
+	public static var randomEngineNames:Bool = false;
 	public static var colorblindMode:String = 'None';
 	public static var scoreZoom:Bool = true;
 	public static var judgementZoom:Bool = true;
@@ -157,6 +158,7 @@ class ClientPrefs {
 		FlxG.save.data.showTimeBar = showTimeBar;
 		FlxG.save.data.laneunderlayAlpha = laneunderlayAlpha;
 		FlxG.save.data.laneunderlay = laneunderlay;
+		FlxG.save.data.randomEngineNames = randomEngineNames;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.judgementZoom = judgementZoom;
 		FlxG.save.data.noReset = noReset;
@@ -253,6 +255,7 @@ class ClientPrefs {
 		FlxG.save.data.showTimeBar != null ? showTimeBar = FlxG.save.data.showTimeBar : showTimeBar = true;
 		FlxG.save.data.laneunderlayAlpha != null ? laneunderlayAlpha = FlxG.save.data.laneunderlayAlpha : laneunderlayAlpha = 0;
 		FlxG.save.data.laneunderlay != null ? laneunderlay = FlxG.save.data.laneunderlay : laneunderlay = false;
+		FlxG.save.data.randomEngineNames != null ? randomEngineNames = FlxG.save.data.randomEngineNames : randomEngineNames = false;
 		FlxG.save.data.scoreZoom != null ? scoreZoom = FlxG.save.data.scoreZoom : scoreZoom = true;
 		FlxG.save.data.judgementZoom != null ? scoreZoom = FlxG.save.data.judgementZoom : judgementZoom = true;
 		FlxG.save.data.noReset != null ? noReset = FlxG.save.data.noReset : noReset = false;
