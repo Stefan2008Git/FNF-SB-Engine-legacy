@@ -50,6 +50,7 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
+		SUtil.checkGameCrash();
 		if (stage != null) {
 			init();
 		} else {
