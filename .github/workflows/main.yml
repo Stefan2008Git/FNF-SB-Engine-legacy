@@ -1,4 +1,6 @@
-name: SB Engine worflow
+# This is a basic workflow to help you get started with Actions
+
+name: SB Engine workflow
 
 # Controls when the action will run.
 on:
@@ -26,24 +28,13 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.2.5
-      
-      - name: Restore Previous Cache
-        id: cache-build-linux-restore
-        uses: actions/cache/restore@main
-        with:
-          path: |
-            .haxelib/
-            export/release/linux/haxe/
-            export/release/linux/obj/
-          key: cache-linux-build
-
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
           sudo apt-get install libvlc-dev
           sudo apt-get install libvlccore-dev
           haxelib setup ~/haxelib
-          haxelib install hxcpp 4.2.1
+          haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -69,42 +60,6 @@ jobs:
           haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}"
-      
-      - name: Clear Previous Cache
-        uses: actions/github-script@main
-        with:
-          script: |
-            try {
-            	const caches = await github.rest.actions.getActionsCacheList({
-            		owner: context.repo.owner,
-            		repo: context.repo.repo,
-            	})
-            	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
-            		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-linux-build") {
-            				console.log('Clearing ' + cache.key + '...')
-            				await github.rest.actions.deleteActionsCacheById({
-            					owner: context.repo.owner,
-            					repo: context.repo.repo,
-            					cache_id: cache.id,
-            				})
-            				console.log("Previous Cache Cleared!")
-            			}
-            		}
-            	}
-            } catch (error) {
-            	console.log(error.message);
-            }
-      - name: Save Current Cache
-        id: cache-build-linux-save
-        uses: actions/cache/save@main
-        with:
-          path: |
-            .haxelib/
-            export/release/linux/haxe/
-            export/release/linux/obj/
-          key: cache-linux-build
-
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
@@ -120,22 +75,11 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.2.5
-      
-      - name: Restore Previous Cache
-        id: cache-build-windows-restore
-        uses: actions/cache/restore@main
-        with:
-          path: |
-            .haxelib/
-            export/release/windows/haxe/
-            export/release/windows/obj/
-          key: cache-windows-build
-
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
           haxelib setup C:/haxelib
-          haxelib install hxcpp 4.2.1
+          haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -152,7 +96,6 @@ jobs:
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib install hxcpp-debug-server
           haxelib list
         shell: cmd
       - name: Create Version Tag
@@ -164,42 +107,6 @@ jobs:
           haxelib set hxCodec 2.5.1
       - name: Compile
         run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
-      
-      - name: Clear Previous Cache
-        uses: actions/github-script@main
-        with:
-          script: |
-            try {
-            	const caches = await github.rest.actions.getActionsCacheList({
-            		owner: context.repo.owner,
-            		repo: context.repo.repo,
-            	})
-            	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
-            		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-windows-build") {
-            				console.log('Clearing ' + cache.key + '...')
-            				await github.rest.actions.deleteActionsCacheById({
-            					owner: context.repo.owner,
-            					repo: context.repo.repo,
-            					cache_id: cache.id,
-            				})
-            				console.log("Previous Cache Cleared!")
-            			}
-            		}
-            	}
-            } catch (error) {
-            	console.log(error.message);
-            }
-      - name: Save Current Cache
-        id: cache-build-windows-save
-        uses: actions/cache/save@main
-        with:
-          path: |
-            .haxelib/
-            export/release/windows/haxe/
-            export/release/windows/obj/
-          key: cache-windows-build
-
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
@@ -215,21 +122,11 @@ jobs:
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.2.5
-      
-      - name: Restore Previous Cache
-        id: cache-build-macos-restore
-        uses: actions/cache/restore@main
-        with:
-          path: |
-            .haxelib/
-            export/release/macos/haxe/
-            export/release/macos/obj/
-          key: cache-macos-build
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib install hxcpp 4.2.1
+          haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -255,42 +152,6 @@ jobs:
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
         run: haxelib run lime build mac --app-version="4.0.0-${{ github.run_id}}"
-      
-      - name: Clear Previous Cache
-        uses: actions/github-script@main
-        with:
-          script: |
-            try {
-            	const caches = await github.rest.actions.getActionsCacheList({
-            		owner: context.repo.owner,
-            		repo: context.repo.repo,
-            	})
-            	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
-            		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-macos-build") {
-            				console.log('Clearing ' + cache.key + '...')
-            				await github.rest.actions.deleteActionsCacheById({
-            					owner: context.repo.owner,
-            					repo: context.repo.repo,
-            					cache_id: cache.id,
-            				})
-            				console.log("Previous Cache Cleared!")
-            			}
-            		}
-            	}
-            } catch (error) {
-            	console.log(error.message);
-            }
-      - name: Save Current Cache
-        id: cache-build-macos-save
-        uses: actions/cache/save@main
-        with:
-          path: |
-            .haxelib/
-            export/release/macos/haxe/
-            export/release/macos/obj/
-          key: cache-macos-build
-
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
@@ -313,49 +174,38 @@ jobs:
         uses: actions/setup-java@main
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: 18
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@main
 
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+        uses: krdlab/setup-haxe@v1.2.0
         with:
           haxe-version: 4.2.5
 
-      - name: Restore Previous Cache
-        id: cache-debug-build-android-restore
-        uses: actions/cache/restore@main
-        with:
-          path: |
-            ~/haxelib
-            ~/.gradle
-            export/release/android/haxe
-            export/release/android/obj
-          key: cache-android-build
-
       - name: Install Haxelib
         run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp 4.2.1 > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
-          haxelib run lime setup flixel
-          haxelib install flixel-tools
-          haxelib install flixel-ui
-          haxelib install flixel-addons
-          haxelib install tjson
-          haxelib install hxjsonast
-          haxelib install hscript
-          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
-          haxelib git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
-          haxelib git androiddialogs https://github.com/beihu235/AndroidDialogs
-          haxelib git devicelanguage https://github.com/beihu235/devicelanguage
+          haxelib --quiet setup /home/runner/haxelib
+          haxelib --quiet install hxcpp 4.2.1 > /dev/null
+          haxelib --quiet install lime
+          haxelib --quiet install openfl
+          haxelib --quiet install flixel
+          haxelib --quiet run lime setup flixel
+          haxelib --quiet install flixel-tools
+          haxelib --quiet install flixel-ui
+          haxelib --quiet install flixel-addons
+          haxelib --quiet install tjson
+          haxelib --quiet install hxjsonast
+          haxelib --quiet install hscript
+          haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
+          haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
           haxelib list
-
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
 
-      - name: Configure Android
+      - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -368,49 +218,9 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -${{ matrix.arch }}
-        env:
-          cert_pass: nullfunni
-          cert_alias_pass: nullfunni
+        run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}"
 
-      - name: Clear Previous Cache
-        uses: actions/github-script@main
-        with:
-          script: |
-            try {
-            	const caches = await github.rest.actions.getActionsCacheList({
-            		owner: context.repo.owner,
-            		repo: context.repo.repo,
-            	})
-            	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
-            		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-android-build") {
-            				console.log('Clearing ' + cache.key + '...')
-            				await github.rest.actions.deleteActionsCacheById({
-            					owner: context.repo.owner,
-            					repo: context.repo.repo,
-            					cache_id: cache.id,
-            				})
-            				console.log("Previous Cache Cleared!")
-            			}
-            		}
-            	}
-            } catch (error) {
-            	console.log(error.message);
-            }
-
-      - name: Save Current Cache
-        id: cache-release-build-android-save
-        uses: actions/cache/save@main
-        with:
-          path: |
-            ~/haxelib
-            ~/.gradle
-            export/release/android/haxe
-            export/release/android/obj
-          key: cache-android-build
-
-      - name: Upload Artifact
+      - name: Publish Artifact
         uses: actions/upload-artifact@main
         with:
           name: SB Engine Android build
