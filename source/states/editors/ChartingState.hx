@@ -1677,10 +1677,9 @@ class ChartingState extends MusicBeatState {
 					    }
 					    // var funnySnap:Float = ((GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]) + Conductor.stepCrochet / stepperStackOffset.value);
 					    for(i in 0...Std.int(addCount)) {
-						    addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, currentlySelectedNote[1], currentTypE);
+						    addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, currentlySelectedNote[1], currentType);
 					    }
 					}
-				}
 			}
 		}
 		#else
