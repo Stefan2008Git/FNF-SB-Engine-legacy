@@ -329,6 +329,7 @@ class ChartingState extends MusicBeatState {
 			{name: "Song", label: 'Song'},
 			{name: "Section", label: 'Section'},
 			{name: "Note", label: 'Note'},
+			{name: "Note Stacking", label: 'Note Stacking'},
 			{name: "Events", label: 'Events'},
 			{name: "Charting", label: 'Charting'},
 		];
@@ -390,6 +391,7 @@ class ChartingState extends MusicBeatState {
 		addSongUI();
 		addSectionUI();
 		addNoteUI();
+		addNoteStackingUI();
 		addEventsUI();
 		addChartingUI();
 		updateHeads();
@@ -1049,6 +1051,43 @@ class ChartingState extends MusicBeatState {
 		UI_box.addGroup(tab_group_note);
 	}
 
+	var check_stackActive:FlxUICheckBox;
+	var stepperStackNum:FlxUINumericStepper;
+	var stepperStackOffset:FlxUINumericStepper;
+	var stepperStackSideOffset:FlxUINumericStepper;
+
+	function addNoteStackingUI():Void
+	{
+		var tab_group_stacking = new FlxUI(null, UI_box);
+		tab_group_stacking.name = 'Note Stacking';
+
+		check_stackActive = new FlxUICheckBox(10, 10, null, null, "Enable Note Stacking (Not Recommended)", 100);
+		check_stackActive.name = 'check_stackActive';
+
+		stepperStackNum = new FlxUINumericStepper(10, 30, 1, 1, 0, 999999, 4);
+		stepperStackNum.name = 'stack_count';
+		blockPressWhileTypingOnStepper.push(stepperStackNum);
+
+		stepperStackOffset = new FlxUINumericStepper(10, 50, 1, 1, 0, 8192, 4);
+		stepperStackOffset.name = 'stack_offset';
+		blockPressWhileTypingOnStepper.push(stepperStackOffset);
+
+		stepperStackSideOffset = new FlxUINumericStepper(10, 70, 1, 0, -9999, 9999);
+		stepperStackSideOffset.name = 'stack_sideways';
+		blockPressWhileTypingOnStepper.push(stepperStackSideOffset);
+
+		tab_group_stacking.add(check_stackActive);
+		tab_group_stacking.add(stepperStackNum);
+		tab_group_stacking.add(stepperStackOffset);
+		tab_group_stacking.add(stepperStackSideOffset);
+		
+		tab_group_stacking.add(new FlxText(100, 30, 0, "Stacking Count"));
+		tab_group_stacking.add(new FlxText(100, 50, 0, "Stacking Multiplier"));
+		tab_group_stacking.add(new FlxText(100, 70, 0, "Stacking Scroll Amount"));
+
+		UI_box.addGroup(tab_group_stacking);
+	}
+
 	var eventDropDown:FlxUIDropDownMenuCustom;
 	var descText:FlxText;
 	var selectedEventText:FlxText;
@@ -1532,9 +1571,40 @@ class ChartingState extends MusicBeatState {
 
 	var lastConductorPos:Float;
 	var colorSine:Float = 0;
+	var p1Lerp:Float = 1;
+	var p2Lerp:Float = 1;
+	var oldStep:Int = 0;
+
+	function resyncVocals():Void
+	{
+		vocals.pause();
+
+		FlxG.sound.music.play();
+		Conductor.songPosition = FlxG.sound.music.time;
+		vocals.time = Conductor.songPosition;
+		vocals.play();
+	}
 
 	override function update(elapsed:Float) {
+		oldStep = curStep;
 		curStep = recalculateSteps();
+
+		if (curStep % 4 == 0 && oldStep != curStep)
+		{
+			beatHitValue();
+		}
+
+		if (oldStep != curStep)
+		{
+			stepHitValue();
+		}
+
+		p1Lerp = FlxMath.lerp(0.6, leftIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1));
+		p2Lerp = FlxMath.lerp(0.6, rightIcon.scale.x, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1));
+		leftIcon.scale.set(p1Lerp, p1Lerp);
+		rightIcon.scale.set(p2Lerp, p2Lerp);
+		rightIcon.updateHitbox();
+		leftIcon.updateHitbox();
 
 		if (FlxG.sound.music.time < 0) {
 			FlxG.sound.music.pause();
@@ -1601,6 +1671,14 @@ class ChartingState extends MusicBeatState {
 						&& touch.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom]) {
 						FlxG.log.add('added note');
 						addNote();
+						var addCount:Int = 0;
+					    if (check_stackActive.checked) {
+						    addCount = (Math.floor(stepperStackNum.value)) * Math.floor(stepperStackOffset.value);
+					    }
+					    // var funnySnap:Float = ((GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]) + Conductor.stepCrochet / stepperStackOffset.value);
+					    for(i in 0...Std.int(addCount)) {
+						    addNote(curSelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, curSelectedNote[1], );
+					    }
 					}
 				}
 			}
@@ -1645,6 +1723,14 @@ class ChartingState extends MusicBeatState {
 					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom]) {
 					FlxG.log.add('added note');
 					addNote();
+					var addCount:Int = 0;
+					if (check_stackActive.checked) {
+						addCount = (Math.floor(stepperStackNum.value)) * Math.floor(stepperStackOffset.value);
+					}
+					// var funnySnap:Float = ((GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]) + Conductor.stepCrochet / stepperStackOffset.value);
+					for(i in 0...Std.int(addCount)) {
+						addNote(currentlySelectedNote[0] + (_song.notes[curSec].changeBPM ? 15000/_song.notes[curSec].bpm : 15000/_song.bpm)/stepperStackOffset.value, currentlySelectedNote[1], currentType);
+					}
 				}
 			}
 		}
@@ -2077,6 +2163,31 @@ class ChartingState extends MusicBeatState {
 		super.update(elapsed);
 	}
 
+	var iconScale:Float = 1;
+
+	function beatHitValue()
+	{
+		// trace(editingEvents);
+		if (FlxG.sound.music.playing)
+		{
+			leftIcon.scale.x += 0.2;
+			rightIcon.scale.x += 0.2;
+			rightIcon.updateHitbox();
+			leftIcon.updateHitbox();
+		}
+	}
+
+	function stepHitValue()
+	{
+		if (FlxG.sound.music.playing)
+		{
+			if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
+			{
+				resyncVocals();
+			}
+		}
+	}
+
 	function updateZoom() {
 		var daZoom:Float = zoomList[curZoom];
 		var zoomThing:String = '1 / ' + daZoom;
@@ -2128,10 +2239,14 @@ class ChartingState extends MusicBeatState {
 	 */
 	var lastSecBeats:Float = 0;
 	var lastSecBeatsNext:Float = 0;
+	var columns:Int = 9;
 
 	function reloadGridLayer() {
 		gridLayer.clear();
-		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 9, Std.int(GRID_SIZE * getSectionBeats() * 4 * zoomList[curZoom]));
+		gridBG = FlxGridOverlay.create(1, 1, columns, Std.int(getSectionBeats() * 4 * zoomList[curZoom]));
+		gridBG.antialiasing = false;
+		gridBG.scale.set(GRID_SIZE, GRID_SIZE);
+		gridBG.updateHitbox();
 
 		if (FlxG.save.data.chart_waveformInst || FlxG.save.data.chart_waveformVoices) {
 			updateWaveform();
@@ -2140,7 +2255,10 @@ class ChartingState extends MusicBeatState {
 		var leHeight:Int = Std.int(gridBG.height);
 		var foundNextSec:Bool = false;
 		if (sectionStartTime(1) <= FlxG.sound.music.length) {
-			nextGridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 9, Std.int(GRID_SIZE * getSectionBeats(curSec + 1) * 4 * zoomList[curZoom]));
+			nextGridBG = FlxGridOverlay.create(1, 1, columns, Std.int(getSectionBeats(curSec + 1) * 4 * zoomList[curZoom]));
+			nextGridBG.antialiasing = false;
+			nextGridBG.scale.set(GRID_SIZE, GRID_SIZE);
+			nextGridBG.updateHitbox();
 			leHeight = Std.int(gridBG.height + nextGridBG.height);
 			foundNextSec = true;
 		} else
@@ -2151,12 +2269,18 @@ class ChartingState extends MusicBeatState {
 		gridLayer.add(gridBG);
 
 		if (foundNextSec) {
-			var gridBlack:FlxSprite = new FlxSprite(0, gridBG.height).makeGraphic(Std.int(GRID_SIZE * 9), Std.int(nextGridBG.height), FlxColor.BLACK);
+			var gridBlack:FlxSprite = new FlxSprite(0, gridBG.height).makeGraphic(1, 1, FlxColor.BLACK);
+			gridBlack.setGraphicSize(Std.int(GRID_SIZE * 9), Std.int(nextGridBG.height));
+			gridBlack.updateHitbox();
+			gridBlack.antialiasing = false;
 			gridBlack.alpha = 0.4;
 			gridLayer.add(gridBlack);
 		}
 
-		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width - (GRID_SIZE * 4)).makeGraphic(2, leHeight, FlxColor.BLACK);
+		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width - (GRID_SIZE * 4)).makeGraphic(1, 1, FlxColor.BLACK);
+		gridBlackLine.setGraphicSize(2, leHeight);
+		gridBlackLine.updateHitbox();
+		gridBlackLine.antialiasing = false;
 		gridLayer.add(gridBlackLine);
 
 		for (i in 1...4) {
@@ -2166,7 +2290,10 @@ class ChartingState extends MusicBeatState {
 			}
 		}
 
-		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, leHeight, FlxColor.BLACK);
+		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(1, 1, FlxColor.BLACK);
+		gridBlackLine.setGraphicSize(2, leHeight);
+		gridBlackLine.updateHitbox();
+		gridBlackLine.antialiasing = false;
 		gridLayer.add(gridBlackLine);
 		updateGrid();
 

@@ -9,7 +9,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var sbEngineVersion:String = '2.9.0';
+	public static var sbEngineVersion:String = '3.0.0';
 	public static var psychEngineVersion:String = '0.6.3';
 	public static var fnfEngineVersion:String = '0.2.8';
 	public static var currentlySelected:Int = 0;

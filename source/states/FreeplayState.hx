@@ -1,7 +1,7 @@
 package states;
 
-import states.editors.ChartingState;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.ui.FlxBar;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
@@ -38,6 +38,10 @@ class FreeplayState extends MusicBeatState {
 
 	private var groupSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
+
+	var songBG:FlxSprite;
+	var songBar:FlxBar;
+	var barValue:Float = 0;
 
 	var background:FlxSprite;
 	var velocityBackground:FlxBackdrop;
@@ -246,8 +250,11 @@ class FreeplayState extends MusicBeatState {
 
 		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.') + '%\nMISSES: ' + intendedMisses;
 		positionHighscore();
+		super.update(elapsed);
 
 		var shiftMult:Int = 1;
+		barValue += elapsed;
+
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
 		if(songs.length > 1)
@@ -349,6 +356,25 @@ class FreeplayState extends MusicBeatState {
 		else if (controls.ACCEPT)
 		{
 			persistentUpdate = false;
+			songBG = new FlxSprite(48 + (FlxG.width / 2) - 248, 19).loadGraphic(Paths.image('healthBar', 'shared'));
+		    songBG.screenCenter(X);
+		    songBG.antialiasing = ClientPrefs.globalAntialiasing;
+		    songBG.scrollFactor.set();
+		    add(songBG);
+
+		    songBar = new FlxBar(songBG.x + 4, songBG.y + 4, LEFT_TO_RIGHT, Std.int(songBG.width - 8), Std.int(songBG.height - 8), this, 'barValue', 0, 3);
+		    songBar.numDivisions = 800;
+		    songBar.scrollFactor.set();
+		    songBar.screenCenter(X);
+		    songBar.antialiasing = ClientPrefs.globalAntialiasing;
+		    songBar.createFilledBar(FlxColor.BLACK, FlxColor.CYAN);
+		    add(songBar);
+
+		    var daText:FlxText = new FlxText(0, songBG.y + 30, "Getting ready to play the song...", 20);
+		    daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
+		    daText.screenCenter(X);
+		    add(daText);
+
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
 			var songValue:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
 			trace(songValue);
@@ -397,10 +423,9 @@ class FreeplayState extends MusicBeatState {
 					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 					FlxTween.tween(missingFileText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 	
-			new FlxTimer().start(1, function(tmr:FlxTimer) 
+			new FlxTimer().start(3, function(tmr:FlxTimer) 
 			{
-			    LoadingState.loadAndSwitchState(new PlayState());
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+			    goToPlayState();
 			});
 		}
 		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)
@@ -416,10 +441,16 @@ class FreeplayState extends MusicBeatState {
 		super.update(elapsed);
 	}
 
+	function goToPlayState()
+	{
+		LoadingState.loadAndSwitchState(new PlayState());
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+	}
+
 	override function beatHit()
 	{
 		super.beatHit();
-		  bopOnBeat();
+		bopOnBeat();
 	}
 
 	function bopOnBeat()
