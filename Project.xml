@@ -178,4 +178,5 @@
 			<!--Target SDK-->
 			<android target-sdk-version="29" if="${lime &lt; 8.1.0}" />
 		</config>
+	</section>
 </project>
