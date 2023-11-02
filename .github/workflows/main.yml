@@ -201,7 +201,7 @@ jobs:
           haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
-          haxelib --quiet git AndroidDialogs https://github.com/beihu235/AndroidDialogs
+          haxelib --quiet git androiddialogs https://github.com/beihu235/AndroidDialogs
           haxelib --quiet git devicelanguage https://github.com/beihu235/devicelanguage
           haxelib list
       - name: Create Version Tag
