@@ -114,7 +114,7 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
 	<define name="hscriptPos" />
-	<haxelib name="androiddialogs" if = "android"/>
+	<haxelib name="AndroidDialogs" if = "android"/>
 	<haxelib name="devicelanguage" if = "mobile"/>
 
 	<!--In case you want to use the ui package-->
