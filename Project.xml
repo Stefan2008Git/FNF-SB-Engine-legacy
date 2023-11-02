@@ -126,6 +126,18 @@
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="discord_rpc" if="desktop"/>
 
+	<!-- _________________________________ Android Stuff _______________________________ -->
+
+			<!--Gradle-->
+			<android gradle-version="7.4.2" gradle-plugin="7.3.1" />
+
+			<!--Permission-->
+			<android permission="android.permission.READ_EXTERNAL_STORAGE" />
+			<android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+			<!--Target SDK-->
+			<!--android target-sdk-version="29" if="${lime &lt; 8.1.0}" /-->
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 
@@ -136,7 +148,7 @@
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 
 	<!--Allow working memory greater than 1 Gig. NOTE: i recommend using Flixel 5.2.2 for this to work!-->
-	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
+	<!--haxedef name="HXCPP_GC_BIG_BLOCKS"/-->
 	<!--also fixes like any "Memory Exhausted" issues you might get when compiling-->
 	<!--UPDATE: turns out that HxCPP 5.2.2 isnt required for this to work, nvm-->
 	
@@ -164,19 +176,5 @@
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
-	<!-- _________________________________ Android Stuff _______________________________ -->
-	<section if="android">
-		<config>
-			<!--Gradle-->
-			<android gradle-version="7.4.2" gradle-plugin="7.3.1" />
 
-			<!--Permission-->
-			<android permission="android.permission.READ_EXTERNAL_STORAGE" />
-			<android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
-			<android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
-			<!--Target SDK-->
-			<android target-sdk-version="29" if="${lime &lt; 8.1.0}" />
-		</config>
-	</section>
 </project>
