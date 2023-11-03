@@ -1,8 +1,6 @@
 package substates;
 
 import flixel.addons.transition.FlxTransitionableState;
-import objects.Alphabet;
-import backend.Controls.Control;
 import states.MainMenuState;
 import states.FreeplayState;
 import states.StoryModeState;

@@ -2,7 +2,6 @@ package options;
 
 import lime.utils.Assets;
 import flixel.util.FlxSave;
-import objects.Alphabet;
 
 using StringTools;
 

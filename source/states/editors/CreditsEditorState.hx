@@ -29,7 +29,6 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
-import objects.Alphabet;
 import states.MainMenuState;
 import states.editors.MasterEditorMenu;
 import substates.Prompt;

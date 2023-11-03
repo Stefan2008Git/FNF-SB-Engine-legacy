@@ -3,8 +3,6 @@ package states;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup;
 import lime.net.curl.CURLCode;
-import objects.MenuItem;
-import objects.MenuCharacter;
 
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;

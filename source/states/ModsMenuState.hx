@@ -1,7 +1,5 @@
 package states;
 
-import objects.Alphabet;
-
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxButtonPlus;
 import lime.utils.Assets;

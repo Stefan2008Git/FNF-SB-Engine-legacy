@@ -1,7 +1,5 @@
 package states;
 
-import objects.NoteSplash;
-import objects.StrumNote;
 import stages.tank.TankmenBG;
 import stages.pico.PhillyGlowGradient;
 import stages.pico.PhillyGlowParticle;
@@ -18,7 +16,6 @@ import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.atlas.FlxAtlas;
-import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
 import flixel.util.FlxSort;
 import haxe.Json;

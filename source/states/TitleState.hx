@@ -21,7 +21,6 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import openfl.Assets;
-import objects.Alphabet;
 import states.MainMenuState;
 import states.FreeplayState;
 import states.StoryModeState;

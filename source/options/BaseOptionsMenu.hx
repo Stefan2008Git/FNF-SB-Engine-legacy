@@ -6,9 +6,6 @@ import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
 import flash.geom.Rectangle;
-import objects.Alphabet;
-import objects.CheckboxThingie;
-import objects.AttachedText;
 
 using StringTools;
 

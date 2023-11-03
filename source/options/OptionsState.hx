@@ -3,7 +3,6 @@ package options;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
-import objects.Alphabet;
 import states.ClassicMainMenuState;
 import states.LoadingState;
 import states.MainMenuState;

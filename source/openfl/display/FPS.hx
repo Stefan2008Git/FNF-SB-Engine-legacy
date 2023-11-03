@@ -152,7 +152,7 @@ class FPS extends TextField {
 				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}' + '.hx';
 				if (FlxG.state.subState != null)
 					text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}' + '.hx';
-				text += "\nSystem: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+				text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
 				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
 				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 			}

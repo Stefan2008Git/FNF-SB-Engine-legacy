@@ -5,7 +5,6 @@ import flixel.system.FlxSound;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
-import objects.Alphabet;
 import states.MainMenuState;
 import states.FreeplayState;
 import states.LoadingState;

@@ -31,7 +31,6 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
-import objects.StrumNote;
 import states.MainMenuState;
 import substates.Prompt;
 

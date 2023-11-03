@@ -2,7 +2,6 @@ package states;
 
 import flixel.addons.transition.FlxTransitionableState;
 import states.editors.MasterEditorMenu;
-import objects.Alphabet;
 import states.MainMenuState;
 
 using StringTools;

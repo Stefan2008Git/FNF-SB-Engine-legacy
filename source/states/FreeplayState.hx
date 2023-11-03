@@ -1,11 +1,9 @@
 package states;
 
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.ui.FlxBar;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
-import objects.Alphabet;
 import states.MainMenuState;
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
@@ -36,11 +34,14 @@ class FreeplayState extends MusicBeatState {
 	var intendedRating:Float = 0;
 	var intendedMisses:Int = 0;
 
+	var selectedThing:Bool = false;
+
 	private var groupSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
 
 	var songBG:FlxSprite;
 	var songBar:FlxBar;
+	var loadingSongText:FlxText;
 	var barValue:Float = 0;
 
 	var background:FlxSprite;
@@ -50,9 +51,6 @@ class FreeplayState extends MusicBeatState {
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var cameraZoom:FlxTween;
-
-	var missingFileBackground:FlxSprite;
-	var missingFileText:FlxText;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -140,22 +138,6 @@ class FreeplayState extends MusicBeatState {
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
-		missingFileBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		missingFileBackground.alpha = 0.6;
-		missingFileBackground.visible = false;
-		add(missingFileBackground);
-		
-		missingFileText = new FlxText(50, 0, FlxG.width - 100, '', 24);
-		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine':
-		        missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			default:
-				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		}
-		missingFileText.scrollFactor.set();
-		missingFileText.visible = false;
-		add(missingFileText);
-
 		if (currentlySelected >= songs.length) currentlySelected = 0;
 		background.color = songs[currentlySelected].color;
 		intendedColor = background.color;
@@ -197,7 +179,7 @@ class FreeplayState extends MusicBeatState {
 		Paths.clearUnusedMemory();
 
 		#if android
-		addVirtualPad(LEFT_FULL, A_B_C_X_Y);
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
 		#end
 
 		super.create();
@@ -227,9 +209,9 @@ class FreeplayState extends MusicBeatState {
 	var holdTime:Float = 0;
 
 	override function update(elapsed:Float) {
-		if (FlxG.sound.music.volume < 0.7) {
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
+		if (!selectedThing)
+		    if (FlxG.sound.music.volume < 0.7)
+			    FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
@@ -250,74 +232,66 @@ class FreeplayState extends MusicBeatState {
 
 		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.') + '%\nMISSES: ' + intendedMisses;
 		positionHighscore();
-		super.update(elapsed);
+
+		var upP = controls.UI_UP_P;
+		var downP = controls.UI_DOWN_P;
+		var accepted = controls.ACCEPT;
+		var back = controls.BACK;
+		var shift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.justPressed #end;
+		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
+		var reset = controls.RESET #if android || virtualPad.buttonY.justPressed #end;
 
 		var shiftMult:Int = 1;
-		barValue += elapsed;
 
-		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		if (selectedThing) {
+			barValue += elapsed;
+		}
 
-		if(songs.length > 1)
-		{
-			if(FlxG.keys.justPressed.HOME)
-			{
-				currentlySelected = 0;
-				changeSelection();
-				holdTime = 0;	
-			}
+		if (shift) shiftMult = 3;
 
-			else if(FlxG.keys.justPressed.END)
-			{
-				currentlySelected = songs.length - 1;
-				changeSelection();
-				holdTime = 0;	
-			}
-
-			if (controls.UI_UP_P)
-			{
+		if (songs.length > 1) {
+			if (upP) {
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
-
-			if (controls.UI_DOWN_P)
-			{
+			if (downP) {
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
 
-			if(controls.UI_DOWN || controls.UI_UP)
-			{
+			if (controls.UI_DOWN || controls.UI_UP) {
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
 				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
-				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+				if (holdTime > 0.5 && checkNewHold - checkLastHold > 0) {
 					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+					changeDifficulty();
+				}
 			}
 		}
 
 		if (controls.UI_LEFT_P)
-		{
 			changeDifficulty(-1);
-		}
-
 		else if (controls.UI_RIGHT_P)
-		{
 			changeDifficulty(1);
-		}
+		else if (upP || downP)
+			changeDifficulty();
 
-		if (controls.BACK)
+		if (back)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
+			FlxTween.tween(FlxG.camera, {zoom: 1.5}, 1, {ease: FlxEase.quadOut});
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 
-		if(FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end)
+		if (ctrl)
 		{
 			#if android
 			removeVirtualPad();
@@ -327,7 +301,7 @@ class FreeplayState extends MusicBeatState {
 			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
 		}
 
-		else if(FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end)
+		else if (space)
 		{
 			if(instrumentalPlaying != currentlySelected)
 			{
@@ -353,9 +327,10 @@ class FreeplayState extends MusicBeatState {
 			}
 		}
 
-		else if (controls.ACCEPT)
+		else if (accepted)
 		{
 			persistentUpdate = false;
+			selectedThing = true;
 			songBG = new FlxSprite(48 + (FlxG.width / 2) - 248, 19).loadGraphic(Paths.image('healthBar', 'shared'));
 		    songBG.screenCenter(X);
 		    songBG.antialiasing = ClientPrefs.globalAntialiasing;
@@ -367,44 +342,28 @@ class FreeplayState extends MusicBeatState {
 		    songBar.scrollFactor.set();
 		    songBar.screenCenter(X);
 		    songBar.antialiasing = ClientPrefs.globalAntialiasing;
-		    songBar.createFilledBar(FlxColor.BLACK, FlxColor.CYAN);
+		    songBar.createFilledBar(FlxColor.BLACK, FlxColor.PURPLE);
 		    add(songBar);
 
-		    var daText:FlxText = new FlxText(0, songBG.y + 30, "Getting ready to play the song...", 20);
-		    daText.setFormat(Paths.font('vcr.ttf'), 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
-		    daText.screenCenter(X);
-		    add(daText);
+		    loadingSongText = new FlxText(0, songBG.y + 30, "Getting ready to play the song...", 20);
+		    switch (ClientPrefs.gameStyle) {
+				case 'Psych Engine': loadingSongText.setFormat('VCR OSD Mono', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
+				default: loadingSongText.setFormat('Bahnschrift', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
+			}
+		    loadingSongText.screenCenter(X);
+		    add(loadingSongText);
 
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
 			var songValue:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
 			trace(songValue);
 
-			try
-			{
-				PlayState.SONG = Song.loadFromJson(songValue, songLowercase);
-				PlayState.isStoryMode = false;
-				PlayState.storyModeDifficulty = currentlyDifficulty;
+			PlayState.SONG = Song.loadFromJson(songValue, songLowercase);
+			PlayState.isStoryMode = false;
+			PlayState.storyModeDifficulty = currentlyDifficulty;
 
-				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-				if(colorTween != null) {
-					colorTween.cancel();
-				}
-			}
-
-			catch(e:Dynamic)
-			{
-				trace('ERROR! $e');
-
-				var fileNotFound:String = e.toString();
-				if(fileNotFound.startsWith('[file_contents,assets/data/')) fileNotFound = 'Missing chart file: ' + fileNotFound.substring(27, fileNotFound.length-1); //Missing chart
-				missingFileText.text = 'Error on loading song chart:\n$fileNotFound';
-				missingFileText.screenCenter(Y);
-				missingFileText.visible = true;
-				missingFileBackground.visible = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-
-				super.update(elapsed);
-				return;
+			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+			if(colorTween != null) {
+				colorTween.cancel();
 			}
 
 			for (item in groupSongs.members)
@@ -420,15 +379,13 @@ class FreeplayState extends MusicBeatState {
 					FlxTween.tween(difficultyText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 					FlxTween.tween(textBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 					FlxTween.tween(text, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
-					FlxTween.tween(missingFileBackground, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
-					FlxTween.tween(missingFileText, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 	
 			new FlxTimer().start(3, function(tmr:FlxTimer) 
 			{
 			    goToPlayState();
 			});
 		}
-		else if(controls.RESET #if android || virtualPad.buttonY.justPressed #end)
+		else if (reset)
 		{
 			#if android
 			removeVirtualPad();

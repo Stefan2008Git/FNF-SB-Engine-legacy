@@ -1,11 +1,8 @@
 package states.editors;
 
-import objects.NoteSplash;
-import objects.StrumNote;
 import states.editors.EditorLua;
 import states.MainMenuState;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.ui.FlxBar;
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
 import openfl.events.KeyboardEvent;

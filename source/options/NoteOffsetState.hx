@@ -2,8 +2,6 @@ package options;
 
 import states.MainMenuState;
 import substates.PauseSubState;
-import flixel.ui.FlxBar;
-import objects.Alphabet;
 
 using StringTools;
 

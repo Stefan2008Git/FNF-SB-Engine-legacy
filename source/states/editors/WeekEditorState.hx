@@ -21,9 +21,6 @@ import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
 #end
-import objects.Alphabet;
-import objects.MenuCharacter;
-import objects.MenuItem;
 import states.editors.MasterEditorMenu;
 
 using StringTools;

@@ -5,7 +5,6 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 import lime.utils.Assets;
-import objects.Alphabet;
 
 using StringTools;
 

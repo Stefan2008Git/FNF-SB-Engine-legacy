@@ -20,8 +20,6 @@ import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
 import lime.system.Clipboard;
-import objects.Alphabet;
-import objects.TypedAlphabet;
 #if sys
 import sys.io.File;
 #end

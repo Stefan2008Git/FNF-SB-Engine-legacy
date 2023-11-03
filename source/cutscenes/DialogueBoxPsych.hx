@@ -4,8 +4,6 @@ import flixel.addons.text.FlxTypeText;
 import flixel.input.FlxKeyManager;
 import haxe.Json;
 import haxe.format.JsonParser;
-import objects.Alphabet;
-import objects.TypedAlphabet;
 #if sys
 import sys.FileSystem;
 import sys.io.File;

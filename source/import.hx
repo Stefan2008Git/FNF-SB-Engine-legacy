@@ -1,7 +1,7 @@
 #if (!macro)
 package;
 
-// Basic Flixel stuff for HaxeFlixel engine!
+// Basic Flixel stuff for HaxeFlixel engine.
 import flixel.FlxG;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
@@ -33,6 +33,7 @@ import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
+import flixel.ui.FlxBar;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -50,6 +51,7 @@ import backend.Conductor;
 import backend.Conductor.BPMChangeEvent;
 import backend.Conductor.Rating;
 import backend.Controls;
+import backend.Controls.Control;
 import backend.CoolUtil;
 import backend.CoolUtil.Countdown;
 import backend.CustomFadeTransition;
@@ -75,17 +77,22 @@ import shaders.ColorSwap;
 import shaders.Shaders;
 import scroller.FlxUIDropDownMenuCustom;
 import objects.Alphabet;
-import objects.StrumNote;
+import objects.AttachedText;
 import objects.AttachedSprite;
 import objects.Boyfriend;
 import objects.BackgroundDancer;
 import objects.BackgroundGirls;
 import objects.BGSprite;
 import objects.Character;
+import objects.CheckboxThingie;
 import objects.HealthIcon;
+import objects.MenuCharacter;
+import objects.MenuItem;
 import objects.Note;
 import objects.Note.EventNote;
+import objects.NoteSplash;
 import objects.StrumNote;
+import objects.TypedAlphabet;
 import states.PlayState;
 
 using StringTools;

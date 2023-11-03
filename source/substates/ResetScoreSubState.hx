@@ -1,8 +1,6 @@
 package substates;
 
 import flixel.addons.transition.FlxTransitionableState;
-import objects.Alphabet;
-
 
 using StringTools;
 

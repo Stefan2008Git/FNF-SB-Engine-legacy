@@ -14,7 +14,6 @@ import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
 #end
-import objects.MenuCharacter;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
