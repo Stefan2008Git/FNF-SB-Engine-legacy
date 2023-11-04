@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <meta title="SB Engine Crash Handler" package="CrashHandler" version="1.0.0" company="" />
+    <app main="CrashHandler" file="SBCrashHandler" path="build/openfl" />
+
+    <window background="#FFFFFF" fps="60" resizable="false"/>
+    <window width="500" height="466" if="desktop" />
+    <window width="0" height="0" if="html5" />
+    <!-- shouldn't ever compile to html5 but just in case -->
+
+    <!-- classpath, haxe libs -->
+    <source path="src" />
+
+    <haxelib name="openfl" />
+    <haxelib name="actuate" />
+
+    <haxelib name="haxeui-core" />
+    <haxelib name="haxeui-openfl" />
+
+    <icon path="assets/iconOG.png" />
+</project>

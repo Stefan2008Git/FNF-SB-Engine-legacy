@@ -50,7 +50,6 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		SUtil.checkGameCrash();
 		if (stage != null) {
 			init();
 		} else {
@@ -167,14 +166,31 @@ class Main extends Sprite {
 		Sys.println(errorMessage);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		FlxG.sound.play(Paths.sound('error'));
+		#if !android
+		var crashDialoguePath:String = "SBCrashHandler" #if windows + ".exe" #end;
 
-		#if android
+		if (FileSystem.exists("./" + crashDialoguePath))
+		{
+			Sys.println("Found crash dialog: " + crashDialoguePath);
+			#if linux
+				crashDialoguePath = "./" + crashDialoguePath;
+			#end
+			new Process(crashDialoguePath, [path]);
+		}
+		else
+		{
+			// I had to do this or the stupid CI won't build :distress:
+			Sys.println("No crash dialog found! Making a simple alert instead...");
+			FlxG.sound.play(Paths.sound('error'));
+			Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
+		}
+		#else
 		var toastText:String = '';
 		toastText = 'Uncaught Error happends!';
 		AndroidDialogsExtend.OpenToast(toastText, 1);
-		#end
+		FlxG.sound.play(Paths.sound('error'));
 		Application.current.window.alert(errorMessage, "Error! SB Engine v" + MainMenuState.sbEngineVersion);
+		#end
 	
 		#if desktop
 		DiscordClient.shutdown();
