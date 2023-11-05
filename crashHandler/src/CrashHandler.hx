@@ -35,7 +35,7 @@ class CrashHandler
 
 			app.ready(function()
 			{
-				var mainView:Component = ComponentMacros.buildComponent("assets/main-view.xml");
+				var mainView:Component = ComponentMacros.fromFile("assets/main-view.xml");
 				app.addComponent(mainView);
 
 				var messageLabel:Label = mainView.findComponent("message-label", Label);
@@ -74,7 +74,7 @@ class CrashHandler
 
 				mainView.findComponent("restart-button", Button).onClick = function(_)
 				{
-					new Process('${#if linux "./" #else "" #end}Grafex', []);
+					new Process('${#if linux "./" #else "" #end}SB Engine', []);
 
 					Sys.exit(0);
 				};

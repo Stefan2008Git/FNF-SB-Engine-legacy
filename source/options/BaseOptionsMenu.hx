@@ -19,8 +19,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
 	private var descBox:FlxSprite;
-	var wight = 950;
-    var height = 600;
 	private var descText:FlxText;
 
 	var background:FlxSprite;
@@ -70,7 +68,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 
-		descBox = new FlxSprite().makeGraphic(wight, height, 0x00);
+		descBox = FlxSpriteUtil.drawRoundRect(new FlxSprite().makeGraphic(1, 1, 0x00), 0, 0, 340, 440, 15, 15, FlxColor.BLACK);
 		descBox.alpha = 0.8;
 		add(descBox);
 
