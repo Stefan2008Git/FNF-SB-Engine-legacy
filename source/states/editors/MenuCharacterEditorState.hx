@@ -34,6 +34,7 @@ class MenuCharacterEditorState extends MusicBeatState {
 	var defaultCharacters:Array<String> = ['dad', 'bf', 'gf'];
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Menu Character Editor Menu', 0xFF00FF44, 'Go make some characters for story mode');
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 

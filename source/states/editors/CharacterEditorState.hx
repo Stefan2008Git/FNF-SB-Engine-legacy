@@ -66,6 +66,7 @@ class CharacterEditorState extends MusicBeatState {
 
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Character Editor', 0xFF00FF44, 'Go make or edit character');
 		if (ClientPrefs.gpuCaching) Paths.clearStoredMemory();
 
 		camEditor = new FlxCamera();

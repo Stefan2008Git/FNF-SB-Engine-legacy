@@ -16,6 +16,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 	        "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Auto pause',
+		    "If uncecked, the game will stop your process if you are outside from game", 'autoPause', 'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('FPS Counter', 'If unchecked, hides FPS Counter.', 'showFPS', 'bool', true);
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
@@ -41,8 +45,16 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Rainbow FPS',
-			"If checked, enables radnom color's for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!", 'rainbowFPS', 'bool', false);
+			"If checked, enables radnom colors for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!", 'rainbowFPS', 'bool', false);
 		addOption(option);
+
+		var option:Option = new Option('Toast core',
+		    "If unchecked, disables toast core.", 'toastCore', 'bool', true);
+		addOption(option);
+		option.onChange = function() {
+            if (ClientPrefs.toastCore) Main.toast.create('Toast core (You will get any toast core message)', 0xFFFFC000, 'Enabled');
+            else Main.toast.create('Toast core (You will not get any toast core message)', 0xFFFF0000, 'Disabled.');
+        }
 
 		var option:Option = new Option('Velocity background', 
 		    'If unchecked, this option is disabling velocity background for optimization.', 'velocityBackground', 'bool', true);

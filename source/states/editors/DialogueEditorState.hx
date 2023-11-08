@@ -40,6 +40,7 @@ class DialogueEditorState extends MusicBeatState {
 	var dialogueFile:DialogueFile = null;
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Dialogue Editor Menu', 0xFF00FF44, 'Go make some dialogues');
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 

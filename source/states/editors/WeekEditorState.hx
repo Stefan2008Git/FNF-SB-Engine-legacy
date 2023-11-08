@@ -46,6 +46,7 @@ class WeekEditorState extends MusicBeatState {
 	}
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Week Editor Menu', 0xFF00FF44, 'Go make some weeks for fun');
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 

@@ -5,6 +5,7 @@ import states.TitleState;
 
 class ClientPrefs {
 	public static var discordRPC:Bool = true;
+	public static var autoPause:Bool = true;
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
@@ -15,6 +16,7 @@ class ClientPrefs {
 	public static var totalMemory:Bool = false;
 	public static var engineVersion:Bool = false;
 	public static var debugInfo:Bool = false;
+	public static var toastCore:Bool = true;
 	public static var flashing:Bool = true;
 	public static var resultsScreen:Bool = false;
 	public static var mainMenuMusic:String = 'FNF';
@@ -78,8 +80,7 @@ class ClientPrefs {
 		'healthloss' => 1.0,
 		'instakill' => false,
 		'practice' => false,
-		'botplay' => false,
-		'opponentplay' => false
+		'botplay' => false
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
@@ -120,6 +121,7 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.discordRPC = discordRPC;
+		FlxG.save.data.autoPause = autoPause;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -130,6 +132,7 @@ class ClientPrefs {
 		FlxG.save.data.totalMemory = totalMemory;
 		FlxG.save.data.engineVersion = engineVersion;
 		FlxG.save.data.debugInfo = debugInfo;
+		FlxG.save.data.toastCore = toastCore;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.resultsScreen = resultsScreen;
 		FlxG.save.data.mainMenuMusic = mainMenuMusic;
@@ -203,6 +206,7 @@ class ClientPrefs {
 
 	public static function loadPrefs() {
 		FlxG.save.data.discordRPC != null ? discordRPC = FlxG.save.data.discordRPC : discordRPC = true;
+		FlxG.save.data.autoPause != null ? autoPause = FlxG.save.data.autoPause : autoPause = true;
 		FlxG.save.data.downScroll != null ? downScroll = FlxG.save.data.downScroll : downScroll = false;
 		FlxG.save.data.middleScroll != null ? middleScroll = FlxG.save.data.middleScroll : middleScroll = false;
 		FlxG.save.data.opponentStrums != null ? opponentStrums = FlxG.save.data.opponentStrums : opponentStrums = true;
@@ -218,6 +222,7 @@ class ClientPrefs {
 		FlxG.save.data.totalMemory != null ? totalMemory = FlxG.save.data.totalMemory : totalMemory = false;
 		FlxG.save.data.engineVersion != null ? engineVersion = FlxG.save.data.engineVersion : engineVersion = false;
 		FlxG.save.data.debugInfo != null ? debugInfo = FlxG.save.data.debugInfo : debugInfo = false;
+		FlxG.save.data.toastCore != null ? toastCore = FlxG.save.data.toastCore : toastCore = true;
 		FlxG.save.data.flashing != null ? flashing = FlxG.save.data.flashing : flashing = true;
 		FlxG.save.data.resultsScreen != null ? resultsScreen = FlxG.save.data.resultsScreen : resultsScreen = false;
 		FlxG.save.data.mainMenuMusic != null ? mainMenuMusic = FlxG.save.data.mainMenuMusic : mainMenuMusic = 'FNF';

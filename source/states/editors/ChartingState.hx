@@ -171,6 +171,7 @@ class ChartingState extends MusicBeatState {
 	public var mouseQuant:Bool = false;
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Chart Editor', 0xFF00FF44, 'Go make some charts or edit');
 		Paths.clearStoredMemory();
 
 		if (states.PlayState.SONG != null)

@@ -41,6 +41,7 @@ class Main extends Sprite {
 	};
 
 	public static var fpsVar:FPS;
+	public static var toast:ToastCore; // Credits go to MA.Jigsaw77
 	public static var changeID:Int = 0;
 
 	public static function main():Void {
@@ -90,9 +91,11 @@ class Main extends Sprite {
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		fpsVar.visible = ClientPrefs.showFPS;
 
-		FlxG.autoPause = false;
+		if (ClientPrefs.autoPause) FlxG.autoPause = true;
+		else FlxG.autoPause = false;
 
 		#if html5
+		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
 
@@ -122,6 +125,8 @@ class Main extends Sprite {
 			if (FlxG.game != null)
 			resetSpriteCache(FlxG.game);
 	    });
+		toast = new ToastCore();
+		addChild(toast);
     }
 
     static function resetSpriteCache(sprite:Sprite):Void {

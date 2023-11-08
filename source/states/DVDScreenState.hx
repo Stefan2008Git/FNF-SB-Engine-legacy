@@ -21,6 +21,7 @@ class DVDScreenState extends MusicBeatState {
 
     override function create() 
     {
+        if (ClientPrefs.toastCore) Main.toast.create('You are founded the secret easter egg', 0xFF00FF44, 'Congratulations');
         Paths.clearStoredMemory();
 
         #if desktop
@@ -47,7 +48,6 @@ class DVDScreenState extends MusicBeatState {
 
         Paths.clearUnusedMemory();
 
-    
         super.create();
     }
 

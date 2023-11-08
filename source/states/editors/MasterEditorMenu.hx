@@ -42,12 +42,13 @@ class MasterEditorMenu extends MusicBeatState {
 	var textBackground:FlxSprite;
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Master Editor Menu', 0xFF00FF44, 'Go make some mods :)');
 		Paths.clearStoredMemory();
 
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Editors Main Menu", null);
+		DiscordClient.changePresence("In the Master Edior Menu", null);
 		#end
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));

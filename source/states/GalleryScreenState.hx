@@ -27,6 +27,7 @@ class GalleryScreenState extends MusicBeatState
 
     override public function create():Void
     {
+        if (ClientPrefs.toastCore) Main.toast.create('You are entered to gallery basemant', 0xFF00FF44, 'There is some images for watching');
         Paths.clearStoredMemory();
 
 		transIn = FlxTransitionableState.defaultTransIn;

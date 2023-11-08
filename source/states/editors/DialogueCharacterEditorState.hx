@@ -74,6 +74,7 @@ class DialogueCharacterEditorState extends MusicBeatState {
 	var curAnim:Int = 0;
 
 	override function create() {
+		if (ClientPrefs.toastCore) Main.toast.create('Welcome to Dialogue Character Editor Menu', 0xFF00FF44, 'Go make some character for dialogues');
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.5);
 		Paths.clearStoredMemory();
 

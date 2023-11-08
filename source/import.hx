@@ -40,8 +40,14 @@ import flixel.tweens.FlxTween;
 import flash.text.TextField;
 import lime.app.Application;
 import lime.system.System;
+import openfl.Lib;
 import openfl.events.EventDispatcher;
 import openfl.display.DisplayObject;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.Sprite;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
 import FunkinLua;
@@ -92,6 +98,7 @@ import objects.Note;
 import objects.Note.EventNote;
 import objects.NoteSplash;
 import objects.StrumNote;
+import objects.ToastCore;
 import objects.TypedAlphabet;
 import states.PlayState;
 
