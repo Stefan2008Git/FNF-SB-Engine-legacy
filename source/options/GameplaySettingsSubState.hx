@@ -79,6 +79,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Health tween', 
+		    "If unchecked, disables health tween and reverts to normal state for health.", 'healthTween', 
+			'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Rating images',
 		    "If unckecked, disables rating images.",
 			'ratingImages',

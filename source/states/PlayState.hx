@@ -150,6 +150,7 @@ class PlayState extends MusicBeatState {
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
+	var healthTweenFunction:FlxTween;
 
 	var songPercent:Float = 0;
 
@@ -444,6 +445,8 @@ class PlayState extends MusicBeatState {
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+
+		healthTweenFunction = FlxTween.tween(this, {}, 0);
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -4374,7 +4377,7 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart2 = '-pixel';
 		}
 
-		if (!cpuControlled) {
+		if ((!ClientPrefs.ratingImages || ClientPrefs.comboStacking) && !cpuControlled) {
 			rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
 		    rating.cameras = [camHUD];
 		    rating.screenCenter();
@@ -4700,7 +4703,11 @@ class PlayState extends MusicBeatState {
 		});
 		combo = 0;
 		missCombo = 1;
-		health -= daNote.missHealth * healthLoss * missCombo;
+		if (ClientPrefs.healthTween) {
+			healthTween(-daNote.missHealth * healthLoss * missCombo);
+		} else {
+			health -= daNote.missHealth * healthLoss * missCombo;
+		}
 
 		if (instakillOnMiss) {
 			vocals.volume = 0;
@@ -4744,7 +4751,11 @@ class PlayState extends MusicBeatState {
 			return; // freak it
 
 		if (!boyfriend.stunned) {
-			health -= 0.05 * healthLoss;
+			if (ClientPrefs.healthTween) {
+				healthTween(-0.05 * healthLoss);
+			} else {
+				health -= 0.05 * healthLoss;
+			}
 			if (instakillOnMiss) {
 				vocals.volume = 0;
 				doDeathCheck(true);
@@ -4878,7 +4889,11 @@ class PlayState extends MusicBeatState {
 				if(combo > 9999)
 					combo = 9999;
 			}
-			health += note.hitHealth * healthGain;
+			if (ClientPrefs.healthTween) {
+				healthTween(note.hitHealth * healthGain);
+			} else {
+				health += note.hitHealth * healthGain;
+			}
 
 			if (!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
@@ -5429,7 +5444,15 @@ class PlayState extends MusicBeatState {
 			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
 			else if (songMisses >= 10) ratingFC = "Clear";
 			switch (ClientPrefs.gameStyle) {
-				case 'SB Engine':
+				case 'Psych Engine':
+					if (impressives > 0) ratingFC = "IFC";
+			        if (sicks > 0) ratingFC = "SFC";
+			        if (goods > 0) ratingFC = "GFC";
+			        if (bads > 0 || freaks > 0) ratingFC = "FC";
+			        if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
+			        else if (songMisses >= 10) ratingFC = "Clear";
+						
+				default:
 					if (impressives > 0) ratingFC = "Impressive Full Combo";
 			        if (sicks > 0) ratingFC = "Sick Full Combo";
 			        if (goods > 0) ratingFC = "Good Full Combo";
@@ -5450,6 +5473,15 @@ class PlayState extends MusicBeatState {
 			default:
 				judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}\nCombo Breaks: ${songMisses}';
 		}
+	}
+
+	function healthTween(amt:Float)
+	{
+		healthTweenFunction.cancel();
+		healthTweenFunction = FlxTween.num(health, health + amt, 0.1, {ease: FlxEase.cubeInOut}, function(v:Float)
+		{
+			health = v;
+		});
 	}
 
 	var curLight:Int = -1;

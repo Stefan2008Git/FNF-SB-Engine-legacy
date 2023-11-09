@@ -23,7 +23,7 @@ class MusicBeatState extends FlxUIState {
 	public static var camBeat:FlxCamera;
 
 	inline function get_controls():Controls
-		return backend.PlayerSettings.player1.controls;
+		return PlayerSettings.player1.controls;
 
 	#if android
 	var virtualPad:FlxVirtualPad;
@@ -121,11 +121,11 @@ class MusicBeatState extends FlxUIState {
 
 	override function create() {
 		camBeat = FlxG.camera;
-		var skip:Bool = FlxTransitionableState.skipNextTransOut;
+		var skip:Bool = FlxTransitionableState.skipNextTransOut || ClientPrefs.skipFadeTransition;
 		super.create();
 
 		if (!skip) {
-			openSubState(new backend.CustomFadeTransition(0.7, true));
+			openSubState(new CustomFadeTransition(0.7, true));
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 	}
@@ -204,7 +204,7 @@ class MusicBeatState extends FlxUIState {
 		// Custom made Trans in
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
-		if (!FlxTransitionableState.skipNextTransIn) {
+		if (!FlxTransitionableState.skipNextTransIn && !ClientPrefs.skipFadeTransition) {
 			leState.openSubState(new CustomFadeTransition(0.6, false));
 			if (nextState == FlxG.state) {
 				CustomFadeTransition.finishCallback = function() {

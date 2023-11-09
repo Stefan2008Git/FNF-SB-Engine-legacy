@@ -16,6 +16,10 @@ class VisualsUISubState extends BaseOptionsMenu {
 	        "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option("Skip Transitions",
+			"If checked, skips the transition animations between screens.", 'skipTransitions', 'bool', false);
+		addOption(option);
+
 		var option:Option = new Option('Auto pause',
 		    "If uncecked, the game will stop your process if you are outside from game", 'autoPause', 'bool', true);
 		addOption(option);
@@ -45,15 +49,15 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Rainbow FPS',
-			"If checked, enables radnom colors for FPS.\nRequest: You need to turn on FPS counter first!\nWarning: Rainbow FPS maybe can be a little bit buggy!", 'rainbowFPS', 'bool', false);
+			"If checked, enables radnom colors for FPS.\nRequest: You need to turn on FPS counter first!", 'rainbowFPS', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Toast core',
 		    "If unchecked, disables toast core.", 'toastCore', 'bool', true);
 		addOption(option);
 		option.onChange = function() {
-            if (ClientPrefs.toastCore) Main.toast.create('Toast core (You will get any toast core message)', 0xFFFFC000, 'Enabled');
-            else Main.toast.create('Toast core (You will not get any toast core message)', 0xFFFF0000, 'Disabled.');
+            if (ClientPrefs.toastCore) Main.toast.create('Toast core', 0xFF00FF15, 'Enabled');
+            else Main.toast.create('Toast core', 0xFFFF0000, 'Disabled.');
         }
 
 		var option:Option = new Option('Velocity background', 
@@ -116,12 +120,11 @@ class VisualsUISubState extends BaseOptionsMenu {
 	}
 
 	var mainMenuMusicChanged:Bool = false;
-
 	function onChangeMainMenuMusic()
 	{
-			if (ClientPrefs.mainMenuMusic != 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
-			if (ClientPrefs.mainMenuMusic == 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			mainMenuMusicChanged = true;
+		if (ClientPrefs.mainMenuMusic != 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic));
+		if (ClientPrefs.mainMenuMusic == 'FNF') FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		mainMenuMusicChanged = true;
 	}
 
 

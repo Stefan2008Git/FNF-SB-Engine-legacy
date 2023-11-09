@@ -172,7 +172,7 @@ class Toast extends Sprite
 		super();
 
 		back = new Bitmap(new BitmapData(500, 125, true, 0xFF000000));
-		back.alpha = 0.9;
+		back.alpha = 0.7;
 		back.x = 0;
 		back.y = 0;
 		addChild(back);
@@ -204,7 +204,7 @@ class Toast extends Sprite
 		desc.wordWrap = true;
 		desc.width = 360;
 		desc.height = 95;
-		desc.y = 30;
+		desc.y = 40;
 		desc.x = 5;
 
 		if (titleText.length >= 25 || titleText.contains("\n"))

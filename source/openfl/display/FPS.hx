@@ -2,8 +2,6 @@ package openfl.display;
 
 import haxe.Timer;
 import openfl.events.Event;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
 import states.MainMenuState;
 
 #if gl_stats
@@ -155,6 +153,7 @@ class FPS extends TextField {
 				text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
 				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
 				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
+				text += Date.now().toString();
 			}
 
 			switch (ClientPrefs.gameStyle) {
