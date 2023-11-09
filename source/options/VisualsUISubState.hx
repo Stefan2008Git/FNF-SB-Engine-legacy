@@ -17,7 +17,7 @@ class VisualsUISubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option("Skip Transitions",
-			"If checked, skips the transition animations between screens.", 'skipTransitions', 'bool', false);
+			"If checked, skips the transition animations between screens.", 'skipFadeTransition', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Auto pause',
