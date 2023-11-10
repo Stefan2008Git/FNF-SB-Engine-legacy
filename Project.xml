@@ -127,14 +127,10 @@
 	<haxelib name="discord_rpc" if="desktop"/>
 
 	<!-- _________________________________ Android Stuff _______________________________ -->
-    <!--Gradle-->
-	<android gradle-version="7.4.2" gradle-plugin="7.3.1" />
-
-    <!--Permission-->
-	<android permission="android.permission.READ_EXTERNAL_STORAGE" />
-	<android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
+        <!--Permission-->
+	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
+	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
+	
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 
