@@ -130,6 +130,10 @@
         <!--Permission-->
 	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
 	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
+
+	<!--Android-Gradle-->
+	<config:android gradle-version="7.5.1" />
+	<config:android gradle-plugin="7.3.1" />
 	
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
