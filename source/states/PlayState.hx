@@ -189,6 +189,7 @@ class PlayState extends MusicBeatState {
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
+	public var loopMode:Bool = false;
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
@@ -338,7 +339,6 @@ class PlayState extends MusicBeatState {
 
 	override public function create() {
 		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
 
 		// for lua
 		instance = this;
@@ -445,6 +445,7 @@ class PlayState extends MusicBeatState {
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+		loopMode = ClientPrefs.getGameplaySetting('loop', false);
 
 		healthTweenFunction = FlxTween.tween(this, {}, 0);
 
@@ -2570,6 +2571,16 @@ class PlayState extends MusicBeatState {
 		callOnLuas('onSongStart', []);
 	}
 
+	public function lerpSongSpeed(num:Float, time:Float):Void
+	{
+		FlxTween.num(playbackRate, num, time, {onUpdate: function(tween:FlxTween){
+			var rateThing = FlxMath.lerp(playbackRate, num, tween.percent);
+			if (rateThing != 0)
+				playbackRate = rateThing;
+
+		}});
+	}
+
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 	private var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 
@@ -3250,11 +3261,11 @@ class PlayState extends MusicBeatState {
 		}
 
 		
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 		iconP1.scale.set(mult, mult);
 		iconP1.updateHitbox();
  
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
 
@@ -4473,7 +4484,7 @@ class PlayState extends MusicBeatState {
 			numScore.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
 			numScore.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
 			numScore.velocity.x = FlxG.random.float(-5, 5) * playbackRate;
-			numScore.visible = !ClientPrefs.hideHud;
+			numScore.visible = !ClientPrefs.ratingImages || !ClientPrefs.hideHud;
 
 			if (showComboNum)
 				insert(members.indexOf(strumLineNotes), numScore);
@@ -5189,6 +5200,12 @@ class PlayState extends MusicBeatState {
 		if (lastBeatHit >= curBeat) {
 			// trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			return;
+		}
+
+		if (curBeat % 32 == 0 && loopMode)
+		{
+			var randomLoopFloat = FlxMath.roundDecimal(FlxG.random.float(0.4, 3), 2);
+			lerpSongSpeed(randomLoopFloat, 1);
 		}
 
 		if (generatedMusic) {

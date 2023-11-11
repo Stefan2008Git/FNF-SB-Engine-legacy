@@ -6,7 +6,6 @@ import haxe.Json;
 import states.ClassicMainMenuState;
 import states.LoadingState;
 import states.MainMenuState;
-
 import substates.PauseSubState;
 
 using StringTools;
@@ -23,6 +22,7 @@ class OptionsState extends MusicBeatState {
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
 	private static var currentlySelected:Int = 0;
+	private var cameraGame:FlxCamera;
 
 	function openSelectedSubstate(label:String) {
 		switch (label) {
@@ -71,6 +71,8 @@ class OptionsState extends MusicBeatState {
 	var tipTextMargin:Float = 10;
 	var androidControlsStyleTipText:FlxText;
 	var customizeAndroidControlsTipText:FlxText;
+	var cameraFollow:FlxObject;
+	var cameraFollowPosition:FlxObject;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -79,6 +81,11 @@ class OptionsState extends MusicBeatState {
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
+		cameraGame = new FlxCamera();
+		FlxG.cameras.reset(cameraGame);
+		FlxG.cameras.setDefaultDrawTarget(cameraGame, true);
+
+		var yScroll:Float = Math.max(0.25 - (0.05 * (options.length - 4)), 0.1);
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		switch (ClientPrefs.themes) {
 			case 'SB Engine':
@@ -87,6 +94,7 @@ class OptionsState extends MusicBeatState {
 			case 'Psych Engine':
 				background.color = 0xFFea71fd;
 		}
+		background.scrollFactor.set(0, yScroll);
 		background.screenCenter();
 		background.antialiasing = ClientPrefs.globalAntialiasing;
 		background.updateHitbox();
@@ -96,6 +104,11 @@ class OptionsState extends MusicBeatState {
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
 		add(velocityBackground);
+
+		cameraFollow = new FlxObject(0, 0, 1, 1);
+		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
+		add(cameraFollow);
+		add(cameraFollowPosition);
 
 		optionsSelect = new FlxTypedGroup<Alphabet>();
 		add(optionsSelect);
@@ -214,6 +227,76 @@ class OptionsState extends MusicBeatState {
 			openSubState(new android.AndroidControlsSettingsSubState());
 		}
 		#end
+
+		if (FlxG.keys.justPressed.B #if android || FlxG.android.justReleased.BACK #end) {
+			FlxG.sound.music.stop();
+			FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
+	
+			FlxG.camera.shake(0.015, 3, function()
+			{
+				FlxG.camera.flash();
+				var objects:Array<FlxSprite> = new Array<FlxSprite>();
+	
+				for (characters in optionsSelect)
+				{
+					characters.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					characters.angularVelocity = 80;
+					characters.screenCenter();
+					objects.push(characters);
+				}
+
+				for (character1 in selectorLeft)
+				{
+					character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					character1.angularVelocity = 80;
+					character1.screenCenter();
+					objects.push(character1);
+				}
+
+				for (character1 in selectorRight)
+				{
+					character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					character1.angularVelocity = 80;
+					character1.screenCenter();
+					objects.push(character1);
+				}
+
+				FlxG.sound.music.stop();
+				FlxG.sound.playMusic(Paths.sound('ambience'), 1, false, null);
+	
+				background.color = FlxColor.ORANGE;
+				new FlxTimer().start(4, function(timer:FlxTimer)
+				{
+					for (object in objects)
+						{
+							object.angularVelocity = 0;
+							object.velocity.set();
+							FlxTween.tween(object, {x: (FlxG.width / 2) - (object.width), y: (FlxG.height / 2) - (object.height)}, 1, {ease: FlxEase.backOut});
+						}
+						FlxG.camera.shake(0.05, 3);
+									
+							FlxG.sound.music.stop();
+							FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
+							FlxG.sound.play(Paths.sound('piecedTogether'), 1, false, null, true);
+					
+							FlxG.camera.fade(FlxColor.WHITE, 3, false, function() 
+							{
+								FlxG.camera.shake(0.1, 0.5);
+	
+								FlxG.sound.play(Paths.sound('confirmMenu'), function()
+								{
+								new FlxTimer().start(1, function(timer:FlxTimer)
+								{
+									#if android
+									removeVirtualPad();
+									#end
+								openSubState(new options.VisualsUISubState());
+							});
+						});
+					});
+				});
+			});
+		}
 	}
 
 	function changeSelection(change:Int = 0) {
@@ -239,12 +322,17 @@ class OptionsState extends MusicBeatState {
 			optionFreak++;
 
 			item.alpha = 0.6;
+			var alphabetItem:Float = 0;
 			if (item.targetY == 0) {
 				item.alpha = 1;
+				if (optionsSelect.members.length > 4) {
+					alphabetItem = optionsSelect.members.length * 8;
+				}
 				selectorLeft.x = item.x - 63;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
 				selectorRight.y = item.y;
+				cameraFollow.setPosition(item.getGraphicMidpoint().x, item.getGraphicMidpoint().y - alphabetItem);
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
