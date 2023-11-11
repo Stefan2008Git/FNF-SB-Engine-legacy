@@ -1,11 +1,9 @@
-package android;
+package options.android;
 
 import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
 import flixel.util.FlxSave;
 import haxe.Json;
-import options.BaseOptionsMenu;
-import options.Option;
 import openfl.Lib;
 
 using StringTools;

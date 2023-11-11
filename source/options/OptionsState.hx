@@ -7,8 +7,7 @@ import states.ClassicMainMenuState;
 import states.LoadingState;
 import states.MainMenuState;
 import substates.PauseSubState;
-
-using StringTools;
+import options.secret.SecretSBOptionsState;
 
 class OptionsState extends MusicBeatState {
 	var options:Array<String> = [
@@ -218,13 +217,13 @@ class OptionsState extends MusicBeatState {
 			#if android
 			removeVirtualPad();
 			#end
-			openSubState(new android.AndroidControlsSubState());
+			openSubState(new options.android.AndroidControlsSubState());
 		}
 		if (virtualPad.buttonY.justPressed) {
 			#if android
 			removeVirtualPad();
 			#end
-			openSubState(new android.AndroidControlsSettingsSubState());
+			openSubState(new options.android.AndroidControlsSettingsSubState());
 		}
 		#end
 
@@ -285,19 +284,17 @@ class OptionsState extends MusicBeatState {
 	
 								FlxG.sound.play(Paths.sound('confirmMenu'), function()
 								{
-								new FlxTimer().start(1, function(timer:FlxTimer)
-								{
-									#if android
-									removeVirtualPad();
-									#end
-								openSubState(new options.VisualsUISubState());
-							});
-						});
-					});
-				});
-			});
-		}
-	}
+								    new FlxTimer().start(1, function(timer:FlxTimer) 
+								    {
+										Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Secret Options Menu";
+										MusicBeatState.switchState(new options.secret.SecretSBOptionsState());
+							        });
+						        });
+					        });
+				        });
+			        });
+		        }
+	        }
 
 	function changeSelection(change:Int = 0) {
 		currentlySelected += change;

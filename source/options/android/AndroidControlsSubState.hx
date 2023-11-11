@@ -1,25 +1,13 @@
-package android;
+package options.android;
 
 import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
 import android.flixel.FlxNewHitbox;
 import android.flixel.FlxVirtualPad;
-
-
-
-
-
 import flixel.addons.transition.FlxTransitionableState;
-
-
 import flixel.util.FlxSave;
-
 import flixel.input.touch.FlxTouch;
-
-
-
 import openfl.utils.Assets;
-
 
 class AndroidControlsSubState extends FlxSubState {
 	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];

@@ -16,14 +16,6 @@ class VisualsUISubState extends BaseOptionsMenu {
 	        "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option("Skip Transitions",
-			"If checked, skips the transition animations between screens.", 'skipFadeTransition', 'bool', false);
-		addOption(option);
-
-		var option:Option = new Option('Auto pause',
-		    "If uncecked, the game will stop your process if you are outside from game", 'autoPause', 'bool', true);
-		addOption(option);
-
 		var option:Option = new Option('FPS Counter', 'If unchecked, hides FPS Counter.', 'showFPS', 'bool', true);
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
@@ -44,14 +36,6 @@ class VisualsUISubState extends BaseOptionsMenu {
 			"If unchecked, hides current SB and Psych Engine version.\nRequest: You need to turn on FPS counter first!", 'engineVersion', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Debug info counter', 
-		    "If unchecked, hides debug info.\nRequest: You need to turn on FPS counter first!", 'debugInfo', 'bool', false);
-		addOption(option);
-
-		var option:Option = new Option('Rainbow FPS',
-			"If checked, enables radnom colors for FPS.\nRequest: You need to turn on FPS counter first!", 'rainbowFPS', 'bool', false);
-		addOption(option);
-
 		var option:Option = new Option('Toast core',
 		    "If unchecked, disables toast core.", 'toastCore', 'bool', true);
 		addOption(option);
@@ -68,13 +52,6 @@ class VisualsUISubState extends BaseOptionsMenu {
 			'If unchecked, this option is disabling every single object for optimization.\nExample: Logo and girlfriend using FlxTrail',
 			'objects', 'bool', true);
 		addOption(option);
-
-		#if desktop
-		var option:Option = new Option('Discord RPC',
-		    'If unchecked, this to prevent accidental leaks, it will hide the Application from your \"Playing\" box on Discord',
-			'discordRPC', 'bool', true);
-		addOption(option);
-		#end
 
 		var option:Option = new Option('Pause Screen Song:', "What song do you prefer for the Pause Screen?", 'pauseMusic', 'string', 'Tea Time',
 			['None', 'Breakfast', 'Tea Time']);
