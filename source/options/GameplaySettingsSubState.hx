@@ -28,11 +28,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('Hide Watermark', 'If checked, hides watermark with song name, difficulty name and SB Engine version.',
-			'hideWatermark', 'bool', false);
+		var option:Option = new Option('Watermark', 'If unchecked, hides watermark with song name, difficulty name and SB Engine version.',
+			'watermark', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Hide Judgement Counter', 'If checked, hides Judgement Counter.', 'hideJudgementCounter', 'bool', false);
+		var option:Option = new Option('Judgement Counter', 'If unchecked, hides Judgement Counter.', 'judgementCounter', 'bool', true);
 		addOption(option);
 
 		// I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
@@ -141,6 +141,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Watermark style:', "What should the watermark style display?", 'watermarkStyle', 'string', 'SB Engine',
 			['SB Engine', 'Kade Engine']);
+		addOption(option);
+
+		var option:Option = new Option('Judgement counter style:', "What should the judgement style display?", 'judgementCounterStyle', 'string', 'Original',
+			['Original', 'With Misses', 'Better Judge']);
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be?', 'healthBarAlpha', 'percent', 1);

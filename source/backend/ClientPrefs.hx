@@ -37,8 +37,9 @@ class ClientPrefs {
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
-	public static var hideWatermark:Bool = false;
-	public static var hideJudgementCounter:Bool = false;
+	public static var watermark:Bool = true;
+	public static var judgementCounter:Bool = true;
+	public static var judgementCounterStyle:String = 'Original';
 	public static var songIntro:Bool = true;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
@@ -156,8 +157,9 @@ class ClientPrefs {
 		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
-		FlxG.save.data.hideWatermark = hideWatermark;
-		FlxG.save.data.hideJudgementCounter = hideJudgementCounter;
+		FlxG.save.data.watermark = watermark;
+		FlxG.save.data.judgementCounter = judgementCounter;
+		FlxG.save.data.judgementCounterStyle = judgementCounterStyle;
 		FlxG.save.data.songIntro = songIntro;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.vibration = vibration;
@@ -256,8 +258,9 @@ class ClientPrefs {
 		FlxG.save.data.gpuCaching != null ? gpuCaching = FlxG.save.data.gpuCaching : gpuCaching = false;
 		FlxG.save.data.camZooms != null ? camZooms = FlxG.save.data.camZooms : camZooms = true;
 		FlxG.save.data.hideHud != null ? hideHud = FlxG.save.data.hideHud : hideHud = false;
-		FlxG.save.data.hideWatermark != null ? hideWatermark = FlxG.save.data.hideWatermark : hideWatermark = false;
-		FlxG.save.data.hideJudgementCounter != null ? hideJudgementCounter = FlxG.save.data.hideJudgementCounter : hideJudgementCounter = false;
+		FlxG.save.data.watermark != null ? watermark = FlxG.save.data.watermark : watermark = false;
+		FlxG.save.data.judgementCounter != null ? judgementCounter = FlxG.save.data.judgementCounter : judgementCounter = false;
+		FlxG.save.data.judgementCounterStyle != null ? judgementCounterStyle = FlxG.save.data.judgementCounterStyle : judgementCounterStyle = 'Original';
 		FlxG.save.data.songIntro != null ? songIntro = FlxG.save.data.songIntro : songIntro = true;
 		FlxG.save.data.noteOffset != null ? noteOffset = FlxG.save.data.noteOffset : noteOffset = 0;
 		FlxG.save.data.arrowHSV != null ? arrowHSV = FlxG.save.data.arrowHSV : arrowHSV = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
