@@ -55,6 +55,7 @@ class FunkinLua {
 	public var scriptName:String = '';
 	public var closed:Bool = false;
 
+	//for hscript
 	#if HSCRIPT_ALLOWED
 	public var hscript:HScript = null;
 	#end

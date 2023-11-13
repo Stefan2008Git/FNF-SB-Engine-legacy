@@ -45,12 +45,11 @@ jobs:
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
-          haxelib install hscript
           haxelib install hxcpp-debug-server
           haxelib install haxeui-core
           haxelib install haxeui-openfl
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
       - name: Create Version Tag
@@ -93,12 +92,11 @@ jobs:
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
-          haxelib install hscript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib install hxcpp-debug-server
           haxelib install haxeui-core
           haxelib install haxeui-openfl
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
         shell: cmd
@@ -142,7 +140,7 @@ jobs:
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
-          haxelib install hscript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib install hxcpp-debug-server
           haxelib install haxeui-core
           haxelib install haxeui-openfl
@@ -203,12 +201,13 @@ jobs:
           haxelib --quiet install flixel-addons
           haxelib --quiet install tjson
           haxelib --quiet install hxjsonast
-          haxelib --quiet install hscript
           haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
           haxelib --quiet git AndroidDialogs https://github.com/beihu235/AndroidDialogs
           haxelib --quiet git devicelanguage https://github.com/beihu235/devicelanguage
+          haxelib --quiet git SScript https://github.com/Fearester2008/SScript
+
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION

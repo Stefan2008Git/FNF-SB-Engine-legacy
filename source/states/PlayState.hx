@@ -5469,6 +5469,7 @@ class PlayState extends MusicBeatState {
 	}
 	#end
 
+	// for use in two script formats
 	public function callOnScripts(funcToCall:String, funcToCall2:String, args:Array<Dynamic> = null, ignoreStops = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
 		var returnVal:Dynamic = FunkinLua.Function_Continue;
 		if(args == null) args = [];
@@ -5479,7 +5480,7 @@ class PlayState extends MusicBeatState {
 		if(result == null || excludeValues.contains(result)) result = callOnHScript(funcToCall2, args, ignoreStops, exclusions, excludeValues);
 		return result;
 	}
-
+	//****/
 	public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic
 		{
 		var returnVal = FunkinLua.Function_Continue;

@@ -152,6 +152,7 @@ class Paths
 		return 'assets/$file';
 	}
 
+	//for android hscript support
 	inline public static function getLoadPath(file:String = '')
 		{
 			return '$file';

@@ -122,7 +122,6 @@
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
-
 	<haxelib name="AndroidDialogs" if = "android"/>
 	<haxelib name="devicelanguage" if = "android"/>
 
