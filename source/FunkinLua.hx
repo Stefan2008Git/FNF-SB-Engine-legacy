@@ -16,6 +16,10 @@ import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxAssets.FlxShader;
 
+#if (SScript >= "3.0.0")
+import enginelua.HScript;
+#end
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -26,11 +30,6 @@ import android.Hardware;
 import Type.ValueType;
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
-#end
-#if hscript
-import hscript.Parser;
-import hscript.Interp;
-import hscript.Expr;
 #end
 import states.MainMenuState;
 import states.LoadingState;
@@ -45,6 +44,8 @@ class FunkinLua {
 	public static var Function_Stop:Dynamic = "##PSYCHLUA_FUNCTIONSTOP";
 	public static var Function_Continue:Dynamic = "##PSYCHLUA_FUNCTIONCONTINUE";
 	public static var Function_StopLua:Dynamic = "##PSYCHLUA_FUNCTIONSTOPLUA";
+	public static var Function_StopHScript:Dynamic = "##PSYCHLUA_FUNCTIONSTOPHSCRIPT";
+	public static var Function_StopAll:Dynamic = "##PSYCHLUA_FUNCTIONSTOPALL";
 
 	// public var errorHandler:String->Void;
 	#if LUA_ALLOWED
@@ -54,8 +55,8 @@ class FunkinLua {
 	public var scriptName:String = '';
 	public var closed:Bool = false;
 
-	#if hscript
-	public static var hscript:HScript = null;
+	#if HSCRIPT_ALLOWED
+	public var hscript:HScript = null;
 	#end
 
 	public function new(script:String) {
@@ -83,7 +84,6 @@ class FunkinLua {
 			return;
 		}
 		scriptName = script;
-		initHaxeModule();
 
 		trace('Lua script file loaded succesfully:' + script);
 
@@ -201,6 +201,28 @@ class FunkinLua {
 		#else
 		set('buildTarget', 'unknown');
 		#end
+
+		Lua_helper.add_callback(lua, "addHScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) {
+			#if HSCRIPT_ALLOWED
+			var foundScript:String = findScript(luaFile, '.hx');
+			if(foundScript != null)
+			{
+				if(!ignoreAlreadyRunning)
+					for (script in PlayState.instance.hscriptArray)
+						if(script.origin == foundScript)
+						{
+							luaTrace('addHScript: The script "' + foundScript + '" is already running!');
+							return;
+						}
+
+				PlayState.instance.initHScript(foundScript);
+				return;
+			}
+			luaTrace("addHScript: Script doesn't exist!", false, false, FlxColor.RED);
+			#else
+			luaTrace("addHScript: HScript is not supported on this platform!", false, false, FlxColor.RED);
+			#end
+		});
 
 		// custom substate
 		Lua_helper.add_callback(lua, "openCustomSubstate", function(name:String, pauseGame:Bool = false) {
@@ -681,27 +703,6 @@ class FunkinLua {
 			}
 			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
 		});
-		Lua_helper.add_callback(lua, "addHScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) {
-			#if HSCRIPT_ALLOWED
-			var foundScript:String = findScript(luaFile, '.hx');
-			if(foundScript != null)
-			{
-				if(!ignoreAlreadyRunning)
-					for (script in game.hscriptArray)
-						if(script.origin == foundScript)
-						{
-							luaTrace('addHScript: The script "' + foundScript + '" is already running!');
-							return;
-						}
-
-				PlayState.instance.initHScript(foundScript);
-				return;
-			}
-			luaTrace("addHScript: Script doesn't exist!", false, false, FlxColor.RED);
-			#else
-			luaTrace("addHScript: HScript is not supported on this platform!", false, false, FlxColor.RED);
-			#end
-		});
 		Lua_helper.add_callback(lua, "removeLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { // would be dope asf.
 			var cervix = luaFile + ".lua";
 			if (luaFile.endsWith(".lua"))
@@ -738,40 +739,6 @@ class FunkinLua {
 				return;
 			}
 			luaTrace("removeLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
-		});
-
-		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String) {
-			var retVal:Dynamic = null;
-
-			#if hscript
-			initHaxeModule();
-			try {
-				retVal = hscript.execute(codeToRun);
-			} catch (e:Dynamic) {
-				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-			}
-			#else
-			luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
-			#end
-
-			if (retVal != null && !isOfTypes(retVal, [Bool, Int, Float, String, Array]))
-				retVal = null;
-			return retVal;
-		});
-
-		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
-			#if hscript
-			initHaxeModule();
-			try {
-				var str:String = '';
-				if (libPackage.length > 0)
-					str = libPackage + '.';
-
-				hscript.variables.set(libName, Type.resolveClass(str + libName));
-			} catch (e:Dynamic) {
-				luaTrace(scriptName.replace(SUtil.getPath(), "") + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-			}
-			#end
 		});
 
 		Lua_helper.add_callback(lua, "loadSong", function(?name:String = null, ?difficultyNum:Int = -1) {
@@ -2700,6 +2667,8 @@ class FunkinLua {
 			});
 		}
 
+		#if (SScript >= "3.0.0") HScript.implement(this); #end
+
 		call('onCreate', []);
 		#end
 	}
@@ -2711,15 +2680,6 @@ class FunkinLua {
 		}
 		return false;
 	}
-
-	#if hscript
-	public function initHaxeModule() {
-		if (hscript == null) {
-			trace('initializing haxe interp for: $scriptName');
-			hscript = new HScript(); // TO DO: Fix issue with 2 scripts not being able to use the same variable names
-		}
-	}
-	#end
 
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any {
 		var freak:Array<String> = variable.split('[');
@@ -3128,14 +3088,36 @@ class FunkinLua {
 		return null;
 	}
 
-	var lastCalledFunction:String = '';
-
+	function findScript(scriptFile:String, ext:String = '.lua')
+		{
+			if(!scriptFile.endsWith(ext)) scriptFile += ext;
+			var preloadPath:String = Paths.getPreloadPath(scriptFile);
+			#if MODS_ALLOWED
+			var path:String = Paths.modFolders(scriptFile);
+			if(FileSystem.exists(scriptFile))
+				return scriptFile;
+			else if(FileSystem.exists(path))
+				return path;
+		
+			if(FileSystem.exists(preloadPath))
+			#else
+			if(Assets.exists(preloadPath))
+			#end
+			{
+				return preloadPath;
+			}
+			return null;
+		}
+		
+	public var lastCalledFunction:String = '';
+	public static var lastCalledScript:FunkinLua = null;
 	public function call(func:String, args:Array<Dynamic>):Dynamic {
 		#if LUA_ALLOWED
 		if (closed)
 			return Function_Continue;
 
 		lastCalledFunction = func;
+		lastCalledScript = this;
 		try {
 			if (lua == null)
 				return Function_Continue;
@@ -3372,64 +3354,3 @@ class CustomSubstate extends MusicBeatSubstate {
 		super.destroy();
 	}
 }
-
-#if hscript
-class HScript {
-	public static var parser:Parser = new Parser();
-
-	public var interp:Interp;
-
-	public var variables(get, never):Map<String, Dynamic>;
-
-	public function get_variables() {
-		return interp.variables;
-	}
-
-	public function new() {
-		interp = new Interp();
-		interp.variables.set('FlxG', FlxG);
-		interp.variables.set('FlxSprite', FlxSprite);
-		interp.variables.set('FlxCamera', FlxCamera);
-		interp.variables.set('FlxTimer', FlxTimer);
-		interp.variables.set('FlxTween', FlxTween);
-		interp.variables.set('FlxEase', FlxEase);
-		interp.variables.set('PlayState', PlayState);
-		interp.variables.set('game', PlayState.instance);
-		interp.variables.set('Paths', Paths);
-		interp.variables.set('Conductor', Conductor);
-		interp.variables.set('ClientPrefs', ClientPrefs);
-		interp.variables.set('Character', Character);
-		interp.variables.set('Alphabet', Alphabet);
-		interp.variables.set('CustomSubstate', CustomSubstate);
-		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
-		#if (!flash && sys)
-		interp.variables.set('FlxRuntimeShader', FlxRuntimeShader);
-		#end
-		interp.variables.set('StringTools', StringTools);
-
-		interp.variables.set('setVar', function(name:String, value:Dynamic) {
-			PlayState.instance.variables.set(name, value);
-		});
-		interp.variables.set('getVar', function(name:String) {
-			var result:Dynamic = null;
-			if (PlayState.instance.variables.exists(name))
-				result = PlayState.instance.variables.get(name);
-			return result;
-		});
-		interp.variables.set('removeVar', function(name:String) {
-			if (PlayState.instance.variables.exists(name)) {
-				PlayState.instance.variables.remove(name);
-				return true;
-			}
-			return false;
-		});
-	}
-
-	public function execute(codeToRun:String):Dynamic {
-		@:privateAccess
-		HScript.parser.line = 1;
-		HScript.parser.allowTypes = true;
-		return interp.execute(HScript.parser.parseString(codeToRun));
-	}
-}
-#end
