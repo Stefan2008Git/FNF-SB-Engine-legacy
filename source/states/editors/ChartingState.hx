@@ -42,12 +42,9 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-#if (flixel < "5.3.0")
 @:access(flixel.system.FlxSound._sound)
-#else
-@:access(flixel.sound.FlxSound._sound)
-#end
 @:access(openfl.media.Sound.__buffer)
+
 class ChartingState extends MusicBeatState {
 	public static var noteTypeList:Array<String> = // Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
 		['', 'Alt Animation', 'Hey!', 'Hurt Note', 'GF Sing', 'No Animation'];
@@ -2332,6 +2329,8 @@ class ChartingState extends MusicBeatState {
 		var st:Float = sectionStartTime();
 		var et:Float = st + (Conductor.stepCrochet * steps);
 
+		@:privateAccess
+		{
 		if (FlxG.save.data.chart_waveformInst) {
 			var sound:FlxSound = FlxG.sound.music;
 			if (sound._sound != null && sound._sound.__buffer != null) {
@@ -2349,7 +2348,7 @@ class ChartingState extends MusicBeatState {
 				wavData = waveformData(sound._sound.__buffer, bytes, st, et, 1, wavData, Std.int(gridBG.height));
 			}
 		}
-
+		}
 		// Draws
 		var gSize:Int = Std.int(GRID_SIZE * 8);
 		var hSize:Int = Std.int(gSize / 2);

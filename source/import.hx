@@ -1,6 +1,13 @@
 #if (!macro)
 package;
 
+#if LUA_ALLOWED
+import llua.Lua;
+import llua.LuaL;
+import llua.State;
+import llua.Convert;
+#end
+
 // Basic Flixel stuff for HaxeFlixel engine.
 import flixel.FlxG;
 import flixel.FlxBasic;
