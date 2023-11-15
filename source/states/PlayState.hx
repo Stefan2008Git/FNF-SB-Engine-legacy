@@ -90,6 +90,10 @@ class PlayState extends MusicBeatState {
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
 
+	#if HSCRIPT_ALLOWED
+	public var hscriptArray:Array<HScript> = [];
+	#end
+
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
 	public var DAD_X:Float = 100;
@@ -1567,6 +1571,7 @@ class PlayState extends MusicBeatState {
 			startLuasOnFolder('custom_events/' + event + '.lua');
 		}
 		#end
+
 		#if HSCRIPT_ALLOWED
 		for (notetype in noteTypeMap.keys())
 			startHScriptsNamed('custom_notetypes/' + notetype + '.hx');
@@ -5175,7 +5180,7 @@ class PlayState extends MusicBeatState {
 		}
 		luaArray = [];
 
-		for(haxe in hscriptArray)
+		for (haxe in hscriptArray)
 			{
 				haxe.destroy();
 			}
@@ -5432,8 +5437,12 @@ class PlayState extends MusicBeatState {
 		{
 			var newScript:HScript = new HScript(null, file);
 			@:privateAccess
-			if(newScript.parsingException != null)
+			if(newScript.parsingExceptions != null && newScript.parsingExceptions.length > 0)
 			{
+				@:privateAccess
+				for (e in newScript.parsingExceptions)
+					if(e != null)
+				addTextToDebug('ERROR ON LOADING ($file): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 				newScript.destroy();
 				return;
 			}

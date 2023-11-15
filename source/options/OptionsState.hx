@@ -72,6 +72,7 @@ class OptionsState extends MusicBeatState {
 	var customizeAndroidControlsTipText:FlxText;
 	var cameraFollow:FlxObject;
 	var cameraFollowPosition:FlxObject;
+	var controlsActive:Bool = true;
 
 	override function create() {
 		Paths.clearStoredMemory();
@@ -168,6 +169,7 @@ class OptionsState extends MusicBeatState {
 
 		Paths.clearUnusedMemory();
 
+		controlsActive = true;
 		changeSelection();
 		ClientPrefs.saveSettings();
 
@@ -187,14 +189,14 @@ class OptionsState extends MusicBeatState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
+		if (controls.UI_UP_P && controlsActive) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P) {
+		if (controls.UI_DOWN_P && controlsActive) {
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK && controlsActive) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (PauseSubState.optionMenu) {
 				MusicBeatState.switchState(new PlayState());
@@ -207,19 +209,19 @@ class OptionsState extends MusicBeatState {
 			}
 		}
 
-		if (controls.ACCEPT) {
+		if (controls.ACCEPT && controlsActive) {
 			openSelectedSubstate(options[currentlySelected]);
 			FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
 		}
 
 		#if android
-		if (virtualPad.buttonX.justPressed) {
+		if (virtualPad.buttonX.justPressed && controlsActive) {
 			#if android
 			removeVirtualPad();
 			#end
 			openSubState(new options.android.AndroidControlsSubState());
 		}
-		if (virtualPad.buttonY.justPressed) {
+		if (virtualPad.buttonY.justPressed && controlsActive) {
 			#if android
 			removeVirtualPad();
 			#end
@@ -228,6 +230,7 @@ class OptionsState extends MusicBeatState {
 		#end
 
 		if (FlxG.keys.justPressed.B #if android || FlxG.android.justReleased.BACK #end) {
+			controlsActive = false;
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
 	
