@@ -16,10 +16,6 @@ import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.system.FlxAssets.FlxShader;
 
-#if (SScript >= "3.0.0")
-import enginelua.HScript;
-#end
-
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -36,10 +32,7 @@ import enginelua.HScript;
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
 #end
-<<<<<<< HEAD
 
-=======
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 import states.MainMenuState;
 import states.LoadingState;
 import states.StoryModeState;
@@ -64,12 +57,7 @@ class FunkinLua {
 	public var scriptName:String = '';
 	public var closed:Bool = false;
 
-<<<<<<< HEAD
 	#if (SScript >= "3.0.0")
-=======
-	//for hscript
-	#if HSCRIPT_ALLOWED
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 	public var hscript:HScript = null;
 	#end
 
@@ -216,10 +204,7 @@ class FunkinLua {
 		set('buildTarget', 'unknown');
 		#end
 
-<<<<<<< HEAD
 		//hscript
-=======
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 		Lua_helper.add_callback(lua, "addHScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) {
 			#if HSCRIPT_ALLOWED
 			var foundScript:String = findScript(luaFile, '.hx');
@@ -3106,35 +3091,9 @@ class FunkinLua {
 		return null;
 	}
 
-<<<<<<< HEAD
 	public var lastCalledFunction:String = '';
 	public static var lastCalledScript:FunkinLua = null;
 
-=======
-	function findScript(scriptFile:String, ext:String = '.lua')
-		{
-			if(!scriptFile.endsWith(ext)) scriptFile += ext;
-			var preloadPath:String = Paths.getPreloadPath(scriptFile);
-			#if MODS_ALLOWED
-			var path:String = Paths.modFolders(scriptFile);
-			if(FileSystem.exists(scriptFile))
-				return scriptFile;
-			else if(FileSystem.exists(path))
-				return path;
-		
-			if(FileSystem.exists(preloadPath))
-			#else
-			if(Assets.exists(preloadPath))
-			#end
-			{
-				return preloadPath;
-			}
-			return null;
-		}
-		
-	public var lastCalledFunction:String = '';
-	public static var lastCalledScript:FunkinLua = null;
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 	public function call(func:String, args:Array<Dynamic>):Dynamic {
 		#if LUA_ALLOWED
 		if (closed)
@@ -3142,10 +3101,7 @@ class FunkinLua {
 
 		lastCalledFunction = func;
 		lastCalledScript = this;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 		try {
 			if (lua == null)
 				return Function_Continue;
@@ -3402,8 +3358,4 @@ class CustomSubstate extends MusicBeatSubstate {
 		PlayState.instance.callOnLuas('onCustomSubstateDestroy', [name]);
 		super.destroy();
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a

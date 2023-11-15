@@ -1,10 +1,5 @@
 package backend;
 
-<<<<<<< HEAD
-=======
-// thanks by @ShadowMario
-
->>>>>>> 9a4c229df41df02e7c5cbc489f869d61620e138a
 #if sys
 import sys.FileSystem;
 import sys.io.File;
