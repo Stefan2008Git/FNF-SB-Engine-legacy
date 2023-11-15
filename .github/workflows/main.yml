@@ -27,7 +27,7 @@ jobs:
 
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.2.5
+          haxe-version: latest
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
@@ -46,9 +46,8 @@ jobs:
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
+          haxelib install SScript
           haxelib install hxcpp-debug-server
-          haxelib install haxeui-core
-          haxelib install haxeui-openfl
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
@@ -76,7 +75,7 @@ jobs:
 
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.2.5
+          haxe-version: latest
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
@@ -94,9 +93,8 @@ jobs:
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
+          haxelib install SScript
           haxelib install hxcpp-debug-server
-          haxelib install haxeui-core
-          haxelib install haxeui-openfl
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
@@ -125,7 +123,7 @@ jobs:
 
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.2.5
+          haxe-version: latest
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
@@ -143,9 +141,8 @@ jobs:
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
+          haxelib install SScript
           haxelib install hxcpp-debug-server
-          haxelib install haxeui-core
-          haxelib install haxeui-openfl
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib list
@@ -188,7 +185,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.2.0
         with:
-          haxe-version: 4.2.5
+          haxe-version: latest
 
       - name: Install Haxelib
         run: |
@@ -204,6 +201,7 @@ jobs:
           haxelib --quiet install tjson
           haxelib --quiet install hxjsonast
           haxelib --quiet install hscript
+          haxelib --quiet install SScript
           haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools

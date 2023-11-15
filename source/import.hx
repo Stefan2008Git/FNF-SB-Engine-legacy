@@ -1,4 +1,4 @@
-#if (!macro)
+#if !macro
 package;
 
 // Basic Flixel stuff for HaxeFlixel engine.
@@ -49,6 +49,7 @@ import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import tea.SScript;
 
 // Friday Night Funkin': SB Engine stuff (Im talking about states, substates, backend, etc.)
 import FunkinLua;
@@ -67,6 +68,7 @@ import backend.Discord.DiscordClient;
 #end
 import backend.Highscore;
 import backend.InputFormatter;
+import backend.Mods;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.Paths;

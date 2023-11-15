@@ -1,6 +1,5 @@
 package states;
 
-import backend.Mods;
 import stages.tank.TankmenBG;
 import stages.pico.PhillyGlowGradient;
 import stages.pico.PhillyGlowParticle;
@@ -60,11 +59,6 @@ import openfl.filters.ShaderFilter;
 
 import enginelua.HScript;
 
-#if (SScript >= "3.0.0")
-import tea.SScript;
-#end
-
-using StringTools;
 
 class PlayState extends MusicBeatState {
 	public static var STRUM_X = 48.5;
@@ -79,9 +73,6 @@ class PlayState extends MusicBeatState {
 	public var dadMap:Map<String, Character> = new Map();
 	public var gfMap:Map<String, Character> = new Map();
 	public var variables:Map<String, Dynamic> = new Map();
-	#if HSCRIPT_ALLOWED
-	public var hscriptArray:Array<HScript> = [];
-	#end
 
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
