@@ -237,7 +237,7 @@ class FreeplayState extends MusicBeatState {
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 		var back = controls.BACK;
-		var shift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.justPressed #end;
+		var shift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end; // Useless because i cant fix it for some reason.
 		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
 		var reset = controls.RESET #if android || virtualPad.buttonY.justPressed #end;
@@ -391,6 +391,7 @@ class FreeplayState extends MusicBeatState {
 			removeVirtualPad();
 			#end
 			persistentUpdate = false;
+			
 			openSubState(new ResetScoreSubState(songs[currentlySelected].songName, currentlyDifficulty, songs[currentlySelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);

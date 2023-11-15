@@ -1,6 +1,6 @@
 package options.android;
 
-import.android.AndroidControls;;
+import android.AndroidControls;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.utils.Assets;
 import flixel.util.FlxSave;

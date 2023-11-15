@@ -103,5 +103,12 @@ import objects.ToastCore;
 import objects.TypedAlphabet;
 import states.PlayState;
 
+#if LUA_ALLOWED
+import llua.Lua;
+import llua.LuaL;
+import llua.State;
+import llua.Convert;
+#end
+
 using StringTools;
 #end

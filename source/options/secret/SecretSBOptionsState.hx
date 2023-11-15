@@ -128,7 +128,7 @@ class SecretSBOptionsState extends MusicBeatState {
 			item.alpha = 0.6;
 			if (item.targetY == 0) {
 				item.alpha = 1;
-				selectorLeft.x = item.x - 63;
+				selectorLeft.x = item.x - 61;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
 				selectorRight.y = item.y;
