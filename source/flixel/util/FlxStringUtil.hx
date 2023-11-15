@@ -1,6 +1,8 @@
 package flixel.util;
 
+#if !macro
 import flash.display.BitmapData;
+#end
 import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.typeLimit.OneOfTwo;
