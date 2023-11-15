@@ -11,8 +11,6 @@ class HScript extends SScript
 {
 	public var funk:FunkinLua;
 
-	//stupid thing to do but it makes the stupid parsingexceptions errors stop
-	@:noPrivateAccess var parsingExceptions(default, null):Array<Exception> = new Array();
 	
 	public static function initHaxeModule(parent:FunkinLua)
 	{
