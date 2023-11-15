@@ -23,8 +23,8 @@ class OptionsState extends MusicBeatState {
 	private static var currentlySelected:Int = 0;
 	private var cameraGame:FlxCamera;
 
-	function openSelectedSubstate(label:String) {
-		switch (label) {
+	function openSelectedSubstate(optionName:String) {
+		switch (optionName) {
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 				Application.current.window.title = "Friday Night Funkin: SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Adjusting Delay and Combo)";
