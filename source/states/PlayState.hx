@@ -931,17 +931,45 @@ class PlayState extends MusicBeatState {
 		add(luaDebugGroup);
 		#end
 
-		// "GLOBAL" SCRIPTS
+		// "GLOBAL" HSCRIPTS
 		#if LUA_ALLOWED
 		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'scripts/');
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 			{
-				if(file.toLowerCase().endsWith('.lua'))
-					new FunkinLua(folder + file);
 				if(file.toLowerCase().endsWith('.hx'))
 					initHScript(folder + file);
 			}
+		#end
+
+		// "GLOBAL" LUA SCRIPTS
+		#if LUA_ALLOWED
+		var filesPushed:Array<String> = [];
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('scripts/')];
+
+		#if MODS_ALLOWED
+		foldersToCheck.insert(0, Paths.mods('scripts/'));
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
+
+		for(mod in Paths.getGlobalMods())
+			foldersToCheck.insert(0, Paths.mods(mod + '/scripts/'));
+		#end
+
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					if(file.endsWith('.lua') && !filesPushed.contains(file))
+					{
+						luaArray.push(new FunkinLua(folder + file));
+						filesPushed.push(file);
+					}
+				}
+			}
+		}
 		#end
 
 		// STAGE SCRIPTS
@@ -949,6 +977,7 @@ class PlayState extends MusicBeatState {
 		startLuasOnFolder('stages/' + currentlyStage + '.lua');
 		#end
 
+		// STAGE HSCRIPTS
 		#if HSCRIPT_ALLOWED
 		startHScriptsNamed('stages/' + currentlyStage + '.hx');
 		#end
@@ -1586,18 +1615,46 @@ class PlayState extends MusicBeatState {
 			eventNotes.sort(sortByTime);
 		}
 
-		// SONG SPECIFIC SCRIPTS
+		// SONG SPECIFIC HSCRIPTS
 		#if LUA_ALLOWED
 		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'data/' + Paths.formatToSongPath(SONG.song) + '/');
 		
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 			{
-				if(file.toLowerCase().endsWith('.lua'))
-					new FunkinLua(folder + file);
 				if(file.toLowerCase().endsWith('.hx'))
 					initHScript(folder + file);
 			}
+		#end
+
+		// SONG SPECIFIC LUA SCRIPTS
+		#if LUA_ALLOWED
+		var filesPushed:Array<String> = [];
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
+
+		#if MODS_ALLOWED
+		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
+
+		for(mod in Paths.getGlobalMods())
+			foldersToCheck.insert(0, Paths.mods(mod + '/data/' + Paths.formatToSongPath(SONG.song) + '/' ));// using push instead of insert because these should run after everything else
+		#end
+
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					if(file.endsWith('.lua') && !filesPushed.contains(file))
+					{
+						luaArray.push(new FunkinLua(folder + file));
+						filesPushed.push(file);
+					}
+				}
+			}
+		}
 		#end
 
 		var daSong:String = Paths.formatToSongPath(currentlySong);
