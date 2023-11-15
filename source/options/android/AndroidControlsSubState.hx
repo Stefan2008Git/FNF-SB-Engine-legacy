@@ -1,5 +1,6 @@
 package options.android;
 
+import android.AndroidControls;
 import android.flixel.FlxButton;
 import android.flixel.FlxHitbox;
 import android.flixel.FlxNewHitbox;

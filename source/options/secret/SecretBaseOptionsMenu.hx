@@ -140,6 +140,7 @@ class SecretBaseOptionsMenu extends MusicBeatSubstate {
 			#if android
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
+			ClientPrefs.saveSettings();
 			#else
 			close();
 			#end
