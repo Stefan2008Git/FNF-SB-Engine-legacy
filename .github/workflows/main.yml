@@ -36,17 +36,17 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install openfl 9.2.1
+          haxelib install flixel 5.2.2
           haxelib run lime setup flixel
           haxelib run lime setup
-          haxelib install flixel-addons
-          haxelib install flixel-ui
+          haxelib install flixel-addons 3.0.2
+          haxelib install flixel-ui 2.5.0
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
-          haxelib install SScript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib install hxcpp-debug-server
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -82,18 +82,18 @@ jobs:
           haxelib setup C:/haxelib
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install openfl 9.2.1
+          haxelib install flixel 5.2.2
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-addons 3.0.2
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
-          haxelib install SScript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib install hxcpp-debug-server
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
@@ -130,18 +130,18 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install hxcpp 4.2.1 > /dev/null
           haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
+          haxelib install openfl 9.2.1
+          haxelib install flixel 5.2.2
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel-addons
+          haxelib install flixel-addons 3.0.2
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxCodec 2.5.1
           haxelib install hscript
-          haxelib install SScript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib install hxcpp-debug-server
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
@@ -192,16 +192,16 @@ jobs:
           haxelib setup ~/haxelib
           haxelib --quiet install hxcpp 4.2.1 > /dev/null
           haxelib --quiet install lime
-          haxelib --quiet install openfl
-          haxelib --quiet install flixel
+          haxelib --quiet install openfl 9.2.1
+          haxelib --quiet install flixel 5.2.2
           haxelib --quiet run lime setup flixel
           haxelib --quiet install flixel-tools
-          haxelib --quiet install flixel-ui
-          haxelib --quiet install flixel-addons
+          haxelib --quiet install flixel-ui 2.5.0
+          haxelib --quiet install flixel-addons 3.0.2
           haxelib --quiet install tjson
           haxelib --quiet install hxjsonast
           haxelib --quiet install hscript
-          haxelib --quiet install SScript
+          haxelib git SScript https://github.com/Fearester2008/SScript
           haxelib --quiet git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib --quiet git linc_luajit https://github.com/Sirox228/linc_luajit.git
           haxelib --quiet git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools

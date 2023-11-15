@@ -148,6 +148,10 @@
 	<!-- It's ignoring all warning when you compile the game -->
 	<haxedef name="no-deprecation-warnings"/>
 
+	<!--Macro fixes-->
+	<haxeflag name="--macro" value="allowPackage('flash')" />
+	<haxeflag name="--macro" value="include('my.pack')" />
+
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
 
