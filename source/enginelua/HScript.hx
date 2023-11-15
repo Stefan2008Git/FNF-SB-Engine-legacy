@@ -11,6 +11,7 @@ class HScript extends SScript
 {
 	public var funk:FunkinLua;
 
+	@:noPrivateAccess var parsingExceptions(default, null):Array<Exception> = new Array();
 	
 	public static function initHaxeModule(parent:FunkinLua)
 	{
