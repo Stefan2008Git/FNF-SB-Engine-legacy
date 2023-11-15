@@ -3106,7 +3106,7 @@ class PlayState extends MusicBeatState {
 
 	function resyncVocals():Void
 	{
-		if(finishTimer != null || vocalsFinished || isDead) return;
+		if(finishTimer != null || vocalsFinished || isDead || !SONG.needsVoices) return;
 	
 		vocals.pause();
 	
