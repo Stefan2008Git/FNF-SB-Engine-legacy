@@ -1,13 +1,15 @@
 package flixel.util;
 
+#if !macro
 import flash.display.BitmapData;
 import flixel.system.FlxAssets;
+#end
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.typeLimit.OneOfTwo;
 
 using StringTools;
 
-#if flash
+#if (flash && !macro)
 import flash.geom.Matrix;
 #end
 
