@@ -289,7 +289,6 @@ class OptionsState extends MusicBeatState {
 								{
 								    new FlxTimer().start(1, function(timer:FlxTimer) 
 								    {
-										Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Secret Options Menu";
 										MusicBeatState.switchState(new options.secret.SecretSBOptionsState());
 							        });
 						        });
@@ -328,7 +327,7 @@ class OptionsState extends MusicBeatState {
 				if (optionsSelect.members.length > 4) {
 					alphabetItem = optionsSelect.members.length * 8;
 				}
-				selectorLeft.x = item.x - 63;
+				selectorLeft.x = item.x - 75;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
 				selectorRight.y = item.y;

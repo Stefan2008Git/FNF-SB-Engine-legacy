@@ -85,9 +85,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Rating images',
-		    "If unckecked, disables rating images.",
-			'ratingImages',
-			'bool', true);
+		    "If unckecked, disables rating images.", 'ratingImages', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Results screen',
@@ -129,6 +127,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If checked, this options is gonna make to show random engine names (aka. Usernames for example) instead of SB.", 'randomEngineNames', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('Less CPU controller',
+		    "If checked, this options is gonna make cpu controller (aka. Botplay) less laggy", 'lessCpuController', 'bool', false);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
@@ -143,7 +145,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			['SB Engine', 'Kade Engine']);
 		addOption(option);
 
-		var option:Option = new Option('Judgement counter style:', "What should the judgement style display?", 'judgementCounterStyle', 'string', 'Original',
+		var option:Option = new Option('Judgement style:', "What should the judgement style display?", 'judgementCounterStyle', 'string', 'Original',
 			['Original', 'With Misses', 'Better Judge']);
 		addOption(option);
 

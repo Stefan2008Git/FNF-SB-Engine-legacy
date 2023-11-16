@@ -2,7 +2,7 @@ package options.secret;
 
 import flixel.addons.transition.FlxTransitionableState;
 
-class SecretDebugSubstate extends SecretBaseOptionsMenu
+class SecretDebugSubstate extends BaseOptionsMenu
 {
     public function new() {
         title = 'Secret Debug Menu';

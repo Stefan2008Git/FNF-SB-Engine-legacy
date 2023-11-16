@@ -29,6 +29,7 @@ class SecretSBOptionsState extends MusicBeatState {
 
 	override function create() {
         if (ClientPrefs.toastCore) Main.toast.create('You are entered to', 0xFF464646, 'Secret Debug mode');
+		Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Secret Options Menu";
 		Paths.clearStoredMemory();
 
         FlxG.sound.playMusic(Paths.music('warningScreenMusic'), 0.5);
@@ -128,7 +129,7 @@ class SecretSBOptionsState extends MusicBeatState {
 			item.alpha = 0.6;
 			if (item.targetY == 0) {
 				item.alpha = 1;
-				selectorLeft.x = item.x - 67;
+				selectorLeft.x = item.x - 75;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
 				selectorRight.y = item.y;

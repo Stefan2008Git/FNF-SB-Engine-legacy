@@ -23,6 +23,7 @@ class ClientPrefs {
 	public static var mainMenuMusic:String = 'FNF';
 	public static var showKeybindsOnStart:Bool = true;
 	public static var iconBounce:Bool = true;
+	public static var lessCpuController:Bool = false;
 	public static var healthTween:Bool = true;
 	public static var ratingImages:Bool = true;
 	public static var globalAntialiasing:Bool = true;
@@ -143,6 +144,7 @@ class ClientPrefs {
 		FlxG.save.data.mainMenuMusic = mainMenuMusic;
 		FlxG.save.data.showKeybindsOnStart = showKeybindsOnStart;
 		FlxG.save.data.iconBounce = iconBounce;
+		FlxG.save.data.lessCpuController = lessCpuController;
 		FlxG.save.data.healthTween = healthTween;
 		FlxG.save.data.ratingImages = ratingImages;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
@@ -236,6 +238,7 @@ class ClientPrefs {
 		FlxG.save.data.mainMenuMusic != null ? mainMenuMusic = FlxG.save.data.mainMenuMusic : mainMenuMusic = 'FNF';
 		FlxG.save.data.showKeybindsOnStart != null ? showKeybindsOnStart = FlxG.save.data.showKeybindsOnStart : showKeybindsOnStart = true;
 		FlxG.save.data.iconBounce != null ? iconBounce = FlxG.save.data.iconBounce : iconBounce = true;
+		FlxG.save.data.lessCpuController != null ? lessCpuController = FlxG.save.data.lessCpuController : lessCpuController = false;
 		FlxG.save.data.healthTween != null ? healthTween = FlxG.save.data.healthTween : healthTween = true;
 		FlxG.save.data.ratingImages != null ? ratingImages = FlxG.save.data.ratingImages : ratingImages = true;
 		FlxG.save.data.globalAntialiasing != null ? globalAntialiasing = FlxG.save.data.globalAntialiasing : globalAntialiasing = true;
@@ -258,8 +261,8 @@ class ClientPrefs {
 		FlxG.save.data.gpuCaching != null ? gpuCaching = FlxG.save.data.gpuCaching : gpuCaching = false;
 		FlxG.save.data.camZooms != null ? camZooms = FlxG.save.data.camZooms : camZooms = true;
 		FlxG.save.data.hideHud != null ? hideHud = FlxG.save.data.hideHud : hideHud = false;
-		FlxG.save.data.watermark != null ? watermark = FlxG.save.data.watermark : watermark = false;
-		FlxG.save.data.judgementCounter != null ? judgementCounter = FlxG.save.data.judgementCounter : judgementCounter = false;
+		FlxG.save.data.watermark != null ? watermark = FlxG.save.data.watermark : watermark = true;
+		FlxG.save.data.judgementCounter != null ? judgementCounter = FlxG.save.data.judgementCounter : judgementCounter = true;
 		FlxG.save.data.judgementCounterStyle != null ? judgementCounterStyle = FlxG.save.data.judgementCounterStyle : judgementCounterStyle = 'Original';
 		FlxG.save.data.songIntro != null ? songIntro = FlxG.save.data.songIntro : songIntro = true;
 		FlxG.save.data.noteOffset != null ? noteOffset = FlxG.save.data.noteOffset : noteOffset = 0;
