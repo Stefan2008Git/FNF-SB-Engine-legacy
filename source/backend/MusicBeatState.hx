@@ -133,6 +133,14 @@ class MusicBeatState extends FlxUIState {
 	override function update(elapsed:Float) {
 		// everyStep();
 		var oldStep:Int = curStep;
+		var watermark:Bool;
+		watermark = ClientPrefs.watermark;
+
+		if (watermark)
+		{
+			Main.watermark.x = Lib.application.window.width - 10 - Main.watermark.width;
+			Main.watermark.y = Lib.application.window.height - 10 - Main.watermark.height;
+		}
 
 		updateCurStep();
 		updateBeat();

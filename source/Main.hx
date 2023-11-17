@@ -42,6 +42,7 @@ class Main extends Sprite {
 
 	public static var fpsVar:FPS;
 	public static var toast:ToastCore; // Credits go to MA.Jigsaw77
+	public static var watermark:Sprite;
 	public static var changeID:Int = 0;
 
 	public static function main():Void {
@@ -127,6 +128,15 @@ class Main extends Sprite {
 	    });
 		toast = new ToastCore();
 		addChild(toast);
+
+		// Mic'd Up SC code :D
+		var bitmapData = Assets.getBitmapData("assets/images/psychIcon.png");
+		watermark = new Sprite();
+		watermark.addChild(new Bitmap(bitmapData)); // Sets the graphic of the sprite to a Bitmap object, which uses our embedded BitmapData class.
+		watermark.alpha = 0.4;
+		watermark.x = Lib.application.window.width - 10 - watermark.width;
+		watermark.y = Lib.application.window.height - 10 - watermark.height;
+		addChild(watermark);
     }
 
     static function resetSpriteCache(sprite:Sprite):Void {
