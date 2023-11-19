@@ -1,5 +1,6 @@
 package states;
 
+import backend.Mods;
 import stages.tank.TankmenBG;
 import stages.pico.PhillyGlowGradient;
 import stages.pico.PhillyGlowParticle;
@@ -59,6 +60,11 @@ import openfl.filters.ShaderFilter;
 
 import enginelua.HScript;
 
+#if (SScript >= "3.0.0")
+import tea.SScript;
+#end
+
+using StringTools;
 
 class PlayState extends MusicBeatState {
 	public static var STRUM_X = 48.5;
@@ -73,6 +79,9 @@ class PlayState extends MusicBeatState {
 	public var dadMap:Map<String, Character> = new Map();
 	public var gfMap:Map<String, Character> = new Map();
 	public var variables:Map<String, Dynamic> = new Map();
+	#if HSCRIPT_ALLOWED
+	public var hscriptArray:Array<HScript> = [];
+	#end
 
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
@@ -80,10 +89,6 @@ class PlayState extends MusicBeatState {
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
-
-	#if HSCRIPT_ALLOWED
-	public var hscriptArray:Array<HScript> = [];
-	#end
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -928,7 +933,7 @@ class PlayState extends MusicBeatState {
 
 		// "GLOBAL" HSCRIPTS
 		#if LUA_ALLOWED
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'scripts/');
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getPreloadPath(), 'scripts/');
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 			{
@@ -966,13 +971,11 @@ class PlayState extends MusicBeatState {
 			}
 		}
 		#end
-
 		// STAGE SCRIPTS
 		#if LUA_ALLOWED
 		startLuasOnFolder('stages/' + currentlyStage + '.lua');
 		#end
 
-		// STAGE HSCRIPTS
 		#if HSCRIPT_ALLOWED
 		startHScriptsNamed('stages/' + currentlyStage + '.hx');
 		#end
@@ -1591,7 +1594,6 @@ class PlayState extends MusicBeatState {
 			startLuasOnFolder('custom_events/' + event + '.lua');
 		}
 		#end
-
 		#if HSCRIPT_ALLOWED
 		for (notetype in noteTypeMap.keys())
 			startHScriptsNamed('custom_notetypes/' + notetype + '.hx');
@@ -1613,7 +1615,7 @@ class PlayState extends MusicBeatState {
 
 		// SONG SPECIFIC HSCRIPTS
 		#if LUA_ALLOWED
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'data/' + Paths.formatToSongPath(SONG.song) + '/');
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getPreloadPath(), 'data/' + Paths.formatToSongPath(SONG.song) + '/');
 		
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
@@ -2267,7 +2269,7 @@ class PlayState extends MusicBeatState {
 			if (skipCountdown || startOnTime > 0)
 				skipArrowStartTween = true;
 			#if android
-			androidControls.visible = !cpuControlled;
+			androidControls.visible = true;
 			#end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3058,7 +3060,13 @@ class PlayState extends MusicBeatState {
 
 			#if desktop
 			if (startTimer != null && startTimer.finished) {
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song
+					+ " ("
+					+ storyModeDifficultyText
+					+ ")", iconP2.getCharacter(), true,
+					songLength
+					- Conductor.songPosition
+					- ClientPrefs.noteOffset);
 			} else {
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyModeDifficultyText + ")", iconP2.getCharacter());
 			}
@@ -3100,7 +3108,7 @@ class PlayState extends MusicBeatState {
 
 	function resyncVocals():Void
 	{
-		if(finishTimer != null || vocalsFinished || isDead) return;
+		if(finishTimer != null || vocalsFinished || isDead || !SONG.needsVoices) return;
 	
 		vocals.pause();
 	
@@ -3272,18 +3280,13 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
+		for (i in 0...notesHitArray.length)
 		{
-			var valueNpsHit = notesHitArray.length-1;
-			while (valueNpsHit >= 0)
-			{
-				var npsCounter:Date = notesHitArray[valueNpsHit];
-				if (npsCounter != null && npsCounter.getTime() + 1000 / playbackRate < Date.now().getTime())
+			var valueNoteHit = notesHitArray.length-1;
+			var npsCounter:Date = notesHitArray[valueNoteHit];
+			if (npsCounter != null && npsCounter.getTime() + 1000 / playbackRate < Date.now().getTime())
+				if (npsCounter.getTime() + 2000 < Date.now().getTime())
 					notesHitArray.remove(npsCounter);
-				else
-					valueNpsHit = 0;
-				valueNpsHit--;
-			}
-			maximumNPS = notesHitArray.length;
 			if (nps > maximumNPS)
 				maximumNPS = nps;
 		}
@@ -3299,10 +3302,10 @@ class PlayState extends MusicBeatState {
 		setOnHScript('curDecStep', curDecStep);
 		setOnHScript('curDecBeat', curDecBeat);
 
-		var speed:Float = 1;
+		var speed = 1;
+
 		if (sbEngineIconBounce) {
 			if (iconP1.angle >= 0) {
-				speed *= playbackRate;
 				if (iconP1.angle != 0) {
 					iconP1.angle -= speed;
 				}
@@ -3433,7 +3436,8 @@ class PlayState extends MusicBeatState {
 					songPercentValue = FlxMath.roundDecimal(currentlyTime / songLength * 100, ClientPrefs.timePercentValue);
 
 					var songCalculating:Float = (songLength - currentlyTime);
-					if (ClientPrefs.timeBarType == 'Time Elapsed' || ClientPrefs.timeBarType == 'Modern Time' || ClientPrefs.timeBarType == 'Song Name + Time') songCalculating = currentlyTime;
+					if (ClientPrefs.timeBarType == 'Time Elapsed')
+						songCalculating = currentlyTime;
 
 					var secondsTotal:Int = Math.floor((songCalculating / playbackRate) / 1000);
 					if (secondsTotal < 0)
@@ -3460,7 +3464,7 @@ class PlayState extends MusicBeatState {
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 
 					if(ClientPrefs.timeBarType != 'Song Name' && songLength >= 3600000)
-						timeTxt.text = hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining;
+					timeTxt.text = hoursRemaining + ':' + minutesRemainingValue + ':' + secondsRemaining;
 
 					if(ClientPrefs.timeBarType == 'Song Name + Time' && songLength <= 3600000)
 						timeTxt.text = SONG.song + ' (' + FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false) + ')';
@@ -4527,15 +4531,6 @@ class PlayState extends MusicBeatState {
 		if (combo >= 1000) {
 			seperatedScore.push(Math.floor(combo / 1000) % 10);
 		}
-		if(combo >= 10000) {
-			seperatedScore.push(Math.floor(combo / 10000) % 10);
-		}
-		if(combo >= 100000) {
-			seperatedScore.push(Math.floor(combo / 100000) % 10);
-		}
-		if(combo >= 1000000) {
-			seperatedScore.push(Math.floor(combo / 1000000) % 10);
-		}
 		seperatedScore.push(Math.floor(combo / 100) % 10);
 		seperatedScore.push(Math.floor(combo / 10) % 10);
 		seperatedScore.push(combo % 10);
@@ -4974,23 +4969,7 @@ class PlayState extends MusicBeatState {
 				return;
 			}
 
-			if (!note.isSustainNote && !cpuControlled)
-			{
-				combo += 1;
-				missCombo = 0;
-				notesHitArray.unshift(Date.now());
-				popUpScore(note);
-			}
-			if (!note.isSustainNote && !cpuControlled && !ClientPrefs.lessCpuController)
-			{
-				songScore += 350;
-				combo += 1;
-				notesHitArray.unshift(Date.now());
-				if(!note.noteSplashDisabled && !note.isSustainNote) {
-					spawnNoteSplashOnNote(note);
-				}
-			}
-			if (!note.isSustainNote && !cpuControlled && ClientPrefs.lessCpuController) {
+			if (!note.isSustainNote && !cpuControlled) {
 				if(combo >= maxCombo)
                 	maxCombo += 1;
 				combo += 1;
@@ -5251,7 +5230,7 @@ class PlayState extends MusicBeatState {
 		}
 		luaArray = [];
 
-		for (haxe in hscriptArray)
+		for(haxe in hscriptArray)
 			{
 				haxe.destroy();
 			}
@@ -5508,12 +5487,8 @@ class PlayState extends MusicBeatState {
 		{
 			var newScript:HScript = new HScript(null, file);
 			@:privateAccess
-			if(newScript.parsingExceptions != null && newScript.parsingExceptions.length > 0)
+			if(newScript.parsingException != null)
 			{
-				@:privateAccess
-				for (e in newScript.parsingExceptions)
-					if(e != null)
-				addTextToDebug('ERROR ON LOADING ($file): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 				newScript.destroy();
 				return;
 			}
