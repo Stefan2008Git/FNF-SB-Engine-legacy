@@ -3,6 +3,8 @@
 
 [![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
+<img src="https://discordapp.com/api/guilds/1088890563396382720/widget.png?style=banner4" alt="Discord Banner 4"/>
+
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 
 <details>
