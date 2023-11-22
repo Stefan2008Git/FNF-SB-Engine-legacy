@@ -191,7 +191,7 @@ jobs:
         run: |
           haxelib setup ~/haxelib
           haxelib --quiet install hxcpp 4.2.1 > /dev/null
-          haxelib --quiet install lime
+          haxelib --quiet install lime 8.1.1
           haxelib --quiet install openfl
           haxelib --quiet install flixel
           haxelib --quiet run lime setup flixel
@@ -218,6 +218,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib set lime 8.1.1
           haxelib set hxcpp 4.2.1
           haxelib list
         env:
