@@ -99,7 +99,7 @@ class CreditsState extends MusicBeatState {
 			['Shadow Mario', 'shadowmario', 'Main Programmer of Psych Engine', 'https://twitter.com/Shadow_Mario_', '444444'],
 			['RiverOaken', 'river', 'Main Artist/Animator of Psych Engine', 'https://twitter.com/RiverOaken', 'B42F71'],
 			[''],
-			['Former Engine Members'],
+			['Former Engine Member'],
 			['bb-panzu', 'bb', 'Ex-Programmer of Psych Engine', 'https://twitter.com/bbsub3', '3E813A'],
 			[''],
 			['Engine Contributors'],

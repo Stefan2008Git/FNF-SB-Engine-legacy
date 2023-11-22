@@ -12,35 +12,36 @@ class ControlsSubState extends MusicBeatSubstate {
 	private static var currentlySelected:Int = 1;
 	private static var curAlt:Bool = false;
 
-	private static var defaultKey:String = 'Reset to Default Keys';
+	private static var defaultKey:String = LanguageHandler.defaultKeyTxt;
 
 	private var bindLength:Int = 0;
 
 	var optionFreak:Array<Dynamic> = [
-		['NOTES'], ['Left', 'note_left'],
-		['Down', 'note_down'],
-		['Up', 'note_up'],
-	    ['Right', 'note_right'],
+		[LanguageHandler.notesTxt], 
+		[LanguageHandler.leftNoteTxt, 'note_left'],
+		[LanguageHandler.downNoteTxt, 'note_down'],
+		[LanguageHandler.upNoteTxt, 'note_up'],
+	    [LanguageHandler.rightNoteTxt, 'note_right'],
 		[''],
-		['UI'],
-		['Left', 'ui_left'],
-		['Down', 'ui_down'],
-		['Up', 'ui_up'],
-		['Right', 'ui_right'],
+		[LanguageHandler.uiTxt],
+		[LanguageHandler.leftKeyTxt, 'ui_left'],
+		[LanguageHandler.downKeyTxt, 'ui_down'],
+		[LanguageHandler.upKeyTxt, 'ui_up'],
+		[LanguageHandler.rightKeyTxt, 'ui_right'],
 		[''],
-		['Reset', 'reset'],
-		['Accept', 'accept'],
-		['Back', 'back'],
-		['Pause', 'pause'],
+		[LanguageHandler.resetKeyTxt, 'reset'],
+		[LanguageHandler.acceptKeyTxt, 'accept'],
+		[LanguageHandler.backKeyTxt, 'back'],
+		[LanguageHandler.pauseKeyTxt, 'pause'],
 		[''],
-		['VOLUME'],
-		['Mute', 'volume_mute'],
-		['Up', 'volume_up'],
-		['Down', 'volume_down'],
+		[LanguageHandler.volumeTxt],
+		[LanguageHandler.volumeMuteKeyTxt, 'volume_mute'],
+		[LanguageHandler.volumeUpKeyTxt, 'volume_up'],
+		[LanguageHandler.volumeDownKeyTxt, 'volume_down'],
 		[''],
-		['DEBUG'],
-		['Key 1', 'debug_1'],
-		['Key 2', 'debug_2']];
+		[LanguageHandler.debugTxt],
+		[LanguageHandler.debugKeyOneTxt, 'debug_1'],
+		[LanguageHandler.debugKeyTwoTxt, 'debug_2']];
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
 	private var grpInputs:Array<AttachedText> = [];

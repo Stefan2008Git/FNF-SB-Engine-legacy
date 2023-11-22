@@ -158,16 +158,14 @@ class FreeplayState extends MusicBeatState {
 
 		#if PRELOAD_ALL
 		#if android
-		var leText:String = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
+		var leText:String = LanguageHandler.freeplayInfo1Android + " / " + LanguageHandler.freeplayInfo2Android + " / " + LanguageHandler.freeplayInfor3Android;
 		var size:Int = 16;
 		#else
-		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var leText:String = LanguageHandler.freeplayInfo1 + " / " + LanguageHandler.freeplayInfo2 + " / " + LanguageHandler.freeplayInfo3;
 		var size:Int = 16;
 		#end
-		#else
-		var leText:String = "Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-		var size:Int = 18;
 		#end
+
 		text = new FlxText(textBackground.x, textBackground.y + 4, FlxG.width, leText, size);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine': text.setFormat("VCR OSD Mono", size, FlxColor.WHITE, CENTER);
@@ -230,14 +228,14 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'Personal Best\nSCORES: ' + lerpScore + '\nACCURACY: ' + ratingSplit.join('.') + '%\nMISSES: ' + intendedMisses;
+		scoreText.text = StringTools.replace(Language.presonalBestTxt) + '\n' + StringTools.replace(Language.scoresTxt) + lerpsScore + '\n' + StringTools.replace(Language.accruracyTxt) + ratingSplit.join('.') + '%' + '\n' + StringTools.replace(Language.missesTxt) + intemdedMisses;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 		var back = controls.BACK;
-		var shift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end; // Useless because i cant fix it for some reason.
+		var shift = FlxG.keys.pressed.SHIFT #if android || virtualPad.buttonZ.pressed #end;
 		var space = FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonX.justPressed #end;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if android || virtualPad.buttonC.justPressed #end;
 		var reset = controls.RESET #if android || virtualPad.buttonY.justPressed #end;
@@ -345,7 +343,7 @@ class FreeplayState extends MusicBeatState {
 		    songBar.createFilledBar(FlxColor.BLACK, FlxColor.PURPLE);
 		    add(songBar);
 
-		    loadingSongText = new FlxText(0, songBG.y + 30, "Getting ready to play the song...", 20);
+		    loadingSongText = new FlxText(0, songBG.y + 30, LanguageHandler.loadingSongText, 20);
 		    switch (ClientPrefs.gameStyle) {
 				case 'Psych Engine': loadingSongText.setFormat('VCR OSD Mono', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
 				default: loadingSongText.setFormat('Bahnschrift', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
@@ -391,7 +389,6 @@ class FreeplayState extends MusicBeatState {
 			removeVirtualPad();
 			#end
 			persistentUpdate = false;
-			
 			openSubState(new ResetScoreSubState(songs[currentlySelected].songName, currentlyDifficulty, songs[currentlySelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
@@ -421,8 +418,8 @@ class FreeplayState extends MusicBeatState {
 				resyncVocals();
 
 		    iconArray[instrumentalPlaying].doIconSize(); // Reasons - PurSnake (Developer of Grafex Engine)
-	    } : {
-           for (i in 0...iconArray.length)
+			} : {
+           	for (i in 0...iconArray.length)
 		    {
 				iconArray[i].doIconSize(); // Reasons - PurSnake (Developer of Grafex Engine)
 		    }

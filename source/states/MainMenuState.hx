@@ -62,7 +62,7 @@ class MainMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Main Menus", null);
+		DiscordClient.changePresence("In the Main Menu", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
@@ -179,15 +179,15 @@ class MainMenuState extends MusicBeatState
 		}, 0);
 
 		#if android
-	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press Y for gallery basemant!", 12);
-		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press BACK for secret screen!", 12);
+	    galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, LanguageHandler.galleryTextAndroid, 12);
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, LanguageHandler.secretTextAndroid, 12);
 		#else
-		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Press G for gallery basemant!", 12);
-		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Press S for secret screen!", 12);
+		galleryText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, LanguageHandler.galleryText, 12);
+		secretText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, LanguageHandler.secretText, 12);
 		#end
-		versionSb = new FlxText(12, FlxG.height - 64, 0, "SB Engine v" + sbEngineVersion + " (Modified Psych Engine)", 16);
-		versionPsych = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 16);
-		versionFnf = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + fnfEngineVersion, 16);
+		versionSb = new FlxText(12, FlxG.height - 64, 0, LanguageHandler.sbEngineVersionTxt + sbEngineVersion + " (" + LanguageHandler.modifiedPsychEngineVersionTxt + ") ", 16);
+		versionPsych = new FlxText(12, FlxG.height - 44, 0, LanguageHandler.psychEngineVersionTxt + psychEngineVersion, 16);
+		versionFnf = new FlxText(12, FlxG.height - 24, 0, LanguageHandler.fnfEngineVersionTxt + fnfEngineVersion, 16);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
 				galleryText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

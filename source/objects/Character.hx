@@ -73,8 +73,12 @@ class Character extends FlxSprite
 	public var originalFlipX:Bool = false;
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 
+	public var inMenu:Bool = false;
+	public var camMoveX:Float = 0;
+	public var camMoveY:Float = 0;
+
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
-	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
+	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?inMenu:Bool = false)
 	{
 		super(x, y);
 
@@ -84,6 +88,7 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		#end
 		curCharacter = character;
+		this.inMenu = inMenu;
 		this.isPlayer = isPlayer;
 		antialiasing = ClientPrefs.globalAntialiasing;
 		var library:String = null;
@@ -218,26 +223,6 @@ class Character extends FlxSprite
 		if (isPlayer)
 		{
 			flipX = !flipX;
-
-			/*// Doesn't flip for BF, since his are already in the right place???
-			if (!curCharacter.startsWith('bf'))
-			{
-				// var animArray
-				if(animation.getByName('singLEFT') != null && animation.getByName('singRIGHT') != null)
-				{
-					var oldRight = animation.getByName('singRIGHT').frames;
-					animation.getByName('singRIGHT').frames = animation.getByName('singLEFT').frames;
-					animation.getByName('singLEFT').frames = oldRight;
-				}
-
-				// IF THEY HAVE MISS ANIMATIONS??
-				if (animation.getByName('singLEFTmiss') != null && animation.getByName('singRIGHTmiss') != null)
-				{
-					var oldMiss = animation.getByName('singRIGHTmiss').frames;
-					animation.getByName('singRIGHTmiss').frames = animation.getByName('singLEFTmiss').frames;
-					animation.getByName('singLEFTmiss').frames = oldMiss;
-				}
-			}*/
 		}
 
 		switch(curCharacter)
@@ -329,6 +314,15 @@ class Character extends FlxSprite
 			else if(animation.getByName('idle' + idleSuffix) != null) {
 					playAnim('idle' + idleSuffix);
 			}
+
+			if (!inMenu){
+				if (PlayState.instance.cameraMoveOffset != 0 && ClientPrefs.cameraMovement){
+					camMoveX = 0;
+					camMoveY = 0;
+					if (charType == PlayState.instance.charachterToFolow && !PlayState.instance.isCameraOnForcedPos)
+					PlayState.instance.moveCamera();
+				}
+			}
 		}
 	}
 
@@ -360,9 +354,32 @@ class Character extends FlxSprite
 			{
 				danced = !danced;
 			}
+
+			if (!inMenu){
+			if (AnimName.startsWith('sing')&& PlayState.instance.cameraMoveOffset != 0 && ClientPrefs.cameraMovement && camMoveMult != 0 && !AnimName.contains('miss')){
+				if (AnimName.startsWith('singLEFT')){
+					camMoveX = -1 * PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveY = 0;
+				}
+				else if (AnimName.startsWith('singDOWN')){
+					camMoveX = 0;
+					camMoveY = PlayState.instance.cameraMoveOffset * camMoveMult;
+				}
+				else if (AnimName.startsWith('singUP')){
+					camMoveX = 0;
+					camMoveY = -1 * PlayState.instance.cameraMoveOffset * camMoveMult;
+				}
+				else if (AnimName.startsWith('singRIGHT')){
+					camMoveX = PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveY = 0;
+				}
+
+				if (charType == PlayState.instance.charToFolow && !PlayState.instance.isCameraOnForcedPos)
+					PlayState.instance.moveCamera();
+			}
 		}
 	}
-	
+
 	function loadMappedAnims():Void
 	{
 		var noteData:Array<SwagSection> = Song.loadFromJson('picospeaker', Paths.formatToSongPath(PlayState.SONG.song)).notes;

@@ -60,7 +60,7 @@ class FPS extends TextField {
 		#end
 		autoSize = LEFT;
 		multiline = true;
-		text = "FPS: ";
+		text = LanguageHandler.fpsCounterTxt;
 
 		cacheCount = 0;
 		currentTime = 0;
@@ -124,36 +124,35 @@ class FPS extends TextField {
 			totalFPS = 0;
 
 		if (currentCount != cacheCount) {
-			text = "FPS: " + currentlyFPS;
+			text = LanguageHandler.fpsCounterTxt + currentlyFPS;
 
 			currentlyMemory = obtainMemory();
 			if (currentlyMemory >= maximumMemory)
 				maximumMemory = currentlyMemory;
 
 			if (ClientPrefs.totalFPS) {
-				text += "\nTotal FPS: " + totalFPS;
+				text += LanguageHandler.totalFpsCounterTxt + totalFPS;
 			}
 
 			if (ClientPrefs.memory) {
-				text += "\nMemory: " + CoolUtil.formatMemory(Std.int(currentlyMemory));
+				text += LanguageHandler.memoryCounterTxt + CoolUtil.formatMemory(Std.int(currentlyMemory));
 			}
 
 			if (ClientPrefs.totalMemory) {
-				text += "\nMemory peak: " + CoolUtil.formatMemory(Std.int(maximumMemory));
+				text += LanguageHandler.totalMemoryCounterTxt + CoolUtil.formatMemory(Std.int(maximumMemory));
 			}
 
 			if (ClientPrefs.engineVersion) {
-				text += "\nEngine version: " + MainMenuState.sbEngineVersion + " (PE v" + MainMenuState.psychEngineVersion + ")";
+				text += LanguageHandler.sbEngineVersionCounterTxt + MainMenuState.sbEngineVersion + "(" + LanguageHandler.psychEngineVersionCounterTxt + MainMenuState.psychEngineVersion + ")";
 			}
 
 			if (ClientPrefs.debugInfo) {
-				text += '\nState: ${Type.getClassName(Type.getClass(FlxG.state))}' + '.hx';
+				text += LanguageHandler.stateClassNameCounterTxt + '${Type.getClassName(Type.getClass(FlxG.state))}' + '.hx';
 				if (FlxG.state.subState != null)
-					text += '\nSubstate: ${Type.getClassName(Type.getClass(FlxG.state.subState))}' + '.hx';
-				text += "\nOperating System: " + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
-				text += "\nGL Render: " + '${getGLInfo(RENDERER)}';
-				text += "\nGL Shading version: " + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
-				text += Date.now().toString();
+					text += LanguageHandler.substateClassNameCounterTxt + '${Type.getClassName(Type.getClass(FlxG.state.subState))}' + '.hx';
+				text += LanguageHandler.operatingSystemCounterTxt + '${lime.system.System.platformLabel} ${lime.system.System.platformVersion}';
+				text += LanguageHandler.glRenderCounterTxt + '${getGLInfo(RENDERER)}';
+				text += LanguageHandler.glShadingVersionCounterTxt + '${getGLInfo(SHADING_LANGUAGE_VERSION)})';
 			}
 
 			switch (ClientPrefs.gameStyle) {

@@ -1,0 +1,38 @@
+{
+	"fpsCounterTxt": "FPS: ",
+    "totalFpsCounterTxt": "Total FPS: ",
+    "memoryCounterTxt": "Memory:",
+    "totalMemoryCounterTxt": "Memory peak: ",
+    "sbEngineVersionCounterTxt": "Engine version: ",
+    "psychEngineVersionCounterTxt": "PE v",
+    "stateClassNameCounterTxt": "State: ",
+    "substateClassNameCounterTxt": "Substate: ",
+    "operatingSystemCounterTxt": "Operating System: ",
+    "glRenderCounterTxt": "GL Render: ",
+    "glShadingVersionCounterTxt": "GL Shading version: ",
+
+    "warningTxtAndroid": "WARNING:\nBe careful when you touch the phone fast!\nYou can break your phone screen if you do that, also\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF: SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: ",
+    "warningTxt": "WARNING:\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version: ",
+    "galleryTextAndroid": "Press Y for gallery basemant!",
+    "secretTextAndroid": "Press BACK for secret screen!",
+    "galleryText": "Press G for gallery basemant!",
+    "secretText": "Press S for gallery basemant",
+    "sbEngineVersionTxt": "SB Engine v",
+    "modifiedPsychEngineVersionTxt": "Modified Psych Engine",
+    "psychEngineVersionTxt": "Psych Engine v",
+    "fnfEngineVersionTxt": "Friday Night Funkin v",
+
+    "weekScoreTxt": "WEEK SCORE: ",
+
+    "personalBestTxt": "Presonal Best",
+    "scoreTxt": "SCORES: ",
+    "accruracyTxt": "ACCRURACY: ",
+    "missesTxt": "MISSES: ",
+    "freeplayInfo1Android": "Press X to listen to the Song",
+    "freeplayInfo2Android": "Press C to open the Gameplay Changers Menu",
+    "freeplayInfo3Android": "Press Y to Reset your Score and Accuracy.",
+    "freeplayInfo1": "Press SPACE to listen to the Song",
+    "freeplayInfo2": "Press CONTROL to open the Gameplay Changers Menu",
+    "freeplayInfo3": "Press RESET to Reset your Score and Accuracy.",
+    "loadingSongText": "Getting ready to play the song..."
+}

@@ -4,6 +4,7 @@ import flixel.util.FlxSave;
 import states.TitleState;
 
 class ClientPrefs {
+	public static var language:String = null;
 	public static var discordRPC:Bool = true;
 	public static var autoPause:Bool = true;
 	public static var downScroll:Bool = false;
@@ -37,6 +38,7 @@ class ClientPrefs {
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
+	public static var cameraMovement:Bool = false;
 	public static var hideHud:Bool = false;
 	public static var watermark:Bool = true;
 	public static var judgementCounter:Bool = true;
@@ -125,6 +127,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.language = language;
 		FlxG.save.data.discordRPC = discordRPC;
 		FlxG.save.data.autoPause = autoPause;
 		FlxG.save.data.downScroll = downScroll;
@@ -156,6 +159,7 @@ class ClientPrefs {
 		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.gpuCaching = gpuCaching;
 		FlxG.save.data.camZooms = camZooms;
+		FlxG.save.data.cameraMovement = cameraMovement;
 		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
@@ -214,6 +218,7 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		FlxG.save.data.language != null ? language = FlxG.save.data.language : language = null;
 		FlxG.save.data.discordRPC != null ? discordRPC = FlxG.save.data.discordRPC : discordRPC = true;
 		FlxG.save.data.autoPause != null ? autoPause = FlxG.save.data.autoPause : autoPause = true;
 		FlxG.save.data.downScroll != null ? downScroll = FlxG.save.data.downScroll : downScroll = false;
@@ -260,6 +265,7 @@ class ClientPrefs {
 		}
 		FlxG.save.data.gpuCaching != null ? gpuCaching = FlxG.save.data.gpuCaching : gpuCaching = false;
 		FlxG.save.data.camZooms != null ? camZooms = FlxG.save.data.camZooms : camZooms = true;
+		FlxG.save.data.cameraMovement != null ? cameraMovement = FlxG.save.data.cameraMovement : cameraMovement = false;
 		FlxG.save.data.hideHud != null ? hideHud = FlxG.save.data.hideHud : hideHud = false;
 		FlxG.save.data.watermark != null ? watermark = FlxG.save.data.watermark : watermark = true;
 		FlxG.save.data.judgementCounter != null ? judgementCounter = FlxG.save.data.judgementCounter : judgementCounter = true;

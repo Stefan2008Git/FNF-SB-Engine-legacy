@@ -68,6 +68,7 @@ import backend.Discord.DiscordClient;
 #end
 import backend.Highscore;
 import backend.InputFormatter;
+import backend.LanguageHandler;
 import backend.Mods;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;

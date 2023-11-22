@@ -13,7 +13,6 @@ import openfl.display.BitmapData;
 import sys.FileSystem;
 import sys.io.File;
 #end
-import options.GraphicsSettingsSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
@@ -21,6 +20,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import openfl.Assets;
+import options.LanguageSelectorState;
 import states.MainMenuState;
 import states.FreeplayState;
 import states.StoryModeState;
@@ -68,7 +68,7 @@ class TitleState extends MusicBeatState {
 		#end
 
 		#if android
-		toastText = 'Welcome to: SB Engine v' + MainMenuState.sbEngineVersion;
+		toastText = "Welcome to: FNF': SB Engine v" + MainMenuState.sbEngineVersion;
 		if(!checkingToastMessage) {		
 		    checkingToastMessage = true;
 		    AndroidDialogsExtend.OpenToast(toastText, 1);
@@ -125,7 +125,18 @@ class TitleState extends MusicBeatState {
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		if (FlxG.save.data.flashing == null && !FlashingScreenState.leftState) {
+		#if MODS_ALLOWED
+		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json')))) {
+		#else
+		if (!OpenFlAssets.exists(Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json'))) {
+		#end
+			FlxG.log.advanced("You dont have language setuped!");
+			trace("You dont have language setuped! Attempting to switch to language menu...")
+			options.LanguageSelectorState.firstLaunch = true;
+			MusicBeatState.switchState(new options.LanguageSelectorState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Language Menu (Selecting the first language)";
+		}
+		else if (FlxG.save.data.flashing == null && !FlashingScreenState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingScreenState());

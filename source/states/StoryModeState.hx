@@ -199,7 +199,7 @@ class StoryModeState extends MusicBeatState {
 		if (Math.abs(intendedScore - lerpScore) < 10)
 			lerpScore = intendedScore;
 
-		scoreText.text = "WEEK SCORE:" + lerpScore;
+		scoreText.text = LanguageHandler.weekScoreTxt + lerpScore;
 
 		// FlxG.watch.addQuick('font', scoreText.font);
 
@@ -207,19 +207,13 @@ class StoryModeState extends MusicBeatState {
 			var upP = controls.UI_UP_P;
 			var downP = controls.UI_DOWN_P;
 			if (upP) {
-				changeWeek(-1);
+				changeWeek();
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
 			if (downP) {
-				changeWeek(1);
+				changeWeek();
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-
-			if (FlxG.mouse.wheel != 0) {
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-				changeWeek(-FlxG.mouse.wheel);
-				changeDifficulty();
 			}
 
 			if (controls.UI_RIGHT)

@@ -4,15 +4,15 @@ import states.MainMenuState;
 
 class SecretSBOptionsState extends MusicBeatState {
 	var option:Array<String> = [
-		'Debug Menu'
+		['Debug Menu', LanguageHandler.debugMenu]
 	];
 
 	private var optionSelect:FlxTypedGroup<Alphabet>;
 	private static var currentlySelected:Int = 0;
 	private var cameraGame:FlxCamera;
 
-	function openSelectedSubstate(label:String) {
-		switch (label) {
+	function openSelectedSubstate(optionName:String) {
+		switch (optionName) {
 			case 'Debug Menu':
 				openSubState(new options.secret.SecretDebugSubstate());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Secret Options Menu (Debugging)";
@@ -129,7 +129,7 @@ class SecretSBOptionsState extends MusicBeatState {
 			item.alpha = 0.6;
 			if (item.targetY == 0) {
 				item.alpha = 1;
-				selectorLeft.x = item.x - 75;
+				selectorLeft.x = item.x - 80;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
 				selectorRight.y = item.y;
