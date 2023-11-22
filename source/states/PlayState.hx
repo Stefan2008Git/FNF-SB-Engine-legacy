@@ -932,7 +932,7 @@ class PlayState extends MusicBeatState {
 
 		// "GLOBAL" HSCRIPTS
 		#if LUA_ALLOWED
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'scripts/');
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getPreloadPath(), 'scripts/');
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
 			{
@@ -1617,7 +1617,7 @@ class PlayState extends MusicBeatState {
 
 		// SONG SPECIFIC HSCRIPTS
 		#if LUA_ALLOWED
-		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getLoadPath(), 'data/' + Paths.formatToSongPath(SONG.song) + '/');
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(SUtil.getPath() + Paths.getPreloadPath(), 'data/' + Paths.formatToSongPath(SONG.song) + '/');
 		
 		for (folder in foldersToCheck)
 			for (file in FileSystem.readDirectory(folder))
@@ -5498,7 +5498,7 @@ class PlayState extends MusicBeatState {
 	{
 		var scriptToLoad:String = Paths.modFolders(scriptFile);
 		if(!FileSystem.exists(scriptToLoad))
-			scriptToLoad = SUtil.getPath() + Paths.getLoadPath(scriptFile);
+			scriptToLoad = SUtil.getPath() + Paths.getPreloadPath(scriptFile);
 		
 		if(FileSystem.exists(scriptToLoad))
 		{
