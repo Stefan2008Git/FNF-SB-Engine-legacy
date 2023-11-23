@@ -15,6 +15,9 @@ class SecretSBOptionsState extends MusicBeatState {
 		switch (optionName) {
 			case 'Debug Menu':
 				openSubState(new options.secret.SecretDebugSubstate());
+				#if android
+				removeVirtualPad();
+				#end
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Secret Options Menu (Debugging)";
 		}
 	}
