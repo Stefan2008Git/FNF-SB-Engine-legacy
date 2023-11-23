@@ -379,7 +379,7 @@ class Character extends FlxSprite
 			}
 		}
 	}
-
+}
 	function loadMappedAnims():Void
 	{
 		var noteData:Array<SwagSection> = Song.loadFromJson('picospeaker', Paths.formatToSongPath(PlayState.SONG.song)).notes;
