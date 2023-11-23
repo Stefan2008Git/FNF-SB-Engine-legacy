@@ -63,6 +63,7 @@ import backend.Controls.Control;
 import backend.CoolUtil;
 import backend.CoolUtil.Countdown;
 import backend.CustomFadeTransition;
+import backend.LanguageHandler;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
