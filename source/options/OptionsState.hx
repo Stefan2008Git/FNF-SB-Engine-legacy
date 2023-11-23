@@ -13,7 +13,7 @@ import options.secret.SecretSBOptionsState;
 class OptionsState extends MusicBeatState {
 	var options:Array<Array<String>> = [
 		['Adjust Delay and Combo', LanguageHandler.delayCombo],
-		#if desktop ['Controls', LanguageHandler.controls] #end,
+    #if desktop ['Controls', LanguageHandler.controls], #end
 		['Gameplay', LanguageHandler.gameplay],
 		['Graphics', LanguageHandler.graphics],
 		['Languages', LanguageHandler.languages],
