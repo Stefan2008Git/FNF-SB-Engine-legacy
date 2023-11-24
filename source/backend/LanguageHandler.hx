@@ -715,6 +715,7 @@ class LanguageHandler
 
 	// Language
 	language = languageJson.language;
+
 	// FPS counter
 	fpsCounterTxt = languageJson.fpsCounterTxt;
 	totalFpsCounterTxt = languageJson.totalFpsCounterTxt;

@@ -226,7 +226,7 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = StringTools.replace(LanguageHandler.personalBestTxt, "Personal Best:") + '\n' + StringTools.replace(LanguageHandler.scoresTxt, "SCORE: ") + lerpsScore + '\n' + StringTools.replace(LanguageHandler.accruracyTxt, "ACCRURACY: ") + ratingSplit.join('.') + '%' + '\n' + StringTools.replace(Language.missesTxt, "MISSES: ") + intemdedMisses;
+		scoreText.text = LanguageHandler.personalBestTxt + LanguageHandler.scoresTxt + lerpScore + LanguageHandler.accruracyTxt + ' (' + ratingSplit.join('.') + '%)' + LanguageHandler.missesTxt + intendedMisses;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;

@@ -114,12 +114,12 @@ class LanguageSelectorState extends MusicBeatState
 
 		for (i in 0...language.length)
 		{
-			var languageText:Alphabet = new Alphabet(0, 0, language[i][1], true);
+			var languageText:Alphabet = new Alphabet(90, 320, language[i][1], true);
 			languageText.isMenuItem = true;
-			languageText.y += (100 * (i - ((language.length) / 2))) + 50;
-			languageText.x += 300;
+			languageText.targetY = i;
 			languageText.ID = i;
 			groupLanguage.add(languageText);
+			languageText.snapToPosition();
 
 			var flags:AttachedSprite = new AttachedSprite();
 			flags.frames = Paths.getSparrowAtlas('languages/' + language[i][0]);
