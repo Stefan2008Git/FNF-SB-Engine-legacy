@@ -74,8 +74,10 @@ class Character extends FlxSprite
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 
 	public var inMenu:Bool = false;
+	public var characterType:String = 'dad';
 	public var camMoveX:Float = 0;
 	public var camMoveY:Float = 0;
+	public var cameraMoveMulti:Float = 1;
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?inMenu:Bool = false)
@@ -319,7 +321,7 @@ class Character extends FlxSprite
 				if (PlayState.instance.cameraMoveOffset != 0 && ClientPrefs.cameraMovement){
 					camMoveX = 0;
 					camMoveY = 0;
-					if (charType == PlayState.instance.charachterToFolow && !PlayState.instance.isCameraOnForcedPos)
+					if (characterType == PlayState.instance.characterToFollow && !PlayState.instance.isCameraOnForcedPosition)
 					PlayState.instance.moveCamera();
 				}
 			}
@@ -356,25 +358,25 @@ class Character extends FlxSprite
 			}
 
 			if (!inMenu){
-			if (AnimName.startsWith('sing')&& PlayState.instance.cameraMoveOffset != 0 && ClientPrefs.cameraMovement && camMoveMult != 0 && !AnimName.contains('miss')){
+			if (AnimName.startsWith('sing')&& PlayState.instance.cameraMoveOffset != 0 && ClientPrefs.cameraMovement && cameraMoveMulti != 0 && !AnimName.contains('miss')){
 				if (AnimName.startsWith('singLEFT')){
-					camMoveX = -1 * PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveX = -1 * PlayState.instance.cameraMoveOffset * cameraMoveMulti;
 					camMoveY = 0;
 				}
 				else if (AnimName.startsWith('singDOWN')){
 					camMoveX = 0;
-					camMoveY = PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveY = PlayState.instance.cameraMoveOffset * cameraMoveMulti;
 				}
 				else if (AnimName.startsWith('singUP')){
 					camMoveX = 0;
-					camMoveY = -1 * PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveY = -1 * PlayState.instance.cameraMoveOffset * cameraMoveMulti;
 				}
 				else if (AnimName.startsWith('singRIGHT')){
-					camMoveX = PlayState.instance.cameraMoveOffset * camMoveMult;
+					camMoveX = PlayState.instance.cameraMoveOffset * cameraMoveMulti;
 					camMoveY = 0;
 				}
 
-				if (charType == PlayState.instance.charToFolow && !PlayState.instance.isCameraOnForcedPos)
+				if (characterType == PlayState.instance.characterToFollow && !PlayState.instance.isCameraOnForcedPosition)
 					PlayState.instance.moveCamera();
 			}
 		}

@@ -98,7 +98,7 @@ class OptionsState extends MusicBeatState {
 							case 'Adjust Delay and Combo':
 								LoadingState.loadAndSwitchState(new options.NoteOffsetState(), false);
 							case 'Languages':
-								LoadingState.loadAndSwitchState(new options.LanguageSwitchState());
+								LoadingState.loadAndSwitchState(new options.LanguageSelectorState());
 						}
 					});
 				}
@@ -161,7 +161,7 @@ class OptionsState extends MusicBeatState {
 		add(optionsSelect);
 
 		for (i in 0...options.length) {
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
+			var optionText:Alphabet = new Alphabet(0, 0, options[i][1], true);
 			optionText.x = 128;
 			optionText.screenCenter(Y);
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
@@ -172,26 +172,6 @@ class OptionsState extends MusicBeatState {
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
-
-		tipBackground = new FlxSprite(0, FlxG.height - 18).makeGraphic(Std.int(FlxG.width), 55, 0xFF000000);
-		tipBackground.scrollFactor.set();
-		tipBackground.alpha = 0;
-		tipBackground.y = 100;
-		FlxTween.tween(tipBackground, {y: tipBackground.y -100, alpha: 0.7}, 1, {ease: FlxEase.circOut, startDelay: 0.3});
-		add(tipBackground);
-
-		tipText = new FlxText(800, 1, FlxG.width - 800, "");
-		tipText.scrollFactor.set();
-		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine': tipText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER);
-			default: tipText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER);
-		}
-		tipText.updateHitbox();
-		tipText.screenCenter(X);
-		tipText.alpha = 0;
-		tipText.y += 400;
-		FlxTween.tween(tipText, {y: tipText.y -400, alpha: 0.7}, 1, {ease: FlxEase.circOut, startDelay: 0.3});
-		add(tipText);
 
 		#if android
 		androidControlsStyleTipText = new FlxText(10, FlxG.height - 44, 0, LanguageHandler.androidControlsSettings, 16);
@@ -251,7 +231,7 @@ class OptionsState extends MusicBeatState {
 				if (PauseSubState.optionMenu) {
 					StageData.loadDirectory(PlayState.SONG);
 					LoadingState.loadAndSwitchState(new PlayState(), true);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song;
+					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(";
 					PauseSubState.optionMenu = false;
 					FlxG.sound.music.volume = 0;
 				} else {
@@ -357,16 +337,6 @@ class OptionsState extends MusicBeatState {
 			currentlySelected = options.length - 1;
 		if (currentlySelected >= options.length)
 			currentlySelected = 0;
-
-		switch (options[currentlySelected]) {
-			case 'Adjust Delay and Combo': tipText.text = LanguageHandler.delayComboTip;
-			case 'Controls': tipText.text = LanguageHandler.controlsTip;
-			case 'Gameplay': tipText.text = LanguageHandler.gameplayTip;
-			case 'Graphics': tipText.text = LanguageHandler.graphicsTip;
-			case 'Languages': tipText.text = LanguageHandler.languagesTip;
-			case 'Note Colors': tipText.text = LanguageHandler.noteColorTip;
-			case 'Visuals and UI': tipText.text = LanguageHandler.visualsUITip;
-		}
 
 		var optionFreak:Int = 0;
 

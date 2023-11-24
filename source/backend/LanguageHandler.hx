@@ -12,6 +12,9 @@ import haxe.format.JsonParser;
 
 typedef LanguageFile =
 {
+	// Language
+	var language:String;
+
 	// FPS counter
 	var fpsCounterTxt:String;
 	var totalFpsCounterTxt:String;
@@ -84,6 +87,7 @@ typedef LanguageFile =
 	var squidBowlDescription:String;
 	var jordanSantiagoDescription:String;
 	var coreDevDescription:String;
+	var tomyGamyDescription:String;
 	var marioMasterDescription:String;
 	var nfBeihuDescription:String;
 	var maJigsaw77Description:String;
@@ -259,7 +263,7 @@ typedef LanguageFile =
 	var framerateDescription:String;
 
 	// Note color sub option
-	var resetTxt:String;
+	var resetNoteColorTxt:String;
 	var hsbTxt:String;
 
 	// VisualsUI sub option
@@ -336,7 +340,7 @@ typedef LanguageFile =
 	var padDuo:String;
 	var keyboard:String;
 	var hitbox:String;
-	var resetTxt:String;
+	var resetAndroidControlsTxt:String;
 	var onlyKeyboardTxt:String;
 	var tipTxt:String;
 	var upPositionTxt:String;
@@ -347,6 +351,8 @@ typedef LanguageFile =
 
 class LanguageHandler
 {
+	// Language
+	public static var language:String;
 	// FPS counter
 	public static var fpsCounterTxt:String;
 	public static var totalFpsCounterTxt:String;
@@ -419,6 +425,7 @@ class LanguageHandler
 	public static var squidBowlDescription:String;
 	public static var jordanSantiagoDescription:String;
 	public static var coreDevDescription:String;
+	public static var tomyGamyDescription:String;
 	public static var marioMasterDescription:String;
 	public static var nfBeihuDescription:String;
 	public static var maJigsaw77Description:String;
@@ -594,7 +601,7 @@ class LanguageHandler
 	public static var framerateDescription:String;
 
 	// Note color sub option
-	public static var resetTxt:String;
+	public static var resetNoteColorTxt:String;
 	public static var hsbTxt:String;
 
 	// VisualsUI sub option
@@ -671,13 +678,15 @@ class LanguageHandler
 	public static var padDuo:String;
 	public static var keyboard:String;
 	public static var hitbox:String;
-	public static var resetTxt:String;
+	public static var resetAndroidControlsTxt:String;
 	public static var onlyKeyboardTxt:String;
 	public static var tipTxt:String;
 	public static var upPositionTxt:String;
 	public static var downPositionTxt:String;
 	public static var leftPositionTxt:String;
 	public static var rightPositionTxt:String;
+
+	public static var languagePath:String;
 
 	public static function regenerateLang(lang:String)
 	{	
@@ -696,18 +705,20 @@ class LanguageHandler
 			FlxG.log.advanced("Loading Default Language");
 			trace('Test...');
 		} else {
-			FlxG.log.advanced("Loading " + language + " Language");
+			FlxG.log.advanced("Loading " + lang + " Language");
 			trace('Test 2...');
 		}
 
 		var languageJson:LanguageFile;
 		languagePath = Paths.getTextFromFile('languages/' + lang + '.json');
 
+	// Language
+	language = languageJson.language;
 	// FPS counter
 	fpsCounterTxt = languageJson.fpsCounterTxt;
 	totalFpsCounterTxt = languageJson.totalFpsCounterTxt;
 	memoryCounterTxt = languageJson.memoryCounterTxt;
-	totalMemoryCounterTxt = languageJson.totalMemoryCounter;
+	totalMemoryCounterTxt = languageJson.totalMemoryCounterTxt;
 	sbEngineVersionCounterTxt = languageJson.sbEngineVersionCounterTxt;
 	psychEngineVersionCounterTxt = languageJson.psychEngineVersionCounterTxt;
 	stateClassNameCounterTxt = languageJson.stateClassNameCounterTxt;
@@ -723,7 +734,7 @@ class LanguageHandler
 	// Main menu
 	galleryTextAndroid = languageJson.galleryTextAndroid;
 	secretTextAndroid = languageJson.secretTextAndroid;
-	galleryText = languageJson.galleryTxt;
+	galleryText = languageJson.galleryText;
 	secretText = languageJson.secretText;
 	sbEngineVersionTxt = languageJson.sbEngineVersionTxt;
 	modifiedPsychEngineVersionTxt = languageJson.modifiedPsychEngineVersionTxt;
@@ -735,7 +746,7 @@ class LanguageHandler
 
 	// Freeplay menu
 	personalBestTxt = languageJson.personalBestTxt;
-	scoresTxt = languageJson.scoreTxt;
+	scoresTxt = languageJson.scoresTxt;
 	accruracyTxt = languageJson.accruracyTxt;
 	missesTxt = languageJson.missesTxt;
 	freeplayInfo1Android = languageJson.freeplayInfo1Android;
@@ -747,38 +758,39 @@ class LanguageHandler
 	loadingSongText = languageJson.loadingSongText;
 
 	// Mods menu
-	var noModsInstalledTxt:String;
-	var onTxt:String;
-	var offTxt:String;
-	var topTxt:String;
-	var disableAllModsTxt:String;
-	var enableAllModsTxt:String;
-	var restartModDescriptionTxt:String;
-	var modDescriptionTxt:String;
+	noModsInstalledTxt = languageJson.noModsInstalledTxt;
+	onTxt = languageJson.onTxt;
+	offTxt = languageJson.offTxt;
+	topTxt = languageJson.topTxt;
+	disableAllModsTxt = languageJson.disableAllModsTxt;
+	enableAllModsTxt = languageJson.enableAllModsTxt;
+	restartModDescriptionTxt = languageJson.restartModDescriptionTxt;
+	modDescriptionTxt = languageJson.modDescriptionTxt;
 
 	// Credits menu
-	var sbEngineTeamTxt:String;
-	var stefan2008Description:String;
-	var nuryDescription:String;
-	var maysLastPlayDescription:String;
-	var fearester2008Description:String;
-	var sunBurntTailsDescription:String;
-	var aliAlafandyDescription:String;
-	var luizFelipePlayDescription:String;
-	var specialCreditsTxt:String;
-	var stefanRo123Description:String;
-	var elgatosinnobreDescription:String;
-	var sussySamDescription:String;
-	var lizzyStrawberyDescription:String;
-	var joalor64Description:String;
-	var justXaleDescription:String;
-	var squidBowlDescription:String;
-	var jordanSantiagoDescription:String;
-	var coreDevDescription:String;
-	var marioMasterDescription:String;
-	var nfBeihuDescription:String;
-	var maJigsaw77Description:String;
-	var goldieDescription:String;
+	sbEngineTeamTxt = languageJson.sbEngineTeamTxt;
+	stefan2008Description = languageJson.stefan2008Description;
+	nuryDescription = languageJson.nuryDescription;
+	maysLastPlayDescription = languageJson.maysLastPlayDescription;
+	fearester2008Description = languageJson.fearester2008Description;
+	sunBurntTailsDescription = languageJson.sunBurntTailsDescription;
+	aliAlafandyDescription = languageJson.aliAlafandyDescription;
+	luizFelipePlayDescription = languageJson.luizFelipePlayDescription;
+	specialCreditsTxt = languageJson.specialCreditsTxt;
+	stefanRo123Description = languageJson.stefanRo123Description;
+	elgatosinnobreDescription = languageJson.elgatosinnobreDescription;
+	sussySamDescription = languageJson.sussySamDescription;
+	lizzyStrawberyDescription = languageJson.lizzyStrawberyDescription;
+	joalor64Description = languageJson.joalor64Description;
+	justXaleDescription = languageJson.justXaleDescription;
+	squidBowlDescription = languageJson.squidBowlDescription;
+	jordanSantiagoDescription = languageJson.jordanSantiagoDescription;
+	coreDevDescription = languageJson.coreDevDescription;
+	tomyGamyDescription = languageJson.tomyGamyDescription;
+	marioMasterDescription = languageJson.marioMasterDescription;
+	nfBeihuDescription = languageJson.nfBeihuDescription;
+	maJigsaw77Description = languageJson.maJigsaw77Description;
+	goldieDescription = languageJson.goldieDescription;
 	var psychEngineTeamTxt:String;
 	var shadowMarioDescription:String;
 	var riverOakenDescription:String;
@@ -800,54 +812,54 @@ class LanguageHandler
 	var kawaiSpriteDescription:String;
 
 	// Options menu
-	var delayCombo:String;
-	var controls:String;
-	var gameplay:String;
-	var graphics:String;
-	var languages:String;
-	var noteColor:String;
-	var visualsUI:String;
-	var androidControlsSettings:String;
-	var customizableAndroidControls:String;
-	var delayComboTip:String;
-	var controlsTip:String;
-	var gameplayTip:String;
-	var graphicsTip:String;
-	var languagesTip:String;
-	var noteColorTip:String;
-	var visualsUITip:String;
+	delayCombo = languageJson.delayCombo;
+	controls = languageJson.controls;
+	gameplay = languageJson.gameplay;
+	graphics = languageJson.graphics;
+	languages = languageJson.languages;
+	noteColor = languageJson.noteColor;
+	visualsUI = languageJson.visualsUI;
+	androidControlsSettings = languageJson.androidControlsSettings;
+	customizableAndroidControls = languageJson.customizableAndroidControls;
+	delayComboTip = languageJson.delayComboTip;
+	controlsTip = languageJson.controlsTip;
+	gameplayTip = languageJson.gameplayTip;
+	graphicsTip = languageJson.graphicsTip;
+	languagesTip = languageJson.languagesTip;
+	noteColorTip = languageJson.noteColorTip;
+	visualsUITip = languageJson.visualsUITip;
 
 	// Delay combo option menu
-	var beatHitTxt:String;
-	var ratingOffsetTxt:String;
-	var numberOffsetTxt:String;
-	var currentOffsetTxt:String;
-	var acceptComboOffsetTxt:String;
-	var noteBeatDelayTxt:String;
+	beatHitTxt = languageJson.beatHitTxt;
+	ratingOffsetTxt = languageJson.ratingOffsetTxt;
+	numberOffsetTxt = languageJson.numberOffsetTxt;
+	currentOffsetTxt = languageJson.currentOffsetTxt;
+	acceptComboOffsetTxt = languageJson.acceptComboOffsetTxt;
+	noteBeatDelayTxt = languageJson.noteBeatDelayTxt;
 
 	// Controls sub option
-	var notesTxt:String;
-	var leftNoteTxt:String;
-	var downNoteTxt:String;
-	var upNoteTxt:String;
-	var rightNoteTxt:String;
-	var uiTxt:String;
-	var leftKeyTxt:String;
-	var downKeyTxt:String;
-	var upKeyTxt:String;
-	var rightKeyTxt:String;
-	var resetKeyTxt:String;
-	var acceptKeyTxt:String;
-	var backKeyTxt:String;
-	var pauseKeyTxt:String;
-	var volumeTxt:String;
-	var volumeMuteKeyTxt:String;
-	var volumeUpKeyTxt:String;
-	var volumeDownKeyTxt:String;
-	var debugTxt:String;
-	var debugKeyOneTxt:String;
-	var debugKeyTwoTxt:String;
-	var defaultKeyTxt:String;
+	notesTxt = languageJson.notesTxt;
+	leftNoteTxt = languageJson.leftNoteTxt;
+	downNoteTxt = languageJson.downNoteTxt;
+	upNoteTxt = languageJson.upNoteTxt;
+	rightNoteTxt = languageJson.rightNoteTxt;
+	uiTxt = languageJson.uiTxt;
+	leftKeyTxt = languageJson.leftKeyTxt;
+	downKeyTxt = languageJson.downKeyTxt;
+	upKeyTxt = languageJson.upKeyTxt;
+	rightKeyTxt = languageJson.rightKeyTxt;
+	resetKeyTxt = languageJson.resetKeyTxt;
+	acceptKeyTxt = languageJson.acceptKeyTxt;
+	backKeyTxt = languageJson.backKeyTxt;
+	pauseKeyTxt = languageJson.pauseKeyTxt;
+	volumeTxt = languageJson.volumeTxt;
+	volumeMuteKeyTxt = languageJson.volumeMuteKeyTxt;
+	volumeUpKeyTxt = languageJson.volumeUpKeyTxt;
+	volumeDownKeyTxt = languageJson.volumeDownKeyTxt;
+	debugTxt = languageJson.debugTxt;
+	debugKeyOneTxt = languageJson.debugKeyOneTxt;
+	debugKeyTwoTxt = languageJson.debugKeyTwoTxt;
+	defaultKeyTxt = languageJson.defaultKeyTxt;
 
 	// Gameplay sub option
 	var controllerMode:String;
@@ -950,7 +962,7 @@ class LanguageHandler
 	var framerateDescription:String;
 
 	// Note color sub option
-	var resetTxt:String;
+	var resetNoteColorTxt:String;
 	var hsbTxt:String;
 
 	// VisualsUI sub option
@@ -1027,7 +1039,7 @@ class LanguageHandler
 	padDuo = languageJson.padDuo;
 	keyboard = languageJson.keyboard;
 	hitbox = languageJson.hitbox;
-	resetTxt = languageJson.resetTxt;
+	resetAndroidControlsTxt = languageJson.resetAndroidControlsTxt;
 	onlyKeyboardTxt = languageJson.onlyKeyboardTxt;
 	tipTxt = languageJson.tipTxt;
 	upPositionTxt = languageJson.upPositionTxt;

@@ -132,7 +132,7 @@ class NoteOffsetState extends MusicBeatState {
 
 		// Note delay stuff
 
-		beatText = new Alphabet(0, 0, 'Beat Hit!', true);
+		beatText = new Alphabet(0, 0, LanguageHandler.beatHitTxt, true);
 		beatText.scaleX = 0.6;
 		beatText.scaleY = 0.6;
 		beatText.x += 260;
@@ -167,8 +167,6 @@ class NoteOffsetState extends MusicBeatState {
 
 		timeBarBG.setGraphicSize(Std.int(timeBarBG.width * 1.2));
 		timeBarBG.updateHitbox();
-		timeBarBG.cameras = [camHUD];
-		timeBarBG.screenCenter(X);
 		timeBarBG.visible = false;
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
@@ -433,11 +431,11 @@ class NoteOffsetState extends MusicBeatState {
 		for (i in 0...dumbTexts.length) {
 			switch (i) {
 				case 0:
-					dumbTexts.members[i].text = 'Rating Offset:';
+					dumbTexts.members[i].text = LanguageHandler.ratingOffsetTxt;
 				case 1:
 					dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[0] + ', ' + ClientPrefs.comboOffset[1] + ']';
 				case 2:
-					dumbTexts.members[i].text = 'Numbers Offset:';
+					dumbTexts.members[i].text = LanguageHandler.numberOffsetTxt;
 				case 3:
 					dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[2] + ', ' + ClientPrefs.comboOffset[3] + ']';
 			}
@@ -446,7 +444,7 @@ class NoteOffsetState extends MusicBeatState {
 
 	function updateNoteDelay() {
 		ClientPrefs.noteOffset = Math.round(barPercent);
-		timeTxt.text = 'Current offset: ' + Math.floor(barPercent) + ' ms';
+		timeTxt.text = LanguageHandler.currentOffsetTxt + Math.floor(barPercent) + ' ms';
 	}
 
 	function updateMode() {
@@ -460,9 +458,9 @@ class NoteOffsetState extends MusicBeatState {
 		beatText.visible = !onComboMenu;
 
 		if (onComboMenu)
-			changeModeText.text = '< Combo Offset (Press Accept to Switch) >';
+			changeModeText.text = LanguageHandler.acceptComboOffsetTxt;
 		else
-			changeModeText.text = '< Note/Beat Delay (Press Accept to Switch) >';
+			changeModeText.text = LanguageHandler.noteBeatDelayTxt;
 
 		changeModeText.text = changeModeText.text.toUpperCase();
 		FlxG.mouse.visible = onComboMenu;

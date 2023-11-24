@@ -74,7 +74,7 @@ class ModsMenuState extends MusicBeatState {
 		velocityBackground.visible = ClientPrefs.velocityBackground;
 		add(velocityBackground);
 
-		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
+		noModsTxt = new FlxText(0, 0, FlxG.width, LanguageHandler.noModsInstalledTxt, 48);
 		if (FlxG.random.bool(0.1))
 			noModsTxt.text += '\nFREAK.'; // meanie
 		
@@ -125,7 +125,7 @@ class ModsMenuState extends MusicBeatState {
 		// attached buttons
 		var startX:Int = 1120;
 
-		buttonToggle = new FlxButton(startX, 0, "ON", function() {
+		buttonToggle = new FlxButton(startX, 0, LanguageHandler.onTxt, function() {
 			if (mods[currentlySelected].restart) {
 				needToRestart = true;
 			}
@@ -180,7 +180,7 @@ class ModsMenuState extends MusicBeatState {
 		setAllLabelsOffset(buttonDown, -15, 10);
 
 		startX -= 100;
-		buttonTop = new FlxButton(startX, 0, "TOP", function() {
+		buttonTop = new FlxButton(startX, 0, LanguageHandler.topTxt, function() {
 			var doRestart:Bool = (mods[0].restart || mods[currentlySelected].restart);
 			for (i in 0...currentlySelected) moveMod(-1, true);
 
@@ -201,7 +201,7 @@ class ModsMenuState extends MusicBeatState {
 		visibleWhenHasMods.push(buttonTop);
 
 		startX -= 190;
-		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
+		buttonDisableAll = new FlxButton(startX, 0, LanguageHandler.disableAllModsTxt, function() {
 			for (i in modsList) {
 				i[1] = false;
 			}
@@ -228,7 +228,7 @@ class ModsMenuState extends MusicBeatState {
 		visibleWhenHasMods.push(buttonDisableAll);
 
 		startX -= 190;
-		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
+		buttonEnableAll = new FlxButton(startX, 0, LanguageHandler.enableAllModsTxt, function() {
 			for (i in modsList) {
 				i[1] = true;
 			}
@@ -480,7 +480,7 @@ class ModsMenuState extends MusicBeatState {
 				selector.sprTracker = mod.alphabet;
 				descriptionTxt.text = mod.description;
 				if (mod.restart) { // finna make it to where if nothing changed then it won't reset
-					descriptionTxt.text += " (This Mod will restart the game!)";
+					descriptionTxt.text += LanguageHandler.restartModDescriptionTxt;
 				}
 
 				// correct layering
@@ -592,7 +592,7 @@ class ModMetadata {
 					this.name = folder;
 				}
 				if (description == 'Description') {
-					this.description = "No description provided.";
+					this.description = LanguageHandler.modDescriptionTxt;
 				}
 				if (colors != null && colors.length > 2) {
 					this.color = FlxColor.fromRGB(colors[0], colors[1], colors[2]);

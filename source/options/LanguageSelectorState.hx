@@ -8,9 +8,13 @@ import sys.FileSystem;
 import lime.utils.Assets;
 import flixel.FlxSubState;
 import flixel.util.FlxSave;
+import flixel.addons.transition.FlxTransitionableState;
 import haxe.Json;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import states.FlashingScreenState;
+import states.MainMenuState;
+import states.TitleState;
 
 class LanguageSelectorState extends MusicBeatState
 {
@@ -83,7 +87,7 @@ class LanguageSelectorState extends MusicBeatState
 		DiscordClient.changePresence("In the Language Menu", null);
 		#end
 
-		background = new FlxSprite().loadGraphic(Paths.themeImage('menuDesat'));
+		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		switch (ClientPrefs.themes) {
 			case 'Psych Engine':
 				background.color = 0xFF009900;
@@ -108,14 +112,13 @@ class LanguageSelectorState extends MusicBeatState
 			language.push(['null', 'Nothing in /mods']);
 		}
 
-		for (i in 0...LanguageSelectorState.length)
+		for (i in 0...language.length)
 		{
-			var languageText:Alphabet = new Alphabet(0, 0, language[i][1], true, false);
+			var languageText:Alphabet = new Alphabet(0, 0, language[i][1], true);
 			languageText.isMenuItem = true;
 			languageText.y += (100 * (i - ((language.length) / 2))) + 50;
 			languageText.x += 300;
 			languageText.ID = i;
-			languageText.xAdd = 200;
 			groupLanguage.add(languageText);
 
 			var flags:AttachedSprite = new AttachedSprite();
@@ -136,9 +139,9 @@ class LanguageSelectorState extends MusicBeatState
 		if (firstLaunch)
 			langMenu = 'Language';
 		else
-			langMenu = Language.language;
+			langMenu = LanguageHandler.language;
 
-		var titleText:Alphabet = new Alphabet(0, 0, langMenu, true, false, 0, 0.6);
+		var titleText:Alphabet = new Alphabet(0, 0, langMenu, true);
 		titleText.x += 60;
 		titleText.y += 40;
 		titleText.alpha = 0.4;
@@ -226,7 +229,7 @@ class LanguageSelectorState extends MusicBeatState
 								FlxG.save.data.flashing = null;
 								FlxTransitionableState.skipNextTransIn = true;
 								FlxTransitionableState.skipNextTransOut = true;
-								MusicBeatState.switchState(new FlashingState());
+								MusicBeatState.switchState(new FlashingScreenState());
 								Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Warning Menu";
 							}
 							else {

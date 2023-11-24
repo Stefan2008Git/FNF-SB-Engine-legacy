@@ -3,7 +3,7 @@ package options.secret;
 import states.MainMenuState;
 
 class SecretSBOptionsState extends MusicBeatState {
-	var option:Array<String> = [
+	var option:Array<Array<String>> = [
 		['Debug Menu', LanguageHandler.debugMenu]
 	];
 
@@ -74,7 +74,7 @@ class SecretSBOptionsState extends MusicBeatState {
 
         for (i in 0...option.length)
 		{
-			var optionText:Alphabet = new Alphabet(0, 0, option[i], true);
+			var optionText:Alphabet = new Alphabet(0, 0, option[i][1], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (option.length / 2))) + 50;
 			optionSelect.add(optionText);
@@ -112,7 +112,7 @@ class SecretSBOptionsState extends MusicBeatState {
 		}
 
 		if (controls.ACCEPT) {
-			openSelectedSubstate(option[currentlySelected]);
+			openSelectedSubstate(option[currentlySelected][0]);
 		}
     }
 

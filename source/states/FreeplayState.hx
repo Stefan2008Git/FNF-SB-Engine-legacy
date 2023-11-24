@@ -12,8 +12,6 @@ import substates.ResetScoreSubState;
 import sys.FileSystem;
 #end
 
-using StringTools;
-
 class FreeplayState extends MusicBeatState {
 	var songs:Array<SongMetaData> = [];
 
@@ -228,7 +226,7 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = StringTools.replace(Language.presonalBestTxt) + '\n' + StringTools.replace(Language.scoresTxt) + lerpsScore + '\n' + StringTools.replace(Language.accruracyTxt) + ratingSplit.join('.') + '%' + '\n' + StringTools.replace(Language.missesTxt) + intemdedMisses;
+		scoreText.text = StringTools.replace(LanguageHandler.personalBestTxt, "Personal Best") + '\n' + StringTools.replace(LanguageHandler.scoresTxt, "SCORE: ") + lerpsScore + '\n' + StringTools.replace(LanguageHandler.accruracyTxt, "ACCRURACY: ") + ratingSplit.join('.') + '%' + '\n' + StringTools.replace(Language.missesTxt, "MISSES: ") + intemdedMisses;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;

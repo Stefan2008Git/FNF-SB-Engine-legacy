@@ -1,7 +1,9 @@
 {
+    "language": "Language",
+
 	"fpsCounterTxt": "FPS: ",
     "totalFpsCounterTxt": "Total FPS: ",
-    "memoryCounterTxt": "Memory:",
+    "memoryCounterTxt": "Memory: ",
     "totalMemoryCounterTxt": "Memory peak: ",
     "sbEngineVersionCounterTxt": "Engine version: ",
     "psychEngineVersionCounterTxt": "PE v",
@@ -13,6 +15,7 @@
 
     "warningTxtAndroid": "WARNING:\nBe careful when you touch the phone fast!\nYou can break your phone screen if you do that, also\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF: SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: ",
     "warningTxt": "WARNING:\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version: ",
+
     "galleryTextAndroid": "Press Y for gallery basemant!",
     "secretTextAndroid": "Press BACK for secret screen!",
     "galleryText": "Press G for gallery basemant!",
@@ -34,5 +37,86 @@
     "freeplayInfo1": "Press SPACE to listen to the Song",
     "freeplayInfo2": "Press CONTROL to open the Gameplay Changers Menu",
     "freeplayInfo3": "Press RESET to Reset your Score and Accuracy.",
-    "loadingSongText": "Getting ready to play the song..."
+    "loadingSongText": "Getting ready to play the song...",
+
+    "noModsIInstalledTxt": "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD",
+    "onTxt": "ON",
+    "offTxt": "OFF",
+    "topTxt": "TOP",
+    "disableAllModsTxt": "DISABLE ALL",
+    "enableAllModsTxt": "ENABLE ALL",
+    "restartModDescriptionTxt": " (This Mod will restart the game!)",
+    "modDescriptionTxt": "No description provided.",
+
+    "sbEngineTeamTxt": "SB Engine Team",
+    "stefan2008DescriptionTxt": "Main Programmer of SB Engine",
+    "nuryDescription": "Main Artist for SB Engine",
+    "maysLastPlayDescription": "Second Programmer of SB Engine",
+    "fearester2008Description": "Third Programmer of SB Engine",
+    "sunBurntTailsDescription": "First Beta test player for SB Engine",
+    "aliAlafandyDescription": "Second Beta test player for SB Engine",
+    "luizFelipePlayDescription": "Third Beta test player for SB Engine",
+    "specialCreditsTxt": "Special credits",
+    "stefanRo123Description": "Fixed Wiggle effect shaders to run possible on PC and Android",
+    "elgatosinnobreDescription": "Made a code for new wiggle effect shaders function to look like from\nPsych Engine 0.5.1 with shaders!",
+    "sussySamDescription": "Maked new icons and new music for SB Engine, but he is not on team",
+    "lizzyStrawberyDescription": "Fixed shaders from Psych Engine 0.5.1",
+    "joalor64Description": "For simple main menu and Joalor64 Engine Rewriten",
+    "justXaleDescription": "Main Programmer of Grafex Engine",
+    "squidBowlDescription": "For gallery stuff",
+    "jordanSantiagoDescription": "Main Programmer of JS Engine (Psych Engine: Anti-lag edition).",
+    "coreDevDescription": "Some code used from CDEV Engine for chart editor and other stuff",
+    "tomyGamyDescription": "Used language code from Weird Engine",
+    "marioMasterDescription": "Created hitbox selector and virtual pad opacity",
+    "nfBeihuDescription": "Created hitbox space for dodge mechanic system on NF Engine.",
+    "maJigsaw77Description": "Main Programmer of Psych Engine\nWith Android Support",
+    "goldieDescription": "Old Hitbox and Virtual Pad Artist",
+
+
+
+
+
+
+
+
+
+    "delayCombo": "Adjust Delay and Combo",
+    "controls": "Controls",
+    "gameplay": "Gameplay",
+    "graphics": "Graphics",
+    "languages": "Languages",
+    "noteColor": "Note Colors",
+    "visualsUI": "Visuals and UI",
+    "androidControlsSettings": "Press Y to customize your opacity for hitbox, virtual pads and hitbox style!",
+    "customizableAndroidControls": "Press X to customize your android controls!",
+
+    "beatHitTxt": "Beat Hit!",
+    "ratingOffsetTxt": "Rating Offset: ",
+    "numberOffsetTxt": "Numbers Offset: ",
+    "currentOffsetTxt": "Current offset: ",
+    "acceptComboOffsetTxt": "< Combo Offset (Press Accept to Switch) >",
+    "noteBeatDelayTxt": "< Note/Beat Delay (Press Accept to Switch) >",
+
+    "notesTxt": "NOTES",
+	"leftNoteTxt": "Left",
+	"downNoteTxt": "Down",
+	"upNoteTxt": "Up",
+	"rightNoteTxt": "Right",
+	"uiTxt": "UI",
+	"leftKeyTxt": "Left",
+	"downKeyTxt": "Down",
+	"upKeyTxt": "Up",
+	"rightKeyTxt": "Right",
+	"resetKeyTxt": "Reset",
+	"acceptKeyTxt": "Accept",
+	"backKeyTxt": "Back",
+	"pauseKeyTxt": "Pause",
+	"volumeTxt": "VOLUME",
+	"volumeMuteKeyTxt": "Mute",
+	"volumeUpKeyTxt": "Up",
+	"volumeDownKeyTxt": "Down",
+	"debugTxt": "DEBUG",
+	"debugKeyOneTxt": "Debug Key 1",
+	"debugKeyTwoTxt": "Debug Key 2",
+	"defaultKeyTxt": "Reset to Default Keys"
 }

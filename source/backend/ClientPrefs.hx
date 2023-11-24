@@ -49,6 +49,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Elapsed';
 	public static var showTimeBar:Bool = true;
+	public static var botplayOnTimebar:Bool = true;
 	public static var laneunderlayAlpha:Float = 0.1;
 	public static var laneunderlay:Bool = false;
 	public static var randomEngineNames:Bool = false;
@@ -172,6 +173,7 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.showTimeBar = showTimeBar;
+		FlxG.save.data.botplayOnTimebar = botplayOnTimebar;
 		FlxG.save.data.laneunderlayAlpha = laneunderlayAlpha;
 		FlxG.save.data.laneunderlay = laneunderlay;
 		FlxG.save.data.randomEngineNames = randomEngineNames;
@@ -277,6 +279,7 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping != null ? ghostTapping = FlxG.save.data.ghostTapping : ghostTapping = true;
 		FlxG.save.data.timeBarType != null ? timeBarType = FlxG.save.data.timeBarType : timeBarType = 'Time Elapsed';
 		FlxG.save.data.showTimeBar != null ? showTimeBar = FlxG.save.data.showTimeBar : showTimeBar = true;
+		FlxG.save.data.botplayOnTimebar != null ? botplayOnTimebar = FlxG.save.data.botplayOnTimebar : botplayOnTimebar = true;
 		FlxG.save.data.laneunderlayAlpha != null ? laneunderlayAlpha = FlxG.save.data.laneunderlayAlpha : laneunderlayAlpha = 0;
 		FlxG.save.data.laneunderlay != null ? laneunderlay = FlxG.save.data.laneunderlay : laneunderlay = false;
 		FlxG.save.data.randomEngineNames != null ? randomEngineNames = FlxG.save.data.randomEngineNames : randomEngineNames = false;
