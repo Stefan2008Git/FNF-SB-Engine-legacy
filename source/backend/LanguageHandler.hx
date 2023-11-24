@@ -711,6 +711,7 @@ class LanguageHandler
 
 		var languageJson:LanguageFile;
 		languagePath = Paths.getTextFromFile('languages/' + lang + '.json');
+		languageJson = cast Json.parse(languagePath);
 
 	// Language
 	language = languageJson.language;
