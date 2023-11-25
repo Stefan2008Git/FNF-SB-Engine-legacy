@@ -126,12 +126,12 @@ class TitleState extends MusicBeatState {
 		MusicBeatState.switchState(new ChartingState());
 		#else
 		#if MODS_ALLOWED
-		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json')))) {
+		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json')))) {
 		#else
-		if (!OpenFlAssets.exists(Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json'))) {
+		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json'))) {
 		#end
 			FlxG.log.advanced("You dont have language setuped!");
-			trace("You dont have language setuped! Attempting to switch to language menu...");
+			trace("You dont have language setuped! Attempting to switch on language menu...");
 			options.LanguageSelectorState.firstLaunch = true;
 			MusicBeatState.switchState(new options.LanguageSelectorState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Language Menu (Selecting the first language)";
@@ -151,6 +151,7 @@ class TitleState extends MusicBeatState {
 			}
 		}
 		#end
+		LanguageHandler.regenerateLang(ClientPrefs.language);
 	}
 
 	var fridayNightFunkinLogo:FlxSprite;

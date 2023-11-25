@@ -6,7 +6,7 @@
     "memoryCounterTxt": "\nMemorija: ",
     "totalMemoryCounterTxt": "\nTotalna memorija: ",
     "sbEngineVersionCounterTxt": "\nEngine verzija: ",
-    "psychEngineVersionCounterTxt": "\nPE verzija: ",
+    "psychEngineVersionCounterTxt": "PE verzija: ",
     "stateClassNameCounterTxt": "\nStanje: ",
     "substateClassNameCounterTxt": "\nPodstanje: ",
     "operatingSystemCounterTxt": "\nOperativni Sistem: ",
@@ -27,10 +27,10 @@
 
     "weekScoreTxt": "POEN NEDELJE: ",
 
-    "personalBestTxt": "Licni rekord - ",
-    "scoreTxt": "POENI: ",
-    "accruracyTxt": "KONCENTRICNOST: ",
-    "missesTxt": "GRESKE: ",
+    "personalBestTxt": "Licni rekord: ",
+    "scoreTxt": " POENI: ",
+    "accruracyTxt": " KONCENTRICNOST: ",
+    "missesTxt": " GRESKE: ",
     "freeplayInfo1Android": "Pritisni X da poslusas pesmu",
     "freeplayInfo2Android": "Pritisni C da otvoris menu za menjanje igre",
     "freeplayInfo3Android": "Pritisni Y da ponovo podesis poen i koncentricnost.",
@@ -106,7 +106,7 @@
 	"downKeyTxt": "Dole",
 	"upKeyTxt": "Gore",
 	"rightKeyTxt": "Desno",
-	"resetKeyTxt": "Ponovo podesi",
+	"resetKeyTxt": "Reset",
 	"acceptKeyTxt": "Prihvati",
 	"backKeyTxt": "Nazad",
 	"pauseKeyTxt": "Pauziraj",
@@ -117,5 +117,5 @@
 	"debugTxt": "OTKLJANJAC GRESAKA",
 	"debugKeyOneTxt": "OG Taster 1",
 	"debugKeyTwoTxt": "OG Taster 2",
-	"defaultKeyTxt": "Ponovo podesi na obicne strelice."
+	"defaultKeyTxt": "Podesi na obicne strelice."
 }

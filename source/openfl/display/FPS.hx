@@ -143,7 +143,7 @@ class FPS extends TextField {
 			}
 
 			if (ClientPrefs.engineVersion) {
-				text += LanguageHandler.sbEngineVersionCounterTxt + MainMenuState.sbEngineVersion + "(" + LanguageHandler.psychEngineVersionCounterTxt + MainMenuState.psychEngineVersion + ")";
+				text += LanguageHandler.sbEngineVersionCounterTxt + MainMenuState.sbEngineVersion + " (" + LanguageHandler.psychEngineVersionCounterTxt + MainMenuState.psychEngineVersion + ") ";
 			}
 
 			if (ClientPrefs.debugInfo) {
@@ -167,7 +167,7 @@ class FPS extends TextField {
 					#if android
 					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 14, color);
 					#else
-					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 14, color);
+					Main.fpsVar.defaultTextFormat = new TextFormat('Bahnschrift', 12, color);
 					#end
 			}
 

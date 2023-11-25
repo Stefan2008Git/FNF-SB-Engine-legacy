@@ -13,12 +13,12 @@ import options.secret.SecretSBOptionsState;
 class OptionsState extends MusicBeatState {
 	var options:Array<Array<String>> = [
 		['Adjust Delay and Combo', LanguageHandler.delayCombo],
-    #if desktop ['Controls', LanguageHandler.controls], #end
+	#if desktop ['Controls', LanguageHandler.controls], #end
 		['Gameplay', LanguageHandler.gameplay],
 		['Graphics', LanguageHandler.graphics],
 		['Languages', LanguageHandler.languages],
 		['Note Colors', LanguageHandler.noteColor],
-		['Visual and UI', LanguageHandler.visualsUI]
+		['Visuals and UI', LanguageHandler.visualsUI]
 	];
 
 	private var optionsSelect:FlxTypedGroup<Alphabet>;
@@ -66,9 +66,9 @@ class OptionsState extends MusicBeatState {
 		}
 	}
 
-	function openOption(optionName:String)
+	function openOption(optionStateName:String)
 	{
-		if (optionName == 'Language' || optionName == 'Adjust Delay and Combo')
+		if (optionStateName == 'Languages' || optionStateName == 'Adjust Delay and Combo')
 		{
 			selectedSometing = true;
 			FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -87,13 +87,13 @@ class OptionsState extends MusicBeatState {
 				}
 				else
 				{
-					if (optionName == 'Adjust Delay and Combo')
+					if (optionStateName == 'Adjust Delay and Combo')
 						if (FlxG.sound.music != null)
 							FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
 					
 					FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 					{
-						switch (optionName)
+						switch (optionStateName)
 						{
 							case 'Adjust Delay and Combo':
 								LoadingState.loadAndSwitchState(new options.NoteOffsetState(), false);
@@ -105,7 +105,7 @@ class OptionsState extends MusicBeatState {
 			});
 		}
 		else
-			openSelectedSubstate(optionName);
+			openSelectedSubstate(optionStateName);
 	}
 
 	var selectorLeft:Alphabet;
@@ -125,7 +125,7 @@ class OptionsState extends MusicBeatState {
 		Paths.clearStoredMemory();
 
 		#if desktop
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordClient.changePresence("In the Options Menu", null);
 		#end
 
 		cameraGame = new FlxCamera();

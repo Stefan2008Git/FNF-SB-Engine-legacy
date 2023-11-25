@@ -705,8 +705,8 @@ class LanguageHandler
 			FlxG.log.advanced("Loading Default Language");
 			trace('Test...');
 		} else {
-			FlxG.log.advanced("Loading " + lang + " Language");
-			trace('Test 2...');
+			FlxG.log.advanced("Loading " + lang + " language");
+			trace("Loading " + lang + " language");
 		}
 
 		var languageJson:LanguageFile;
@@ -819,6 +819,8 @@ class LanguageHandler
 	gameplay = languageJson.gameplay;
 	graphics = languageJson.graphics;
 	languages = languageJson.languages;
+	if (languages != 'Languages')
+		languages += ' - Languages';
 	noteColor = languageJson.noteColor;
 	visualsUI = languageJson.visualsUI;
 	androidControlsSettings = languageJson.androidControlsSettings;
