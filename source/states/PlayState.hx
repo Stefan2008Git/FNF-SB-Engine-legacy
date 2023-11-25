@@ -2507,7 +2507,11 @@ class PlayState extends MusicBeatState {
 			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMissess: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
 		}
 
-		if (ClientPrefs.scoreZoom && !miss && !cpuControlled) {
+		callOnScripts('onUpdateScore', 'updateScore', [miss]);
+	}
+
+	public function updateZoomText() {
+		if (ClientPrefs.scoreZoom && !cpuControlled) {
 			if (scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
@@ -2519,7 +2523,7 @@ class PlayState extends MusicBeatState {
 			});
 		}
 
-		if (ClientPrefs.judgementZoom && !miss && !cpuControlled) {
+		if (ClientPrefs.judgementZoom && !cpuControlled) {
 			if (judgementCounterTxtTween != null) {
 				judgementCounterTxtTween.cancel();
 			}
@@ -2530,9 +2534,6 @@ class PlayState extends MusicBeatState {
 				}
 			});
 		}
-
-		callOnScripts('onUpdateScore', 'updateScore', [miss]);
-
 	}
 
 	public function setSongTime(time:Float)
@@ -3287,6 +3288,7 @@ class PlayState extends MusicBeatState {
 
 		super.update(elapsed);
 		updateScore();
+		updateZoomText();
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);

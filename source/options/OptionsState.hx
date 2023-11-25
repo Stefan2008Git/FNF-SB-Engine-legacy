@@ -25,7 +25,7 @@ class OptionsState extends MusicBeatState {
 	private static var currentlySelected:Int = 0;
 	private var cameraGame:FlxCamera;
 
-	function openSelectedSubstate(optionName:String) {
+	function openOption(optionName:String) {
 		switch (optionName) {
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
@@ -64,48 +64,6 @@ class OptionsState extends MusicBeatState {
 				openSubState(new options.VisualsUISubState());
 				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu (Visuals & UI Settings Menu)";
 		}
-	}
-
-	function openOption(optionStateName:String)
-	{
-		if (optionStateName == 'Languages' || optionStateName == 'Adjust Delay and Combo')
-		{
-			selectedSometing = true;
-			FlxG.sound.play(Paths.sound('confirmMenu'));
-
-			optionsSelect.forEach(function(spr:FlxSprite)
-			{
-				if (currentlySelected != spr.ID)
-				{
-					FlxTween.tween(spr, {alpha: 0}, 0.4, {
-						ease: FlxEase.expoOut,
-						onComplete: function(twn:FlxTween)
-						{
-							spr.kill();
-						}
-					});
-				}
-				else
-				{
-					if (optionStateName == 'Adjust Delay and Combo')
-						if (FlxG.sound.music != null)
-							FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
-					
-					FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-					{
-						switch (optionStateName)
-						{
-							case 'Adjust Delay and Combo':
-								LoadingState.loadAndSwitchState(new options.NoteOffsetState(), false);
-							case 'Languages':
-								LoadingState.loadAndSwitchState(new options.LanguageSelectorState());
-						}
-					});
-				}
-			});
-		}
-		else
-			openSelectedSubstate(optionStateName);
 	}
 
 	var selectorLeft:Alphabet;
@@ -152,6 +110,8 @@ class OptionsState extends MusicBeatState {
 		velocityBackground.visible = ClientPrefs.velocityBackground;
 		add(velocityBackground);
 
+		Paths.clearUnusedMemory();
+
 		cameraFollow = new FlxObject(0, 0, 1, 1);
 		cameraFollowPosition = new FlxObject(0, 0, 1, 1);
 		add(cameraFollow);
@@ -194,8 +154,6 @@ class OptionsState extends MusicBeatState {
 		add(customizeAndroidControlsTipText);
 		#end
 
-		Paths.clearUnusedMemory();
-
 		controlsActive = true;
 		changeSelection();
 		ClientPrefs.saveSettings();
@@ -213,122 +171,117 @@ class OptionsState extends MusicBeatState {
 		ClientPrefs.saveSettings();
 	}
 
-	private var selectedSometing:Bool = false;
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (!selectedSometing) 
-		{
-			if (controls.UI_UP_P && controlsActive) {
-				changeSelection(-1);
-			}
-			if (controls.UI_DOWN_P && controlsActive) {
-				changeSelection(1);
-			}
+		if (controls.UI_UP_P && controlsActive) {
+			changeSelection(-1);
+		}
+		if (controls.UI_DOWN_P && controlsActive) {
+			changeSelection(1);
+		}
 
-			if (controls.BACK && controlsActive) {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
+		if (controls.BACK && controlsActive) {
+			FlxG.sound.play(Paths.sound('cancelMenu'));
 				if (PauseSubState.optionMenu) {
-					StageData.loadDirectory(PlayState.SONG);
-					LoadingState.loadAndSwitchState(new PlayState(), true);
-					Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + "(";
-					PauseSubState.optionMenu = false;
-					FlxG.sound.music.volume = 0;
-				} else {
-					ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
-			    	Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
-				}
+				StageData.loadDirectory(PlayState.SONG);
+				LoadingState.loadAndSwitchState(new PlayState(), true);
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Current song: " + PlayState.SONG.song + " (" + CoolUtil.difficulties[PlayState.storyModeDifficulty] + ") ";
+				PauseSubState.optionMenu = false;
+				FlxG.sound.music.volume = 0;
+			} else {
+				ClientPrefs.mainMenuStyle == 'Classic' ? MusicBeatState.switchState(new ClassicMainMenuState()) : MusicBeatState.switchState(new MainMenuState());
+			    Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 			}
+		}
 
-			if (controls.ACCEPT && controlsActive) {
-				openOption(options[currentlySelected][0]);
-				FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
-			}
+		if (controls.ACCEPT && controlsActive) {
+			openOption(options[currentlySelected][0]);
+			FlxTween.tween(FlxG.sound.music, {volume: 0.5}, 0.8);
+		}
 
+		#if android
+		if (virtualPad.buttonX.justPressed && controlsActive) {
 			#if android
-			if (virtualPad.buttonX.justPressed && controlsActive) {
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new options.android.AndroidControlsSubState());
-			}
-			if (virtualPad.buttonY.justPressed && controlsActive) {
-				#if android
-				removeVirtualPad();
-				#end
-				openSubState(new options.android.AndroidControlsSettingsSubState());
-			}
+			removeVirtualPad();
 			#end
+			openSubState(new options.android.AndroidControlsSubState());
+		}
+		if (virtualPad.buttonY.justPressed && controlsActive) {
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new options.android.AndroidControlsSettingsSubState());
+		}
+		#end
 
-			if (FlxG.keys.justPressed.B #if android || FlxG.android.justReleased.BACK #end) {
-				controlsActive = false;
-				FlxG.sound.music.stop();
-				FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
+		if (FlxG.keys.justPressed.B #if android || FlxG.android.justReleased.BACK #end) {
+		controlsActive = false;
+			FlxG.sound.music.stop();
+			FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
 	
-				FlxG.camera.shake(0.015, 3, function()
+			FlxG.camera.shake(0.015, 3, function()
+			{
+				FlxG.camera.flash();
+				var objects:Array<FlxSprite> = new Array<FlxSprite>();
+	
+				for (characters in optionsSelect)
 				{
-					FlxG.camera.flash();
-					var objects:Array<FlxSprite> = new Array<FlxSprite>();
+					characters.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					characters.angularVelocity = 80;
+					characters.screenCenter();
+					objects.push(characters);
+				}
+
+				for (character1 in selectorLeft)
+				{
+					character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					character1.angularVelocity = 80;
+					character1.screenCenter();
+					objects.push(character1);
+				}
+
+				for (character1 in selectorRight)
+				{
+					character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
+					character1.angularVelocity = 80;
+					character1.screenCenter();
+					objects.push(character1);
+				}
+
+				FlxG.sound.music.stop();
+				FlxG.sound.playMusic(Paths.sound('ambience'), 1, false, null);
 	
-					for (characters in optionsSelect)
-					{
-						characters.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
-						characters.angularVelocity = 80;
-						characters.screenCenter();
-						objects.push(characters);
-					}
-
-					for (character1 in selectorLeft)
-					{
-						character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
-						character1.angularVelocity = 80;
-						character1.screenCenter();
-						objects.push(character1);
-					}
-
-					for (character1 in selectorRight)
-					{
-						character1.velocity.set(new FlxRandom().float(-100, 250), new FlxRandom().float(-100, 250));
-						character1.angularVelocity = 80;
-						character1.screenCenter();
-						objects.push(character1);
-					}
-
-					FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.sound('ambience'), 1, false, null);
-	
-					background.color = FlxColor.ORANGE;
-					new FlxTimer().start(4, function(timer:FlxTimer)
-					{
-						for (object in objects)
-							{
-								object.angularVelocity = 0;
-								object.velocity.set();
-								FlxTween.tween(object, {x: (FlxG.width / 2) - (object.width), y: (FlxG.height / 2) - (object.height)}, 1, {ease: FlxEase.backOut});
-							}
-							FlxG.camera.shake(0.05, 3);
+				background.color = FlxColor.ORANGE;
+				new FlxTimer().start(4, function(timer:FlxTimer)
+				{
+					for (object in objects)
+						{
+							object.angularVelocity = 0;
+							object.velocity.set();
+							FlxTween.tween(object, {x: (FlxG.width / 2) - (object.width), y: (FlxG.height / 2) - (object.height)}, 1, {ease: FlxEase.backOut});
+						}
+						FlxG.camera.shake(0.05, 3);
 									
-								FlxG.sound.music.stop();
-								FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
-								FlxG.sound.play(Paths.sound('piecedTogether'), 1, false, null, true);
+						FlxG.sound.music.stop();
+						FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
+						FlxG.sound.play(Paths.sound('piecedTogether'), 1, false, null, true);
 					
-								FlxG.camera.fade(FlxColor.WHITE, 3, false, function() 
-								{
-									FlxG.camera.shake(0.1, 0.5);
+						FlxG.camera.fade(FlxColor.WHITE, 3, false, function() 
+						{
+						FlxG.camera.shake(0.1, 0.5);
 	
-									FlxG.sound.play(Paths.sound('confirmMenu'), function()
-									{
-								    	new FlxTimer().start(1, function(timer:FlxTimer) 
-								    	{
-											MusicBeatState.switchState(new options.secret.SecretSBOptionsState());
-							        	});
-						        	});
-					        	});
-				        	});
-			     		});
-		        	}
-	        	}
-
+						FlxG.sound.play(Paths.sound('confirmMenu'), function()
+						{
+							new FlxTimer().start(1, function(timer:FlxTimer) 
+							{
+								MusicBeatState.switchState(new options.secret.SecretSBOptionsState());
+							});
+						});
+					});
+				});
+			});
+		}
 	}
 
 	function changeSelection(change:Int = 0) {

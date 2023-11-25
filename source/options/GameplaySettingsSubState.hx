@@ -131,6 +131,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If checked, this options is gonna make cpu controller (aka. Botplay) less laggy", 'lessCpuController', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('Camera movement',
+		    "If checked, this options is gonna make camera movementable when you are hitting the note", 'cameraMovement', 'bool', false);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);
