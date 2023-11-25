@@ -156,7 +156,7 @@ class FreeplayState extends MusicBeatState {
 
 		#if PRELOAD_ALL
 		#if android
-		var leText:String = LanguageHandler.freeplayInfo1Android + " / " + LanguageHandler.freeplayInfo2Android + " / " + LanguageHandler.freeplayInfor3Android;
+		var leText:String = LanguageHandler.freeplayInfo1Android + " / " + LanguageHandler.freeplayInfo2Android + " / " + LanguageHandler.freeplayInfo3Android;
 		var size:Int = 16;
 		#else
 		var leText:String = LanguageHandler.freeplayInfo1 + " / " + LanguageHandler.freeplayInfo2 + " / " + LanguageHandler.freeplayInfo3;
