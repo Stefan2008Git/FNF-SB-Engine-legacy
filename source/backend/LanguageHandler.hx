@@ -691,7 +691,7 @@ class LanguageHandler
 	public static function regenerateLang(lang:String)
 	{	
 		#if MODS_ALLOWED
-		var directories:Array<String> = [Paths.getPreloadPath(SUtil.getPath() + 'languages/'), Paths.mods('languages/')];
+		var directories:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json), Paths.mods('languages/')];
 
 		for (mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/languages/'));
