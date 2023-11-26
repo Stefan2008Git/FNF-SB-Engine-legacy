@@ -53,7 +53,7 @@ class LanguageSelectorState extends MusicBeatState
 						var languageToCheck:String = file.substr(0, file.length - 5);
 						if (!languagesLoaded.exists(languageToCheck))
 						{
-							var languagePath = Paths.getTextFromFile(SUtil.getPath() + 'languages/' + languageToCheck + '.json');
+							var languagePath = Paths.getTextFromFile('languages/' + languageToCheck + '.json');
 					
 							var languageJson = cast Json.parse(languagePath);
 					
