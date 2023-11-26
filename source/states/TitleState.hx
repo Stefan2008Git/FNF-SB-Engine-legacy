@@ -141,17 +141,34 @@ class TitleState extends MusicBeatState {
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingScreenState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Warning Menu";
-		} else {
-			if (initialized)
-				startIntro();
-			else {
-				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					startIntro();
+		}
+		else
+		{
+			#if desktop
+			if (!DiscordClient.isInitialized)
+			{
+				DiscordClient.initialize();
+				Application.current.onExit.add(function(exitCode)
+				{
+					DiscordClient.shutdown();
 				});
 			}
+			#end
+
+			Language.regenerateLang(ClientPrefs.language);
+
+			//if (initialized)
+				startIntro();
+			/*else
+			{
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					startIntro();
+				});
+			}*/
 		}
 		#end
-		LanguageHandler.regenerateLang(ClientPrefs.language);
+		}
 	}
 
 	var fridayNightFunkinLogo:FlxSprite;
