@@ -195,10 +195,14 @@ class LanguageSelectorState extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
-			if (language[currentlySelected][0] == 'null')
+			#if !android
+			if (language[currentlySelected][0] == null)
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			else
 				changeLanguage();
+			#else
+				changeLanguage();
+			#end
 		}
 	}
 

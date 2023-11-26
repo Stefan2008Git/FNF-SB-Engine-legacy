@@ -63,6 +63,8 @@ import enginelua.HScript;
 class PlayState extends MusicBeatState {
 	public static var STRUM_X = 48.5;
 	public static var STRUM_X_MIDDLESCROLL = -278;
+	public static var cameraMovemtableOffset = 20;
+	public static var cameraMovemtableOffsetBoyfriend = 20; 
 
 	public static var ratingStuff:Array<Dynamic> = [];
 
@@ -105,6 +107,7 @@ class PlayState extends MusicBeatState {
 
 	public static var currentlyStage:String = '';
 	public static var isPixelStage:Bool = false;
+	public static var notesCanMoveCamera:Bool = true;
 	public static var SONG:SwagSong = null;
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
@@ -169,6 +172,7 @@ class PlayState extends MusicBeatState {
 	public var goods:Int = 0;
 	public var bads:Int = 0;
 	public var freaks:Int = 0;
+	public var nps:Int = 0;
 
 	private var generatedMusic:Bool = false;
 
@@ -438,6 +442,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		sbEngineIconBounce = (ClientPrefs.iconBounce && ClientPrefs.gameStyle == 'SB Engine');
+		notesCanMoveCamera = (ClientPrefs.cameraMovement);
 
 		// For the "Just the Two of Us" achievement
 		for (i in 0...keysArray.length) {
@@ -4158,43 +4163,34 @@ class PlayState extends MusicBeatState {
 	function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
-		if (gf != null && SONG.notes[curSection].gfSection)
-		{
-			characterToFollow = 'gf';
-			moveCamera();
-			callOnLuas('onMoveCamera', ['gf']);
+		if (gf != null && SONG.notes[curSection].gfSection) {
+			cameraFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
+			cameraFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
+			cameraFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
+			tweenCamIn();
+			callOnScripts('onMoveCamera', 'moveCamera', ['gf']);
+			return;
 		}
-		else if (!SONG.notes[curSection].mustHitSection)
+		if (!SONG.notes[curSection].mustHitSection) 
 		{
-			characterToFollow = 'dad';
-			moveCamera();
-			callOnLuas('onMoveCamera', ['dad']);
-		}
-		else
-		{
-			characterToFollow = 'bf';
-			moveCamera();
-			callOnLuas('onMoveCamera', ['boyfriend']);
+			moveCamera(true);
+		} else {
+			moveCamera(false);
 		}
 	}
 
 	var cameraTwn:FlxTween;
-	public function moveCamera() {
-		switch (characterToFollow){
-			case 'dad':
-				cameraFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-				cameraFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0] + dad.camMoveX;
-				cameraFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1] + dad.camMoveY;
-				tweenCamIn();
-			case 'gf' | 'girlfriend':
-				cameraFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
-				cameraFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0] + gf.camMoveX;
-				cameraFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1] + gf.camMoveY;
-				tweenCamIn();
-			default:
-				cameraFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-				cameraFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0] - boyfriend.camMoveX;
-				cameraFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1] + boyfriend.camMoveY;
+
+	public function moveCamera(isDad:Bool) {
+		if (isDad) {
+			cameraFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			cameraFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			cameraFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			tweenCamIn();
+		} else {
+			cameraFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			cameraFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+			cameraFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
 			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1) {
 				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {
@@ -4916,6 +4912,29 @@ class PlayState extends MusicBeatState {
 			if (note.gfNote) {
 				char = gf;
 			}
+			if (notesCanMoveCamera) {
+				if(SONG.notes[Math.floor(curStep / 16)].mustHitSection == false && !note.isSustainNote)
+					{
+						if (!dad.stunned)
+							{
+								switch(Std.int(Math.abs(note.noteData)))
+								{
+									case 0:
+										cameraFollow.set(dad.getMidpoint().x + 170, dad.getMidpoint().y - 140);
+										cameraFollow.x += dad.cameraPosition[0] - cameraMovemtableOffset; cameraFollow.y += dad.cameraPosition[1];
+									case 1:
+										cameraFollow.set(dad.getMidpoint().x + 170, dad.getMidpoint().y - 140);
+										cameraFollow.x += dad.cameraPosition[0]; cameraFollow.y += dad.cameraPosition[1] + cameraMovemtableOffset;
+									case 2:
+										cameraFollow.set(dad.getMidpoint().x + 170, dad.getMidpoint().y - 140);
+										cameraFollow.x += dad.cameraPosition[0]; cameraFollow.y += dad.cameraPosition[1] - cameraMovemtableOffset;
+									case 3:							
+										cameraFollow.set(dad.getMidpoint().x + 170, dad.getMidpoint().y - 140);
+										cameraFollow.x += dad.cameraPosition[0] + cameraMovemtableOffset; cameraFollow.y += dad.cameraPosition[1];
+								}                   
+							}
+					} 
+			}
 
 			if (char != null) {
 				char.playAnim(animToPlay, true);
@@ -4943,7 +4962,6 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-	public var nps:Int = 0;
 	function goodNoteHit(note:Note):Void {
 		if (!note.isSustainNote)
 			notesHitArray.push(Date.now());
@@ -5023,6 +5041,27 @@ class PlayState extends MusicBeatState {
 				} else {
 					boyfriend.playAnim(animToPlay + note.animSuffix, true);
 					boyfriend.holdTimer = 0;
+
+					if (notesCanMoveCamera) {
+						if(SONG.notes[Math.floor(curStep / 16)].mustHitSection == true && !note.isSustainNote){
+							if (!boyfriend.stunned){
+								switch(Std.int(Math.abs(note.noteData))){				 
+									case 0:
+										cameraFollow.set(boyfriend.getMidpoint().x - 170, boyfriend.getMidpoint().y - 140);
+										cameraFollow.x += boyfriend.cameraPosition[0] - cameraMovemtableOffsetBoyfriend; cameraFollow.y += boyfriend.cameraPosition[1];	
+									case 1:
+										cameraFollow.set(boyfriend.getMidpoint().x - 170, boyfriend.getMidpoint().y - 140);
+										cameraFollow.x += boyfriend.cameraPosition[0]; cameraFollow.y += boyfriend.cameraPosition[1] + cameraMovemtableOffsetBoyfriend;			
+									case 2:
+										cameraFollow.set(boyfriend.getMidpoint().x - 170, boyfriend.getMidpoint().y - 140);
+										cameraFollow.x += boyfriend.cameraPosition[0]; cameraFollow.y += boyfriend.cameraPosition[1] - cameraMovemtableOffsetBoyfriend;
+									case 3:							
+										cameraFollow.set(boyfriend.getMidpoint().x - 170, boyfriend.getMidpoint().y - 140);
+										cameraFollow.x += boyfriend.cameraPosition[0] + cameraMovemtableOffsetBoyfriend; cameraFollow.y += boyfriend.cameraPosition[1];			
+								}                        
+							}
+						}
+					}
 				}
 
 				if (note.noteType == 'Hey!') {
