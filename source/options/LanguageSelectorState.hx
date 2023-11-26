@@ -194,7 +194,7 @@ class LanguageSelectorState extends MusicBeatState
 		}
 
 		#if android // If i fail to fix this Android issue
-		if (if FlxG.android.justReleased.BACK) {
+		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK) {
 			if (noFlashing) {
 				FlxG.save.data.flashing = null;
 				FlxTransitionableState.skipNextTransIn = true;
