@@ -53,7 +53,7 @@ class LanguageSelectorState extends MusicBeatState
 						var languageToCheck:String = file.substr(0, file.length - 5);
 						if (!languagesLoaded.exists(languageToCheck))
 						{
-							var languagePath = Paths.getTextFromFile('languages/' + languageToCheck + '.json');
+							var languagePath = Paths.getTextFromFile(SUtil.getPath() + 'languages/' + languageToCheck + '.json');
 					
 							var languageJson = cast Json.parse(languagePath);
 					
@@ -74,7 +74,7 @@ class LanguageSelectorState extends MusicBeatState
 	
 			for (i in firstArray)
 			{
-				var languagePath = Paths.getTextFromFile('languages/' + i + '.json');
+				var languagePath = Paths.getTextFromFile(SUtil.getPath() + 'languages/' + i + '.json');
 		
 				var languageJson = cast Json.parse(languagePath);
 		
@@ -122,7 +122,7 @@ class LanguageSelectorState extends MusicBeatState
 			languageText.snapToPosition();
 
 			var flags:AttachedSprite = new AttachedSprite();
-			flags.frames = Paths.getSparrowAtlas('languages/' + language[i][0]);
+			flags.frames = Paths.getSparrowAtlas(SUtil.getPath() + 'languages/' + language[i][0]);
 			flags.animation.addByPrefix('idle', language[i][0], 24);
 			flags.animation.play('idle');
 			flags.xAdd = -flags.width - 10;
@@ -195,14 +195,11 @@ class LanguageSelectorState extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
-			#if !android
-			if (language[currentlySelected][0] == null)
+			
+			if (language[currentlySelected][0])
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			else
 				changeLanguage();
-			#else
-				changeLanguage();
-			#end
 		}
 	}
 
