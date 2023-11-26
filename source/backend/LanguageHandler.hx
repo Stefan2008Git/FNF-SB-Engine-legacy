@@ -690,29 +690,10 @@ class LanguageHandler
 
 	public static function regenerateLang(lang:String)
 	{	
-		#if MODS_ALLOWED
-		var directories:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json'), Paths.mods('languages/')];
-
-		for (mod in Paths.getGlobalMods())
-			directories.push(Paths.mods(mod + '/languages/'));
-		#end
-
-		if (!Paths.fileExists('languages/' + lang + '.json', TEXT))
-		{
-			ClientPrefs.language = 'english';
-			ClientPrefs.saveSettings();
-			lang = 'english';
-			FlxG.log.advanced("Loading Default Language");
-			trace('Test...');
-		} else {
-			FlxG.log.advanced("Loading " + lang + " language");
-			trace("Loading " + lang + " language");
-		}
-
-		var languageJson:LanguageFile;
+	    var languageJson:LanguageFile;
 		languagePath = Paths.getTextFromFile('languages/' + lang + '.json');
-		languageJson = cast Json.parse(languagePath);
-
+		languageJson = Json.parse(languagePath);
+	
 	// Language
 	language = languageJson.language;
 
