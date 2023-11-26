@@ -193,13 +193,20 @@ class LanguageSelectorState extends MusicBeatState
 			}
 		}
 
+		#if android // If i fail to fix this Android issue
+		if (if FlxG.android.justReleased.BACK) {
+			if (noFlashing) {
+				FlxG.save.data.flashing = null;
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				MusicBeatState.switchState(new FlashingScreenState());
+			}
+		}
+		#end
+
 		if (controls.ACCEPT)
-		{
-			
-			if (language[currentlySelected][0] = 'null')
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-			else
-				changeLanguage();
+		{	
+			changeLanguage();
 		}
 	}
 

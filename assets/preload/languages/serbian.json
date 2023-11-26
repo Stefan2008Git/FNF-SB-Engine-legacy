@@ -28,9 +28,9 @@
     "weekScoreTxt": "POEN NEDELJE: ",
 
     "personalBestTxt": "Licni rekord: ",
-    "scoreTxt": " POENI: ",
-    "accruracyTxt": " KONCENTRICNOST: ",
-    "missesTxt": " GRESKE: ",
+    "scoreTxt": "\nPOENI: ",
+    "accruracyTxt": "\nKONCENTRICNOST: ",
+    "missesTxt": "\nGRESKE: ",
     "freeplayInfo1Android": "Pritisni X da poslusas pesmu",
     "freeplayInfo2Android": "Pritisni C da otvoris menu za menjanje igre",
     "freeplayInfo3Android": "Pritisni Y da ponovo podesis poen i koncentricnost.",

@@ -28,9 +28,9 @@
     "weekScoreTxt": "WEEK SCORE: ",
 
     "personalBestTxt": "Presonal Best: ",
-    "scoreTxt": " SCORES: ",
-    "accruracyTxt": " ACCRURACY: ",
-    "missesTxt": " MISSES: ",
+    "scoreTxt": "\nSCORES: ",
+    "accruracyTxt": "\nACCRURACY: ",
+    "missesTxt": "\nMISSES: ",
     "freeplayInfo1Android": "Press X to listen to the Song",
     "freeplayInfo2Android": "Press C to open the Gameplay Changers Menu",
     "freeplayInfo3Android": "Press Y to Reset your Score and Accuracy.",

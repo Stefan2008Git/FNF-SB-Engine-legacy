@@ -23,9 +23,7 @@ class FreeplayState extends MusicBeatState {
 
 	private static var lastDifficultyName:String = '';
 
-	var scoreBackground:FlxSprite;
-	var scoreText:FlxText;
-	var difficultyText:FlxText;
+
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
@@ -37,15 +35,20 @@ class FreeplayState extends MusicBeatState {
 	private var groupSongs:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<HealthIcon> = [];
 
+	var background:FlxSprite;
+	var velocityBackground:FlxBackdrop;
+	var scoreBackground:FlxSprite;
+	var scoreText:FlxText;
+	var difficultyText:FlxText;
+	var textBackground:FlxSprite;
+	var missingFileBackground:FlxSprite;
+	var missingFileText:FlxText;
+	var text:FlxText;
 	var songBG:FlxSprite;
 	var songBar:FlxBar;
 	var loadingSongText:FlxText;
 	var barValue:Float = 0;
 
-	var background:FlxSprite;
-	var velocityBackground:FlxBackdrop;
-	var textBackground:FlxSprite;
-	var text:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 	var cameraZoom:FlxTween;
@@ -128,13 +131,29 @@ class FreeplayState extends MusicBeatState {
 		}
 		add(scoreText);
 
-		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 193, 0xFF000000);
+		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 196, 0xFF000000);
 		scoreBackground.alpha = 0.6;
 		add(scoreBackground);
 
 		difficultyText = new FlxText(scoreText.x, scoreText.y + 160, 0, "", 24);
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
+
+		missingFileBackground = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		missingFileBackground.alpha = 0.6;
+		missingFileBackground.visible = false;
+		add(missingFileBackground);
+		
+		missingFileText = new FlxText(50, 0, FlxG.width - 100, '', 24);
+		switch (ClientPrefs.gameStyle) {
+			case 'Psych Engine':
+		        missingFileText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			default:
+				missingFileText.setFormat("Bahnschrift", 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		}
+		missingFileText.scrollFactor.set();
+		missingFileText.visible = false;
+		add(missingFileText);
 
 		if (currentlySelected >= songs.length) currentlySelected = 0;
 		background.color = songs[currentlySelected].color;
@@ -199,10 +218,9 @@ class FreeplayState extends MusicBeatState {
 	}
 
 	var instrumentalPlaying:Int = -1;
-
 	public static var vocals:FlxSound = null;
-
 	var holdTime:Float = 0;
+	var controlsActive:Bool = true;
 
 	override function update(elapsed:Float) {
 		if (!selectedThing)
@@ -226,7 +244,7 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = LanguageHandler.personalBestTxt + LanguageHandler.scoresTxt + lerpScore + LanguageHandler.accruracyTxt + ' (' + ratingSplit.join('.') + '%)' + LanguageHandler.missesTxt + intendedMisses;
+		scoreText.text = LanguageHandler.personalBestTxt + "Info: " + LanguageHandler.scoresTxt + lerpScore + LanguageHandler.accruracyTxt + ' (' + ratingSplit.join('.') + '%)' + LanguageHandler.missesTxt + intendedMisses;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -244,19 +262,19 @@ class FreeplayState extends MusicBeatState {
 			barValue += elapsed;
 		}
 
-		if (shift) shiftMult = 3;
+		if (shift && controlsActive) shiftMult = 3;
 
 		if (songs.length > 1) {
-			if (upP) {
+			if (upP && controlsActive) {
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
-			if (downP) {
+			if (downP && controlsActive) {
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
 
-			if (controls.UI_DOWN || controls.UI_UP) {
+			if (controls.UI_DOWN || controls.UI_UP && controlsActive) {
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
 				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
@@ -268,14 +286,14 @@ class FreeplayState extends MusicBeatState {
 			}
 		}
 
-		if (controls.UI_LEFT_P)
+		if (controls.UI_LEFT_P && controlsActive)
 			changeDifficulty(-1);
-		else if (controls.UI_RIGHT_P)
+		else if (controls.UI_RIGHT_P && controlsActive)
 			changeDifficulty(1);
-		else if (upP || downP)
+		else if (upP || downP && controlsActive)
 			changeDifficulty();
 
-		if (back)
+		if (back && controlsActive)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
@@ -287,7 +305,7 @@ class FreeplayState extends MusicBeatState {
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;
 		}
 
-		if (ctrl)
+		if (ctrl && controlsActive)
 		{
 			#if android
 			removeVirtualPad();
@@ -297,7 +315,7 @@ class FreeplayState extends MusicBeatState {
 			FlxTween.tween(FlxG.sound.music, {volume: 0.4}, 0.8);
 		}
 
-		else if (space)
+		else if (space && controlsActive)
 		{
 			if(instrumentalPlaying != currentlySelected)
 			{
@@ -325,41 +343,61 @@ class FreeplayState extends MusicBeatState {
 
 		else if (accepted)
 		{
+			controlsActive = false;
 			persistentUpdate = false;
-			selectedThing = true;
-			songBG = new FlxSprite(48 + (FlxG.width / 2) - 248, 19).loadGraphic(Paths.image('healthBar', 'shared'));
-		    songBG.screenCenter(X);
-		    songBG.antialiasing = ClientPrefs.globalAntialiasing;
-		    songBG.scrollFactor.set();
-		    add(songBG);
-
-		    songBar = new FlxBar(songBG.x + 4, songBG.y + 4, LEFT_TO_RIGHT, Std.int(songBG.width - 8), Std.int(songBG.height - 8), this, 'barValue', 0, 3);
-		    songBar.numDivisions = 800;
-		    songBar.scrollFactor.set();
-		    songBar.screenCenter(X);
-		    songBar.antialiasing = ClientPrefs.globalAntialiasing;
-		    songBar.createFilledBar(FlxColor.BLACK, FlxColor.PURPLE);
-		    add(songBar);
-
-		    loadingSongText = new FlxText(0, songBG.y + 30, LanguageHandler.loadingSongText, 20);
-		    switch (ClientPrefs.gameStyle) {
-				case 'Psych Engine': loadingSongText.setFormat('VCR OSD Mono', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
-				default: loadingSongText.setFormat('Bahnschrift', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
-			}
-		    loadingSongText.screenCenter(X);
-		    add(loadingSongText);
-
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
 			var songValue:String = Highscore.formatSong(songLowercase, currentlyDifficulty);
 			trace(songValue);
 
-			PlayState.SONG = Song.loadFromJson(songValue, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyModeDifficulty = currentlyDifficulty;
+			try
+			{
+				selectedThing = true;
+				songBG = new FlxSprite(48 + (FlxG.width / 2) - 248, 19).loadGraphic(Paths.image('healthBar', 'shared'));
+		    	songBG.screenCenter(X);
+		    	songBG.antialiasing = ClientPrefs.globalAntialiasing;
+		    	songBG.scrollFactor.set();
+		   	 	add(songBG);
 
-			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-			if(colorTween != null) {
-				colorTween.cancel();
+		    	songBar = new FlxBar(songBG.x + 4, songBG.y + 4, LEFT_TO_RIGHT, Std.int(songBG.width - 8), Std.int(songBG.height - 8), this, 'barValue', 0, 3);
+				songBar.numDivisions = 800;
+		    	songBar.scrollFactor.set();
+		    	songBar.screenCenter(X);
+		    	songBar.antialiasing = ClientPrefs.globalAntialiasing;
+		    	songBar.createFilledBar(FlxColor.BLACK, FlxColor.PURPLE);
+		    	add(songBar);
+
+				loadingSongText = new FlxText(0, songBG.y + 30, LanguageHandler.loadingSongText, 20);
+		    	switch (ClientPrefs.gameStyle) {
+					case 'Psych Engine': loadingSongText.setFormat('VCR OSD Mono', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
+					default: loadingSongText.setFormat('Bahnschrift', 20, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
+				}
+		    	loadingSongText.screenCenter(X);
+		    	add(loadingSongText);
+
+				PlayState.SONG = Song.loadFromJson(songValue, songLowercase);
+				PlayState.isStoryMode = false;
+				PlayState.storyModeDifficulty = currentlyDifficulty;
+	
+				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+				if(colorTween != null) {
+					colorTween.cancel();
+				}
+			}
+	
+			catch(e:Dynamic)
+			{
+				trace('ERROR! $e');
+	
+				var fileNotFound:String = e.toString();
+				if(fileNotFound.startsWith('[file_contents,assets/data/')) fileNotFound = 'Missing chart file: ' + fileNotFound.substring(27, fileNotFound.length-1); //Missing chart
+				missingFileText.text = 'Error on loading song chart:\n$fileNotFound';
+				missingFileText.screenCenter(Y);
+				missingFileText.visible = true;
+				missingFileBackground.visible = true;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+
+				super.update(elapsed);
+				return;
 			}
 
 			for (item in groupSongs.members)
@@ -381,7 +419,7 @@ class FreeplayState extends MusicBeatState {
 			    goToPlayState();
 			});
 		}
-		else if (reset)
+		else if (reset && controlsActive)
 		{
 			#if android
 			removeVirtualPad();
@@ -441,15 +479,20 @@ class FreeplayState extends MusicBeatState {
 			currentlyDifficulty = 0;
 
 		lastDifficultyName = CoolUtil.difficulties[currentlyDifficulty];
+		PlayState.storyModeDifficulty = currentlyDifficulty;
 
+		if (CoolUtil.difficulties.length > 1)
+			difficultyText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		else
+			difficultyText.text = CoolUtil.difficultyString();
 		#if !switch
 		intendedScore = Highscore.getScore(songs[currentlySelected].songName, currentlyDifficulty);
 		intendedRating = Highscore.getRating(songs[currentlySelected].songName, currentlyDifficulty);
 		intendedMisses = Highscore.getMiss(songs[currentlySelected].songName, currentlyDifficulty);
 		#end
+		missingFileText.visible = false;
+		missingFileBackground.visible = false;
 
-		PlayState.storyModeDifficulty = currentlyDifficulty;
-		difficultyText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
 	}
 
