@@ -43,9 +43,9 @@ class LanguageSelectorState extends MusicBeatState
 		for (i in 0...directories.length)
 		{
 			var directory:String = directories[i];
-			if (FileSystem.exists(directory))
+			if (FileSystem.exists(SUtil.getPath() + directory))
 			{
-				for (file in FileSystem.readDirectory(directory))
+				for (file in FileSystem.readDirectory(SUtil.getPath() + directory))
 				{
 					var path = haxe.io.Path.join([directory, file]);
 					if (!sys.FileSystem.isDirectory(path) && file.endsWith('.json'))
