@@ -25,8 +25,6 @@ import states.MainMenuState;
 import states.FreeplayState;
 import states.StoryModeState;
 
-using StringTools;
-
 typedef TitleData = {
 	titlex:Float,
 	titley:Float,
@@ -136,12 +134,6 @@ class TitleState extends MusicBeatState {
 			MusicBeatState.switchState(new options.LanguageSelectorState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Language Menu (Selecting the first language)";
 		}
-		else if (FlxG.save.data.flashing == null && !FlashingScreenState.leftState) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new FlashingScreenState());
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Warning Menu";
-		}
 		else
 		{
 			#if desktop
@@ -155,7 +147,7 @@ class TitleState extends MusicBeatState {
 			}
 			#end
 
-			Language.regenerateLang(ClientPrefs.language);
+			LanguageHandler.regenerateLang(ClientPrefs.language);
 
 			//if (initialized)
 				startIntro();
@@ -168,7 +160,6 @@ class TitleState extends MusicBeatState {
 			}*/
 		}
 		#end
-		}
 	}
 
 	var fridayNightFunkinLogo:FlxSprite;
@@ -311,6 +302,8 @@ class TitleState extends MusicBeatState {
 		titleText.updateHitbox();
 		add(titleText);
 
+		Paths.clearUnusedMemory();
+
 		creditGroup = new FlxGroup();
 		add(creditGroup);
 		textGroup = new FlxGroup();
@@ -324,8 +317,6 @@ class TitleState extends MusicBeatState {
 		creditText.visible = false;
 
 		FlxTween.tween(creditText, {y: creditText.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
-
-		Paths.clearUnusedMemory();
 
 		if (initialized)
 			skipIntro();
@@ -354,7 +345,7 @@ class TitleState extends MusicBeatState {
 	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
+	
 
 		Timer += 1;
 		gradientBar.updateHitbox();
@@ -587,8 +578,6 @@ class TitleState extends MusicBeatState {
 				remove(creditGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				if (ClientPrefs.objects) {
-					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
-				} else {
 					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 				}
 				if (ClientPrefs.objects) {

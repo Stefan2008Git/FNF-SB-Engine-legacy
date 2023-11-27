@@ -193,17 +193,6 @@ class LanguageSelectorState extends MusicBeatState
 			}
 		}
 
-		#if android // If i fail to fix this Android issue
-		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK) {
-			if (noFlashing) {
-				FlxG.save.data.flashing = null;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
-				MusicBeatState.switchState(new FlashingScreenState());
-			}
-		}
-		#end
-
 		if (controls.ACCEPT)
 		{	
 			changeLanguage();
@@ -214,50 +203,15 @@ class LanguageSelectorState extends MusicBeatState
 		ClientPrefs.language = language[currentlySelected][0];
 		ClientPrefs.saveSettings();
 		LanguageHandler.regenerateLang(language[currentlySelected][0]);
-		FlxG.sound.play(Paths.sound('confirmMenu'));
 
-		groupLanguage.forEach(function(spr:FlxSprite)
-			{
-				if (currentlySelected != spr.ID)
-				{
-					FlxTween.tween(spr, {alpha: 0}, 0.4, {
-						ease: FlxEase.quadOut,
-						onComplete: function(twn:FlxTween)
-						{
-							spr.kill();
-						}
-					});
-				}
-				else
-				{
-					FlxFlicker.flicker(flagsArray[spr.ID], 1, 0.06, false, false, null);
-					FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-					{
-						if (firstLaunch) {
-							firstLaunch = false;
-							if (noFlashing) {
-								FlxG.save.data.flashing = null;
-								FlxTransitionableState.skipNextTransIn = true;
-								FlxTransitionableState.skipNextTransOut = true;
-								MusicBeatState.switchState(new FlashingScreenState());
-								if (FlxG.sound.music != null)
-									FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
-								Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Warning Menu";
-							}
-							else {
-								MusicBeatState.switchState(new TitleState());
-								if (FlxG.sound.music != null)
-									FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
-							}
-						}
-						else {
-							MusicBeatState.switchState(new options.OptionsState());
-							FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
-							Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
-						}
-					});
-				}
-			});
+		if (firstLaunch) {
+			MusicBeatState.switchState(new TitleState());
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;	
+		} else {
+			MusicBeatState.switchState(new options.OptionsState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+		}
 	}
 
 	function changeSelection(change:Int = 0)
