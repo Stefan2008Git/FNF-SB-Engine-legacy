@@ -24,7 +24,6 @@ class LanguageSelectorState extends MusicBeatState
 	public static var background:FlxSprite;
 	public static var velocityBackground:FlxBackdrop;
 	public static var firstLaunch:Bool = false;
-	public static var noFlashing:Bool = false;
 	
 	var language:Array<Array<String>> = [];
 	private var flagsArray:Array<AttachedSprite> = [];
@@ -103,6 +102,7 @@ class LanguageSelectorState extends MusicBeatState
 		velocityBackground = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3BAAAAAA, 0x0), XY);
 		velocityBackground.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		velocityBackground.visible = ClientPrefs.velocityBackground;
+		velocityBackground.antialiasing = ClientPrefs.globalAntialiasing;
 		add(velocityBackground);
 
 		groupLanguage = new FlxTypedGroup<Alphabet>();
@@ -122,7 +122,7 @@ class LanguageSelectorState extends MusicBeatState
 			languageText.snapToPosition();
 
 			var flags:AttachedSprite = new AttachedSprite();
-			flags.frames = Paths.getSparrowAtlas(SUtil.getPath() + 'languages/' + language[i][0]);
+			flags.frames = Paths.getSparrowAtlas('languages/' + language[i][0]);
 			flags.animation.addByPrefix('idle', language[i][0], 24);
 			flags.animation.play('idle');
 			flags.xAdd = -flags.width - 10;
@@ -154,9 +154,6 @@ class LanguageSelectorState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A_B);
 		#end
 
-		if (FlxG.save.data.flashing == null)
-			noFlashing = true;
-
 		super.create();
 	}
 
@@ -182,29 +179,16 @@ class LanguageSelectorState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
-			MusicBeatState.switchState(new options.OptionsState());
 		}
 
 		if (controls.ACCEPT)
 		{	
-			changeLanguage();
-		}
-	}
-
-	function changeLanguage() {
-		ClientPrefs.language = language[currentlySelected][0];
-		ClientPrefs.saveSettings();
-		LanguageHandler.regenerateLang(language[currentlySelected][0]);
-
-		if (firstLaunch) {
-			MusicBeatState.switchState(new TitleState());
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion;	
-		} else {
-			MusicBeatState.switchState(new options.OptionsState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+			if (firstLaunch) {
+				ClientPrefs.language = language[currentlySelected][0];
+				ClientPrefs.saveSettings();
+				LanguageHandler.regenerateLang(language[currentlySelected][0]);
+				MusicBeatState.switchState(new TitleState());
+			}
 		}
 	}
 

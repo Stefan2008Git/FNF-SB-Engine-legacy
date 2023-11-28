@@ -147,19 +147,18 @@ class TitleState extends MusicBeatState {
 			}
 			#end
 
-			LanguageHandler.regenerateLang(ClientPrefs.language);
-
-			//if (initialized)
+			if (initialized)
 				startIntro();
-			/*else
+			else
 			{
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					startIntro();
 				});
-			}*/
+			}
 		}
 		#end
+		LanguageHandler.regenerateLang(ClientPrefs.language);
 	}
 
 	var fridayNightFunkinLogo:FlxSprite;
