@@ -89,6 +89,7 @@ class LanguageSelectorState extends MusicBeatState
 		DiscordClient.changePresence("In the Language Selector Menu", null);
 		#end
 
+
 		cameraGame = new FlxCamera();
 		FlxG.cameras.reset(cameraGame);
 		FlxG.cameras.setDefaultDrawTarget(cameraGame, true);
@@ -186,7 +187,7 @@ class LanguageSelectorState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.camera.shake(1.5, 0.5);
+			FlxG.camera.shake(0.55, 0.5);
 		}
 
 		if (controls.ACCEPT)
@@ -197,6 +198,20 @@ class LanguageSelectorState extends MusicBeatState
 				ClientPrefs.saveSettings();
 				LanguageHandler.regenerateLang(language[currentlySelected][0]);
 				MusicBeatState.switchState(new TitleState());
+			}
+		}
+
+		var languageTarget:Int = 0;
+		for (item in groupLanguage.members) {
+			item.targetY = languageTarget - currentlySelected;
+			languageTarget++;
+
+			item.alpha = 0.6;
+			// item.setGraphicSize(Std.int(item.width * 0.8));
+
+			if (item.targetY == 0) {
+				item.alpha = 1;
+				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
 	}
