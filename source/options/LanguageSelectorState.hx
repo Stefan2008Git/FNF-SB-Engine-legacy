@@ -12,7 +12,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import haxe.Json;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import states.FlashingScreenState;
 import states.MainMenuState;
 import states.TitleState;
 
