@@ -181,16 +181,10 @@ class LanguageSelectorState extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			if (firstLaunch) {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-			}
-			else {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
-				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
-				MusicBeatState.switchState(new options.OptionsState());
-
-			}
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+			MusicBeatState.switchState(new options.OptionsState());
 		}
 
 		if (controls.ACCEPT)
