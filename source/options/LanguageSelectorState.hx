@@ -21,8 +21,11 @@ class LanguageSelectorState extends MusicBeatState
 	private var groupLanguage:FlxTypedGroup<Alphabet>;
 
 	private static var currentlySelected:Int = 0;
+	private var cameraGame:FlxCamera;
 	public static var background:FlxSprite;
 	public static var velocityBackground:FlxBackdrop;
+	public var cameraFollow:FlxObject;
+	public var cameraFollowPosition:FlxObject;
 	public static var firstLaunch:Bool = false;
 	
 	var language:Array<Array<String>> = [];
@@ -85,6 +88,10 @@ class LanguageSelectorState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("In the Language Selector Menu", null);
 		#end
+
+		cameraGame = new FlxCamera();
+		FlxG.cameras.reset(cameraGame);
+		FlxG.cameras.setDefaultDrawTarget(cameraGame, true);
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		switch (ClientPrefs.themes) {
@@ -179,11 +186,13 @@ class LanguageSelectorState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			FlxG.camera.shake(1.5, 0.5);
 		}
 
 		if (controls.ACCEPT)
 		{	
-			if (firstLaunch) {
+			if (!firstLaunch) {
+				firstLaunch = true; // Is required for Android because the basic bool is setuped to be false. Silly TomyGamy
 				ClientPrefs.language = language[currentlySelected][0];
 				ClientPrefs.saveSettings();
 				LanguageHandler.regenerateLang(language[currentlySelected][0]);
