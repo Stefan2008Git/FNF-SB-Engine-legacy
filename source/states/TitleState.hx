@@ -131,6 +131,8 @@ class TitleState extends MusicBeatState {
 			FlxG.log.advanced("You dont have language setuped!");
 			trace("You dont have language setuped! Attempting to switch on language menu...");
 			options.LanguageSelectorState.firstLaunch = true;
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new options.LanguageSelectorState());
 			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Language Menu (Selecting the first language)";
 		}
