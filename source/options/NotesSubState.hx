@@ -58,9 +58,9 @@ class NotesSubState extends MusicBeatSubstate
 		add(grpNumbers);
 
 		#if android
-		resetText = new FlxText(12, FlxG.height - 40, "Press C to reset selected note.", 80);
+		resetText = new FlxText(12, FlxG.height - 40, LanguageHandler.resetNoteColorTxtAndroid, 80);
 		#else
-		resetText = new FlxText(12, FlxG.height - 40, "Press RESET to reset selected note.", 80);
+		resetText = new FlxText(12, FlxG.height - 40, LanguageHandler.resetNoteColorTxt, 80);
 		#end
 		switch (ClientPrefs.gameStyle) {
             case 'Psych Engine':
@@ -94,7 +94,7 @@ class NotesSubState extends MusicBeatSubstate
 			shaderArray.push(newShader);
 		}
 
-		hsbText = new Alphabet(0, 0, "Hue    Saturation  Brightness", false);
+		hsbText = new Alphabet(0, 0, LanguageHandler.hsbTxt, false);
 		hsbText.scaleX = 0.6;
 		hsbText.scaleY = 0.6;
 		add(hsbText);

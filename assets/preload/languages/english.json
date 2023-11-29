@@ -13,9 +13,6 @@
     "glRenderCounterTxt": "\nGL Render: ",
     "glShadingVersionCounterTxt": "\nGL Shading version: ",
 
-    "warningTxtAndroid": "WARNING:\nBe careful when you touch the phone fast!\nYou can break your phone screen if you do that, also\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF: SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: ",
-    "warningTxt": "WARNING:\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version: ",
-
     "galleryTextAndroid": "Press Y for gallery basemant!",
     "secretTextAndroid": "Press BACK for secret screen!",
     "galleryText": "Press G for gallery basemant!",
@@ -27,10 +24,7 @@
 
     "weekScoreTxt": "WEEK SCORE: ",
 
-    "personalBestTxt": "Presonal Best: ",
-    "scoreTxt": "\nSCORES: ",
-    "accruracyTxt": "\nACCRURACY: ",
-    "missesTxt": "\nMISSES: ",
+    "personalBestTxt": "Personal Best: ",
     "freeplayInfo1Android": "Press X to listen to the Song",
     "freeplayInfo2Android": "Press C to open the Gameplay Changers Menu",
     "freeplayInfo3Android": "Press Y to Reset your Score and Accuracy.",
@@ -118,5 +112,23 @@
 	"debugTxt": "DEBUG",
 	"debugKeyOneTxt": "Debug Key 1",
 	"debugKeyTwoTxt": "Debug Key 2",
-	"defaultKeyTxt": "Reset to Default Keys"
+	"defaultKeyTxt": "Reset to Default Keys",
+
+    "resetNoteColorTxtAndroid": "Press C to reset selected note.",
+    "resetNoteColorTxt": "Press RESET to reset selected note.",
+    "hsbTxt": "Hue    Saturation  Brightness",
+
+    "padRight": "Pad-Right",
+    "padLeft": "Pad-Left",
+    "padCustom": "Pad-Custom",
+    "padDuo": "Pad-Duo",
+    "keyboard": "Keyboard",
+    "hitbox": "Hitbox",
+    "resetAndroidControlsTxt": "Reset",
+    "onlyKeyboardTxt": "You dont have any Android Controls!",
+    "tipTxt": "Press BACK on your phone to get back to the options menu",
+    "upPositionTxt": "Button Up X: ",
+    "downPositionTxt ": "Button Down X: ",
+    "leftPositionTxt": "Button Left X:",
+    "rightPositionTxt": "Button Right x:"
 }

@@ -11,7 +11,14 @@ import flixel.input.touch.FlxTouch;
 import openfl.utils.Assets;
 
 class AndroidControlsSubState extends FlxSubState {
-	final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
+	final controlsItems:Array<Array<String>> = [
+		['Pad-Right', LanguageHandler.padRight], 
+		['Pad-Left', LanguageHandler.padLeft],
+		['Pad-Custom', LanguageHandler.padCustom], 
+		['Pad-Duo', LanguageHandler.padDuo],
+		['Hitbox', LanguageHandler.hitbox],
+		['Keyboard', LanguageHandler.keyboard]
+	];
 	var virtualPad:FlxVirtualPad;
 	var hitbox:FlxHitbox;
 	var newHitbox:FlxNewHitbox;
@@ -49,7 +56,7 @@ class AndroidControlsSubState extends FlxSubState {
 		velocityBackground.alpha = 0;
 		add(velocityBackground);
 
-		resetButton = new FlxButton(FlxG.width - 200, 50, 'Reset', function() {
+		resetButton = new FlxButton(FlxG.width - 200, 50, LanguageHandler.resetAndroidControlsTxt, function() {
 			if (resetButton.visible) {
 				virtualPad.buttonUp.x = FlxG.width - 258;
 				virtualPad.buttonUp.y = FlxG.height - 408;
@@ -86,7 +93,7 @@ class AndroidControlsSubState extends FlxSubState {
 		hitbox.visible = false;
 		add(hitbox);
 
-		noAndroidControlsText = new FlxText(0, 50, 0, 'You dont have any Android Controls!', 32);
+		noAndroidControlsText = new FlxText(0, 50, 0, LanguageHandler.onlyKeyboardTxt, 32);
 		inputText = new FlxText(0, 100, 0, '', 32);
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
@@ -120,7 +127,7 @@ class AndroidControlsSubState extends FlxSubState {
 		rightArrow.animation.play('idle');
 		add(rightArrow);
 
-		tipText = new FlxText(10, FlxG.height - 24, 0, 'Press BACK on your phone to get back to the options menu', 16);
+		tipText = new FlxText(10, FlxG.height - 24, 0, LanguageHandler.tipTxt, 16);
 		leftPosition = new FlxText(10, FlxG.height - 64, 0, '', 16);
 		rightPosition = new FlxText(10, FlxG.height - 44, 0, '', 16);
 		downPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
@@ -165,7 +172,7 @@ class AndroidControlsSubState extends FlxSubState {
 		if (FlxG.android.justPressed.BACK || FlxG.android.justReleased.BACK) {
 			AndroidControls.setMode(currentlySelected);
 
-			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom')
+			if (controlsItems[Math.floor(currentlySelected)][0] == 'Pad-Custom')
 				AndroidControls.setCustomMode(virtualPad);
 
 			FlxTransitionableState.skipNextTransOut = true;
@@ -184,7 +191,7 @@ class AndroidControlsSubState extends FlxSubState {
 			else if (touch.overlaps(rightArrow) && touch.justPressed)
 				changeSelection(1);
 
-			if (controlsItems[Math.floor(currentlySelected)] == 'Pad-Custom') {
+			if (controlsItems[Math.floor(currentlySelected)][0] == 'Pad-Custom') {
 				if (buttonBinded) {
 					if (touch.justReleased) {
 						bindButton = null;
@@ -209,16 +216,16 @@ class AndroidControlsSubState extends FlxSubState {
 
 		if (virtualPad != null) {
 			if (virtualPad.buttonUp != null)
-				upPosition.text = 'Button Up X:' + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
+				upPosition.text = LanguageHandler.upPositionTxt + virtualPad.buttonUp.x + ' Y:' + virtualPad.buttonUp.y;
 
 			if (virtualPad.buttonDown != null)
-				downPosition.text = 'Button Down X:' + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
+				downPosition.text = LanguageHandler.downPositionTxt + virtualPad.buttonDown.x + ' Y:' + virtualPad.buttonDown.y;
 
 			if (virtualPad.buttonLeft != null)
-				leftPosition.text = 'Button Left X:' + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
+				leftPosition.text = LanguageHandler.leftPositionTxt + virtualPad.buttonLeft.x + ' Y:' + virtualPad.buttonLeft.y;
 
 			if (virtualPad.buttonRight != null)
-				rightPosition.text = 'Button Right x:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
+				rightPosition.text = LanguageHandler.rightPositionTxt + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
 		}
 	}
 
@@ -230,9 +237,9 @@ class AndroidControlsSubState extends FlxSubState {
 		if (currentlySelected >= controlsItems.length)
 			currentlySelected = 0;
 
-		inputText.text = controlsItems[currentlySelected];
+		inputText.text = controlsItems[currentlySelected][0];
 
-		var daChoice:String = controlsItems[Math.floor(currentlySelected)];
+		var daChoice:String = controlsItems[Math.floor(currentlySelected)][0];
 
 		switch (daChoice) {
 			case 'Pad-Right':

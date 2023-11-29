@@ -131,11 +131,11 @@ class FreeplayState extends MusicBeatState {
 		}
 		add(scoreText);
 
-		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 196, 0xFF000000);
+		scoreBackground = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBackground.alpha = 0.6;
 		add(scoreBackground);
 
-		difficultyText = new FlxText(scoreText.x, scoreText.y + 160, 0, "", 24);
+		difficultyText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		difficultyText.font = scoreText.font;
 		add(difficultyText);
 
@@ -244,7 +244,7 @@ class FreeplayState extends MusicBeatState {
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = LanguageHandler.personalBestTxt + "Info: " + LanguageHandler.scoresTxt + lerpScore + LanguageHandler.accruracyTxt + ' (' + ratingSplit.join('.') + '%)' + LanguageHandler.missesTxt + intendedMisses;
+		scoreText.text = LanguageHandler.personalBestTxt + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;

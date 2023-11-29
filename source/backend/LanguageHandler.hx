@@ -28,10 +28,6 @@ typedef LanguageFile =
 	var glRenderCounterTxt:String;
 	var glShadingVersionCounterTxt:String;
 
-	// Flashing menu
-	var warningTxtAndroid:String;
-	var warningTxt:String;
-
 	// Main menu
 	var galleryTextAndroid:String;
 	var secretTextAndroid:String;
@@ -47,9 +43,6 @@ typedef LanguageFile =
 
 	// Freeplay menu
 	var personalBestTxt:String;
-	var scoresTxt:String;
-	var accruracyTxt:String;
-	var missesTxt:String;
 	var freeplayInfo1Android:String;
 	var freeplayInfo2Android:String;
 	var freeplayInfo3Android:String;
@@ -263,6 +256,7 @@ typedef LanguageFile =
 	var framerateDescription:String;
 
 	// Note color sub option
+	var resetNoteColorTxtAndroid:String;
 	var resetNoteColorTxt:String;
 	var hsbTxt:String;
 
@@ -366,10 +360,6 @@ class LanguageHandler
 	public static var glRenderCounterTxt:String;
 	public static var glShadingVersionCounterTxt:String;
 
-	// Flashing menu
-	public static var warningTxtAndroid:String;
-	public static var warningTxt:String;
-
 	// Main menu
 	public static var galleryTextAndroid:String;
 	public static var secretTextAndroid:String;
@@ -385,9 +375,6 @@ class LanguageHandler
 
 	// Freeplay menu
 	public static var personalBestTxt:String;
-	public static var scoresTxt:String;
-	public static var accruracyTxt:String;
-	public static var missesTxt:String;
 	public static var freeplayInfo1Android:String;
 	public static var freeplayInfo2Android:String;
 	public static var freeplayInfo3Android:String;
@@ -601,6 +588,7 @@ class LanguageHandler
 	public static var framerateDescription:String;
 
 	// Note color sub option
+	public static var resetNoteColorTxtAndroid:String;
 	public static var resetNoteColorTxt:String;
 	public static var hsbTxt:String;
 
@@ -729,10 +717,6 @@ class LanguageHandler
 	glRenderCounterTxt = languageJson.glRenderCounterTxt;
 	glShadingVersionCounterTxt = languageJson.glShadingVersionCounterTxt;
 
-	// Flashing menu
-	warningTxtAndroid = languageJson.warningTxtAndroid;
-	warningTxt = languageJson.warningTxt;
-
 	// Main menu
 	galleryTextAndroid = languageJson.galleryTextAndroid;
 	secretTextAndroid = languageJson.secretTextAndroid;
@@ -748,9 +732,6 @@ class LanguageHandler
 
 	// Freeplay menu
 	personalBestTxt = languageJson.personalBestTxt;
-	scoresTxt = languageJson.scoresTxt;
-	accruracyTxt = languageJson.accruracyTxt;
-	missesTxt = languageJson.missesTxt;
 	freeplayInfo1Android = languageJson.freeplayInfo1Android;
 	freeplayInfo2Android = languageJson.freeplayInfo2Android;
 	freeplayInfo3Android = languageJson.freeplayInfo3Android;
@@ -793,8 +774,8 @@ class LanguageHandler
 	nfBeihuDescription = languageJson.nfBeihuDescription;
 	maJigsaw77Description = languageJson.maJigsaw77Description;
 	goldieDescription = languageJson.goldieDescription;
-	var psychEngineTeamTxt:String;
-	var shadowMarioDescription:String;
+	psychEngineTeamTxt = languageJson.psychEngineTeamTxt;
+	shadowMarioDescription = languageJson.shadowMarioDescription;
 	var riverOakenDescription:String;
 	var formerEngineMemberTxt:String;
 	var bbpanzuDescription:String;
@@ -966,8 +947,9 @@ class LanguageHandler
 	var framerateDescription:String;
 
 	// Note color sub option
-	var resetNoteColorTxt:String;
-	var hsbTxt:String;
+	resetNoteColorTxt = languageJson.resetNoteColorTxt;
+	resetNoteColorTxtAndroid = languageJson.resetNoteColorTxtAndroid;
+	hsbTxt = languageJson.hsbTxt;
 
 	// VisualsUI sub option
 	var flashingLigths:String;

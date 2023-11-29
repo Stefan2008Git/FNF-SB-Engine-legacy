@@ -13,9 +13,6 @@
     "glRenderCounterTxt": "\nGL Render: ",
     "glShadingVersionCounterTxt": "\nGL Shading verzija: ",
 
-    "warningTxtAndroid": "UPOZORENJE:\nBe careful when you touch the phone fast!\nYou can break your phone screen if you do that, also\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF: SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress A to proceed.\nPress B to ignore this message.\nCurrent SB Engine version: ",
-    "warningTxt": "UPOZORENJE:\nFNF': SB Engine contains lua shaders and flashing lights.\n\nFNF': SB Engine are modified Psych Engine with some changes and additions and wasn't meant to be an attack on ShadowMario and/or any other modmakers out there. I'm not aiming for replacing what Friday Night Funkin': Psych Engine was, is and will be. It's made for fun and from the love for the game itself. All of the comparisons between this and other mods are purely coincidental, unless stated otherwise.\n\nNow with that out of the way, I hope you'll enjoy this FNF mod.\nFunk all the way.\nPress ENTER to proceed.\nPress ESCAPE to ignore this message.\nCurrent SB Engine version: ",
-
     "galleryTextAndroid": "Pritisni Y za podrum galerije!",
     "secretTextAndroid": "Pritisni NAZAD za tajni ekran!",
     "galleryText": "Pritisni G za podrum galerije!",
@@ -28,15 +25,12 @@
     "weekScoreTxt": "POEN NEDELJE: ",
 
     "personalBestTxt": "Licni rekord: ",
-    "scoreTxt": "\nPOENI: ",
-    "accruracyTxt": "\nKONCENTRICNOST: ",
-    "missesTxt": "\nGRESKE: ",
     "freeplayInfo1Android": "Pritisni X da poslusas pesmu",
     "freeplayInfo2Android": "Pritisni C da otvoris menu za menjanje igre",
     "freeplayInfo3Android": "Pritisni Y da ponovo podesis poen i koncentricnost.",
     "freeplayInfo1": "Pritisni SPACE da poslusas pesmu",
     "freeplayInfo2": "Pritisni CONTROL da otvoris menu za menjanje igre",
-    "freeplayInfo3": "Pritisni RESET da ponovo podesis poen i koncentricnost.",
+    "freeplayInfo3": "Pritisni RESET da ponovo podesis.",
     "loadingSongText": "Budi spreman da zaigras ovu pesmu...",
 
     "noModsIInstalledTxt": "NEMA TRENUTNO MOD INSTALIRAN\nPRITISNI NAZAD DA IZADJES SA MOD MENU-A",
@@ -89,12 +83,12 @@
     "androidControlsSettings": "Pritisni Y to podesis tvoju vidljivost hitboks, virtualnu dugmad i hitboks stil!",
     "customizableAndroidControls": "Pritisni X da podesis Android kontrole!",
 
-    "beatHitTxt": "Beat Hit!",
-    "ratingOffsetTxt": "Rating Offset: ",
-    "numberOffsetTxt": "Numbers Offset: ",
-    "currentOffsetTxt": "Current offset: ",
-    "acceptComboOffsetTxt": "< Combo Offset (Press Accept to Switch) >",
-    "noteBeatDelayTxt": "< Note/Beat Delay (Press Accept to Switch) >",
+    "beatHitTxt": "Udari Hit!",
+    "ratingOffsetTxt": "Pozicija ocene: ",
+    "numberOffsetTxt": "Broj pozicije: ",
+    "currentOffsetTxt": "Trenutna pozicija: ",
+    "acceptComboOffsetTxt": "< Kombo Pozicija (Pritisni ENTER da predjes) >",
+    "noteBeatDelayTxt": "< Kasnjenje (Pritisni ENTER da predjes) >",
 
     "notesTxt": "STRELICE",
 	"leftNoteTxt": "Levo",
@@ -115,7 +109,25 @@
 	"volumeUpKeyTxt": "Gore",
 	"volumeDownKeyTxt": "Dole",
 	"debugTxt": "OTKLJANJAC GRESAKA",
-	"debugKeyOneTxt": "OG Taster 1",
-	"debugKeyTwoTxt": "OG Taster 2",
-	"defaultKeyTxt": "Podesi na obicne strelice."
+	"debugKeyOneTxt": "Taster 1",
+	"debugKeyTwoTxt": "Taster 2",
+	"defaultKeyTxt": "Podesi na obicne strelice.",
+
+    "resetNoteColorTxtAndroid": "Pritisni C da ponovo podesis trenutnu strelicu.",
+    "resetNoteColorTxt": "Pritisni RESET da ponovo podesis trenutnu strelicu.",
+    "hsbTxt": "Nijansa    Zasicenje  Osvetljenje",
+
+    "padRight": "Dugme-Desno",
+    "padLeft": "Dugme-Levo",
+    "padCustom": "Dugmad",
+    "padDuo": "Dupla-Dugmad",
+    "keyboard": "Tastatura",
+    "hitbox": "Hitboks",
+    "resetAndroidControlsTxt": "Resetuj",
+    "onlyKeyboardTxt": "Nemas trenutno nijednu Android kontrolu!",
+    "tipTxt": "Pritisni NAZAD na tvom telefonu da ides nazad na menu za opcije",
+    "upPositionTxt": "Dugme Gore X: ",
+    "downPositionTxt ": "Dugme Dole X: ",
+    "leftPositionTxt": "Dugme Levo X: ",
+    "rightPositionTxt": "Dugme Desno x: "
 }

@@ -94,13 +94,7 @@ class LanguageSelectorState extends MusicBeatState
 		FlxG.cameras.setDefaultDrawTarget(cameraGame, true);
 
 		background = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		switch (ClientPrefs.themes) {
-			case 'Psych Engine':
-				background.color = 0xFF009900;
-			
-			default:
-				background.color = 0xFF800080;
-		}
+		background.color = 0xFF800080;
 		background.updateHitbox();
 		background.screenCenter();
 		background.antialiasing = ClientPrefs.globalAntialiasing;
@@ -135,7 +129,6 @@ class LanguageSelectorState extends MusicBeatState
 			flags.xAdd = -flags.width - 10;
 			flags.sprTracker = languageText;
 
-			// using a FlxGroup is too much fuss!
 			flagsArray.push(flags);
 			add(flags);
 		}
@@ -186,18 +179,12 @@ class LanguageSelectorState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.camera.shake(0.55, 0.5);
+			FlxG.camera.shake(0.45, 0.5);
 		}
 
 		if (controls.ACCEPT)
 		{	
-			if (!firstLaunch) {
-				firstLaunch = true; // Is required for Android because the basic bool is setuped to be false. Silly TomyGamy
-				ClientPrefs.language = language[currentlySelected][0];
-				ClientPrefs.saveSettings();
-				LanguageHandler.regenerateLang(language[currentlySelected][0]);
-				MusicBeatState.switchState(new TitleState());
-			}
+			changeLanguage();
 		}
 
 		var languageTarget:Int = 0;
@@ -213,6 +200,13 @@ class LanguageSelectorState extends MusicBeatState
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
+	}
+
+	function changeLanguage() {
+		ClientPrefs.language = language[currentlySelected][0];
+		ClientPrefs.saveSettings();
+		LanguageHandler.regenerateLang(language[currentlySelected][0]);
+		MusicBeatState.switchState(new TitleState());
 	}
 
 	function changeSelection(change:Int = 0)
