@@ -178,8 +178,9 @@ class LanguageSelectorState extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.camera.shake(0.45, 0.5);
+			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+			MusicBeatState.switchState(new options.OptionsState());
 		}
 
 		if (controls.ACCEPT)
