@@ -207,8 +207,6 @@ class LanguageSelectorState extends MusicBeatState
 		ClientPrefs.language = language[currentlySelected][0];
 		ClientPrefs.saveSettings();
 		LanguageHandler.regenerateLang(language[currentlySelected][0]);
-		FlxTransitionableState.skipNextTransIn = true;
-		FlxTransitionableState.skipNextTransOut = true;
 		MusicBeatState.switchState(new TitleState());
 	}
 
