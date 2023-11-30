@@ -124,13 +124,12 @@ class TitleState extends MusicBeatState {
 		MusicBeatState.switchState(new ChartingState());
 		#else
 		#if MODS_ALLOWED
-		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json')))) {
+		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json' + FlxG.save.data.languageHandler == null && !LanguageSelectorState.firstLaunch)))) {
 		#else
-		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json'))) {
+		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json' + FlxG.save.data.languageHandler == null && !LanguageSelectorState.firstLaunch))) {
 		#end
 			FlxG.log.advanced("You dont have language setuped!");
 			trace("You dont have language setuped! Attempting to switch on language menu...");
-			options.LanguageSelectorState.firstLaunch = true;
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new options.LanguageSelectorState());
