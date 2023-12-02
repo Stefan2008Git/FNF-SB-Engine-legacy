@@ -3,8 +3,7 @@
 [![Star History Chart](https://api.star-history.com/svg?repos=Stefan2008Git/FNF-SB-Engine&type=Timeline)](https://star-history.com/#Stefan2008Git/FNF-SB-Engine&Timeline)
 
 [![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
-
-<img src="https://discordapp.com/api/guilds/1088890563396382720/widget.png?style=banner4" alt="Discord Banner 4"/>
+[![Discord](https://img.shields.io/discord/1088890563396382720?label=discord)](https://discord.gg/dEf8aK8ygG)
 
 Used and coded on: [Psych Engine](https://gamebanana.com/mods/309789).
 
