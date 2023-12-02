@@ -1,5 +1,6 @@
 # Friday Night Funkin': SB Engine
 ![](https://raw.githubusercontent.com/Stefan2008Git/FNF-SB-Engine/main/documents/SB-Engine.png)
+[![Star History Chart](https://api.star-history.com/svg?repos=Stefan2008Git/FNF-SB-Engine&type=Timeline)](https://star-history.com/#Stefan2008Git/FNF-SB-Engine&Timeline)
 
 [![GitHub Releases](https://img.shields.io/github/downloads/Stefan2008Git/FNF-SB-Engine/total?style=flat-square)](https://github.com/Stefan2008Git/FNF-SB-Engine/releases)
 
