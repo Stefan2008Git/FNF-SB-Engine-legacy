@@ -408,7 +408,7 @@ class MainMenuState extends MusicBeatState
 		selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
 		FlxTween.tween(tipText, {alpha: 0}, 1, {
 			ease: FlxEase.linear,
-			onComplete: function(freak:FlxTween) {
+			onComplete: function(textValue:FlxTween) {
 				if (selectedText != lastString) {
 					tipText.text = selectedText;
 					lastString = selectedText;
@@ -421,7 +421,7 @@ class MainMenuState extends MusicBeatState
 
 				FlxTween.tween(tipText, {alpha: 1}, 1, {
 					ease: FlxEase.linear,
-					onComplete: function(freak:FlxTween) {
+					onComplete: function(textValue:FlxTween) {
 						isTweening = false;
 					}
 				});

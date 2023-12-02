@@ -74,6 +74,7 @@ class CreditsState extends MusicBeatState {
 			[LanguageHandler.sbEngineTeamTxt],
 			['Stefan2008', 'stefan', LanguageHandler.stefan2008Description, 'https://www.youtube.com/channel/UC9Nwf21GbaEm_h0Ka9gxZjQ', '800080'],
 			['Nury', 'nury', LanguageHandler.nuryDescription, 'https://youtube.com/@Nuury06', '8A8AFF'],
+			['Hutaro', 'hutaroz', LanguageHandler.hutarozDescription, 'https://youtube.com/@hutaroz?si=1-qCf4MucDxMpL12', 'F8F58F'],
 			['MaysLastPlay', 'mays', LanguageHandler.maysLastPlayDescription, 'https://www.youtube.com/channel/UCjTi9Hfl1Eb5Bgk5gksmsbA', '5E99DF'],
 			['Fearester2008', 'fearester', LanguageHandler.fearester2008Description, 'https://www.youtube.com/@fearester1282', '04435a'],
 			['SunBurntTails', 'sun', LanguageHandler.sunBurntTailsDescription, 'https://www.youtube.com/channel/UCooFjEgVBZyTSx_hbcnqclw', '3E813A' ],

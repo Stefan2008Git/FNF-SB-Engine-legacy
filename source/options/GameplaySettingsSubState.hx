@@ -139,6 +139,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		    "If unchecked, this options is gonna hide the botplay text from time bar\nto show normal time bar", 'botplayOnTimebar', 'bool', false);
 		addOption(option);
 
+		var option:Option = new Option('Quick note angle spin',
+			"If unckecked, this option is gonna make note spinnable on go counter from Bambi Purgatory\nNOTE: If WhatsDown wants me top remove hims code, i will to do that!", 'noteAngleSpin', 'bool', true);
+		addOption(option);
+
 		#if android
 		var option:Option = new Option('Vibrations', "If unchecked, your phone will not vibrate.", 'vibration', 'bool', true);
 		addOption(option);

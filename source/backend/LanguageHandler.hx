@@ -65,6 +65,7 @@ typedef LanguageFile =
 	var sbEngineTeamTxt:String;
 	var stefan2008Description:String;
 	var nuryDescription:String;
+	var hutarozDescription:String;
 	var maysLastPlayDescription:String;
 	var fearester2008Description:String;
 	var sunBurntTailsDescription:String;
@@ -341,6 +342,59 @@ typedef LanguageFile =
 	var downPositionTxt:String;
 	var leftPositionTxt:String;
 	var rightPositionTxt:String;
+
+	// PlayState (aka. In-game text)
+	var youSuckSbRatingNameTxt:String;
+	var freakSbRatingNameTxt:String;
+	var reallyBadSbRatingNameTxt:String;
+	var badSbRatingNameTxt:String;
+	var niceSbRatingNameTxt:String;
+	var epicSbRatingNameTxt:String;
+	var goodSbRatingNameTxt:String;
+	var veryGoodSbRatingNameTxt:String;
+	var sickSbRatingNameTxt:String;
+	var perfectSbRatingNameTxt:String; // SB Engine
+	var youSuckDefaultRatingNameTxt:String;
+	var freakDefaultRatingNameTxt:String;
+	var reallyBadDefaultRatingNameTxt:String;
+	var badDefaultRatingNameTxt:String;
+	var niceDefaultRatingNameTxt:String;
+	var epicDefaultRatingNameTxt:String;
+	var goodDefaultRatingNameTxt:String;
+	var veryGoodDefaultRatingNameTxt:String;
+	var sickDefaultRatingNameTxt:String;
+	var perfectDefaultRatingNameTxt:String; // Psych Engine
+	/* var youSuckDeafultNullRatingNameTxt:String;
+	var freakDefaultNullRatingNameTxt:String;
+	var reallyBadDefaultNullRatingNameTxt:String;
+	var badDefaultNullRatingNameTxt:String;
+	var niceDefaultNullRatingNameTxt:String;
+	var epicDefaultNullRatingNameTxt:String;
+	var goodDefaultNullRatingNameTxt:String;
+	var veryGoodDefaultNullRatingNameTxt:String;
+	var sickDefaultNullRatingNameTxt:String;
+	var perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	var scoreTxt:String;
+	var missesTxt:String;
+	var ratingAndFCNameTxt:String;
+	var notePerSecondTxt:String;
+	var comboBreaksTxt:String;
+	var averageTxt:String;
+	var healthTxt:String;
+	var accruracyTxt:String;
+	var impressiveTxt:String;
+	var extraImpressiveTxt:String;
+	var sickTxt:String;
+	var goodTxt:String;
+	var badTxt:String;
+	var freakTxt:String;
+	var shitTxt:String;
+	var comboBreakTxt:String;
+	var songMissesTxt:String;
+	var totalNoteHitTxt:String;
+	var comboTxt:String;
+	var maxComboTxt:String;
+	var npsJudgeTxt:String;
 }
 
 class LanguageHandler
@@ -397,6 +451,7 @@ class LanguageHandler
 	public static var sbEngineTeamTxt:String;
 	public static var stefan2008Description:String;
 	public static var nuryDescription:String;
+	public static var hutarozDescription:String;
 	public static var maysLastPlayDescription:String;
 	public static var fearester2008Description:String;
 	public static var sunBurntTailsDescription:String;
@@ -674,6 +729,59 @@ class LanguageHandler
 	public static var leftPositionTxt:String;
 	public static var rightPositionTxt:String;
 
+	// PlayState (aka. In-game text)
+	public static var youSuckSbRatingNameTxt:String;
+	public static var freakSbRatingNameTxt:String;
+	public static var reallyBadSbRatingNameTxt:String;
+	public static var badSbRatingNameTxt:String;
+	public static var niceSbRatingNameTxt:String;
+	public static var epicSbRatingNameTxt:String;
+	public static var goodSbRatingNameTxt:String;
+	public static var veryGoodSbRatingNameTxt:String;
+	public static var sickSbRatingNameTxt:String;
+	public static var perfectSbRatingNameTxt:String; // SB Engine
+	public static var youSuckDefaultRatingNameTxt:String;
+	public static var freakDefaultRatingNameTxt:String;
+	public static var reallyBadDefaultRatingNameTxt:String;
+	public static var badDefaultRatingNameTxt:String;
+	public static var niceDefaultRatingNameTxt:String;
+	public static var epicDefaultRatingNameTxt:String;
+	public static var goodDefaultRatingNameTxt:String;
+	public static var veryGoodDefaultRatingNameTxt:String;
+	public static var sickDefaultRatingNameTxt:String;
+	public static var perfectDefaultRatingNameTxt:String; // Psych Engine
+	/* public static var youSuckDeafultNullRatingNameTxt:String;
+	public static var freakDefaultNullRatingNameTxt:String;
+	public static var reallyBadDefaultNullRatingNameTxt:String;
+	public static var badDefaultNullRatingNameTxt:String;
+	public static var niceDefaultNullRatingNameTxt:String;
+	public static var epicDefaultNullRatingNameTxt:String;
+	public static var goodDefaultNullRatingNameTxt:String;
+	public static var veryGoodDefaultNullRatingNameTxt:String;
+	public static var sickDefaultNullRatingNameTxt:String;
+	public static var perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	public static var scoreTxt:String;
+	public static var missesTxt:String;
+	public static var ratingAndFCNameTxt:String;
+	public static var notePerSecondTxt:String;
+	public static var comboBreaksTxt:String;
+	public static var averageTxt:String;
+	public static var healthTxt:String;
+	public static var accruracyTxt:String;
+	public static var impressiveTxt:String;
+	public static var extraImpressiveTxt:String;
+	public static var sickTxt:String;
+	public static var goodTxt:String;
+	public static var badTxt:String;
+	public static var freakTxt:String;
+	public static var shitTxt:String;
+	public static var comboBreakTxt:String;
+	public static var songMissesTxt:String;
+	public static var totalNoteHitTxt:String;
+	public static var comboTxt:String;
+	public static var maxComboTxt:String;
+	public static var npsJudgeTxt:String;
+
 	public static var languagePath:String;
 
 	public static function regenerateLang(lang:String)
@@ -754,6 +862,7 @@ class LanguageHandler
 	sbEngineTeamTxt = languageJson.sbEngineTeamTxt;
 	stefan2008Description = languageJson.stefan2008Description;
 	nuryDescription = languageJson.nuryDescription;
+	hutarozDescription = languageJson.hutarozDescription;
 	maysLastPlayDescription = languageJson.maysLastPlayDescription;
 	fearester2008Description = languageJson.fearester2008Description;
 	sunBurntTailsDescription = languageJson.sunBurntTailsDescription;
@@ -1032,5 +1141,58 @@ class LanguageHandler
 	downPositionTxt = languageJson.downPositionTxt;
 	leftPositionTxt = languageJson.leftPositionTxt;
 	rightPositionTxt = languageJson.rightPositionTxt;
+
+	// PlayState (aka. In-game text)
+	youSuckSbRatingNameTxt = languageJson.youSuckSbRatingNameTxt;
+	freakSbRatingNameTxt = languageJson.freakSbRatingNameTxt;
+	reallyBadSbRatingNameTxt = languageJson.reallyBadSbRatingNameTxt;
+	badSbRatingNameTxt = languageJson.badSbRatingNameTxt;
+	niceSbRatingNameTxt = languageJson.niceSbRatingNameTxt;
+	epicSbRatingNameTxt = languageJson.epicSbRatingNameTxt;
+	goodSbRatingNameTxt = languageJson.goodSbRatingNameTxt;
+	veryGoodSbRatingNameTxt = languageJson.veryGoodSbRatingNameTxt;
+	sickSbRatingNameTxt = languageJson.sickSbRatingNameTxt;
+	perfectSbRatingNameTxt = languageJson.perfectSbRatingNameTxt; // SB Engine
+	youSuckDefaultRatingNameTxt = languageJson.youSuckDefaultRatingNameTxt;
+	freakDefaultRatingNameTxt = languageJson.freakDefaultRatingNameTxt;
+	reallyBadDefaultRatingNameTxt = languageJson.reallyBadDefaultRatingNameTxt;
+	badDefaultRatingNameTxt = languageJson.badDefaultRatingNameTxt;
+	niceDefaultRatingNameTxt = languageJson.niceDefaultRatingNameTxt;
+	epicDefaultRatingNameTxt = languageJson.epicDefaultRatingNameTxt;
+	goodDefaultRatingNameTxt = languageJson.goodDefaultRatingNameTxt;
+	veryGoodDefaultRatingNameTxt = languageJson.veryGoodDefaultRatingNameTxt;
+	sickDefaultRatingNameTxt = languageJson.sickDefaultRatingNameTxt;
+	perfectDefaultRatingNameTxt = languageJson.perfectDefaultRatingNameTxt; // Psych Engine
+	/*youSuckDeafultNullRatingNameTxt:String;
+	freakDefaultNullRatingNameTxt:String;
+	reallyBadDefaultNullRatingNameTxt:String;
+	badDefaultNullRatingNameTxt:String;
+	niceDefaultNullRatingNameTxt:String;
+	epicDefaultNullRatingNameTxt:String;
+	goodDefaultNullRatingNameTxt:String;
+	veryGoodDefaultNullRatingNameTxt:String;
+	sickDefaultNullRatingNameTxt:String;
+	perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	scoreTxt = languageJson.scoreTxt;
+	missesTxt = languageJson.missesTxt;
+	ratingAndFCNameTxt = languageJson.ratingAndFCNameTxt;
+	notePerSecondTxt = languageJson.notePerSecondTxt;
+	comboBreaksTxt = languageJson.comboBreaksTxt;
+	averageTxt = languageJson.averageTxt;
+	healthTxt = languageJson.healthTxt;
+	accruracyTxt = languageJson.accruracyTxt;
+	impressiveTxt = languageJson.impressiveTxt;
+	extraImpressiveTxt = languageJson.extraImpressiveTxt;
+	sickTxt = languageJson.sickTxt;
+	goodTxt = languageJson.goodTxt;
+	badTxt = languageJson.badTxt;
+	freakTxt = languageJson.freakTxt;
+	shitTxt = languageJson.shitTxt;
+	comboBreakTxt = languageJson.comboBreakTxt;
+	songMissesTxt = languageJson.songMissesTxt;
+	totalNoteHitTxt = languageJson.totalNoteHitTxt;
+	comboTxt = languageJson.comboTxt;
+	maxComboTxt = languageJson.maxComboTxt;
+	npsJudgeTxt = languageJson.npsJudgeTxt;
 	}
 }

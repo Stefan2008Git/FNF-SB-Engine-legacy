@@ -16,13 +16,9 @@ class FreeplayState extends MusicBeatState {
 	var songs:Array<SongMetaData> = [];
 
 	var selector:FlxText;
-
 	private static var currentlySelected:Int = 0;
-
 	var currentlyDifficulty:Int = -1;
-
 	private static var lastDifficultyName:String = '';
-
 
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
@@ -221,6 +217,7 @@ class FreeplayState extends MusicBeatState {
 	public static var vocals:FlxSound = null;
 	var holdTime:Float = 0;
 	var controlsActive:Bool = true;
+	var changeSectionControl:Bool = true;
 
 	override function update(elapsed:Float) {
 		if (!selectedThing)
@@ -265,11 +262,11 @@ class FreeplayState extends MusicBeatState {
 		if (shift && controlsActive) shiftMult = 3;
 
 		if (songs.length > 1) {
-			if (upP && controlsActive) {
+			if (upP && changeSectionControl) {
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
-			if (downP && controlsActive) {
+			if (downP && changeSectionControl) {
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
@@ -286,11 +283,11 @@ class FreeplayState extends MusicBeatState {
 			}
 		}
 
-		if (controls.UI_LEFT_P && controlsActive)
+		if (controls.UI_LEFT_P && changeSectionControl)
 			changeDifficulty(-1);
-		else if (controls.UI_RIGHT_P && controlsActive)
+		else if (controls.UI_RIGHT_P && changeSectionControl)
 			changeDifficulty(1);
-		else if (upP || downP && controlsActive)
+		else if (upP || downP && changeSectionControl)
 			changeDifficulty();
 
 		if (back && controlsActive)
@@ -344,6 +341,7 @@ class FreeplayState extends MusicBeatState {
 		else if (accepted)
 		{
 			controlsActive = false;
+			changeSectionControl = false;
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[currentlySelected].songName);
 			var songValue:String = Highscore.formatSong(songLowercase, currentlyDifficulty);

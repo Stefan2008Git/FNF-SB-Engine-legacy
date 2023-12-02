@@ -399,45 +399,45 @@ class PlayState extends MusicBeatState {
 		ratingStuff = switch (ClientPrefs.gameStyle) {
 		    case 'SB Engine':
 			    [
-				    ['You are gonna die!', 0.2], // From 0% to 19%
-                    ['Freak', 0.4], // From 20% to 39%
-                    ['Really bad', 0.5], // From 40% to 49%
-                    ['Bad', 0.6], // From 50% to 59%
-                    ['Nice', 0.69], // From 60% to 68%
-                    ['Epic', 0.7], // 69%
-                    ['Good', 0.8], // From 70% to 79%
-                    ['Very good', 0.9], // From 80% to 89%
-                    ['Sick!', 1], // From 90% to 99%
-                    ['Perfect!!', 1] // The value on this one isn't used actually, since Perfect is always "1"
+				    [LanguageHandler.youSuckSbRatingNameTxt, 0.2], // From 0% to 19%
+                    [LanguageHandler.freakSbRatingNameTxt, 0.4], // From 20% to 39%
+                    [LanguageHandler.reallyBadSbRatingNameTxt, 0.5], // From 40% to 49%
+                    [LanguageHandler.badSbRatingNameTxt, 0.6], // From 50% to 59%
+                    [LanguageHandler.niceSbRatingNameTxt, 0.69], // From 60% to 68%
+                    [LanguageHandler.epicSbRatingNameTxt, 0.7], // 69%
+                    [LanguageHandler.goodSbRatingNameTxt, 0.8], // From 70% to 79%
+                    [LanguageHandler.veryGoodSbRatingNameTxt, 0.9], // From 80% to 89%
+                    [LanguageHandler.sickSbRatingNameTxt, 1], // From 90% to 99%
+                    [LanguageHandler.perfectSbRatingNameTxt, 1] // The value on this one isn't used actually, since Perfect is always "1"
 		        ];
 
 			case 'Psych Engine':
 			    [
-			        ['You Suck!', 0.2], //From 0% to 19%
-				    ['####', 0.4], //From 20% to 39%
-				    ['Bad', 0.5], //From 40% to 49%
-				    ['Bruh', 0.6], //From 50% to 59%
-				    ['Meh', 0.69], //From 60% to 68%
-				    ['Nice', 0.7], //69%
-				    ['Good', 0.8], //From 70% to 79%
-				    ['Great', 0.9], //From 80% to 89%
-				    ['Sick!', 1], //From 90% to 99%
-				    ['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+				    [LanguageHandler.youSuckDefaultRatingNameTxt, 0.2], // From 0% to 19%
+                    [LanguageHandler.freakDefaultRatingNameTxt, 0.4], // From 20% to 39%
+                    [LanguageHandler.reallyBadDefaultRatingNameTxt, 0.5], // From 40% to 49%
+                    [LanguageHandler.badDefaultRatingNameTxt, 0.6], // From 50% to 59%
+                    [LanguageHandler.niceDefaultRatingNameTxt, 0.69], // From 60% to 68%
+                    [LanguageHandler.epicDefaultRatingNameTxt, 0.7], // 69%
+                    [LanguageHandler.goodDefaultRatingNameTxt, 0.8], // From 70% to 79%
+                    [LanguageHandler.veryGoodDefaultRatingNameTxt, 0.9], // From 80% to 89%
+                    [LanguageHandler.sickDefaultRatingNameTxt, 1], // From 90% to 99%
+                    [LanguageHandler.perfectDefaultRatingNameTxt, 1] // The value on this one isn't used actually, since Perfect is always "1"
 		        ];
 
 			// in-case none of the above apply (NEEDED)
 			default:
-			    [
-			        ['You Suck!', 0.2], //From 0% to 19%
-				    ['####', 0.4], //From 20% to 39%
-				    ['Bad', 0.5], //From 40% to 49%
-				    ['Bruh', 0.6], //From 50% to 59%
-				    ['Meh', 0.69], //From 60% to 68%
-				    ['Nice', 0.7], //69%
-				    ['Good', 0.8], //From 70% to 79%
-				    ['Great', 0.9], //From 80% to 89%
-				    ['Sick!', 1], //From 90% to 99%
-				    ['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+				[
+					['You Suck!', 0.2], //From 0% to 19%
+					['Shit', 0.4], //From 20% to 39%
+					['Bad', 0.5], //From 40% to 49%
+					['Bruh', 0.6], //From 50% to 59%
+					['Meh', 0.69], //From 60% to 68%
+					['Nice', 0.7], //69%
+					['Good', 0.8], //From 70% to 79%
+					['Great', 0.9], //From 80% to 89%
+					['Sick!', 1], //From 90% to 99%
+					['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 		        ];
 		}
 
@@ -1367,17 +1367,17 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMissess: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} + LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} +LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		}
 		judgementCounterTxt.borderSize = 2;
 		judgementCounterTxt.borderQuality = 2;
@@ -1786,6 +1786,11 @@ class PlayState extends MusicBeatState {
 		CustomFadeTransition.nextCamera = camOther;
 		if (eventNotes.length < 1)
 			checkEventNote();
+	}
+
+	static public function quickSpin(sprite)
+	{
+		FlxTween.angle(sprite, 0, 360, 0.5, { type: FlxTweenType.ONESHOT, ease: FlxEase.quadInOut, startDelay: 0, loopDelay: 0});
 	}
 
 	#if (!flash && sys)
@@ -2407,6 +2412,12 @@ class PlayState extends MusicBeatState {
 					case 3:
 						countdownGo = createCountdownSprite(introAlts[2], antialias);
 						tick = GO;
+						strumLineNotes.forEach(function(note)
+						{
+							if (ClientPrefs.noteAngleSpin) {
+								quickSpin(note);
+							}
+						});
 					case 4:
 						tick = START;
 				}
@@ -2425,6 +2436,12 @@ class PlayState extends MusicBeatState {
 				swagCounter++;
 			}, 4);
 		}
+		strumLineNotes.forEach(function(note)
+		{
+			if (ClientPrefs.noteAngleSpin) {
+				quickSpin(note);
+			}
+		});
 	}
 
 	inline private function createCountdownSprite(image:String, antialias:Bool):FlxSprite
@@ -2492,24 +2509,24 @@ class PlayState extends MusicBeatState {
 	public function updateScore(miss:Bool = false) {
 		switch (ClientPrefs.gameStyle) {
 			case 'Psych Engine':
-				scoreTxt.text = 'Score: ' + songScore  + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+				scoreTxt.text = LanguageHandler.scoreTxt + songScore  + LanguageHandler.missesTxt + songMisses + LanguageHandler.ratingAndFCNameTxt + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 				
 			default:
-				scoreTxt.text = 'Score: ' + songScore + ' // NPS: ' + nps + ' // Average: ' + Math.round(averageMs) + 'ms' + ' // Combo Breaks: ' + songMisses + ' // Health: ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + ' // Accruracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
+				scoreTxt.text = LanguageHandler.scoreTxt + songScore + LanguageHandler.notePerSecondTxt + nps + LanguageHandler.averageTxt + Math.round(averageMs) + 'ms' + LanguageHandler.comboBreaksTxt + songMisses + LanguageHandler.healthTxt + ' ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + LanguageHandler.accruracyTxt + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
 		}
 
 		if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMissess: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} + LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMissess: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} + LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		}
 
 		callOnScripts('onUpdateScore', 'updateScore', [miss]);
@@ -3287,7 +3304,9 @@ class PlayState extends MusicBeatState {
 				if (npsCounter.getTime() + 2000 < Date.now().getTime())
 			notesHitArray.remove(npsCounter);
 		}
-		nps = Math.floor(notesHitArray.length / 2);
+		if (!cpuControlled) {
+			nps = Math.floor(notesHitArray.length / 2);
+		}
 
 		healthCounter = health * 100;
 
@@ -5777,17 +5796,17 @@ class PlayState extends MusicBeatState {
 		setOnLuas('ratingFC', ratingFC);
 
 		if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'With Misses' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'Impressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMissess: ${songMisses}';
+			judgementCounterTxt.text = LanguageHandler.impressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'SB Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nFreaks: ${freaks}\nCombo Breaks: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} + LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.freakTxt + ${freaks} + LanguageHandler.comboBreakTxt + ${songMisses};
 		} else if (ClientPrefs.judgementCounterStyle == 'Better Judge' && ClientPrefs.gameStyle == 'Psych Engine') {
-			judgementCounterTxt.text = 'NPS: ${nps}\nImpressives: ${impressives}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\n####s: ${freaks}\nMisses: ${songMisses}\nTotal Notes Hit: ${totalNotes}\nCombo: ${combo}\nMax Combo: ${maxCombo}';
+			judgementCounterTxt.text = LanguageHandler.totalNoteHitTxt + ${totalNotes} + LanguageHandler.comboTxt + ${combo} + LanguageHandler.maxComboTxt + ${maxCombo} +LanguageHandler.npsJudgeTxt + ${nps} + LanguageHandler.extraImpressiveTxt + ${impressives} + LanguageHandler.sickTxt + ${sicks} + LanguageHandler.goodTxt + ${goods} + LanguageHandler.badTxt + ${bads} + LanguageHandler.shitTxt + ${freaks} + LanguageHandler.songMissesTxt + ${songMisses};
 		}
 		setOnHScript('rating', ratingPercent);
 		setOnHScript('ratingName', ratingName);

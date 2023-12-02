@@ -39,6 +39,7 @@ class ClientPrefs {
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var cameraMovement:Bool = false;
+	public static var noteAngleSpin:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var watermark:Bool = true;
 	public static var judgementCounter:Bool = true;
@@ -161,6 +162,7 @@ class ClientPrefs {
 		FlxG.save.data.gpuCaching = gpuCaching;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.cameraMovement = cameraMovement;
+		FlxG.save.data.noteAngleSpin = noteAngleSpin;
 		FlxG.save.data.colorblindMode = colorblindMode;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
@@ -268,6 +270,7 @@ class ClientPrefs {
 		FlxG.save.data.gpuCaching != null ? gpuCaching = FlxG.save.data.gpuCaching : gpuCaching = false;
 		FlxG.save.data.camZooms != null ? camZooms = FlxG.save.data.camZooms : camZooms = true;
 		FlxG.save.data.cameraMovement != null ? cameraMovement = FlxG.save.data.cameraMovement : cameraMovement = false;
+		FlxG.save.data.noteAngleSpin != null ? noteAngleSpin = FlxG.save.data.noteAngleSpin : noteAngleSpin = true;
 		FlxG.save.data.hideHud != null ? hideHud = FlxG.save.data.hideHud : hideHud = false;
 		FlxG.save.data.watermark != null ? watermark = FlxG.save.data.watermark : watermark = true;
 		FlxG.save.data.judgementCounter != null ? judgementCounter = FlxG.save.data.judgementCounter : judgementCounter = true;

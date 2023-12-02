@@ -124,9 +124,9 @@ class TitleState extends MusicBeatState {
 		MusicBeatState.switchState(new ChartingState());
 		#else
 		#if MODS_ALLOWED
-		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json' + FlxG.save.data.languageHandler == null && !LanguageSelectorState.firstLaunch)))) {
+		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json')))) {
 		#else
-		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json' + FlxG.save.data.languageHandler == null && !LanguageSelectorState.firstLaunch))) {
+		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json'))) {
 		#end
 			FlxG.log.advanced("You dont have language setuped!");
 			trace("You dont have language setuped! Attempting to switch on language menu...");
@@ -207,7 +207,11 @@ class TitleState extends MusicBeatState {
 		}
 		add(background);
 
-		fridayNightFunkinLogo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
+		if (ClientPrefs.objects) {
+			fridayNightFunkinLogo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
+		} else {
+			fridayNightFunkinLogo = new FlxSprite(-150, -100);
+		}
 		fridayNightFunkinLogo.frames = Paths.getSparrowAtlas('logoBumpin');
 		fridayNightFunkinLogo.antialiasing = ClientPrefs.globalAntialiasing;
 		fridayNightFunkinLogo.animation.addByPrefix('bump', 'logo bumpin', 24, false);
@@ -404,49 +408,51 @@ class TitleState extends MusicBeatState {
 					titleText.animation.play('press');
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
-				FlxTween.tween(fridayNightFunkinLogo, {x: -700}, 2, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) fridayNightFunkinLogo.kill()
-				});
-				FlxTween.tween(fridayNightFunkinLogo, {alpha: 0}, 1.3, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) {
-						fridayNightFunkinLogo.kill();
-					}
-				});
-				FlxTween.tween(gfDance, {x: 1350}, 2, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) gfDance.kill()
-				});
-				FlxTween.tween(gfDance, {alpha: 0}, 1.3, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) {
-						gfDance.kill();
-					}
-				});
-				FlxTween.tween(titleText, {y: 700}, 2, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) titleText.kill()
-				});
-				FlxTween.tween(titleText, {alpha: 0}, 1.3, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) {
-						titleText.kill();
-					}
-				});
-				FlxTween.tween(gradientBar, {alpha: 0}, 1.3, {
-					ease: FlxEase.backInOut,
-					type: ONESHOT,
-					onComplete: function(twn:FlxTween) {
-						gradientBar.kill();
-					}
-				});
+				if (ClientPrefs.objects) {
+					FlxTween.tween(fridayNightFunkinLogo, {x: -700}, 2, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) fridayNightFunkinLogo.kill()
+					});
+					FlxTween.tween(fridayNightFunkinLogo, {alpha: 0}, 1.3, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) {
+							fridayNightFunkinLogo.kill();
+						}
+					});
+					FlxTween.tween(gfDance, {x: 1350}, 2, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) gfDance.kill()
+					});
+					FlxTween.tween(gfDance, {alpha: 0}, 1.3, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) {
+							gfDance.kill();
+						}
+					});
+					FlxTween.tween(titleText, {y: 700}, 2, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) titleText.kill()
+					});
+					FlxTween.tween(titleText, {alpha: 0}, 1.3, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) {
+							titleText.kill();
+						}
+					});
+					FlxTween.tween(gradientBar, {alpha: 0}, 1.3, {
+						ease: FlxEase.backInOut,
+						type: ONESHOT,
+						onComplete: function(twn:FlxTween) {
+							gradientBar.kill();
+						}
+					});
+				}
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
@@ -579,17 +585,10 @@ class TitleState extends MusicBeatState {
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 				if (ClientPrefs.objects) {
 					FlxTween.tween(fridayNightFunkinLogo, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
-				}
-				if (ClientPrefs.objects) {
 					FlxTween.tween(fridayNightFunkinLogo, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
 					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
 					FlxTween.tween(gfDance, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
 					beginTween = FlxTween.tween(gfDance.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
-				} else {
-					FlxTween.tween(fridayNightFunkinLogo, {alpha: 0}, 0, {ease: FlxEase.quadInOut});
-					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 0, y: 0}, 0, {ease: FlxEase.quadInOut});
-					FlxTween.tween(gfDance, {alpha: 0}, 0, {ease: FlxEase.quadInOut});
-					beginTween = FlxTween.tween(gfDance.scale, {x: 0, y: 0}, 0, {ease: FlxEase.quadInOut});
 				}
 
 				fridayNightFunkinLogo.angle = -4;

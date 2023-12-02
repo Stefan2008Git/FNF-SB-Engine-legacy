@@ -174,6 +174,9 @@ class OptionsState extends MusicBeatState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
+		cameraFollowPosition.setPosition(FlxMath.lerp(cameraFollowPosition.x, cameraFollow.x, lerpVal), FlxMath.lerp(cameraFollowPosition.y, cameraFollow.y, lerpVal));
+
 		if (controls.UI_UP_P && controlsActive) {
 			changeSelection(-1);
 		}
