@@ -4491,7 +4491,6 @@ class PlayState extends MusicBeatState {
 		Paths.image(pixelfreakPart1 + "bad" + pixelfreakPart2);
 		Paths.image(pixelfreakPart1 + "freak" + pixelfreakPart2);
 		Paths.image(pixelfreakPart1 + "combo" + pixelfreakPart2);
-		Paths.image(pixelfreakPart1 + "missedCombo" + pixelfreakPart2);
 
 		for (i in 0...10) {
 			Paths.image(pixelfreakPart1 + 'num' + i + pixelfreakPart2);
@@ -4521,19 +4520,13 @@ class PlayState extends MusicBeatState {
 		vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
-		var missedPlacement:String = Std.string(missCombo);
 
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
-		var missedCoolText:FlxText = new FlxText(0, 0, 0, missedPlacement, 32);
-		missedCoolText.screenCenter();
-		missedCoolText.x = FlxG.width * 0.45;
-
 		var rating:FlxSprite = new FlxSprite();
 		var comboSpr:FlxSprite = new FlxSprite();
-		var missComboSpr:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
 		// tryna do MS based judgment due to popular demand
@@ -4567,7 +4560,7 @@ class PlayState extends MusicBeatState {
 			pixelfreakPart2 = '-pixel';
 		}
 
-		if ((!ClientPrefs.ratingImages || ClientPrefs.comboStacking || ClientPrefs.missedComboStacking) && !cpuControlled) {
+		if ((!ClientPrefs.ratingImages || ClientPrefs.comboStacking) && !cpuControlled) {
 			rating.loadGraphic(Paths.image(pixelfreakPart1 + daRating.image + pixelfreakPart2));
 		    rating.cameras = [camHUD];
 		    rating.screenCenter();
@@ -4591,18 +4584,6 @@ class PlayState extends MusicBeatState {
 		    comboSpr.y -= ClientPrefs.comboOffset[1];
 		    comboSpr.y += 60;
 		    comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
-
-			missComboSpr.loadGraphic(Paths.image(pixelfreakPart1 + 'missedCombo' + pixelfreakPart2));
-		    missComboSpr.cameras = [camHUD];
-		    missComboSpr.screenCenter();
-		    missComboSpr.x = coolText.x;
-		    missComboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-		    missComboSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-		    missComboSpr.visible = (!ClientPrefs.hideHud && showMissedCombo);
-		    missComboSpr.x += ClientPrefs.comboOffset[0];
-		    missComboSpr.y -= ClientPrefs.comboOffset[1];
-		    missComboSpr.y += 60;
-		    missComboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 		}
 
 		insert(members.indexOf(strumLineNotes), rating);
@@ -4618,60 +4599,20 @@ class PlayState extends MusicBeatState {
 			rating.antialiasing = ClientPrefs.globalAntialiasing;
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
 			comboSpr.antialiasing = ClientPrefs.globalAntialiasing;
-			missComboSpr.setGraphicSize(Std.int(missComboSpr.width * 0.7));
-			missComboSpr.antialiasing = ClientPrefs.globalAntialiasing;
 		} else {
 			rating.setGraphicSize(Std.int(rating.width * daPixelZoom * 0.85));
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * daPixelZoom * 0.85));
-			missComboSpr.setGraphicSize(Std.int(missComboSpr.width * daPixelZoom * 0.85));
 		}
 
 		comboSpr.updateHitbox();
-		missComboSpr.updateHitbox();
 		rating.updateHitbox();
 
 		var seperatedScore:Array<Int> = [];
-		var seperatedMissedScore:Array<Int> = [];
-
-		if (combo >= 1000) {
-			seperatedScore.push(Math.floor(combo / 1000) % 10);
-		}
-		if(combo >= 10000) {
-			seperatedScore.push(Math.floor(combo / 10000) % 10);
-		}
-		if(combo >= 100000) {
-			seperatedScore.push(Math.floor(combo / 100000) % 10);
-		}
-		if(combo >= 1000000) {
-			seperatedScore.push(Math.floor(combo / 1000000) % 10);
-		}
-		seperatedScore.push(Math.floor(combo / 100) % 10);
-		seperatedScore.push(Math.floor(combo / 10) % 10);
-		seperatedScore.push(combo % 10);
-
-		if (missCombo >= 1000) {
-			seperatedMissedScore.push(Math.floor(missCombo / 1000) % 10);
-		}
-		if (missCombo >= 10000) {
-			seperatedMissedScore.push(Math.floor(missCombo / 10000) % 10);
-		}
-		if (missCombo >= 100000) {
-			seperatedMissedScore.push(Math.floor(missCombo / 100000) % 10);
-		}
-		if (missCombo >= 1000000) {
-			seperatedMissedScore.push(Math.floor(missCombo / 1000000) % 10);
-		}
-		seperatedMissedScore.push(Math.floor(missCombo / 100) % 10);
-		seperatedMissedScore.push(Math.floor(missCombo / 10) % 10);
-		seperatedMissedScore.push(missCombo % 10);
 
 		var daLoop:Int = 0;
 		var xThing:Float = 0;
 		if (showCombo) {
 			insert(members.indexOf(strumLineNotes), comboSpr);
-		}
-		if (showMissedCombo) {
-			insert(members.indexOf(strumLineNotes), missComboSpr);
 		}
 		if (!ClientPrefs.comboStacking) {
 			if (lastCombo != null)
@@ -4683,11 +4624,6 @@ class PlayState extends MusicBeatState {
 				lastScore[0].kill();
 				lastScore.remove(lastScore[0]);
 			}
-		}
-		if (!ClientPrefs.missedComboStacking) {
-			if (lastMissedCombo != null)
-				lastMissedCombo.kill();
-			lastMissedCombo = missComboSpr;
 		}
 
 		for (i in seperatedScore) {
@@ -4730,11 +4666,80 @@ class PlayState extends MusicBeatState {
 			if (numScore.x > xThing)
 				xThing = numScore.x;
 		}
-		comboSpr.x = xThing + 50;
-		missComboSpr.x = xThing + 55;
 
+		var seperatedMissedScore:Array<Int> = [];
+		if (missCombo >= 1000) {
+			seperatedMissedScore.push(Math.floor(missCombo / 1000) % 10);
+		}
+		if (missCombo >= 10000) {
+			seperatedMissedScore.push(Math.floor(missCombo / 10000) % 10);
+		}
+		if (missCombo >= 100000) {
+			seperatedMissedScore.push(Math.floor(missCombo / 100000) % 10);
+		}
+		if (missCombo >= 1000000) {
+			seperatedMissedScore.push(Math.floor(missCombo / 1000000) % 10);
+		}
+		seperatedMissedScore.push(Math.floor(missCombo / 100) % 10);
+		seperatedMissedScore.push(Math.floor(missCombo / 10) % 10);
+		seperatedMissedScore.push(missCombo % 10);
+
+		for (i in seperatedMissedScore) {
+			Paths.image(pixelfreakPart1 + "missedCombo" + pixelfreakPart2);
+			var missedPlacement:String = Std.string(missCombo);
+			var missedCoolText:FlxText = new FlxText(0, 0, 0, missedPlacement, 32);
+			missedCoolText.screenCenter();
+			missedCoolText.x = FlxG.width * 0.45;
+
+			var missComboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelfreakPart1 + 'missedCombo' + pixelfreakPart2));
+		    missComboSpr.cameras = [camHUD];
+		    missComboSpr.screenCenter();
+		    missComboSpr.x = coolText.x;
+
+			if (!PlayState.isPixelStage) {
+				missComboSpr.setGraphicSize(Std.int(missComboSpr.width * 0.7));
+				missComboSpr.antialiasing = ClientPrefs.globalAntialiasing;
+			} else {
+				missComboSpr.setGraphicSize(Std.int(missComboSpr.width * daPixelZoom * 0.85));
+			}
+			missComboSpr.updateHitbox();
+
+		    missComboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
+		    missComboSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+		    missComboSpr.visible = (!ClientPrefs.hideHud && showMissedCombo);
+
+		    missComboSpr.x += ClientPrefs.comboOffset[0];
+		    missComboSpr.y -= ClientPrefs.comboOffset[1];
+
+			if (!ClientPrefs.missedComboStacking) {
+				if (lastMissedCombo != null)
+					lastMissedCombo.kill();
+				lastMissedCombo = missComboSpr;
+			}
+
+		    missComboSpr.y += 60;
+		    missComboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
+
+			if (showMissedCombo) {
+				insert(members.indexOf(strumLineNotes), missComboSpr);
+			}
+
+			FlxTween.tween(missComboSpr, {alpha: 0}, 0.3 / playbackRate, {
+				onComplete: function(tween:FlxTween) {
+					missedCoolText.destroy();
+					missComboSpr.destroy();
+	
+					rating.destroy();
+				},
+				startDelay: Conductor.crochet * 0.003 / playbackRate
+			});
+
+			missComboSpr.x = xThing + 55;
+			missedCoolText.text = Std.string(seperatedMissedScore);
+		}
+
+		comboSpr.x = xThing + 50;
 		coolText.text = Std.string(seperatedScore);
-		missedCoolText.text = Std.string(seperatedMissedScore);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2 / playbackRate, {
 			startDelay: Conductor.crochet * 0.001 / playbackRate
@@ -4748,16 +4753,6 @@ class PlayState extends MusicBeatState {
 				rating.destroy();
 			},
 			startDelay: Conductor.crochet * 0.002 / playbackRate
-		});
-
-		FlxTween.tween(missComboSpr, {alpha: 0}, 0.3 / playbackRate, {
-			onComplete: function(tween:FlxTween) {
-				missedCoolText.destroy();
-				missComboSpr.destroy();
-
-				rating.destroy();
-			},
-			startDelay: Conductor.crochet * 0.003 / playbackRate
 		});
 	}
 
