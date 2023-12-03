@@ -4903,7 +4903,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
-		callOnHScript('noteMiss', [note]);
+		callOnHScript('noteMiss', [daNote]);
 
 	}
 
