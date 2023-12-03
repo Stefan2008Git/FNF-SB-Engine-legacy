@@ -153,6 +153,10 @@
     "veryGoodDefaultRatingNameTxt": "Very Great!",
     "sickDefaultRatingNameTxt": "Sick!",
     "perfectDefaultRatingNameTxt": "Perfect!!!",
+    "botplayTxt": "[BOTPLAY]",
+    "autoplayTxt": "[AUTOPLAY]",
+    "botplayTimeTxt": " (Botplay)",
+    "autoplayTimeTxt": " (Autoplay)",
     "scoreTxt": "Score: ",
     "missesTxt": " | Misses: ",
     "ratingAndFCNameTxt": " | Rating: ",
@@ -173,6 +177,18 @@
     "totalNoteHitTxt": "Total Notes Hit: ",
     "comboTxt": "\nCombo: ",
     "maxComboTxt": "\nMax Combo: ",
-    "npsJudgeTxt": "\nNPS: "
+    "npsJudgeTxt": "\nNPS: ",
+    "impressiveFCDefaultTxt": "IFC",
+    "sickFCDefaultTxt": "SFC",
+    "goodFCDefaultTxt": "GFC",
+    "badFCDefaultTxt": "FC",
+    "missesFCDefaultTxt": "SDCB",
+    "clearFCDefaultTxt": "Clear",
+    "impressiveFCSbTxt": "Impressive Full Combo",
+    "sickFCSbTxt": "Sick Full Combo",
+    "goodFCSbTxt": "Good Full Combo",
+    "badFCSbTxt": "Full Combo",
+    "missesFCSbTxt": "Simple Digital Combo Break",
+    "clearFCSbTxt": "Cleared t+The Song"
     
 }

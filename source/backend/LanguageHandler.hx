@@ -374,6 +374,10 @@ typedef LanguageFile =
 	var veryGoodDefaultNullRatingNameTxt:String;
 	var sickDefaultNullRatingNameTxt:String;
 	var perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	var botplayTxt:String;
+	var autoplayTxt:String;
+	var botplayTimeTxt:String;
+	var autoplayTimeTxt:String;
 	var scoreTxt:String;
 	var missesTxt:String;
 	var ratingAndFCNameTxt:String;
@@ -395,6 +399,18 @@ typedef LanguageFile =
 	var comboTxt:String;
 	var maxComboTxt:String;
 	var npsJudgeTxt:String;
+	var impressiveFCDefaultTxt:String;
+	var sickFCDefaultTxt:String;
+	var goodFCDefaultTxt:String;
+	var badFCDefaultTxt:String;
+	var missesFCDefaultTxt:String;
+	var clearFCDefaultTxt:String;
+	var impressiveFCSbTxt:String;
+	var sickFCSbTxt:String;
+	var goodFCSbTxt:String;
+	var badFCSbTxt:String;
+	var missesFCSbTxt:String;
+	var clearFCSbTxt:String;
 }
 
 class LanguageHandler
@@ -760,6 +776,10 @@ class LanguageHandler
 	public static var veryGoodDefaultNullRatingNameTxt:String;
 	public static var sickDefaultNullRatingNameTxt:String;
 	public static var perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	public static var botplayTxt:String;
+	public static var autoplayTxt:String;
+	public static var botplayTimeTxt:String;
+	public static var autoplayTimeTxt:String;
 	public static var scoreTxt:String;
 	public static var missesTxt:String;
 	public static var ratingAndFCNameTxt:String;
@@ -781,6 +801,18 @@ class LanguageHandler
 	public static var comboTxt:String;
 	public static var maxComboTxt:String;
 	public static var npsJudgeTxt:String;
+	public static var impressiveFCDefaultTxt:String;
+	public static var sickFCDefaultTxt:String;
+	public static var goodFCDefaultTxt:String;
+	public static var badFCDefaultTxt:String;
+	public static var missesFCDefaultTxt:String;
+	public static var clearFCDefaultTxt:String;
+	public static var impressiveFCSbTxt:String;
+	public static var sickFCSbTxt:String;
+	public static var goodFCSbTxt:String;
+	public static var badFCSbTxt:String;
+	public static var missesFCSbTxt:String;
+	public static var clearFCSbTxt:String;
 
 	public static var languagePath:String;
 
@@ -1173,6 +1205,10 @@ class LanguageHandler
 	veryGoodDefaultNullRatingNameTxt:String;
 	sickDefaultNullRatingNameTxt:String;
 	perfectDefaultNullRatingNameTxt:String; // Null Engine */
+	botplayTxt = languageJson.botplayTxt;
+	autoplayTxt = languageJson.autoplayTxt;
+	botplayTimeTxt = languageJson.botplayTimeTxt;
+	autoplayTimeTxt = languageJson.autoplayTimeTxt;
 	scoreTxt = languageJson.scoreTxt;
 	missesTxt = languageJson.missesTxt;
 	ratingAndFCNameTxt = languageJson.ratingAndFCNameTxt;
@@ -1194,5 +1230,17 @@ class LanguageHandler
 	comboTxt = languageJson.comboTxt;
 	maxComboTxt = languageJson.maxComboTxt;
 	npsJudgeTxt = languageJson.npsJudgeTxt;
+	impressiveFCDefaultTxt = languageJson.impressiveFCDefaultTxt;
+	sickFCDefaultTxt = languageJson.sickFCDefaultTxt;
+	goodFCDefaultTxt = languageJson.goodFCDefaultTxt;
+	badFCDefaultTxt = languageJson.badFCDefaultTxt;
+	missesFCDefaultTxt = languageJson.missesFCDefaultTxt;
+	clearFCDefaultTxt = languageJson.clearFCDefaultTxt;
+	impressiveFCSbTxt = languageJson.impressiveFCSbTxt;
+	sickFCSbTxt = languageJson.sickFCSbTxt;
+	goodFCSbTxt = languageJson.goodFCSbTxt;
+	badFCSbTxt = languageJson.badFCSbTxt;
+	missesFCSbTxt = languageJson.missesFCSbTxt;
+	clearFCSbTxt = languageJson.clearFCSbTxt;
 	}
 }

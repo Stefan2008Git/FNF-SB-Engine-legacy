@@ -96,6 +96,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read", 'comboStacking', 'bool', true);
 		addOption(option);
 
+		var option:Option = new Option('Missed Combo Stacking',
+			"If unchecked, Missed Combo won't stack, saving on System Memory and making them easier to read", 'missedComboStacking', 'bool', true);
+		addOption(option);
+
 		var option:Option = new Option('Show time bar',
 			"If unchecked, this is gonna unshow time bar on gameplay.", 'showTimeBar', 'bool', true);
 		addOption(option);
@@ -141,6 +145,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Quick note angle spin',
 			"If unckecked, this option is gonna make note spinnable on go counter from Bambi Purgatory\nNOTE: If WhatsDown wants me top remove hims code, i will to do that!", 'noteAngleSpin', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Health Color on time bar',
+			"If ckecked, the time bar color from purple will change the opponent health bar color from icon", 'colorBars', 'bool', false);
 		addOption(option);
 
 		#if android

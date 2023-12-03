@@ -50,6 +50,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var timeBarType:String = 'Time Elapsed';
 	public static var showTimeBar:Bool = true;
+	public static var colorBars:Bool = false;
 	public static var botplayOnTimebar:Bool = true;
 	public static var laneunderlayAlpha:Float = 0.1;
 	public static var laneunderlay:Bool = false;
@@ -63,6 +64,7 @@ class ClientPrefs {
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
 	public static var comboStacking = true;
+	public static var missedComboStacking:Bool = true;
 	public static var vibration:Bool = true;
 	public static var dynamicColours:Bool = true;
 	public static var hitboxSelection:String = 'Original';
@@ -175,6 +177,7 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.showTimeBar = showTimeBar;
+		FlxG.save.data.colorBars = colorBars;
 		FlxG.save.data.botplayOnTimebar = botplayOnTimebar;
 		FlxG.save.data.laneunderlayAlpha = laneunderlayAlpha;
 		FlxG.save.data.laneunderlay = laneunderlay;
@@ -211,6 +214,7 @@ class ClientPrefs {
 		FlxG.save.data.averageMiliseconds = averageMiliseconds;
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
+		FlxG.save.data.missedComboStacking = missedComboStacking;
 
 		FlxG.save.flush();
 
@@ -282,6 +286,7 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping != null ? ghostTapping = FlxG.save.data.ghostTapping : ghostTapping = true;
 		FlxG.save.data.timeBarType != null ? timeBarType = FlxG.save.data.timeBarType : timeBarType = 'Time Elapsed';
 		FlxG.save.data.showTimeBar != null ? showTimeBar = FlxG.save.data.showTimeBar : showTimeBar = true;
+		FlxG.save.data.colorBars != null ? colorBars = FlxG.save.data.colorBars : colorBars = false;
 		FlxG.save.data.botplayOnTimebar != null ? botplayOnTimebar = FlxG.save.data.botplayOnTimebar : botplayOnTimebar = true;
 		FlxG.save.data.laneunderlayAlpha != null ? laneunderlayAlpha = FlxG.save.data.laneunderlayAlpha : laneunderlayAlpha = 0;
 		FlxG.save.data.laneunderlay != null ? laneunderlay = FlxG.save.data.laneunderlay : laneunderlay = false;
@@ -325,6 +330,7 @@ class ClientPrefs {
 		FlxG.save.data.volume != null ? FlxG.sound.volume = FlxG.save.data.volume : FlxG.sound.volume = 1;
 		FlxG.save.data.mute != null ? FlxG.sound.muted = FlxG.save.data.mute : FlxG.sound.muted = false;
 		FlxG.save.data.comboStacking != null ? comboStacking = FlxG.save.data.comboStacking : comboStacking = true;
+		FlxG.save.data.missedComboStacking != null ? missedComboStacking = FlxG.save.data.missedComboStacking : missedComboStacking = true;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', 'Stefan2008');
