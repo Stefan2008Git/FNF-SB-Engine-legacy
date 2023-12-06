@@ -219,7 +219,7 @@ class OptionsState extends MusicBeatState {
 		#end
 
 		if (FlxG.keys.justPressed.B #if android || FlxG.android.justReleased.BACK #end) {
-		controlsActive = false;
+			controlsActive = false;
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(Paths.sound('rumble'), 0.8, false, null);
 	

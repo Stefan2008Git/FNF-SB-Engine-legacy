@@ -153,7 +153,7 @@
     "veryGoodDefaultRatingNameTxt": "Very Great!",
     "sickDefaultRatingNameTxt": "Sick!",
     "perfectDefaultRatingNameTxt": "Perfect!!!",
-    "botplayTxt": "[BOTPLAY]",
+    "botplayTxt": "BOTPLAY",
     "autoplayTxt": "[AUTOPLAY]",
     "botplayTimeTxt": " (Botplay)",
     "autoplayTimeTxt": " (Autoplay)",
@@ -189,6 +189,24 @@
     "goodFCSbTxt": "Good Full Combo",
     "badFCSbTxt": "Full Combo",
     "missesFCSbTxt": "Simple Digital Combo Break",
-    "clearFCSbTxt": "Cleared t+The Song"
+    "clearFCSbTxt": "Cleared t+The Song",
+
+    "resumeTxt": "Resume",
+    "restartSongTxt": "Restart Song",
+    "changeDifficultyTxt": "Change Difficulty",
+    "optionsMenuTxt": "Options",
+    "chartEditorMenuTxt": "Chart Editor",
+    "exitToMenuTxt": "Exit to menu",
+    "leaveChartingModeTxt": "Leave Charting Mode",
+    "skipTimeTxt": "Skip Time",
+    "endSongTxt": "End Song",
+    "togglePracticeModeTxt": "Practice Mode",
+    "toggleBotplayTxt": "Botplay",
+    "backToPauseMenuTxt": "BACK",
+    "pauseSongNameText": "Song: ",
+    "pauseDifficultyNameTxt": "Difficulty: ",
+    "pauseDeathCounterText": "Death counter: ",
+    "pausePracticeModeText": "PRACTICE MODE",
+    "pauseChartingModeText": "CHARTING MODE"
     
 }

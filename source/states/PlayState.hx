@@ -268,6 +268,7 @@ class PlayState extends MusicBeatState {
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var scoreTxtSine:Float = 0;
 	public var nowPlayingTxt:FlxText;
 	public var songNameTxt:FlxText;
 	public var songNameBackground:FlxSprite;
@@ -2546,12 +2547,14 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function updateScore(miss:Bool = false) {
-		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine':
-				scoreTxt.text = LanguageHandler.scoreTxt + songScore  + LanguageHandler.missesTxt + songMisses + LanguageHandler.ratingAndFCNameTxt + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
-				
-			default:
-				scoreTxt.text = LanguageHandler.scoreTxt + songScore + LanguageHandler.notePerSecondTxt + nps + LanguageHandler.averageTxt + Math.round(averageMs) + 'ms' + LanguageHandler.comboBreaksTxt + songMisses + LanguageHandler.healthTxt + ' ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + LanguageHandler.accruracyTxt + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
+		if (!cpuControlled && ClientPrefs.gameStyle == 'SB Engine') {
+			scoreTxt.text = LanguageHandler.scoreTxt + songScore + LanguageHandler.notePerSecondTxt + nps + LanguageHandler.averageTxt + Math.round(averageMs) + 'ms' + LanguageHandler.comboBreaksTxt + songMisses + LanguageHandler.healthTxt + ' ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + LanguageHandler.accruracyTxt + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
+		} else if (!cpuControlled && ClientPrefs.gameStyle == 'Psych Engine') {
+			scoreTxt.text = LanguageHandler.scoreTxt + songScore  + LanguageHandler.missesTxt + songMisses + LanguageHandler.ratingAndFCNameTxt + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		} else if (cpuControlled && ClientPrefs.gameStyle == 'SB Engine') {
+			scoreTxt.text = LanguageHandler.autoplayTxt;
+		} else if (cpuControlled && ClientPrefs.gameStyle == 'Psych Engine') {
+			scoreTxt.text = LanguageHandler.botplayTxt;
 		}
 
 		if (ClientPrefs.judgementCounterStyle == 'Original' && ClientPrefs.gameStyle == 'SB Engine') {
@@ -2570,33 +2573,6 @@ class PlayState extends MusicBeatState {
 
 		callOnLuas('onUpdateScore', [miss]);
 		callOnHScript('updateScore', [miss]);
-
-	}
-
-	public function updateZoomText() {
-		if (ClientPrefs.scoreZoom && !cpuControlled) {
-			if (scoreTxtTween != null) {
-				scoreTxtTween.cancel();
-			}
-			scoreTxt.scale.x = scoreTxt.scale.y = 1.075;
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
-				onComplete: function(twn:FlxTween) {
-					scoreTxtTween = null;
-				}
-			});
-		}
-
-		if (ClientPrefs.judgementZoom && !cpuControlled) {
-			if (judgementCounterTxtTween != null) {
-				judgementCounterTxtTween.cancel();
-			}
-			judgementCounterTxt.scale.x = judgementCounterTxt.scale.y = 1.075;
-			judgementCounterTxtTween = FlxTween.tween(judgementCounterTxt.scale, {x: 1, y: 1}, 0.2, {
-				onComplete: function(twn:FlxTween) {
-					judgementCounterTxtTween = null;
-				}
-			});
-		}
 	}
 
 	public function setSongTime(time:Float)
@@ -3361,7 +3337,6 @@ class PlayState extends MusicBeatState {
 
 		super.update(elapsed);
 		updateScore();
-		updateZoomText();
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
@@ -3392,18 +3367,24 @@ class PlayState extends MusicBeatState {
 			}
 		}
 		
-		switch (ClientPrefs.gameStyle) {
-			case 'Psych Engine':
-			    if (botplayTxt.visible) {
-				    botplaySine += 180 * elapsed;
-				    botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
-			    }
+		if (ClientPrefs.objectTxtSine) {
+			switch (ClientPrefs.gameStyle) {
+				case 'Psych Engine':
+			    	if (botplayTxt.visible) {
+				 		botplaySine += 180 * elapsed;
+				    	botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
+						scoreTxtSine += 180 * elapsed;
+				    	scoreTxt.alpha = 1 - Math.sin((Math.PI * scoreTxtSine) / 180);
+			   	 	}
 			
-			default:
-			    if (botplayTxt.visible) {
-				    botplaySine += 50 * elapsed;
-				    botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 120);
+				default:
+			    	if (botplayTxt.visible) {
+				    	botplaySine += 50 * elapsed;
+				    	botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 120);
+						scoreTxtSine += 50 * elapsed;
+				    	scoreTxt.alpha = 1 - Math.sin((Math.PI * scoreTxtSine) / 120);
 			    }
+			}
 		}
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause) {
@@ -4525,6 +4506,30 @@ class PlayState extends MusicBeatState {
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
+		if (ClientPrefs.scoreZoom && !cpuControlled) {
+			if (scoreTxtTween != null) {
+				scoreTxtTween.cancel();
+			}
+			scoreTxt.scale.x = scoreTxt.scale.y = 1.075;
+			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
+				onComplete: function(twn:FlxTween) {
+					scoreTxtTween = null;
+				}
+			});
+		}
+
+		if (ClientPrefs.judgementZoom && !cpuControlled) {
+			if (judgementCounterTxtTween != null) {
+				judgementCounterTxtTween.cancel();
+			}
+			judgementCounterTxt.scale.x = judgementCounterTxt.scale.y = 1.075;
+			judgementCounterTxtTween = FlxTween.tween(judgementCounterTxt.scale, {x: 1, y: 1}, 0.2, {
+				onComplete: function(twn:FlxTween) {
+					judgementCounterTxtTween = null;
+				}
+			});
+		}
+
 		var rating:FlxSprite = new FlxSprite();
 		var comboSpr:FlxSprite = new FlxSprite();
 		var score:Int = 350;
@@ -4667,7 +4672,7 @@ class PlayState extends MusicBeatState {
 				xThing = numScore.x;
 		}
 
-		var seperatedMissedScore:Array<Int> = [];
+		/* var seperatedMissedScore:Array<Int> = [];
 		if (missCombo >= 1000) {
 			seperatedMissedScore.push(Math.floor(missCombo / 1000) % 10);
 		}
@@ -4736,7 +4741,7 @@ class PlayState extends MusicBeatState {
 
 			missComboSpr.x = xThing + 55;
 			missedCoolText.text = Std.string(seperatedMissedScore);
-		}
+		} */ // DIsabled and unfixable if i don't find the solution!
 
 		comboSpr.x = xThing + 50;
 		coolText.text = Std.string(seperatedScore);

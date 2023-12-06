@@ -96,7 +96,7 @@ class TitleState extends MusicBeatState {
 		if (ClientPrefs.shaders) swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('funkin', 'ninjamuffin99');
+		FlxG.save.bind('stefanBeta', 'Stefan2008');
 
 		ClientPrefs.loadPrefs();
 
@@ -124,7 +124,7 @@ class TitleState extends MusicBeatState {
 		MusicBeatState.switchState(new ChartingState());
 		#else
 		#if MODS_ALLOWED
-		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json')))) {
+		if (!(FileSystem.exists(Paths.mods('languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.mods(Paths.currentModDirectory + '/languages/' + ClientPrefs.language + '.json')) || FileSystem.exists(Paths.getPreloadPath('languages/' + ClientPrefs.language + '.json')))) {
 		#else
 		if (!OpenFlAssets.exists(Paths.getPreloadPath(SUtil.getPath() + 'languages/' + ClientPrefs.language + '.json'))) {
 		#end
@@ -589,16 +589,16 @@ class TitleState extends MusicBeatState {
 					beginTween = FlxTween.tween(fridayNightFunkinLogo.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
 					FlxTween.tween(gfDance, {alpha: 1}, 0.75, {ease: FlxEase.quadInOut});
 					beginTween = FlxTween.tween(gfDance.scale, {x: 1, y: 1}, 0.75, {ease: FlxEase.quadInOut});
-				}
 
-				fridayNightFunkinLogo.angle = -4;
-
-				new FlxTimer().start(0.01, function(tmr:FlxTimer) {
+					fridayNightFunkinLogo.angle = -4;
+					new FlxTimer().start(0.01, function(tmr:FlxTimer) {
 					if (fridayNightFunkinLogo.angle == -4)
 						FlxTween.angle(fridayNightFunkinLogo, fridayNightFunkinLogo.angle, 4, 4, {ease: FlxEase.quartInOut});
 					if (fridayNightFunkinLogo.angle == 4)
 						FlxTween.angle(fridayNightFunkinLogo, fridayNightFunkinLogo.angle, -4, 4, {ease: FlxEase.quartInOut});
-				}, 0);
+					}, 0);
+				}
+
 				FlxG.camera.flash(FlxColor.WHITE, 3);
 				{
 					transitioning = false;

@@ -14,15 +14,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Controller Mode', 'Check this if you want to play with\na controller instead of using your Keyboard.',
-			'controllerMode', 'bool', #if android true #else false #end);
+		var option:Option = new Option('Controller Mode', 'Check this if you want to play with\na controller instead of using your Keyboard.', 'controllerMode', 'bool', #if android true #else false #end);
 		addOption(option);
 
 		var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Sick!\" notes won't show particles.", 'noteSplashes', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Opponent note glow', "If unchecked, when opponent hit note its not gonna show glow.", 'opponentArrowGlow', 'bool',
-			true);
+		var option:Option = new Option('Opponent note glow', "If unchecked, when opponent hit note its not gonna show glow.", 'opponentArrowGlow', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
@@ -59,33 +57,24 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 		var option:Option = new Option('Camera Zooms', "If unchecked, the camera won't zoom in on a beat hit.", 'camZooms', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Score Text Zoom on Hit', "If unchecked, disables the Score text zooming\neverytime you hit a note.", 'scoreZoom',
-			'bool', true);
+		var option:Option = new Option('Score Text Zoom on Hit', "If unchecked, disables the Score text zooming\neverytime you hit a note.", 'scoreZoom', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Judgement Counter Text Zoom on Hit', "If unchecked, disables the Judgement Counter text zooming\neverytime you hit a note.", 'judgementZoom',
-			'bool', true);
+		var option:Option = new Option('Judgement Text Zoom on Hit', "If unchecked, disables the Judgement Counter text zooming\neverytime you hit a note.", 'judgementZoom', 'bool', true);
 		addOption(option);
 
 		#if desktop
-		var option:Option = new Option('Show Keybinds on start', 
-		    "If unchecked, disables to show keybind text when arrows gonna to start tween.", 'showKeybindsOnStart', 
-			'bool', true);
+		var option:Option = new Option('Show Keybinds on start', "If unchecked, disables to show keybind text when arrows gonna to start tween.", 'showKeybindsOnStart',  'bool', true);
 		addOption(option);
 		#end
 
-		var option:Option = new Option('Icon bounce', 
-		    "If unchecked, disables icon bounce for SB Engine HUD only.", 'iconBounce', 
-			'bool', true);
+		var option:Option = new Option('Icon bounce', "If unchecked, disables icon bounce for SB Engine HUD only.", 'iconBounce',  'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Health tween', 
-		    "If unchecked, disables health tween and reverts to normal state for health.", 'healthTween', 
-			'bool', true);
+		var option:Option = new Option('Health tween',  "If unchecked, disables health tween and reverts to normal state for health.", 'healthTween', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Rating images',
-		    "If unckecked, disables rating images.", 'ratingImages', 'bool', true);
+		var option:Option = new Option('Rating images', "If unckecked, disables rating images.", 'ratingImages', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Results screen',
@@ -149,6 +138,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu {
 
 		var option:Option = new Option('Health Color on time bar',
 			"If ckecked, the time bar color from purple will change the opponent health bar color from icon", 'colorBars', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Sine alpha',
+			"If unckecked, the object txt is gonna to do alpha sine with elapsed", 'objectTxtSine', 'bool', true);
 		addOption(option);
 
 		#if android

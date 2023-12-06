@@ -188,5 +188,23 @@
     "goodFCSbTxt": "Odlican celi kombo",
     "badFCSbTxt": "Celi kombo",
     "missesFCSbTxt": "Obican digitalni razbijen kombo",
-    "clearFCSbTxt": "Ociscena pesma"
+    "clearFCSbTxt": "Ociscena pesma",
+
+    "resumeTxt": "Nastavi",
+    "restartSongTxt": "Ponovi Pesmu",
+    "changeDifficultyTxt": "Promeni Tezinu",
+    "optionsMenuTxt": "Opcije",
+    "chartEditorMenuTxt": "Editor Grafikona",
+    "exitToMenuTxt": "Izadji na menu",
+    "leaveChartingModeTxt": "Izadji iz moda grafikona",
+    "skipTimeTxt": "Preskoci vreme",
+    "endSongTxt": "Zavrsi pesmu",
+    "togglePracticeModeTxt": "Mod prakse",
+    "toggleBotplayTxt": "Bot-igrac",
+    "backToPauseMenuTxt": "NAZAD",
+    "pauseSongNameText": "Pesma: ",
+    "pauseDifficultyNameTxt": "Tezina: ",
+    "pauseDeathCounterText": "Broj umiranja: ",
+    "pausePracticeModeText": "MOD PRAKSE",
+    "pauseChartingModeText": "MOD GRAFIKONA"
 }

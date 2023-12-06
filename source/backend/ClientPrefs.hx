@@ -65,6 +65,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var comboStacking = true;
 	public static var missedComboStacking:Bool = true;
+	public static var objectTxtSine:Bool = true;
 	public static var vibration:Bool = true;
 	public static var dynamicColours:Bool = true;
 	public static var hitboxSelection:String = 'Original';
@@ -215,6 +216,7 @@ class ClientPrefs {
 		FlxG.save.data.themes = themes;
 		FlxG.save.data.comboStacking = comboStacking;
 		FlxG.save.data.missedComboStacking = missedComboStacking;
+		FlxG.save.data.objectTxtSine = objectTxtSine;
 
 		FlxG.save.flush();
 
@@ -319,6 +321,7 @@ class ClientPrefs {
 		FlxG.save.data.missSound != null ? missSound = FlxG.save.data.missSound : missSound = true;
 		FlxG.save.data.averageMiliseconds != null ? averageMiliseconds = FlxG.save.data.averageMiliseconds : averageMiliseconds = true;
 		FlxG.save.data.themes != null ? themes = FlxG.save.data.themes : themes = 'SB Engine';
+		FlxG.save.data.objectTxtSine != null ? objectTxtSine = FlxG.save.data.objectTxtSine : objectTxtSine = true;
 		if (FlxG.save.data.gameplaySettings != null) {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
 			for (name => value in savedMap) {

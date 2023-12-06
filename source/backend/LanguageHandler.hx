@@ -411,6 +411,25 @@ typedef LanguageFile =
 	var badFCSbTxt:String;
 	var missesFCSbTxt:String;
 	var clearFCSbTxt:String;
+
+	// Pause menu stuff
+	var resumeTxt:String;
+	var restartSongTxt:String;
+	var changeDifficultyTxt:String;
+	var optionsMenuTxt:String;
+	var chartEditorMenuTxt:String;
+	var exitToMenuTxt:String;
+	var leaveChartingModeTxt:String;
+	var skipTimeTxt:String;
+	var endSongTxt:String;
+	var togglePracticeModeTxt:String;
+	var toggleBotplayTxt:String;
+	var backToPauseMenuTxt:String;
+	var pauseSongNameText:String;
+	var pauseDifficultyNameTxt:String;
+	var pauseDeathCounterText:String;
+	var pausePracticeModeText:String;
+	var pauseChartingModeText:String;
 }
 
 class LanguageHandler
@@ -813,6 +832,25 @@ class LanguageHandler
 	public static var badFCSbTxt:String;
 	public static var missesFCSbTxt:String;
 	public static var clearFCSbTxt:String;
+
+	// Pause menu stuff
+	public static var resumeTxt:String;
+	public static var restartSongTxt:String;
+	public static var changeDifficultyTxt:String;
+	public static var optionsMenuTxt:String;
+	public static var chartEditorMenuTxt:String;
+	public static var exitToMenuTxt:String;
+	public static var leaveChartingModeTxt:String;
+	public static var skipTimeTxt:String;
+	public static var endSongTxt:String;
+	public static var togglePracticeModeTxt:String;
+	public static var toggleBotplayTxt:String;
+	public static var backToPauseMenuTxt:String;
+	public static var pauseSongNameText:String;
+	public static var pauseDifficultyNameTxt:String;
+	public static var pauseDeathCounterText:String;
+	public static var pausePracticeModeText:String;
+	public static var pauseChartingModeText:String;
 
 	public static var languagePath:String;
 
@@ -1242,5 +1280,24 @@ class LanguageHandler
 	badFCSbTxt = languageJson.badFCSbTxt;
 	missesFCSbTxt = languageJson.missesFCSbTxt;
 	clearFCSbTxt = languageJson.clearFCSbTxt;
+
+	// Pause menu stuff
+	resumeTxt = languageJson.resumeTxt;
+	restartSongTxt = languageJson.restartSongTxt;
+	changeDifficultyTxt = languageJson.changeDifficultyTxt;
+	optionsMenuTxt = languageJson.optionsMenuTxt;
+	chartEditorMenuTxt = languageJson.chartEditorMenuTxt;
+	exitToMenuTxt = languageJson.exitToMenuTxt;
+	leaveChartingModeTxt = languageJson.leaveChartingModeTxt;
+	skipTimeTxt = languageJson.skipTimeTxt;
+	endSongTxt = languageJson.endSongTxt;
+	togglePracticeModeTxt = languageJson.togglePracticeModeTxt;
+	toggleBotplayTxt = languageJson.toggleBotplayTxt;
+	backToPauseMenuTxt = languageJson.backToPauseMenuTxt;
+	pauseSongNameText = languageJson.pauseSongNameText;
+	pauseDifficultyNameTxt = languageJson.pauseDifficultyNameTxt;
+	pauseDeathCounterText = languageJson.pauseDeathCounterText;
+	pausePracticeModeText = languageJson.pausePracticeModeText;
+	pauseChartingModeText = languageJson.pauseChartingModeText;
 	}
 }

@@ -178,9 +178,13 @@ class LanguageSelectorState extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
-			Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
-			MusicBeatState.switchState(new options.OptionsState());
+			if (firstLaunch) {
+				FlxG.sound.play(Paths.sound('cancelMenu'), 0.6);
+			} else {
+				FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+				Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+				MusicBeatState.switchState(new options.OptionsState());
+			}
 		}
 
 		if (controls.ACCEPT)
@@ -207,7 +211,35 @@ class LanguageSelectorState extends MusicBeatState
 		ClientPrefs.language = language[currentlySelected][0];
 		ClientPrefs.saveSettings();
 		LanguageHandler.regenerateLang(language[currentlySelected][0]);
-		MusicBeatState.switchState(new TitleState());
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.6);
+		groupLanguage.forEach(function(spr:FlxSprite)
+		{
+			if (currentlySelected != spr.ID)
+			{
+			FlxTween.tween(spr, {alpha: 0}, 0.4, 
+				{ease: FlxEase.quadOut,
+				onComplete: function(twn:FlxTween)
+				{
+					spr.kill();
+				}
+			});
+		} else {
+			FlxFlicker.flicker(flagsArray[spr.ID], 1, 0.06, false, false, null);
+			FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+			{
+				if (firstLaunch) {
+					firstLaunch = false;
+					if (FlxG.sound.music != null)
+						FlxTween.tween(FlxG.sound.music, {pitch: 0, volume: 0}, 2.5, {ease: FlxEase.cubeOut});
+						MusicBeatState.switchState(new TitleState());
+					} else {
+						FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.mainMenuMusic), 1, true);
+						Application.current.window.title = "Friday Night Funkin': SB Engine v" + MainMenuState.sbEngineVersion + " - Options Menu";
+						MusicBeatState.switchState(new options.OptionsState());
+					}		
+				});
+			}
+		});	
 	}
 
 	function changeSelection(change:Int = 0)
