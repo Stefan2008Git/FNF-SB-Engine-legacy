@@ -304,9 +304,6 @@ class PauseSubState extends MusicBeatSubstate {
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
-					#if android
-					PlayState.instance.androidControls.visible = !PlayState.instance.cpuControlled;
-					#end
 				case 'Options':
 					optionMenu = true;
 					PlayState.deathCounter = 0;

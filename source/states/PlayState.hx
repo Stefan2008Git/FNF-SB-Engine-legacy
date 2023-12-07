@@ -2547,13 +2547,17 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function updateScore(miss:Bool = false) {
-		if (!cpuControlled && ClientPrefs.gameStyle == 'SB Engine') {
+		if (!cpuControlled && !practiceMode && ClientPrefs.gameStyle == 'SB Engine') {
 			scoreTxt.text = LanguageHandler.scoreTxt + songScore + LanguageHandler.notePerSecondTxt + nps + LanguageHandler.averageTxt + Math.round(averageMs) + 'ms' + LanguageHandler.comboBreaksTxt + songMisses + LanguageHandler.healthTxt + ' ${Std.string(Math.floor(Std.parseFloat(Std.string((healthCounter) / 2))))} %' + LanguageHandler.accruracyTxt + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // ' + ratingName + ' [' + ratingFC + ']';
-		} else if (!cpuControlled && ClientPrefs.gameStyle == 'Psych Engine') {
+		} else if (!cpuControlled && !practiceMode && ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt.text = LanguageHandler.scoreTxt + songScore  + LanguageHandler.missesTxt + songMisses + LanguageHandler.ratingAndFCNameTxt + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
-		} else if (cpuControlled && ClientPrefs.gameStyle == 'SB Engine') {
+		} else if (!cpuControlled && practiceMode && ClientPrefs.gameStyle == 'SB Engine') {
+			scoreTxt.text = LanguageHandler.notePerSecondPracticeTxt + nps + LanguageHandler.sbPracticeModeTxt + LanguageHandler.comboBreaksTxt + songMisses;
+		} else if  (!cpuControlled && practiceMode && ClientPrefs.gameStyle == 'Psych Engine') {
+			scoreTxt.text = LanguageHandler.defaultPracticeModeTxt + LanguageHandler.missesTxt + songMisses;
+		} else if (cpuControlled && !practiceMode && ClientPrefs.gameStyle == 'SB Engine') {
 			scoreTxt.text = LanguageHandler.autoplayTxt;
-		} else if (cpuControlled && ClientPrefs.gameStyle == 'Psych Engine') {
+		} else if (cpuControlled && !practiceMode && ClientPrefs.gameStyle == 'Psych Engine') {
 			scoreTxt.text = LanguageHandler.botplayTxt;
 		}
 

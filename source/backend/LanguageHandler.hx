@@ -376,12 +376,15 @@ typedef LanguageFile =
 	var perfectDefaultNullRatingNameTxt:String; // Null Engine */
 	var botplayTxt:String;
 	var autoplayTxt:String;
+	var sbPracticeModeTxt:String;
+	var defaultPracticeModeTxt:String;
 	var botplayTimeTxt:String;
 	var autoplayTimeTxt:String;
 	var scoreTxt:String;
 	var missesTxt:String;
 	var ratingAndFCNameTxt:String;
 	var notePerSecondTxt:String;
+	var notePerSecondPracticeTxt:String;
 	var comboBreaksTxt:String;
 	var averageTxt:String;
 	var healthTxt:String;
@@ -797,12 +800,15 @@ class LanguageHandler
 	public static var perfectDefaultNullRatingNameTxt:String; // Null Engine */
 	public static var botplayTxt:String;
 	public static var autoplayTxt:String;
+	public static var sbPracticeModeTxt:String;
+	public static var defaultPracticeModeTxt:String;
 	public static var botplayTimeTxt:String;
 	public static var autoplayTimeTxt:String;
 	public static var scoreTxt:String;
 	public static var missesTxt:String;
 	public static var ratingAndFCNameTxt:String;
 	public static var notePerSecondTxt:String;
+	public static var notePerSecondPracticeTxt:String;
 	public static var comboBreaksTxt:String;
 	public static var averageTxt:String;
 	public static var healthTxt:String;
@@ -979,8 +985,7 @@ class LanguageHandler
 	gameplay = languageJson.gameplay;
 	graphics = languageJson.graphics;
 	languages = languageJson.languages;
-	if (languages != 'Languages')
-		languages += ' - Languages';
+	if (languages != 'Languages') languages += ' - Languages';
 	noteColor = languageJson.noteColor;
 	visualsUI = languageJson.visualsUI;
 	androidControlsSettings = languageJson.androidControlsSettings;
@@ -1245,12 +1250,15 @@ class LanguageHandler
 	perfectDefaultNullRatingNameTxt:String; // Null Engine */
 	botplayTxt = languageJson.botplayTxt;
 	autoplayTxt = languageJson.autoplayTxt;
+	sbPracticeModeTxt = languageJson.sbPracticeModeTxt;
+	defaultPracticeModeTxt = languageJson.defaultPracticeModeTxt;
 	botplayTimeTxt = languageJson.botplayTimeTxt;
 	autoplayTimeTxt = languageJson.autoplayTimeTxt;
 	scoreTxt = languageJson.scoreTxt;
 	missesTxt = languageJson.missesTxt;
 	ratingAndFCNameTxt = languageJson.ratingAndFCNameTxt;
 	notePerSecondTxt = languageJson.notePerSecondTxt;
+	notePerSecondPracticeTxt = languageJson.notePerSecondPracticeTxt;
 	comboBreaksTxt = languageJson.comboBreaksTxt;
 	averageTxt = languageJson.averageTxt;
 	healthTxt = languageJson.healthTxt;
